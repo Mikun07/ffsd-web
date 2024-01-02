@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
+import LoginPage from "./pages/authentication/LoginPage";
+import RegisterPage from "./pages/authentication/Registration/RegisterPage";
+import AdminLayout from "./pages/dashboard/admin/AdminLayout";
+import AdminRoutes from "./routes/AdminRoutes";
+import { authToken } from "./config/auth";
+import AdminDashBoard from "./pages/dashboard/admin/AdminDashBoard";
+import AdminAccountPage from "./pages/dashboard/admin/AdminAccountPage";
+import AdminArchivePage from "./pages/dashboard/admin/AdminArchivePage";
+import ManageUserPage from "./pages/dashboard/admin/ManageUserPage";
+import AdminReceiptsPage from "./pages/dashboard/admin/AdminReceiptsPage";
+import ForgotPassword from "./pages/authentication/ForgotPassword/ForgotPasswordPage";
+import { Toaster } from "react-hot-toast";
+import OTPPage from "./pages/authentication/OTPPage";
+// const ProtectedRoutes = () => {
+//   return authToken ? <Outlet /> : <Navigate to="/login" />;
+// };
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/signup" element={<RegisterPage />} />
+          <Route path="/signup/otp" element={<OTPPage />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="#" element={<AdminLayout />}>
+            <Route path="admin/dashboard" element={<AdminDashBoard />} />
+            <Route path="admin/account" element={<AdminAccountPage />} />
+            <Route
+              path="admin/manageverification"
+              element={<AdminArchivePage />}
+            />
+            <Route path="admin/manageuser" element={<ManageUserPage />} />
+            <Route path="admin/receipts" element={<AdminReceiptsPage />} />
+          </Route>
+          {/* <Route element={<ProtectedRoutes />}>
+            <Route element={<AdminLayout />}>
+              <Route path="/admin/*" element={<AdminRoutes />} />
+            </Route>
+          </Route>  */}
+        </Routes>
+      </Router>
+      <Toaster />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

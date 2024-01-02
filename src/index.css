@@ -1,43 +1,55 @@
-*, *::before, *::after {
-  box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css?family=Bai+Jamjuree:200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: Bai Jamjuree;
+  }
 }
-/*
-  2. Remove default margin
-*/
-* {
-  margin: 0;
-}
-/*
-  Typographic tweaks!
-  3. Add accessible line-height
-  4. Improve text rendering
-*/
+
 body {
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
+
+h1 {
+  font-size: 1.75rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+}
+
+h3 {
+  font-size: 1.125rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+.custom__scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom__scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.custom__scrollbar::-webkit-scrollbar-thumb {
+  background: #40b52d;
+  border-radius: 24px;
+}
+
+.custom__scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #d4973b;
+}
+
 /*
-  5. Improve media defaults
+  1. Use a more-intuitive box-sizing model.
 */
-img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
-}
-/*
-  6. Remove built-in form typography styles
-*/
-input, button, textarea, select {
-  font: inherit;
-}
-/*
-  7. Avoid text overflows
-*/
-p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
-}
-/*
-  8. Create a root stacking context
-*/
-#root, #__next {
-  isolation: isolate;
-}
