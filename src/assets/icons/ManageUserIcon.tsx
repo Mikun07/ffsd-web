@@ -1,11 +1,11 @@
 import React from "react";
 
-function ManageUserIcon() {
+function ManageUserIcon({width="30", height="30"}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={30}
-      height={30}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
     >
       <circle cx={10} cy={8} r={4} fill="#40b52d" />

@@ -1,23 +1,24 @@
 import React from "react";
 
-function ReceiptIcon({width="30", height="30"}) {
+function LeftOutlineIcon({ width = "30", height = "30" }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
-      viewBox="0 0 24 24"
+      viewBox="0 0 48 48"
     >
+      <path fill="none" d="M0 0h48v48H0z" />
       <path
         fill="none"
-        stroke="#40b52d"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth={2}
-        d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16l-3-2-2 2-2-2-2 2-2-2zM9 7h6m-6 4h6m-2 4h2"
+        strokeWidth={4}
+        d="M31 36 19 24l12-12"
       />
     </svg>
   );
 }
 
-export default ReceiptIcon;
+export default LeftOutlineIcon;

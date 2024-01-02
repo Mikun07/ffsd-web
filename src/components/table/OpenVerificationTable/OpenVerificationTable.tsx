@@ -4,7 +4,7 @@ import VerificationTablePartition from "./shared/VerificationTablePartition";
 function OpenVerificationTable({ tableData }) {
   return (
     <>
-      <div className="w-full h-full pr-6 overflow-y-scroll custom__scrollbar">
+      <div className="w-full h-full px-1">
         <VerificationTablePartition data={tableData} />
       </div>
     </>

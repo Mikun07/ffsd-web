@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MenuIcon from "../../assets/icons/MenuIcon";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import LogoDP from "../../assets/Logo.png";
 import DashboardIcon from "../../assets/icons/DashboardIcon";
 import AccountIcon from "../../assets/icons/AccountIcon";
 import ArchiveIcon from "../../assets/icons/ArchiveIcon";
@@ -16,27 +17,27 @@ function SidebarButton() {
   const menu = [
     {
       name: "dashboard",
-      url: "/admin/dashboard",
+      // url: "/org/dashboard",
       icon: <DashboardIcon />,
     },
     {
       name: "account",
-      url: "/admin/account",
+      // url: "/admin/account",
       icon: <AccountIcon />,
     },
     {
       name: "manage Verification",
-      url: "/admin/manageverification",
-      icon: <ArchiveIcon width={30} height={30}/>,
+      // url: "/admin/manageverification",
+      icon: <ArchiveIcon width={30} height={30} />,
     },
     {
       name: "manage users",
-      url: "/admin/manageuser",
+      // url: "/admin/manageuser",
       icon: <ManageUserIcon />,
     },
     {
       name: "Receipts",
-      url: "/admin/receipts",
+      // url: "/admin/receipts",
       icon: <ReceiptIcon />,
     },
   ];
@@ -55,44 +56,48 @@ function SidebarButton() {
         <MenuIcon />
       </button>
       {open && (
-        <div className="w-60 z-20 absolute top-0 left-0 h-screen overflow-hidden bg-black py-3 flex justify-center">
-          <div className="flex flex-col w-full justify-between">
-            <div className="text-xl flex justify-center">
-              <b className="flex capitalize text-[#40B52D]">
-                Documents <span className="text-[#D4973B]">Verification</span>
-              </b>
-            </div>
-            <div className="flex flex-col justify-center items-center gap-1">
-              {menu.map(({ url, name, icon }, i) => (
-                <button className="flex flex-row justify-center w-full">
-                  <Link
-                    key={i}
-                    to={url}
-                    onClick={() => setOpen(!open)}
-                    className={
-                      pathname === url
-                        ? "bg-white w-full py-1 item-center justify-center text-[#40B52D]"
-                        : "flex items-center py-1 justify-center text-[#40B52D] hover:bg-gray-300 w-full"
-                    }
-                  >
-                    <span className="flex capitalize gap-2 mx-6 items-center w-full">
-                      {icon}
-                      <b className="flex justify-start w-full">
-                        {name}
-                      </b>
-                    </span>
-                  </Link>
-                </button>
-              ))}
-            </div>
-            <button
-              onClick={logout}
-              className="flex items-center w-full ml-6 gap-2 text-[#D43B3B] hover:scale-110 duration-300"
+        <div
+          className={`w-60 z-20 absolute top-0 left-0 duration-200 h-screen lg:flex hidden flex-col justify-between bg-slate-200 shadow-sm shadow-primary py-2`}
+        >
+          <div className={`flex items-center gap-2 mx-4 p-1`}>
+            <img src={LogoDP} alt="" className={`w-[70px]`} />
+            <p
+              className={`flex flex-col leading-4 font-semibold tracking-wider capitalize text-[15px] text-[#40B52D]`}
             >
-              <LogoutIcon />
-              <p className="flex font-bold">Logout</p>
-            </button>
+              Documents
+              <span className={`text-[#D4973B] `}>Verification</span>
+            </p>
           </div>
+
+          <div className={` flex flex-col gap-1`}>
+            {menu.map(({ url, name, icon }, index) => (
+              <div className={`flex items-center justify-between text-primary`}>
+                <Link
+                  key={index}
+                  to={url}
+                  onClick={() => setOpen(!open)}
+                  className={
+                    pathname === url
+                      ? "w-full mx-4 p-1 rounded-lg bg-white"
+                      : "w-full mx-4 p-1 rounded-lg hover:bg-gray-300"
+                  }
+                >
+                  <div className={`flex gap-2 items-center `}>
+                    {icon}
+                    <p className={`font-semibold capitalize text-sm`}>{name}</p>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+
+          <button
+            onClick={logout}
+            className={`flex items-center w-full mx-4 p-1 gap-2 text-[#D43B3B]`}
+          >
+            <LogoutIcon />
+            <p className={`flex font-bold`}>Logout</p>
+          </button>
         </div>
       )}
     </>

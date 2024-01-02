@@ -19,6 +19,8 @@ import AdminReceiptsPage from "./pages/dashboard/admin/AdminReceiptsPage";
 import ForgotPassword from "./pages/authentication/ForgotPassword/ForgotPasswordPage";
 import { Toaster } from "react-hot-toast";
 import OTPPage from "./pages/authentication/OTPPage";
+import OrgDashBoard from "./pages/dashboard/organization/OrgDashBoard";
+import OrgLayout from "./pages/dashboard/organization/OrgLayout";
 // const ProtectedRoutes = () => {
 //   return authToken ? <Outlet /> : <Navigate to="/login" />;
 // };
@@ -32,21 +34,20 @@ function App() {
           <Route path="/signup" element={<RegisterPage />} />
           <Route path="/signup/otp" element={<OTPPage />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="#" element={<AdminLayout />}>
-            <Route path="admin/dashboard" element={<AdminDashBoard />} />
-            <Route path="admin/account" element={<AdminAccountPage />} />
+          <Route path="admin" element={<AdminLayout />}>
+            <Route path="/admin/dashboard" element={<AdminDashBoard />} />
+            <Route path="/admin/account" element={<AdminAccountPage />} />
             <Route
-              path="admin/manageverification"
+              path="/admin/manageverification"
               element={<AdminArchivePage />}
             />
-            <Route path="admin/manageuser" element={<ManageUserPage />} />
-            <Route path="admin/receipts" element={<AdminReceiptsPage />} />
+            <Route path="/admin/manageuser" element={<ManageUserPage />} />
+            <Route path="/admin/receipts" element={<AdminReceiptsPage />} />
           </Route>
-          {/* <Route element={<ProtectedRoutes />}>
-            <Route element={<AdminLayout />}>
-              <Route path="/admin/*" element={<AdminRoutes />} />
-            </Route>
-          </Route>  */}
+
+          <Route path="org" element={<OrgLayout />}>
+            <Route path="/org/dashboard" element={<OrgDashBoard />} />
+          </Route>
         </Routes>
       </Router>
       <Toaster />

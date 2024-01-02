@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import LogoutIcon from "../../../assets/icons/LogoutIcon";
-import AccountIcon from "../../../assets/icons/AccountIcon";
+import LogoDP from "../../../assets/Logo.png";
 import DashboardIcon from "../../../assets/icons/DashboardIcon";
+import AccountIcon from "../../../assets/icons/AccountIcon";
 import ArchiveIcon from "../../../assets/icons/ArchiveIcon";
 import ManageUserIcon from "../../../assets/icons/ManageUserIcon";
 import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
-import Logo from "../../../assets/Logo.png";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import LogoutIcon from "../../../assets/icons/LogoutIcon";
+import LeftOutlineIcon from "../../../assets/icons/LeftOutlineIcon";
 import SchoolIcon from "../../../assets/icons/SchoolIcon";
 
-function AdminSidebar() {
+function OrgSidebar() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -18,7 +19,7 @@ function AdminSidebar() {
   const menu = [
     {
       name: "dashboard",
-      url: "/admin/dashboard",
+      url: "/org/dashboard",
       icon: <DashboardIcon width="25" height="25" />,
     },
     {
@@ -52,20 +53,24 @@ function AdminSidebar() {
     localStorage.setItem("authToken", null);
     navigate("/");
   }
+
   return (
     <>
       <div
         className={`${
           open ? "w-64" : "w-16"
-        } duration-200 h-screen lg:flex hidden flex-col justify-between bg-slate-200 shadow-sm shadow-primary py-2`}
+        } duration-300 relative h-screen lg:flex hidden flex-col justify-between bg-slate-200 shadow-sm shadow-primary py-2`}
       >
+        <div
+          onClick={() => setOpen(!open)}
+          className={`${
+            !open && "rotate-180"
+          } h-6 w-6 z-20 border-[1px] cursor-pointer flex items-center justify-center border-primary absolute bg-white text-primary top-6 -right-3 rounded-full`}
+        >
+          <LeftOutlineIcon />
+        </div>
         <div className={`flex items-center gap-2 mx-4 p-1`}>
-          <img
-            src={Logo}
-            onClick={() => setOpen(!open)}
-            alt=""
-            className={`w-[70px]`}
-          />
+          <img src={LogoDP} alt="" className={`w-[70px]`} />
           <p
             className={`flex flex-col leading-4 font-semibold tracking-wider capitalize text-[15px] text-[#40B52D] ${
               !open && "scale-0"
@@ -86,7 +91,7 @@ function AdminSidebar() {
                 to={url}
                 className={
                   pathname === url
-                    ? "w-full mx-4 p-1 rounded-lg bg-white"
+                    ? "w-full mx-4 p-1 rounded-lg bg-white text-primary"
                     : "w-full mx-4 p-1 rounded-lg hover:bg-gray-300"
                 }
               >
@@ -111,16 +116,10 @@ function AdminSidebar() {
 
         <button
           onClick={logout}
-          className={`${
-            !open && "flex items-center justify-center mx-0"
-          } flex items-center w-full mx-4 p-1 gap-2 text-[#D43B3B]`}
+          className={`flex items-center w-full mx-4 p-1 gap-2 text-[#D43B3B]`}
         >
           <LogoutIcon />
-          <p
-            className={`${
-              !open && "hidden"
-            } origin-left duration-200 flex font-bold`}
-          >
+          <p className={`${!open && "hidden"} duration-200 flex font-bold`}>
             Logout
           </p>
         </button>
@@ -129,4 +128,4 @@ function AdminSidebar() {
   );
 }
 
-export default AdminSidebar;
+export default OrgSidebar;

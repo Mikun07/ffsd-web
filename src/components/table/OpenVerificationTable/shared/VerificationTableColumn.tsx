@@ -62,19 +62,19 @@ function VerificationTableColumn({ data }) {
         </div>
 
         <div className="flex flex-col font-medium">
-          <p className="flex justify-end items-center text-[12px] text-black font-semibold gap-2">
-            {description}
-          </p>
           <p
             className="flex justify-end items-center text-[12px] gap-2"
             style={{
               color: getStatusColor(status),
-            //   opacity: "0.95",
+              opacity: "0.95",
             }}
           >
             {status}
             <span className="w-1 h-1 rounded-full bg-gray-600"></span>
             {currency} {amount}
+          </p>
+          <p className="flex justify-end items-center text-[12px] text-black font-semibold gap-2">
+            {description}
           </p>
         </div>
       </div>
