@@ -19,33 +19,6 @@ function OTPPage() {
     setSeconds(minutes * 60);
   };
 
-  async function resendOtp() {
-    restartTimer();
-    try {
-      let OTPResend = await axios.post(
-        `${BASE_URL}/otp/regenerate`,
-        {
-          email,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-
-      if (OTPResend.success) {
-        navigate("/login");
-        toast.success(success.message);
-      } else {
-        toast.alert(message);
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  }
-
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (seconds > 0) {
@@ -92,7 +65,6 @@ function OTPPage() {
 
   async function OTP() {
     try {
-      console.log({ otp: otp.join("") });
       let OTPResult = await axios.post(
         `${BASE_URL}/confirm_otp`,
         {
@@ -107,8 +79,34 @@ function OTPPage() {
         }
       );
 
-      if (OTPResult.success.success) {
-        navigate("/");
+      if (OTPResult.success === true) {
+        navigate("/login");
+        toast.success(message);
+      } else {
+        toast.alert(message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
+
+  async function resendOtp() {
+    restartTimer();
+    try {
+      let OTPResend = await axios.post(
+        `${BASE_URL}/otp/regenerate`,
+        {
+          email,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (OTPResend.success) {
         toast.success(success.message);
       } else {
         toast.alert(message);
@@ -135,7 +133,7 @@ function OTPPage() {
           </h2>
 
           <p className="font-medium flex text-sm items-center">
-           Enter OTP sent to {` ${email}`}
+            Enter OTP sent to {` ${email}`}
           </p>
 
           <div className="flex justify-center gap-3">

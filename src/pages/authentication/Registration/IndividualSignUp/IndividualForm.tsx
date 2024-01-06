@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { BASE_URL } from "../../../../config/api";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { BASE_URL } from "../../../../config/api";
+import { postSignUp } from "../../../../redux/features/signupSlice";
 import { useDispatch } from "react-redux";
 import Button from "../../../../components/button/Button";
+import { useForm } from "react-hook-form";
+import AccountInfo from "./shared/AccountInfo";
+import ReviewDetails from "./shared/ReviewDetails";
 import ProgressBar from "../../../../components/progressBar/ProgressBar";
 import { useMultiStepForm } from "../../../../hooks/useMultiTabForm";
-import AccountInfo from "./shared/AccountInfo";
-import CompanyInfo from "./shared/CompanyInfo";
-import ReviewDetails from "./shared/ReviewDetails";
-import { industries } from "../../../../data/industries";
-import { useForm } from "react-hook-form";
-import { postSignUp } from "../../../../redux/features/signupSlice";
 
-function OrganizationForm() {
+function IndividualForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [countryData, setCountryData] = useState(null);
@@ -24,16 +23,9 @@ function OrganizationForm() {
       value: country?.id,
     })) || [];
 
-  const industryOptions =
-    industries?.map((industry) => ({
-      label: industry?.type,
-      value: industry?.type,
-    })) || [];
-
   useEffect(() => {
     axios
       .post(`${BASE_URL}/countries`)
-      // ?access=docs_verify_frontend
       .then((response) => {
         const data = response.data?.data;
         setCountryData(data);
@@ -42,24 +34,6 @@ function OrganizationForm() {
         error("Error fetching data:", error);
       });
   }, []);
-
-  const formTitles = [
-    {
-      title: "Account Information",
-      info: "Enter your personal details",
-      buttonText: "Proceed to Company Information",
-    },
-    {
-      title: "Company Information",
-      info: "Create your company Profile",
-      buttonText: "Review and Submit Details",
-    },
-    {
-      title: "Review and Save",
-      info: "Review details",
-      buttonText: "Submit Details",
-    },
-  ];
 
   const {
     register,
@@ -70,14 +44,25 @@ function OrganizationForm() {
     getValues,
   } = useForm({ mode: "all" });
 
+  const formTitles = [
+    {
+      title: "Account Information",
+      info: "Enter your personal details",
+      buttonText: "Review and Submit Details",
+    },
+    {
+      title: "Review and Save",
+      info: "Review details",
+      buttonText: "Submit Details",
+    },
+  ];
+
   const firstname = watch("firstname");
   const lastname = watch("lastname");
   const password = watch("password");
   const phone = watch("phone");
+  const email = watch("email");
   const confirmPassword = watch("confirmPassword");
-  const companyName = watch("companyName");
-  const companyEmail = watch("companyEmail");
-  const industry = watch("industry");
   const country = watch("country");
 
   const formSteps = [
@@ -87,15 +72,9 @@ function OrganizationForm() {
       lastname={lastname}
       password={password}
       phone={phone}
+      email={email}
       confirmPassword={confirmPassword}
-    />,
-    <CompanyInfo
-      setValue={setValue}
-      industryOptions={industryOptions}
       countryOptions={countryOptions}
-      companyName={companyName}
-      companyEmail={companyEmail}
-      industry={industry}
       country={country}
     />,
     <ReviewDetails
@@ -106,16 +85,7 @@ function OrganizationForm() {
             { title: "Firstname", data: firstname },
             { title: "Lastname", data: lastname },
             { title: "Phone Number", data: phone },
-            // { title: "Password", data: lastName },
-            // { title: "Confirm Password", data: lastName },
-          ],
-        },
-        {
-          title: "Company Information",
-          content: [
-            { title: "Company Name", data: companyName },
-            { title: "Email", data: companyEmail },
-            { title: "Industry", data: industry?.label },
+            { title: "Email", data: email },
             { title: "Country", data: country?.label },
           ],
         },
@@ -135,18 +105,20 @@ function OrganizationForm() {
     isLastStep,
   } = useMultiStepForm(formSteps, formTitles);
 
+  function setCountry(item) {
+    setValue(item?.label, item?.value);
+  }
+
   function signUp(signUpValues) {
     const signUpData = {
       firstName: signUpValues?.firstname,
       lastName: signUpValues?.lastname,
-      email: signUpValues?.companyEmail,
+      email: signUpValues?.email,
       phone: signUpValues?.phone,
       password: signUpValues?.password,
       password_confirmation: signUpValues?.confirmPassword,
-      category: "org",
+      category: "indv",
       country: signUpValues?.country?.value,
-      company_name: signUpValues?.companyName,
-      industry: signUpValues?.industry?.value
     };
 
     dispatch(postSignUp({ ...signUpData }))
@@ -158,13 +130,13 @@ function OrganizationForm() {
         if (success === true) {
           navigate("/signup/otp");
         } else {
-          
-          console.log(result)
-          // toast.error(result?.payload?.response?.data?.errors);
+          // console.log(result?.payload?.response?.data?.errors);
+          toast.error(result?.payload?.response?.data?.errors);
         }
       })
       .finally();
   }
+
   return (
     <>
       <div className="flex flex-col mt-1 w-full gap-6">
@@ -181,7 +153,7 @@ function OrganizationForm() {
 
           <div className="flex flex-col justify-between w-full">
             <form className="flex flex-col gap-[4rem]">{step}</form>
-            <div className="flex flex-col mt-4">
+            <div className="flex mt-4 flex-col">
               {!isLastStep ? (
                 <Button disabled={!isValid} onClick={next}>
                   {title.buttonText}
@@ -193,7 +165,7 @@ function OrganizationForm() {
               )}
 
               {currentStepIndex > 0 ? (
-                <button className="text-[12px] self-end" onClick={back}>
+                <button className="text-[15px] font-medium p-2 self-end" onClick={back}>
                   {" <   "}Go back to {titles[currentStepIndex - 1].title}
                 </button>
               ) : (
@@ -207,4 +179,4 @@ function OrganizationForm() {
   );
 }
 
-export default OrganizationForm;
+export default IndividualForm;

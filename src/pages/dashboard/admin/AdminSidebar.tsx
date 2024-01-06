@@ -50,7 +50,7 @@ function AdminSidebar() {
 
   function logout() {
     localStorage.setItem("authToken", null);
-    navigate("/");
+    navigate("/login");
   }
   return (
     <>

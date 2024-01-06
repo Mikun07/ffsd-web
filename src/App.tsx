@@ -1,52 +1,39 @@
-import React from "react";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
   Outlet,
+  useLocation,
 } from "react-router-dom";
-import LoginPage from "./pages/authentication/LoginPage";
-import RegisterPage from "./pages/authentication/Registration/RegisterPage";
-import AdminLayout from "./pages/dashboard/admin/AdminLayout";
-import AdminRoutes from "./routes/AdminRoutes";
-import { authToken } from "./config/auth";
-import AdminDashBoard from "./pages/dashboard/admin/AdminDashBoard";
-import AdminAccountPage from "./pages/dashboard/admin/AdminAccountPage";
-import AdminArchivePage from "./pages/dashboard/admin/AdminArchivePage";
-import ManageUserPage from "./pages/dashboard/admin/ManageUserPage";
-import AdminReceiptsPage from "./pages/dashboard/admin/AdminReceiptsPage";
-import ForgotPassword from "./pages/authentication/ForgotPassword/ForgotPasswordPage";
-import { Toaster } from "react-hot-toast";
-import OTPPage from "./pages/authentication/OTPPage";
-import OrgDashBoard from "./pages/dashboard/organization/OrgDashBoard";
-import OrgLayout from "./pages/dashboard/organization/OrgLayout";
-// const ProtectedRoutes = () => {
-//   return authToken ? <Outlet /> : <Navigate to="/login" />;
-// };
+import AdminLayout from "./pages/layout/AdminLayout";
+import { ADMIN_ROUTES } from "./routes/AdminRoutes";
+import toast, { Toaster } from "react-hot-toast";
+import OrgLayout from "./pages/layout/OrgLayout";
+import { PUBLIC_ROUTES } from "./routes/PublicRoutes";
+import { ORG_ROUTES } from "./routes/OrgRoutes";
+import { useEffect, useState } from "react";
+import PROTECTED_ROUTES from "./routes/ProtectedRoutes";
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/signup" element={<RegisterPage />} />
-          <Route path="/signup/otp" element={<OTPPage />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="admin" element={<AdminLayout />}>
-            <Route path="/admin/dashboard" element={<AdminDashBoard />} />
-            <Route path="/admin/account" element={<AdminAccountPage />} />
-            <Route
-              path="/admin/manageverification"
-              element={<AdminArchivePage />}
-            />
-            <Route path="/admin/manageuser" element={<ManageUserPage />} />
-            <Route path="/admin/receipts" element={<AdminReceiptsPage />} />
-          </Route>
-
-          <Route path="org" element={<OrgLayout />}>
-            <Route path="/org/dashboard" element={<OrgDashBoard />} />
+          {PUBLIC_ROUTES.map(({ link, element }, index) => (
+            <Route path={link} element={element} key={index} />
+          ))}
+          <Route element={<PROTECTED_ROUTES />}>
+            <Route path="admin" element={<AdminLayout />}>
+              {ADMIN_ROUTES.map(({ link, element }, index) => (
+                <Route path={link} element={element} key={index} />
+              ))}
+            </Route>
+            <Route path="org" element={<OrgLayout />}>
+              {ORG_ROUTES.map(({ link, element }, index) => (
+                <Route path={link} element={element} key={index} />
+              ))}
+            </Route>
           </Route>
         </Routes>
       </Router>

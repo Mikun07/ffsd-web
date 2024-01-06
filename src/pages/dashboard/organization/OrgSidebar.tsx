@@ -24,14 +24,10 @@ function OrgSidebar() {
     },
     {
       name: "verify Documents",
-      url: "",
+      url: "/org/verifydocument",
       icon: <SchoolIcon width="25" height="25" />,
     },
-    {
-      name: " Manage account",
-      url: "",
-      icon: <AccountIcon width="25" height="25" />,
-    },
+
     {
       name: "Manage Verification",
       url: "",
@@ -47,11 +43,16 @@ function OrgSidebar() {
       url: "",
       icon: <ReceiptIcon width="25" height="25" />,
     },
+    {
+      name: " Manage account",
+      url: "",
+      icon: <AccountIcon width="25" height="25" />,
+    },
   ];
 
   function logout() {
     localStorage.setItem("authToken", null);
-    navigate("/");
+    navigate("/login");
   }
 
   return (

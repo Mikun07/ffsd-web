@@ -1,6 +1,6 @@
 import React from "react";
-import OrgSidebar from "./OrgSidebar";
-import Header from "../../../components/header/Header";
+import OrgSidebar from "../dashboard/organization/OrgSidebar";
+import Header from "../../components/header/Header";
 import { Outlet } from "react-router-dom";
 
 function OrgLayout() {
@@ -10,7 +10,7 @@ function OrgLayout() {
         <div className="flex h-full">
           <OrgSidebar />
         </div>
-        <div className="w-full flex-1 flex-col mx-1 h-full overflow-hidden">
+        <div className="w-full flex-1 flex-col mx-3 overflow-hidden">
           <Header />
           <Outlet />
         </div>

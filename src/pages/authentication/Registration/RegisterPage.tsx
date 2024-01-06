@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import OrganizationForm from "./OrganisationSignUp/OrganizationForm";
-import IndividualForm from "./IndividualForm";
+import IndividualForm from "./IndividualSignUp/IndividualForm";
 import MultiTabs from "../../../components/multiTabs/MultiTabs";
 import { useMultiStepForm } from "../../../hooks/useMultiTabForm";
 import Logo from "../../../assets/Logo";
@@ -40,10 +40,10 @@ function RegisterPage() {
 
           <div className="">{step}</div>
 
-          <p className="text-xs font-semibold py-4 capitalize self-center">
+          <p className="text-[15px] font-semibold capitalize self-center">
             I already have an account{" "}
             <span
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/login")}
               className="text-[#40B52D] cursor-pointer hover:text-[#D4973B] hover:text-opacity-85"
             >
               Login

@@ -15,9 +15,9 @@ function LoginPage() {
   const [password, setPassword] = useState("");
 
   const redirectUrl = {
-    org: "/org/dashboard",
-    admin: "/admin/dashboard",
-    indv: "/dashboard",
+    // org: "/org/dashboard",
+    // admin: "/admin/dashboard",
+    // indv: "/dashboard",
   };
   async function login() {
     try {
@@ -32,14 +32,19 @@ function LoginPage() {
         }
       );
 
+
+      // fix this the category  
       const { token, message, user } = result?.data;
+      console.log({token, message, user});   
       if (token) {
         localStorage.setItem("authToken", JSON.stringify(token));
+
         if (user?.category) {
           navigate(redirectUrl[user?.category]);
           toast.success(success.message);
         } else {
-          navigate("/admin/dashboard");
+          console.log(user?.category);
+          navigate("/org/dashboard");
         }
       } else {
         toast.alert(message);
@@ -95,7 +100,7 @@ function LoginPage() {
                 </div>
               </div>
             </form>
-            <p className="text-xs font-semibold capitalize self-center">
+            <p className="text-[15px] font-semibold capitalize self-center">
               Don't have an account?{" "}
               <span
                 onClick={() => navigate("/signup")}
