@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import OrganizationForm from "./OrganisationSignUp/OrganizationForm";
+import OrganizationForm from "./OrganisationSignUp/OrganizationSignUp";
 import IndividualForm from "./IndividualSignUp/IndividualForm";
 import MultiTabs from "../../../components/multiTabs/MultiTabs";
 import { useMultiStepForm } from "../../../hooks/useMultiTabForm";
 import Logo from "../../../assets/Logo";
-import SignUpIMG from "../../../assets/SignUpIMG";
+import LeftView from "../LeftView";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -23,12 +23,10 @@ function RegisterPage() {
           <Logo />
         </div>
 
-        <div className="lg:flex w-[40%] ml-12 hidden items-center justify-center">
-          <SignUpIMG width="400" />
-        </div>
+        <LeftView />
 
-        <div className="lg:w-[60%] w-full h-screen flex flex-col items-center justify-center">
-          <h4 className="lg:mt-4 text-[#40B52D] font-bold self-center">
+        <div className="w-full h-screen flex flex-col items-center justify-center">
+          <h4 className="text-[#40B52D] font-bold self-center">
             Create Account
           </h4>
 
@@ -38,7 +36,7 @@ function RegisterPage() {
             goTo={goTo}
           />
 
-          <div className="">{step}</div>
+          <div className="flex lg:w-[70%] w-full lg:px-10 px-2">{step}</div>
 
           <p className="text-[15px] font-semibold capitalize self-center">
             I already have an account{" "}

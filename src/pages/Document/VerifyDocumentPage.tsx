@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import UploadDocument from "./shared/UploadDocument";
+import UploadDocument from "./UploadDocument";
 import ReviewDetails from "./shared/ReviewDetails";
 import ProgressBar from "../../components/progressBar/ProgressBar";
 import { useMultiStepForm } from "../../hooks/useMultiTabForm";
 import Button from "../../components/button/Button";
 import { useForm } from "react-hook-form";
 import DocumentDetails from "./shared/DocumentDetails";
-import { documents } from "../../data/document";
-// import { watch } from "fs";
+import { DocumentCategory, EducationDocType, ProfessionalCertificateDocType, FinancialDocType} from "../../data/document";
 import axios from "axios";
 import { BASE_URL } from "../../config/api";
 
@@ -32,10 +31,17 @@ function VerifyDocumentPage() {
       value: country?.id,
     })) || [];
 
-  // const documentOptions = 
-  //   documentsData?.map((documents)) => ({
-  //     value: documents?.name
-  //   })) || [];
+  const DocumentOptions = 
+  DocumentCategory?.map((Document) => ({
+    label: Document?.type,
+    value: Document?.id,
+  })) || [];
+
+  const EducationOptions =
+    EducationDocType?.map((Education) => ({
+      label: Education?.type,
+      value: Education?.type,
+    })) || [];
 
   const formTitles = [
     {
@@ -62,6 +68,8 @@ function VerifyDocumentPage() {
   const middlename = watch("middlename");
   const dob = watch("dob");
   const country = watch("country");
+  const Document = watch("Document");
+  const Education = watch("Education");
 
   const formSteps = [
     <DocumentDetails
@@ -74,7 +82,11 @@ function VerifyDocumentPage() {
     <UploadDocument
       setValue={setValue}
       countryOptions={countryOptions}
+      EducationOptions={EducationOptions}
       country={country}
+      Document={Document}
+      Education={Education}
+      DocumentOptions={DocumentOptions}
     />,
     <ReviewDetails
     // details={[

@@ -3,9 +3,9 @@ import { BASE_URL } from "../../config/api";
 import Logo from "../../assets/Logo";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import DisplayIMG from "../../assets/DisplayIMG";
 import axios from "axios";
 import toast from "react-hot-toast";
+import LeftView from "./LeftView";
 
 function OTPPage() {
   const navigate = useNavigate;
@@ -79,14 +79,13 @@ function OTPPage() {
         }
       );
 
-      if (OTPResult.success === true) {
-        navigate("/login");
-        toast.success(message);
-      } else {
-        toast.alert(message);
+      if (OTPResult.data[0].success === true) {
+        // console.log(OTPResult.data[0].success);
+        navigate("/login")
+        // toast.success(OTPResult.data[0].message);
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.error);
     }
   }
 
@@ -105,14 +104,12 @@ function OTPPage() {
           },
         }
       );
-
-      if (OTPResend.success) {
-        toast.success(success.message);
-      } else {
-        toast.alert(message);
+      console.log({ OTPResend });
+      if (OTPResend.success === true) {
+        toast.success(OTPResend.data.message);
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response.data.message);
     }
   }
 
@@ -123,9 +120,7 @@ function OTPPage() {
           <Logo />
         </div>
 
-        <div className="lg:flex w-[40%] ml-12 hidden items-center justify-center">
-          <DisplayIMG width="400" />
-        </div>
+        <LeftView />
 
         <div className="lg:w-[60%] w-full h-screen flex flex-col items-center justify-center gap-y-3">
           <h2 className=" font-semibold text-primary capitalize">
@@ -177,7 +172,7 @@ function OTPPage() {
             <button
               onClick={OTP}
               type="submit"
-              className="flex capitalize text-base text-[#40B52D] font-semibold items-center justify-center rounded-xl px-10 py-2 border-2 border-[#40B52D] bg-transparent hover:text-white hover:bg-[#D4973B] hover:bg-opacity-85 hover:border-[#D4973B] hover:border-opacity-85"
+              className="flex capitalize text-base text-[#40B52D] font-semibold items-center justify-center rounded-xl px-10 py-2 border-2 border-[#40B52D] bg-transparent hover:text-white hover:bg-[#D4973B] hover:bg-opacity-85 hover:border-none"
             >
               Verify
             </button>

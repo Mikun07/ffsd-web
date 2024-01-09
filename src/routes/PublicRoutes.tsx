@@ -2,7 +2,13 @@ import LoginPage from "../pages/authentication/LoginPage";
 import RegisterPage from "../pages/authentication/Registration/RegisterPage";
 import ForgotPasswordPage from "../pages/authentication/ForgotPassword/ForgotPasswordPage";
 import OTPPage from "../pages/authentication/OTPPage";
+import Landing from "../pages/Landing";
 
+
+const LangPageRoute ={
+    link: "/",
+    element: <Landing />
+}
 
 const LoginPageRoute = {
     link: "/login",
@@ -25,6 +31,7 @@ const ForgotPasswordPageRoute = {
 }
 
 export const PUBLIC_ROUTES = [
+    LangPageRoute,
     LoginPageRoute,
     RegisterPageRoute,
     OTPPageRoute,

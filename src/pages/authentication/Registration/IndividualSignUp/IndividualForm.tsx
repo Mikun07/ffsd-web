@@ -140,7 +140,7 @@ function IndividualForm() {
   return (
     <>
       <div className="flex flex-col mt-1 w-full gap-6">
-        <div className="flex gap-[6rem] pt-[2rem] pb-[4rem] px-10">
+        <div className="flex gap-[6rem] pt-[2rem] pb-[4rem]">
           <div className="lg:flex md:flex sm:flex hidden">
             <ProgressBar
               progressSteps={formTitles}
@@ -152,7 +152,7 @@ function IndividualForm() {
           </div>
 
           <div className="flex flex-col justify-between w-full">
-            <form className="flex flex-col gap-[4rem]">{step}</form>
+            <form className="flex flex-col gap-[4rem] w-full h-full">{step}</form>
             <div className="flex mt-4 flex-col">
               {!isLastStep ? (
                 <Button disabled={!isValid} onClick={next}>

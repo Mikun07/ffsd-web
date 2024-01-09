@@ -12,6 +12,7 @@ import ReviewDetails from "./shared/ReviewDetails";
 import { industries } from "../../../../data/industries";
 import { useForm } from "react-hook-form";
 import { postSignUp } from "../../../../redux/features/signupSlice";
+import toast from "react-hot-toast";
 
 function OrganizationForm() {
   const dispatch = useDispatch();
@@ -146,21 +147,20 @@ function OrganizationForm() {
       category: "org",
       country: signUpValues?.country?.value,
       company_name: signUpValues?.companyName,
-      industry: signUpValues?.industry?.value
+      industry: signUpValues?.industry?.value,
     };
 
     dispatch(postSignUp({ ...signUpData }))
       .then((result) => {
         const {
-          payload: { data },
+          payload: { data }
         } = result;
         const success = Boolean(data?.success);
         if (success === true) {
           navigate("/signup/otp");
         } else {
-          
-          console.log(result)
-          // toast.error(result?.payload?.response?.data?.errors);
+          console.log(result);
+          toast.error(result?.payload?.error);
         }
       })
       .finally();
@@ -168,8 +168,8 @@ function OrganizationForm() {
   return (
     <>
       <div className="flex flex-col mt-1 w-full gap-6">
-        <div className="flex gap-[6rem] pt-[2rem] pb-[4rem] px-10">
-          <div className="lg:flex md:flex sm:flex hidden">
+        <div className="flex gap-[6rem] pt-[2rem] pb-[4rem]">
+          <div className="lg:flex md:flex sm:flex hidden ">
             <ProgressBar
               progressSteps={formTitles}
               currentStepIndex={currentStepIndex}
@@ -180,7 +180,7 @@ function OrganizationForm() {
           </div>
 
           <div className="flex flex-col justify-between w-full">
-            <form className="flex flex-col gap-[4rem]">{step}</form>
+            <form className="flex flex-col gap-[4rem] w-full h-full">{step}</form>
             <div className="flex flex-col mt-4">
               {!isLastStep ? (
                 <Button disabled={!isValid} onClick={next}>
@@ -193,7 +193,7 @@ function OrganizationForm() {
               )}
 
               {currentStepIndex > 0 ? (
-                <button className="text-[12px] self-end" onClick={back}>
+                <button className="text-[12px] mt-2 font-medium p-1 self-end" onClick={back}>
                   {" <   "}Go back to {titles[currentStepIndex - 1].title}
                 </button>
               ) : (

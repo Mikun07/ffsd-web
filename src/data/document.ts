@@ -1,44 +1,35 @@
-export const documents = {
-  Education: [
-    "High School Diploma",
-    "College Transcript",
-    "Degree Certificate",
-    "Student ID Card",
-    "Letter of Recommendation",
-    "Scholarship Application",
-    "Financial Aid Documents",
-    "Course Completion Certificate",
-    "Academic Honors Certificate",
-    "Internship Evaluation Report",
-    "Research Paper",
-    "Extracurricular Activity Log",
-  ],
-  "Professional Exams": [
-    "Bar Exam Results",
-    "Medical Licensing Documents",
-    "CPA Certification",
-    "Project Management Certification",
-    "Professional Engineer License",
-    "Real Estate License",
-    "Certified ScrumMaster",
-    "IT Certification",
-    "Foreign Language Proficiency Certificate",
-    "Teaching Certification",
-    "Architectural License",
-    "Insurance Licensing",
-  ],
-  "Financial Records": [
-    "Tax Returns",
-    "Bank Statements",
-    "Income Verification",
-    "Expense Receipts",
-    "Investment Portfolio Summary",
-    "Loan Documents",
-    "Credit Report",
-    "Insurance Policies",
-    "Retirement Account Statements",
-    "Property Deeds",
-    "Utility Bills",
-    "Payroll Records",
-  ],
-};
+export const DocumentCategory = [
+  { id: 1, type: "Education" },
+  { id: 2, type: "Professional Certification" },
+  { id: 3, type: "Financial Record" },
+];
+
+export const EducationDocType = [
+  { id: 1, type: "Senior Secondary Certificate Examination (SSCE)" },
+  { id: 2, type: "General Certificate of Education (GCE)" },
+  { id: 3, type: "National Examinations Council (NECO)" },
+  { id: 4, type: "Joint Admissions and Matriculation Board (JAMB)" },
+  { id: 5, type: "Joint Universities Preliminary Examination Board (JUPEB)" },
+  { id: 6, type: "National Diploma (ND)" },
+  { id: 7, type: "Higher National Diploma (HND)" },
+  { id: 8, type: "Bachelor's Degree" },
+  { id: 9, type: "Master's Degree" },
+  { id: 10, type: "Doctorate Degree (Ph.D.)" },
+  { id: 11, type: "Transcript" },
+  { id: 12, type: "National Technical Certificate (NTC)" },
+  { id: 13, type: "Advanced National Technical Certificate (ANTC)" },
+  { id: 14, type: "National Business Certificate (NBC)" },
+  { id: 14, type: "Advanced National Business Certificate (ANBC)" },
+];
+
+export const ProfessionalCertificateDocType = [
+  { id: 1, type: "Institute of Chartered Accountants of Nigeria (ICAN)" },
+  {
+    id: 2,
+    type: "Council for the Regulation of Engineering in Nigeria (COREN)",
+  },
+  { id: 3, type: "Medical and Dental Council of Nigeria (MDCN)" },
+  { id: 4, type: "Nigerian Bar Association (NBA)" },
+];
+
+export const FinancialDocType = [{ id: 1, type: "Bank Statement" }];

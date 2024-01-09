@@ -7,12 +7,12 @@ interface ReviewDetailsProp {
 const ReviewDetails: FC<ReviewDetailsProp> = ({ details = [] }) => {
   return (
     <>
-      <div className="p-2 flex flex-col justify-between">
+      <div className="flex w-full gap-2 flex-col">
         {details?.map(({ title, content }, index) => {
           return (
-            <div key={index} className="flex flex-col p-4 rounded ">
+            <div key={index} className="flex flex-col p-2">
               <p className="font-bold text-[15px] leading-4 tracking-tighter">{title}</p>
-              <div className="grid grid-cols-2 mt-1 gap-y-1 gap-x-6">
+              <div className="grid grid-cols-2 mt-1 gap-y-3 gap-x-6 w-full">
                 {content.map((data, dataIndex) => {
                   return (
                     <div key={dataIndex} className="flex flex-col ">

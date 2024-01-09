@@ -118,10 +118,13 @@
   }
 
   .title-info > h3 {
-    font-size: .9rem;
+    font-size: 1rem;
+    font-weight: bold;
   }
   .title-info > p {
-    font-size: .57rem;
+    
+    font-size: .7rem;
+    font-weight: 400;
   }
   
   .vertical-bar .step .bar {
