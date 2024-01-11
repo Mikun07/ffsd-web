@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { TextInputProps } from "../../types/input";
+import { TextInputProps } from "../../types/components/input";
 import { startCase } from "lodash";
 
 const TextInput: FC<TextInputProps> = ({ label = "", ...rest }) => {

@@ -30,7 +30,7 @@ const ProgressBar: FC<ProgressBarProps> = ({
           key={index}
         >
           {showStepTitle && !!!vertical && (
-            <div className="title">
+            <div className="title lg:text-[15px] text-[10px]">
               <h4 className={currentStepIndex >= index ? "current" : ""}>
                 {typeof step === "object" ? step.title : step}
               </h4>

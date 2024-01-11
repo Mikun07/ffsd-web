@@ -50,6 +50,6 @@ a {
   background: #d4973b;
 }
 
-/*
-  1. Use a more-intuitive box-sizing model.
-*/
+.noBorder {
+  border: none;
+}

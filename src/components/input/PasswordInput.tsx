@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import EyeOpenIcon from "../../assets/icons/EyeOpenIcon";
 import EyeLockIcon from "../../assets/icons/EyeLockIcon";
-import { TextInputProps } from "../../types/input";
+import { TextInputProps } from "../../types/components/input";
 import { startCase } from "lodash";
 
 const PasswordInput: FC<TextInputProps> = ({ label = "Password", ...rest }) => {

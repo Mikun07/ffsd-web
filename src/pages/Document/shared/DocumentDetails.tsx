@@ -29,7 +29,7 @@ const DocumentDetails = ({
           type="text"
           label="Middlename"
           value={middlename}
-          onChange={(e) => setValue("firstname", e.target.value)}
+          onChange={(e) => setValue("middlename", e.target.value)}
         />
 
         <TextInput

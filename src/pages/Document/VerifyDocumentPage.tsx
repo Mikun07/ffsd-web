@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import UploadDocument from "./UploadDocument";
 import ReviewDetails from "./shared/ReviewDetails";
 import ProgressBar from "../../components/progressBar/ProgressBar";
@@ -6,7 +6,12 @@ import { useMultiStepForm } from "../../hooks/useMultiTabForm";
 import Button from "../../components/button/Button";
 import { useForm } from "react-hook-form";
 import DocumentDetails from "./shared/DocumentDetails";
-import { DocumentCategory, EducationDocType, ProfessionalCertificateDocType, FinancialDocType} from "../../data/document";
+import {
+  DocumentCategory,
+  EducationDocType,
+  ProfessionalCertificateDocType,
+  FinancialDocType,
+} from "../../data/data";
 import axios from "axios";
 import { BASE_URL } from "../../config/api";
 
@@ -31,11 +36,11 @@ function VerifyDocumentPage() {
       value: country?.id,
     })) || [];
 
-  const DocumentOptions = 
-  DocumentCategory?.map((Document) => ({
-    label: Document?.type,
-    value: Document?.id,
-  })) || [];
+  const DocumentOptions =
+    DocumentCategory?.map((Document) => ({
+      label: Document?.type,
+      value: Document?.id,
+    })) || [];
 
   const EducationOptions =
     EducationDocType?.map((Education) => ({
@@ -43,20 +48,29 @@ function VerifyDocumentPage() {
       value: Education?.type,
     })) || [];
 
+  const professionalCertificateOptions =
+    ProfessionalCertificateDocType?.map((professionalCertificate) => ({
+      label: professionalCertificate?.type,
+      value: professionalCertificate?.type,
+    })) || [];
+
+  const financialRecordOptions =
+    FinancialDocType?.map((financialRecord) => ({
+      label: financialRecord?.type,
+      value: financialRecord?.type,
+    })) || [];
+
   const formTitles = [
     {
       title: "Applicants Information",
-      // info: "Enter Applicant Details",
       buttonText: "Enter Upload Document",
     },
     {
       title: "Upload Document",
-      // info: "Enter your document details",
       buttonText: "Review and Submit Details",
     },
     {
       title: "Review and Save",
-      // info: "Review details",
       buttonText: "Submit Details",
     },
   ];
@@ -70,6 +84,33 @@ function VerifyDocumentPage() {
   const country = watch("country");
   const Document = watch("Document");
   const Education = watch("Education");
+  const professionalCertificate = watch("professionalCertificate");
+  const financialRecord = watch("financialRecord");
+  const matricNumber = watch("matricNumber");
+  const dateOfIssueEduc = watch("dateOfIssueEduc");
+  const schoolCountryEduc = watch("schoolCountryEduc");
+  const schoolNameEduc = watch("schoolNameEduc");
+  const schoolCity = watch("schoolCity");
+  const enrollmentYearEduc = watch("enrollmentYearEduc");
+  const graduationYearEduc = watch("graduationYearEduc");
+  const addInfo = watch("addInfo");
+  const courseOrSubject = watch("courseOrSubject");
+  const fileDocEduc = watch("fileDocEduc");
+  const studentIdProf = watch("studentIdProf");
+  const qualificationProf = watch("qualificationProf");
+  const enrolmentStatusProf = watch("enrolmentStatusProf");
+  const schoolNameProf = watch("schoolNameProf");
+  const schoolCountryProf = watch("schoolCountryProf");
+  const enrollmentYearProf = watch("enrollmentYearProf");
+  const graduationYearProf = watch("graduationYearProf");
+  // const schoolCountryEduc = watch("schoolCountryEduc");
+  const addInfoProf = watch("addInfoProf");
+  const profCourse = watch("profCourse");
+  const finName = watch("finName");
+  const finCountry = watch("finCountry");
+  const finInfo = watch("finInfo");
+  const finDocFile = watch("finDocFile");
+
 
   const formSteps = [
     <DocumentDetails
@@ -83,33 +124,59 @@ function VerifyDocumentPage() {
       setValue={setValue}
       countryOptions={countryOptions}
       EducationOptions={EducationOptions}
+      professionalCertificateOptions={professionalCertificateOptions}
+      financialRecordOptions={financialRecordOptions}
       country={country}
       Document={Document}
       Education={Education}
+      professionalCertificate={professionalCertificate}
+      financialRecord={financialRecord}
       DocumentOptions={DocumentOptions}
+      matricNumber={matricNumber}
+      dateOfIssueEduc={dateOfIssueEduc}
+      schoolCountryEduc={schoolCountryEduc}
+      schoolNameEduc={schoolNameEduc}
+      schoolCity={schoolCity}
+      enrollmentYearEduc={enrollmentYearEduc}
+      graduationYearEduc={graduationYearEduc}
+      addInfo={addInfo}
+      courseOrSubject={courseOrSubject}
+      fileDocEduc={fileDocEduc}
+      studentIdProf={studentIdProf}
+      qualificationProf={qualificationProf}
+      enrolmentStatusProf={enrolmentStatusProf}
+      schoolNameProf={schoolNameProf}
+      schoolCountryProf={schoolCountryProf}
+      enrollmentYearProf={enrollmentYearProf}
+      graduationYearProf={graduationYearProf}
+      addInfoProf={addInfoProf}
+      profCourse={profCourse}
+      finName={finName}
+      finCountry={finCountry}
+      finInfo={finInfo}
+      finDocFile={finDocFile}
     />,
     <ReviewDetails
-    // details={[
-    //   // {
-    //   //   title: "Account Information",
-    //   //   content: [
-    //   //     { title: "Firstname", data: firstname },
-    //   //     { title: "Lastname", data: lastname },
-    //   //     { title: "Phone Number", data: phone },
-    //   //     // { title: "Password", data: lastName },
-    //   //     // { title: "Confirm Password", data: lastName },
-    //   //   ],
-    //   // },
-    //   // {
-    //   //   title: "Company Information",
-    //   //   content: [
-    //   //     { title: "Company Name", data: companyName },
-    //   //     { title: "Email", data: companyEmail },
-    //   //     { title: "Industry", data: industry?.label },
-    //   //     { title: "Country", data: country?.label },
-    //   //   ],
-    //   // },
-    // ]}
+      details={[
+        {
+          title: "Account Information",
+          content: [
+            { title: "Firstname", data: firstname },
+            { title: "Lastname", data: lastname },
+            { title: "Middlename", data: middlename },
+            { title: "Date of birth", data: dob },
+          ],
+        },
+        // {
+        //   title: "Company Information",
+        //   content: [
+        //     { title: "Company Name", data: companyName },
+        //     { title: "Email", data: companyEmail },
+        //     { title: "Industry", data: industry?.label },
+        //     { title: "Country", data: country?.label },
+        //   ],
+        // },
+      ]}
     />,
   ];
 
@@ -127,8 +194,8 @@ function VerifyDocumentPage() {
 
   return (
     <>
-      <div className="flex flex-col gap-4 h-full overflow-y-auto px-4">
-        <div className="bg-slate-100 p-4 sticky top-0 rounded-lg">
+      <div className="flex flex-col mb-16 gap-4 h-full lg:px-4">
+        <div className="bg-slate-100 p-3 z-10 sticky top-4 rounded-lg">
           <ProgressBar
             progressSteps={formTitles}
             currentStepIndex={currentStepIndex}
@@ -136,23 +203,21 @@ function VerifyDocumentPage() {
           />
         </div>
 
-        <div className=" mt-10">
+        <div className="mb-16 p-2 overflow-y-auto custom__scrollbar">
           <form className="flex flex-col gap-[4rem]">{step}</form>
-          <div className="flex flex-col mt-4">
+          <div className="flex py-2 mt-2 flex-col">
             {!isLastStep ? (
-              <div className="flex lg:justify-end justify-center">
+              <div className="flex justify-end">
                 <Button onClick={next}>{title.buttonText}</Button>
               </div>
             ) : (
               <div>
-                <Button onClick={handleSubmit(signUp)}>
-                  {title.buttonText}
-                </Button>
+                <Button>{title.buttonText}</Button>
               </div>
             )}
 
             {currentStepIndex > 0 ? (
-              <button className="text-[12px] self-end" onClick={back}>
+              <button className="text-[12px] mt-2 self-end" onClick={back}>
                 {" <   "}Go back to {titles[currentStepIndex - 1].title}
               </button>
             ) : (

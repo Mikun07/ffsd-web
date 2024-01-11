@@ -9,7 +9,7 @@ import { useMultiStepForm } from "../../../../hooks/useMultiTabForm";
 import AccountInfo from "./shared/AccountInfo";
 import CompanyInfo from "./shared/CompanyInfo";
 import ReviewDetails from "./shared/ReviewDetails";
-import { industries } from "../../../../data/industries";
+import { industries } from "../../../../data/data";
 import { useForm } from "react-hook-form";
 import { postSignUp } from "../../../../redux/features/signupSlice";
 import toast from "react-hot-toast";
