@@ -3,6 +3,7 @@ import SelectInput from "../../components/input/SelectInput";
 import EducationForm from "./shared/EducationForm";
 import ProfessionalCertificateForm from "./shared/ProfessionalCertificateForm";
 import FinancialRecord from "./shared/FinancialRecord";
+import { FileSection } from "../../types/global/verifydocuments/fileSections";
 
 const UploadDocument = ({
   country,
@@ -39,10 +40,39 @@ const UploadDocument = ({
   finCountry,
   finInfo,
   finDocFile,
-
 }) => {
-  const [selectedDocument, setSelectedDocument] = useState(null);
-  const [fileSections, addFileSection] = useState([])
+  const [fileSections, updateFileSection] = useState<FileSection[]>([
+    {
+      documentCategory: null,
+      formDataContent: null,
+    },
+  ]);
+
+  console.log({ fileSections });
+
+  function handleDocumentCategorySelection(x, fileSectionIndex) {
+    console.log({ x, fileSectionIndex });
+    const newArray = [...fileSections];
+    newArray[fileSectionIndex].documentCategory = x?.value?.label || null;
+    // set formDataContent to match the type of documentCategory
+    updateFileSection(newArray);
+  }
+
+  function addNewFileSection() {
+    const fileSection: FileSection = {
+      documentCategory: null,
+      formDataContent: null,
+    };
+
+    updateFileSection((prev) => [...prev, fileSection]);
+  }
+
+  function removeFileSection(fileSectionIndex) {
+    const newArray = [...fileSections];
+    newArray.splice(fileSectionIndex, 1);
+    updateFileSection(newArray);
+  }
+
   const DocumentUrl = {
     Education: (
       <EducationForm
@@ -99,24 +129,44 @@ const UploadDocument = ({
   return (
     <>
       <div>
-        <div className="flex flex-col bg-slate-100 p-4 shadow-sm rounded-lg ">
-          <SelectInput
-            label="File to you want to upload"
-            options={DocumentOptions}
-            handleChange={setSelectedDocument}
-            value={selectedDocument}
-          />
+        {fileSections.map((fileSection, index) => {
+          return (
+            <div
+              key={index}
+              className="flex flex-col m-3 bg-slate-100 p-4 shadow-sm rounded-lg "
+            >
+              {index !== 0 && (
+                <span
+                  className="flex justify-end text-[12px]"
+                  onClick={() => removeFileSection(index)}
+                >
+                  {" "}
+                  Delete{" "}
+                </span>
+              )}
+              <SelectInput
+                label="File to you want to upload"
+                options={DocumentOptions}
+                handleChange={(x) => handleDocumentCategorySelection(x, index)}
+                value={fileSections[index]?.documentCategory}
+              />
 
-          <div>
-            {selectedDocument && DocumentUrl[selectedDocument?.value?.label]}
-          </div>
-        </div>
-        <button className="rounded-lg p-2 mt-3 bg-transparent font-medium text-[12px] items-center">
+              <div>
+                {fileSections[index].documentCategory &&
+                  DocumentUrl[fileSections[index]?.documentCategory]}
+              </div>
+            </div>
+          );
+        })}
+        <span
+          onClick={addNewFileSection}
+          className="rounded-lg p-2 flex justify-start mt-3 border-2 bg-transparent font-medium text-[12px] items-center"
+        >
           <span className="flex gap-2">
             {" "}
             + <p>Add File</p>
           </span>
-        </button>
+        </span>
       </div>
     </>
   );
