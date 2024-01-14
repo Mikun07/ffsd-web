@@ -8,12 +8,13 @@ import Button from "../../components/button/Button";
 import { postLogin } from "../../redux/features/loginSlice";
 import LeftView from "./LeftView";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import FormTextInput from "../../components/input/Form/FormTextInput";
+import FormPasswordInput from "../../components/input/Form/FormPasswordInput";
 
 function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const redirectUrl = {
     org: "/org/dashboard",
@@ -21,15 +22,25 @@ function LoginPage() {
     indv: "/org/dashboard",
   };
 
-  function login() {
-    const loginData = { email, password };
-    dispatch(postLogin({ ...loginData }))
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors, isValid },
+    handleSubmit,
+    getValues,
+  } = useForm({ mode: "all" });
+
+  const loginFields = watch("email");
+  console.log({ isValid });
+
+  function login(data) {
+    dispatch(postLogin({ ...data }))
       .then((result) => {
         const {
           payload: { data },
         } = result;
         if (data?.token) {
-          localStorage.setItem("authToken", JSON.stringify(data.token));
           if (data?.user?.category) {
             navigate(redirectUrl[data?.user?.category]);
             toast.success(data?.message);
@@ -40,7 +51,6 @@ function LoginPage() {
       })
       .finally();
   }
-
 
   return (
     <>
@@ -58,24 +68,33 @@ function LoginPage() {
             </h4>
 
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                login();
-              }}
+              onSubmit={handleSubmit(login)}
               className="flex flex-col px-8 gap-6 mt-5 w-full"
             >
-              <TextInput
-                label="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+              <FormTextInput
+                label="email"
+                errors={errors}
+                {...register("email", {
+                  required: {
+                    value: true,
+                    message: "Email is required",
+                  },
+                })}
+                onChange={(e) => setValue("email", e.target.value)}
               />
-              <PasswordInput
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+              <FormPasswordInput
+                errors={errors}
+                {...register("password", {
+                  required: {
+                    value: true,
+                    message: "Password is required",
+                  },
+                })}
+                onChange={(e) => setValue("password", e.target.value)}
               />
 
               <div className="flex flex-col gap-2">
-                <Button type="submit">Login</Button>
+                <Button type="submit" disabled={!isValid}>Login</Button>
                 <div className="flex justify-end">
                   <p
                     onClick={() => navigate("/forgotpassword")}
