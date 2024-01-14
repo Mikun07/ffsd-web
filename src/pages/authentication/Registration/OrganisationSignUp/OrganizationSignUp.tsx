@@ -33,8 +33,9 @@ function OrganizationForm() {
 
   useEffect(() => {
     axios
-      .post(`${BASE_URL}/countries`)
-      // ?access=docs_verify_frontend
+      .post(`${BASE_URL}/countries`, {
+        access: "docs_verify_frontend",
+      })
       .then((response) => {
         const data = response.data?.data;
         setCountryData(data);
@@ -153,7 +154,7 @@ function OrganizationForm() {
     dispatch(postSignUp({ ...signUpData }))
       .then((result) => {
         const {
-          payload: { data }
+          payload: { data },
         } = result;
         const success = Boolean(data?.success);
         if (success === true) {
@@ -180,7 +181,9 @@ function OrganizationForm() {
           </div>
 
           <div className="flex flex-col justify-between w-full">
-            <form className="flex flex-col gap-[4rem] w-full h-full">{step}</form>
+            <form className="flex flex-col gap-[4rem] w-full h-full">
+              {step}
+            </form>
             <div className="flex flex-col mt-4">
               {!isLastStep ? (
                 <Button disabled={!isValid} onClick={next}>
@@ -193,7 +196,10 @@ function OrganizationForm() {
               )}
 
               {currentStepIndex > 0 ? (
-                <button className="text-[12px] mt-2 font-medium p-1 self-end" onClick={back}>
+                <button
+                  className="text-[12px] mt-2 font-medium p-1 self-end"
+                  onClick={back}
+                >
                   {" <   "}Go back to {titles[currentStepIndex - 1].title}
                 </button>
               ) : (

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Logo from "../../assets/Logo";
-import TextInput from "../../components/input/TextInput";
-import PasswordInput from "../../components/input/PasswordInput";
 import Button from "../../components/button/Button";
 import { postLogin } from "../../redux/features/loginSlice";
 import LeftView from "./LeftView";

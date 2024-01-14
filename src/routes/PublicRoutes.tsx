@@ -3,11 +3,12 @@ import RegisterPage from "../pages/authentication/Registration/RegisterPage";
 import ForgotPasswordPage from "../pages/authentication/ForgotPassword/ForgotPasswordPage";
 import OTPPage from "../pages/authentication/OTPPage";
 import Landing from "../pages/Landing";
+import { Navigate } from "react-router-dom";
 
 
 const LangPageRoute ={
     link: "/",
-    element: <Landing />
+    element: <Navigate to={'/login'}/>
 }
 
 const LoginPageRoute = {

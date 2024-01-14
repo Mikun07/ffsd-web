@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.3.2",
+    "@hookform/resolvers": "^3.3.4",
     "@reduxjs/toolkit": "^2.0.1",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.10.5",

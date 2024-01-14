@@ -1,42 +1,47 @@
 import React from "react";
 import TextInput from "../../../components/input/TextInput";
+import FormTextInput from "../../../components/input/Form/FormTextInput";
 
-const DocumentDetails = ({
-  setValue,
-  firstname,
-  lastname,
-  middlename,
-  dob,
-}) => {
+const DocumentDetails = ({ setValue, errors, register }) => {
   return (
     <>
       <div className="  flex flex-col bg-slate-100 p-4 shadow-sm rounded-lg gap-y-4">
-        <TextInput
-          type="text"
-          label="Firstname"
-          value={firstname}
-          onChange={(e) => setValue("firstname", e.target.value)}
+        <FormTextInput
+          label="firstName"
+          errors={errors}
+          {...register("firstName", {
+            required: true,
+          })}
+          onChange={(e) => setValue("firstName", e.target.value)}
         />
 
-        <TextInput
-          type="text"
-          label="Lastname"
-          value={lastname}
-          onChange={(e) => setValue("lastname", e.target.value)}
+        <FormTextInput
+          label="lastName"
+          errors={errors}
+          {...register("lastName", {
+            required: true,
+          })}
+          onChange={(e) => setValue("lastName", e.target.value)}
         />
 
-        <TextInput
-          type="text"
-          label="Middlename"
-          value={middlename}
-          onChange={(e) => setValue("middlename", e.target.value)}
+        <FormTextInput
+          label="middleName"
+          errors={errors}
+          {...register("middleName", {
+            required: true,
+          })}
+          onChange={(e) => setValue("middleName", e.target.value)}
         />
 
-        <TextInput
-          type="date"
-          label="Date of Birth"
-          value={dob}
+        <FormTextInput
+          label="dob"
+          title={"Date of Birth"}
+          errors={errors}
+          {...register("dob", {
+            required: true,
+          })}
           onChange={(e) => setValue("dob", e.target.value)}
+          type="date"
         />
       </div>
     </>

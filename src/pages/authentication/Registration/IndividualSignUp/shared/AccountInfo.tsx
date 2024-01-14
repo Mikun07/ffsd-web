@@ -1,3 +1,4 @@
+import FormTextInput from "../../../../../components/input/Form/FormTextInput";
 import PasswordInput from "../../../../../components/input/PasswordInput";
 import SelectInput from "../../../../../components/input/SelectInput";
 import TextInput from "../../../../../components/input/TextInput";
@@ -8,6 +9,9 @@ const AccountInfo = ({
   lastname,
   password,
   email,
+  errors,
+  isValid,
+  register,
   phone,
   confirmPassword,
   countryOptions,
@@ -19,22 +23,25 @@ const AccountInfo = ({
   return (
     <>
       <div className="grid grid-cols-2 gap-4">
-        <TextInput
-          type="text"
+        <FormTextInput
           label="firstname"
-          value={firstname}
+          {...register("firstname", {
+            required: true,
+          })}
           onChange={(e) => setValue("firstname", e.target.value)}
         />
-        <TextInput
-          type="text"
+        <FormTextInput
           label="lastname"
-          value={lastname}
+          {...register("lastname", {
+            required: true,
+          })}
           onChange={(e) => setValue("lastname", e.target.value)}
         />
-        <TextInput
-          type="text"
-          label="Email"
-          value={email}
+        <FormTextInput
+          label="email"
+          {...register("email", {
+            required: true,
+          })}
           onChange={(e) => setValue("email", e.target.value)}
         />
 

@@ -29,8 +29,8 @@ function OrgSidebar() {
     },
 
     {
-      name: "Manage Verification",
-      url: "",
+      name: "Manage Documents",
+      url: "/org/managedocument",
       icon: <ArchiveIcon width="25" height="25" />,
     },
     {
@@ -86,9 +86,11 @@ function OrgSidebar() {
 
         <div className={` flex flex-col gap-1`}>
           {menu.map(({ url, name, icon }, index) => (
-            <div className={`flex items-center justify-between text-primary`}>
+            <div
+              key={index}
+              className={`flex items-center justify-between text-primary`}
+            >
               <Link
-                key={index}
                 to={url}
                 className={
                   pathname === url

@@ -7,7 +7,7 @@ const initialState = {
   success: false,
   data: null,
   error: null,
-  isLoggedIn: false,
+  isLoggedIn: JSON.parse(localStorage.getItem("userToken")),
 };
 
 export const postLogin = createAsyncThunk("login/postSignUp", async (body) => {
@@ -32,9 +32,10 @@ const loginSlice = createSlice({
       const { payload } = action;
       if (payload?.data?.errors) {
         (state.success = false),
-          (state.data = null),
-          (state.error = payload?.data?.errors);
+        (state.data = null),
+        (state.error = payload?.data?.errors);
       } else {
+        console.log({payload: payload?.data})
         localStorage.setItem("userToken", JSON.stringify(payload?.data?.token));
         (state.success = true),
           (state.isLoggedIn = true),

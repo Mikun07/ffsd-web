@@ -1,4 +1,3 @@
-import React from "react";
 import SelectInput from "../../../components/input/SelectInput";
 import FileInput from "../../../components/input/FileInput";
 import TextInput from "../../../components/input/TextInput";
@@ -19,6 +18,7 @@ const ProfessionalCertificateForm = ({
   graduationYearProf,
   addInfoProf,
   profCourse,
+  fileDocProf,
 }) => {
   function setCountry(item) {
     setValue(item?.label, item?.value);

@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from "react";
-import ErrorIMG from "../assets/ErrorIMG";
+import ErrorIMG from "../../../assets/ErrorIMG";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -30,7 +30,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
           </div>
           <div>
             <h1 className=" capitalize font-medium">
-              page not available...Try again Later
+              Oops something went wrong...Try again Later
             </h1>
           </div>
         </div>

@@ -397,7 +397,7 @@
   resolved "https://registry.npmjs.org/@floating-ui/utils/-/utils-0.1.6.tgz"
   integrity sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==
 
-"@hookform/resolvers@^3.3.2":
+"@hookform/resolvers@^3.3.4":
   version "3.3.4"
   resolved "https://registry.npmjs.org/@hookform/resolvers/-/resolvers-3.3.4.tgz"
   integrity sha512-o5cgpGOuJYrd+iMKvkttOclgwRW86EsWJZZRC23prf0uU2i48Htq4PuT73AVb9ionFyZrwYEITuOFGF+BydEtQ==

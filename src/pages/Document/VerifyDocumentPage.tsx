@@ -20,7 +20,9 @@ function VerifyDocumentPage() {
 
   useEffect(() => {
     axios
-      .post(`${BASE_URL}/countries`)
+      .post(`${BASE_URL}/countries`, {
+        access: "docs_verify_frontend",
+      })
       .then((response) => {
         const data = response.data?.data;
         setCountryData(data);
@@ -75,109 +77,52 @@ function VerifyDocumentPage() {
     },
   ];
 
-  const { watch, setValue } = useForm({ mode: "all" });
+  const {
+    watch,
+    setValue,
+    formState: { errors, isValid },
+    register,
+    handleSubmit
+  } = useForm({ mode: "all" });
 
-  const firstname = watch("firstname");
-  const lastname = watch("lastname");
-  const middlename = watch("middlename");
-  const dob = watch("dob");
-  const country = watch("country");
-  const Document = watch("Document");
-  const Education = watch("Education");
-  const professionalCertificate = watch("professionalCertificate");
-  const financialRecord = watch("financialRecord");
-  const matricNumber = watch("matricNumber");
-  const dateOfIssueEduc = watch("dateOfIssueEduc");
-  const schoolCountryEduc = watch("schoolCountryEduc");
-  const schoolNameEduc = watch("schoolNameEduc");
-  const schoolCity = watch("schoolCity");
-  const enrollmentYearEduc = watch("enrollmentYearEduc");
-  const graduationYearEduc = watch("graduationYearEduc");
-  const addInfo = watch("addInfo");
-  const courseOrSubject = watch("courseOrSubject");
-  const fileDocEduc = watch("fileDocEduc");
-  const studentIdProf = watch("studentIdProf");
-  const qualificationProf = watch("qualificationProf");
-  const enrolmentStatusProf = watch("enrolmentStatusProf");
-  const schoolNameProf = watch("schoolNameProf");
-  const schoolCountryProf = watch("schoolCountryProf");
-  const enrollmentYearProf = watch("enrollmentYearProf");
-  const graduationYearProf = watch("graduationYearProf");
-  // const schoolCountryEduc = watch("schoolCountryEduc");
-  const addInfoProf = watch("addInfoProf");
-  const profCourse = watch("profCourse");
-  const finName = watch("finName");
-  const finCountry = watch("finCountry");
-  const finInfo = watch("finInfo");
-  const finDocFile = watch("finDocFile");
-
+  const allValues = watch();
+  console.log({allValues, isValid})
 
   const formSteps = [
     <DocumentDetails
       setValue={setValue}
-      firstname={firstname}
-      lastname={lastname}
-      middlename={middlename}
-      dob={dob}
+      errors={errors}
+      register={register}
     />,
     <UploadDocument
       setValue={setValue}
       countryOptions={countryOptions}
       EducationOptions={EducationOptions}
       professionalCertificateOptions={professionalCertificateOptions}
-      financialRecordOptions={financialRecordOptions}
-      country={country}
-      Document={Document}
-      Education={Education}
-      professionalCertificate={professionalCertificate}
-      financialRecord={financialRecord}
       DocumentOptions={DocumentOptions}
-      matricNumber={matricNumber}
-      dateOfIssueEduc={dateOfIssueEduc}
-      schoolCountryEduc={schoolCountryEduc}
-      schoolNameEduc={schoolNameEduc}
-      schoolCity={schoolCity}
-      enrollmentYearEduc={enrollmentYearEduc}
-      graduationYearEduc={graduationYearEduc}
-      addInfo={addInfo}
-      courseOrSubject={courseOrSubject}
-      fileDocEduc={fileDocEduc}
-      studentIdProf={studentIdProf}
-      qualificationProf={qualificationProf}
-      enrolmentStatusProf={enrolmentStatusProf}
-      schoolNameProf={schoolNameProf}
-      schoolCountryProf={schoolCountryProf}
-      enrollmentYearProf={enrollmentYearProf}
-      graduationYearProf={graduationYearProf}
-      addInfoProf={addInfoProf}
-      profCourse={profCourse}
-      finName={finName}
-      finCountry={finCountry}
-      finInfo={finInfo}
-      finDocFile={finDocFile}
+      financialRecordOptions={financialRecordOptions}
+      errors={errors}
+      register={register}
     />,
-    <ReviewDetails
-      details={[
-        {
-          title: "Account Information",
-          content: [
-            { title: "Firstname", data: firstname },
-            { title: "Lastname", data: lastname },
-            { title: "Middlename", data: middlename },
-            { title: "Date of birth", data: dob },
-          ],
-        },
-        // {
-        //   title: "Company Information",
-        //   content: [
-        //     { title: "Company Name", data: companyName },
-        //     { title: "Email", data: companyEmail },
-        //     { title: "Industry", data: industry?.label },
-        //     { title: "Country", data: country?.label },
-        //   ],
-        // },
-      ]}
-    />,
+    // <ReviewDetails
+    //   details={[
+    //     {
+    //       title: "Account Information",
+    //       content: [
+    //         { title: "Firstname", data: firstName },
+    //         { title: "Lastname", data: lastName },
+    //         { title: "Middlename", data: middleName },
+    //         { title: "Date of birth", data: dob },
+    //       ],
+    //     },
+    //     {
+    //       title: "Document Uploaded",
+    //       content: [
+    //         // { title: "Type of File you uploaded", data: document?.label },
+    //       ],
+    //     },
+    //   ]}
+    // />,
   ];
 
   const {
@@ -211,8 +156,8 @@ function VerifyDocumentPage() {
                 <Button onClick={next}>{title.buttonText}</Button>
               </div>
             ) : (
-              <div>
-                <Button>{title.buttonText}</Button>
+              <div className="flex justify-end">
+                <Button disabled={!isValid}>{title.buttonText}</Button>
               </div>
             )}
 

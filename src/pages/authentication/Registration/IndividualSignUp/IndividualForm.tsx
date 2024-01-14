@@ -11,6 +11,8 @@ import AccountInfo from "./shared/AccountInfo";
 import ReviewDetails from "./shared/ReviewDetails";
 import ProgressBar from "../../../../components/progressBar/ProgressBar";
 import { useMultiStepForm } from "../../../../hooks/useMultiTabForm";
+import {z} from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 
 function IndividualForm() {
   const dispatch = useDispatch();
@@ -25,7 +27,9 @@ function IndividualForm() {
 
   useEffect(() => {
     axios
-      .post(`${BASE_URL}/countries`)
+      .post(`${BASE_URL}/countries`, {
+        access: "docs_verify_frontend",
+      })
       .then((response) => {
         const data = response.data?.data;
         setCountryData(data);
@@ -35,6 +39,7 @@ function IndividualForm() {
       });
   }, []);
 
+  const IndividualSchema = z.object()
   const {
     register,
     watch,
@@ -42,7 +47,7 @@ function IndividualForm() {
     formState: { errors, isValid },
     handleSubmit,
     getValues,
-  } = useForm({ mode: "all" });
+  } = useForm({ resolver: zodResolver(IndividualSchema), mode: "all" });
 
   const formTitles = [
     {
@@ -65,6 +70,9 @@ function IndividualForm() {
   const confirmPassword = watch("confirmPassword");
   const country = watch("country");
 
+  const allValues = watch();
+  console.log({allValues})
+
   const formSteps = [
     <AccountInfo
       setValue={setValue}
@@ -72,6 +80,9 @@ function IndividualForm() {
       lastname={lastname}
       password={password}
       phone={phone}
+      errors={errors}
+      isValid={isValid}
+      register={register}
       email={email}
       confirmPassword={confirmPassword}
       countryOptions={countryOptions}
@@ -152,7 +163,9 @@ function IndividualForm() {
           </div>
 
           <div className="flex flex-col justify-between w-full">
-            <form className="flex flex-col gap-[4rem] w-full h-full">{step}</form>
+            <form className="flex flex-col gap-[4rem] w-full h-full">
+              {step}
+            </form>
             <div className="flex mt-4 flex-col">
               {!isLastStep ? (
                 <Button disabled={!isValid} onClick={next}>
@@ -165,7 +178,10 @@ function IndividualForm() {
               )}
 
               {currentStepIndex > 0 ? (
-                <button className="text-[15px] font-medium p-2 self-end" onClick={back}>
+                <button
+                  className="text-[15px] font-medium p-2 self-end"
+                  onClick={back}
+                >
                   {" <   "}Go back to {titles[currentStepIndex - 1].title}
                 </button>
               ) : (

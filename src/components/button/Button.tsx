@@ -9,7 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: FC<ButtonProps> = ({ icon, children, className, ...rest }) => {
   return (
     <button
-      className={`p-2 rounded ring-1 ring-[#40B52D] hover:text-white hover:bg-[#D4973B] hover:bg-opacity-85 hover:ring-[#D4973B] hover:ring-opacity-85 text-sm bg-transparent text-[#40B52D] ${className}`}
+      className={`p-2 rounded ring-1 ring-[#40B52D] hover:text-white hover:bg-[#D4973B] hover:bg-opacity-85 hover:ring-[#D4973B] disabled:ring-gray-600 disabled:text-gray-600 disabled:hover:bg-none hover:ring-opacity-85 text-sm bg-transparent text-[#40B52D] ${className}`}
       {...rest}
     >
       <span>{icon}</span>

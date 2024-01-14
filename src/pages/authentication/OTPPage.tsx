@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import LeftView from "./LeftView";
 
 function OTPPage() {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const email = useSelector((state) => state?.signUp?.data?.email || null);
 
@@ -80,9 +80,9 @@ function OTPPage() {
       );
 
       if (OTPResult.data[0].success === true) {
-        // console.log(OTPResult.data[0].success);
+        console.log(OTPResult.data[0].success);
         navigate("/login")
-        // toast.success(OTPResult.data[0].message);
+        toast.success(OTPResult.data[0].message);
       }
     } catch (error) {
       toast.error(error.response.data.error);
