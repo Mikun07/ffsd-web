@@ -14,6 +14,8 @@ import {
 } from "../../data/data";
 import axios from "axios";
 import { BASE_URL } from "../../config/api";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 function VerifyDocumentPage() {
   const [countryData, setCountryData] = useState(null);
@@ -77,23 +79,65 @@ function VerifyDocumentPage() {
     },
   ];
 
+  const DocumentSchema = z
+    .object({
+      firstName: z.string().min(2).max(30),
+      lastName: z.string().min(2).max(30),
+      middleName: z.string().min(2).max(30),
+      dob: z.string(),
+      matricNumber: z.string(),
+      dateOfIssueEduc: z.string(),
+      schoolCountryEduc: z.string(),
+      schoolNameEduc: z.string(),
+      schoolCity: z.string(),
+      enrollmentYearEduc: z.string().min(4).max(4),
+      graduationYearEduc: z.string().min(4).max(4),
+      addInfo: z.string(),
+      courseOrSubject: z.string(),
+      studentIdProf: z.string(),
+      qualificationProf: z.string(),
+      enrolmentStatusProf: z.string(),
+      schoolNameProf: z.string(),
+      enrollmentYearProf: z.string().min(4).max(4),
+      graduationYearProf: z.string().min(4).max(4),
+      addInfoProf: z.string(),
+      profCourse: z.string(),
+      finName: z.string(),
+      finInfo: z.string(),
+      // finDocFile: z.string(),
+      // fileDocProf: z.string(),
+      // fileDocEduc: z.string(),
+    })
+    // .refine(
+    //   (value) => {
+    //     // Ensure the person is at least 15 years old
+    //     const currentDate = new Date();
+    //     const minimumAllowedDate = new Date(
+    //       currentDate.getFullYear() - 15,
+    //       currentDate.getMonth(),
+    //       currentDate.getDate()
+    //     );
+    //     return value <= minimumAllowedDate;
+    //   },
+    //   {
+    //     message: "Must be at least 15 years old.",
+    //     path: ["dob"]
+    //   }
+    // );
+
   const {
     watch,
     setValue,
     formState: { errors, isValid },
     register,
-    handleSubmit
-  } = useForm({ mode: "all" });
+    handleSubmit,
+  } = useForm({ resolver: zodResolver(DocumentSchema), mode: "all" });
 
   const allValues = watch();
-  console.log({allValues, isValid})
+  console.log({ allValues, isValid });
 
   const formSteps = [
-    <DocumentDetails
-      setValue={setValue}
-      errors={errors}
-      register={register}
-    />,
+    <DocumentDetails setValue={setValue} errors={errors} register={register} />,
     <UploadDocument
       setValue={setValue}
       countryOptions={countryOptions}
@@ -153,7 +197,9 @@ function VerifyDocumentPage() {
           <div className="flex py-2 mt-2 flex-col">
             {!isLastStep ? (
               <div className="flex justify-end">
-                <Button onClick={next}>{title.buttonText}</Button>
+                <Button onClick={next}>
+                  {title.buttonText}
+                </Button>
               </div>
             ) : (
               <div className="flex justify-end">

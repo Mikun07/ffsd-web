@@ -1,23 +1,19 @@
 import SelectInput from "../../../components/input/SelectInput";
 import FileInput from "../../../components/input/FileInput";
-import TextInput from "../../../components/input/TextInput";
 import TextAreaInput from "../../../components/input/TextAreaInput";
+import FormTextInput from "../../../components/input/Form/FormTextInput";
 
 const ProfessionalCertificateForm = ({
   setValue,
   countryOptions,
-  country,
-  professionalCertificate,
+  // country,
+  // professionalCertificate,
   professionalCertificateOptions,
-  studentIdProf,
-  qualificationProf,
-  enrolmentStatusProf,
+  errors,
+  register,
   schoolNameProf,
   schoolCountryProf,
-  enrollmentYearProf,
-  graduationYearProf,
   addInfoProf,
-  profCourse,
   fileDocProf,
 }) => {
   function setCountry(item) {
@@ -28,12 +24,12 @@ const ProfessionalCertificateForm = ({
   }
   return (
     <>
-      <div className=" mt-10 flex lg:flex-row flex-col-reverse gap-4">
+      <div className=" mt-10 flex lg:flex-row flex-col gap-4">
         <div className="">
           <FileInput label="choose file" />
         </div>
         <div className="w-full flex flex-col gap-6">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-4">
             <SelectInput
               label="Professional Body"
               options={professionalCertificateOptions}
@@ -41,50 +37,85 @@ const ProfessionalCertificateForm = ({
               handleChange={setProfessionalCertificate}
             />
 
-            <TextInput
-              label="Exam ID"
-              value={studentIdProf}
+            <FormTextInput
+              label="studentIdProf"
+              title={"Exam ID"}
+              errors={errors}
+              {...register("studentIdProf", {
+                required: {
+                  value: true,
+                  message: "Exam ID is required",
+                },
+              })}
               onChange={(e) => setValue("studentIdProf", e.target.value)}
             />
 
-            <TextInput
-              label="Qualification gotten"
-              value={qualificationProf}
+            <FormTextInput
+              label="qualificationProf"
+              title={"Qualification gotten"}
+              errors={errors}
+              {...register("qualificationProf", {
+                required: {
+                  value: true,
+                  message: "Exam ID is required",
+                },
+              })}
               onChange={(e) => setValue("qualificationProf", e.target.value)}
             />
 
             <SelectInput
-              label="What country is the school located in"
+              label="country is the school located in"
               options={countryOptions}
               handleChange={setCountry}
               value={schoolCountryProf}
             />
 
-            <TextInput
-              label="Are you a current or past student"
-              value={enrolmentStatusProf}
+            <FormTextInput
+              label="enrolmentStatusProf"
+              title={"Are you a current or past student"}
+              errors={errors}
+              {...register("enrolmentStatusProf", {
+                required: {
+                  value: true,
+                  message: "enrollment Status is required",
+                },
+              })}
               onChange={(e) => setValue("enrolmentStatusProf", e.target.value)}
             />
 
-            <TextInput
-              label="Enrollment Year"
-              value={enrollmentYearProf}
+            <FormTextInput
+              label="enrollmentYearProf"
+              title={"Enrollment Year"}
+              errors={errors}
+              {...register("enrollmentYearProf", {
+                required: {
+                  value: true,
+                  message: "Enrollment Year is required",
+                },
+              })}
               onChange={(e) => setValue("enrollmentYearProf", e.target.value)}
             />
-            <TextInput
-              label="Graduation Year "
-              value={graduationYearProf}
+
+            <FormTextInput
+              label="graduationYearProf"
+              title={"Graduation Year"}
+              errors={errors}
+              {...register("graduationYearProf", {
+                required: {
+                  value: true,
+                  message: "Graduation Year is required",
+                },
+              })}
               onChange={(e) => setValue("graduationYearProf", e.target.value)}
             />
-            {/* <TextInput
-              type="date"
-              label="Date Certificate was issued"
-              value={graduationYearProf}
-              onChange={(e) => setValue("graduationYearProf", e.target.value)}
-            /> */}
-            <TextInput
-              label="Course Studied "
-              value={profCourse}
+
+            <FormTextInput
+              label="profCourse"
+              title={"Course Studied"}
+              errors={errors}
+              {...register("profCourse", {
+                required: true,
+              })}
               onChange={(e) => setValue("profCourse", e.target.value)}
             />
           </div>

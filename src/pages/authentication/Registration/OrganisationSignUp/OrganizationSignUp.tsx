@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BASE_URL } from "../../../../config/api";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,8 @@ import ReviewDetails from "./shared/ReviewDetails";
 import { industries } from "../../../../data/data";
 import { useForm } from "react-hook-form";
 import { postSignUp } from "../../../../redux/features/signupSlice";
-import toast from "react-hot-toast";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 function OrganizationForm() {
   const dispatch = useDispatch();
@@ -45,6 +46,31 @@ function OrganizationForm() {
       });
   }, []);
 
+  const OrganizationSchema = z
+    .object({
+      firstname: z.string().min(2).max(30),
+      lastname: z.string().min(2).max(30),
+      companyEmail: z.string().email(),
+      phone: z.string().min(5).max(15),
+      password: z.string().min(7).max(20),
+      confirmPassword: z.string().min(7).max(20),
+      companyName: z.string().min(2).max(70),
+      
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Password do not match",
+      path: ["confirmPassword"],
+    });
+
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors, isValid },
+    handleSubmit,
+    getValues,
+  } = useForm({ resolver: zodResolver(OrganizationSchema), mode: "all" });
+
   const formTitles = [
     {
       title: "Account Information",
@@ -63,40 +89,23 @@ function OrganizationForm() {
     },
   ];
 
-  const {
-    register,
-    watch,
-    setValue,
-    formState: { errors, isValid },
-    handleSubmit,
-    getValues,
-  } = useForm({ mode: "all" });
-
-  const firstname = watch("firstname");
-  const lastname = watch("lastname");
-  const password = watch("password");
-  const phone = watch("phone");
-  const confirmPassword = watch("confirmPassword");
-  const companyName = watch("companyName");
-  const companyEmail = watch("companyEmail");
+  const allValues = watch();
+  console.log({ allValues });
   const industry = watch("industry");
   const country = watch("country");
 
   const formSteps = [
     <AccountInfo
       setValue={setValue}
-      firstname={firstname}
-      lastname={lastname}
-      password={password}
-      phone={phone}
-      confirmPassword={confirmPassword}
+      errors={errors}
+      register={register}
     />,
     <CompanyInfo
       setValue={setValue}
+      errors={errors}
+      register={register}
       industryOptions={industryOptions}
       countryOptions={countryOptions}
-      companyName={companyName}
-      companyEmail={companyEmail}
       industry={industry}
       country={country}
     />,
@@ -105,18 +114,16 @@ function OrganizationForm() {
         {
           title: "Account Information",
           content: [
-            { title: "Firstname", data: firstname },
-            { title: "Lastname", data: lastname },
-            { title: "Phone Number", data: phone },
-            // { title: "Password", data: lastName },
-            // { title: "Confirm Password", data: lastName },
+            { title: "Firstname", data: allValues.firstname },
+            { title: "Lastname", data: allValues.lastname },
+            { title: "Phone Number", data: allValues.phone },
           ],
         },
         {
           title: "Company Information",
           content: [
-            { title: "Company Name", data: companyName },
-            { title: "Email", data: companyEmail },
+            { title: "Company Name", data: allValues.companyName },
+            { title: "Email", data: allValues.companyEmail },
             { title: "Industry", data: industry?.label },
             { title: "Country", data: country?.label },
           ],
@@ -161,7 +168,7 @@ function OrganizationForm() {
           navigate("/signup/otp");
         } else {
           console.log(result);
-          toast.error(result?.payload?.error);
+          // toast.error(result?.payload?.error);
         }
       })
       .finally();
@@ -186,11 +193,11 @@ function OrganizationForm() {
             </form>
             <div className="flex flex-col mt-4">
               {!isLastStep ? (
-                <Button disabled={!isValid} onClick={next}>
+                <Button onClick={next}>
                   {title.buttonText}
                 </Button>
               ) : (
-                <Button disabled={!isValid} onClick={handleSubmit(signUp)}>
+                <Button onClick={handleSubmit(signUp)}>
                   {title.buttonText}
                 </Button>
               )}

@@ -1,19 +1,11 @@
+import FormPasswordInput from "../../../../../components/input/Form/FormPasswordInput";
 import FormTextInput from "../../../../../components/input/Form/FormTextInput";
-import PasswordInput from "../../../../../components/input/PasswordInput";
 import SelectInput from "../../../../../components/input/SelectInput";
-import TextInput from "../../../../../components/input/TextInput";
 
 const AccountInfo = ({
   setValue,
-  firstname,
-  lastname,
-  password,
-  email,
   errors,
-  isValid,
   register,
-  phone,
-  confirmPassword,
   countryOptions,
   country,
 }) => {
@@ -25,42 +17,71 @@ const AccountInfo = ({
       <div className="grid grid-cols-2 gap-4">
         <FormTextInput
           label="firstname"
+          errors={errors}
           {...register("firstname", {
-            required: true,
+            required: {
+              value: true,
+              message: "firstname is required",
+            },
           })}
           onChange={(e) => setValue("firstname", e.target.value)}
         />
         <FormTextInput
           label="lastname"
+          errors={errors}
           {...register("lastname", {
-            required: true,
+            required: {
+              value: true,
+              message: "lastname is required",
+            },
           })}
           onChange={(e) => setValue("lastname", e.target.value)}
         />
         <FormTextInput
           label="email"
+          errors={errors}
           {...register("email", {
-            required: true,
+            required: {
+              value: true,
+              message: "Email is required",
+            },
           })}
           onChange={(e) => setValue("email", e.target.value)}
         />
 
-        <TextInput
-          type="text"
-          label="phoneNumber"
-          value={phone}
+        <FormTextInput
+          label="phone"
+          errors={errors}
+          {...register("phone", {
+            required: {
+              value: true,
+              message: "Phone Number is required",
+            },
+          })}
           onChange={(e) => setValue("phone", e.target.value)}
         />
 
-        <PasswordInput
+        <FormPasswordInput
           label="password"
-          value={password}
+          errors={errors}
+          {...register("password", {
+            required: {
+              value: true,
+              message: "Password is required",
+            },
+          })}
           onChange={(e) => setValue("password", e.target.value)}
         />
-
-        <PasswordInput
+        <FormPasswordInput
           label="confirmPassword"
-          value={confirmPassword}
+          title="confirm password"
+          errors={errors}
+          {...register("confirmPassword", {
+            required: {
+              value: true,
+              message: "Confirm Password is required",
+            },
+          })}
           onChange={(e) => setValue("confirmPassword", e.target.value)}
         />
         <SelectInput

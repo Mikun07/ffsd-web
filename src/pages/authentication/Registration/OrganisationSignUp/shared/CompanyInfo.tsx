@@ -1,12 +1,12 @@
+import FormTextInput from "../../../../../components/input/Form/FormTextInput";
 import SelectInput from "../../../../../components/input/SelectInput";
-import TextInput from "../../../../../components/input/TextInput";
 
 const CompanyInfo = ({
   setValue,
   countryOptions,
   industryOptions,
-  companyName,
-  companyEmail,
+  errors,
+  register,
   industry,
   country,
 }) => {
@@ -20,16 +20,28 @@ const CompanyInfo = ({
   return (
     <>
       <div className="grid grid-cols-2 gap-y-4 gap-x-3">
-        <TextInput
-          type="text"
-          label="Company Name"
-          value={companyName}
+      <FormTextInput
+          label="companyName"
+          title="company Name"
+          errors={errors}
+          {...register("companyName", {
+            required: {
+              value: true,
+              message: "Email is required",
+            },
+          })}
           onChange={(e) => setValue("companyName", e.target.value)}
         />
-        <TextInput
-          type="text"
+        <FormTextInput
           label="companyEmail"
-          value={companyEmail}
+          title="Company Email"
+          errors={errors}
+          {...register("companyEmail", {
+            required: {
+              value: true,
+              message: "Email is required",
+            },
+          })}
           onChange={(e) => setValue("companyEmail", e.target.value)}
         />
 

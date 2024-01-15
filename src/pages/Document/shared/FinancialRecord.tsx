@@ -3,6 +3,7 @@ import SelectInput from "../../../components/input/SelectInput";
 import FileInput from "../../../components/input/FileInput";
 import TextInput from "../../../components/input/TextInput";
 import TextAreaInput from "../../../components/input/TextAreaInput";
+import FormTextInput from "../../../components/input/Form/FormTextInput";
 
 const FinancialRecord = ({
   setValue,
@@ -10,6 +11,8 @@ const FinancialRecord = ({
   country,
   financialRecord,
   financialRecordOptions,
+  errors,
+  register,
   finName,
   finCountry,
   finInfo,
@@ -24,24 +27,29 @@ const FinancialRecord = ({
   }
   return (
     <>
-      <div className=" mt-10 flex lg:flex-row flex-col-reverse gap-4">
+      <div className=" mt-10 flex lg:flex-row flex-col gap-4">
         <div className="">
           <FileInput label="choose file" />
         </div>
         <div className="w-full flex flex-col gap-6">
-          <div>
+          <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-4">
             <SelectInput
               label="What financial record do you want to upload"
               options={financialRecordOptions}
               value={financialRecord}
               handleChange={setFinancialRecord}
             />
-          </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <TextInput
-              label="Bank Name"
-              value={finName}
+            <FormTextInput
+              label="finName"
+              title="Bank Name"
+              errors={errors}
+              {...register("finName", {
+                required: {
+                  value: true,
+                  message: "Bank name is required",
+                },
+              })}
               onChange={(e) => setValue("finName", e.target.value)}
             />
 

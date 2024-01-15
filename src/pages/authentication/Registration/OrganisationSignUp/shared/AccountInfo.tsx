@@ -1,46 +1,66 @@
-import PasswordInput from "../../../../../components/input/PasswordInput";
-import TextInput from "../../../../../components/input/TextInput";
+import FormPasswordInput from "../../../../../components/input/Form/FormPasswordInput";
+import FormTextInput from "../../../../../components/input/Form/FormTextInput";
 
-const AccountInfo = ({
-  setValue,
-  firstname,
-  lastname,
-  password,
-  phone,
-  confirmPassword,
-}) => {
+const AccountInfo = ({ setValue, errors, register }) => {
   return (
     <>
       <div className=" grid grid-cols-2 gap-4">
-        <TextInput
-          type="text"
+        <FormTextInput
           label="firstname"
-          value={firstname}
+          errors={errors}
+          {...register("firstname", {
+            required: {
+              value: true,
+              message: "firstname is required",
+            },
+          })}
           onChange={(e) => setValue("firstname", e.target.value)}
         />
-        <TextInput
-          type="text"
+        <FormTextInput
           label="lastname"
-          value={lastname}
+          errors={errors}
+          {...register("lastname", {
+            required: {
+              value: true,
+              message: "lastname is required",
+            },
+          })}
           onChange={(e) => setValue("lastname", e.target.value)}
         />
 
-        <TextInput
-          type="text"
-          label="phoneNumber"
-          value={phone}
+        <FormTextInput
+          label="phone"
+          errors={errors}
+          {...register("phone", {
+            required: {
+              value: true,
+              message: "Phone Number is required",
+            },
+          })}
           onChange={(e) => setValue("phone", e.target.value)}
         />
 
-        <PasswordInput
+        <FormPasswordInput
           label="password"
-          value={password}
+          errors={errors}
+          {...register("password", {
+            required: {
+              value: true,
+              message: "Password is required",
+            },
+          })}
           onChange={(e) => setValue("password", e.target.value)}
         />
-
-        <PasswordInput
+        <FormPasswordInput
           label="confirmPassword"
-          value={confirmPassword}
+          title="confirm password"
+          errors={errors}
+          {...register("confirmPassword", {
+            required: {
+              value: true,
+              message: "Confirm Password is required",
+            },
+          })}
           onChange={(e) => setValue("confirmPassword", e.target.value)}
         />
       </div>

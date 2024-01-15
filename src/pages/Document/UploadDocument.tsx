@@ -41,7 +41,7 @@ const UploadDocument = ({
     newArray[fileSectionIndex].formDataContent = formContent;
     updateFileSection(newArray);
   }
-  
+
   function getFormDataContent(documentCategory) {
     const values = {
       Education: {
@@ -95,28 +95,35 @@ const UploadDocument = ({
     updateFileSection(newArray);
   }
 
-  // const DocumentUrl = {
-  //   Education: (
-  //     <EducationForm
-  //       setValue={setValue}
-  //       errors={errors}
-  //       register={register}
-  //   ),
-  //   "Professional Certification": (
-  //     <ProfessionalCertificateForm
-  //       setValue={setValue}
-  //       errors={errors}
-  //       register={register}
-  //     />
-  //   ),
-  //   "Financial Record": (
-  //     <FinancialRecord
-  //       setValue={setValue}
-  //       errors={errors}
-  //       register={register}
-  //     />
-  //   ),
-  // };
+  const DocumentUrl = {
+    Education: (
+      <EducationForm
+        setValue={setValue}
+        errors={errors}
+        register={register}
+        EducationOptions={EducationOptions}
+        countryOptions={countryOptions}
+      />
+    ),
+    "Professional Certification": (
+      <ProfessionalCertificateForm
+        setValue={setValue}
+        errors={errors}
+        register={register}
+        professionalCertificateOptions={professionalCertificateOptions}
+        countryOptions={countryOptions}
+      />
+    ),
+    "Financial Record": (
+      <FinancialRecord
+        setValue={setValue}
+        errors={errors}
+        register={register}
+        financialRecordOptions={financialRecordOptions}
+        countryOptions={countryOptions}
+      />
+    ),
+  };
 
   return (
     <>
@@ -146,8 +153,8 @@ const UploadDocument = ({
               />
 
               <div>
-                {/* {fileSections[index].documentCategory &&
-                  DocumentUrl[fileSections[index]?.documentCategory]} */}
+                {fileSections[index].documentCategory &&
+                  DocumentUrl[fileSections[index]?.documentCategory]}
               </div>
             </div>
           );

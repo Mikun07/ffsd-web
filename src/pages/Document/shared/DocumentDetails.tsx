@@ -1,5 +1,3 @@
-import React from "react";
-import TextInput from "../../../components/input/TextInput";
 import FormTextInput from "../../../components/input/Form/FormTextInput";
 
 const DocumentDetails = ({ setValue, errors, register }) => {

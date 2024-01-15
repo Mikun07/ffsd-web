@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { BASE_URL } from "../../../../config/api";
 import { postSignUp } from "../../../../redux/features/signupSlice";
 import { useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ import AccountInfo from "./shared/AccountInfo";
 import ReviewDetails from "./shared/ReviewDetails";
 import ProgressBar from "../../../../components/progressBar/ProgressBar";
 import { useMultiStepForm } from "../../../../hooks/useMultiTabForm";
-import {z} from "zod"
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 function IndividualForm() {
@@ -39,7 +39,20 @@ function IndividualForm() {
       });
   }, []);
 
-  const IndividualSchema = z.object()
+  const IndividualSchema = z
+    .object({
+      firstname: z.string().min(2).max(30),
+      lastname: z.string().min(2).max(30),
+      email: z.string().email(),
+      phone: z.string().min(5).max(15),
+      password: z.string().min(7).max(20),
+      confirmPassword: z.string().min(7).max(20),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Password do not match",
+      path: ["confirmPassword"],
+    });
+
   const {
     register,
     watch,
@@ -62,29 +75,16 @@ function IndividualForm() {
     },
   ];
 
-  const firstname = watch("firstname");
-  const lastname = watch("lastname");
-  const password = watch("password");
-  const phone = watch("phone");
-  const email = watch("email");
-  const confirmPassword = watch("confirmPassword");
   const country = watch("country");
 
   const allValues = watch();
-  console.log({allValues})
+  console.log({ allValues });
 
   const formSteps = [
     <AccountInfo
       setValue={setValue}
-      firstname={firstname}
-      lastname={lastname}
-      password={password}
-      phone={phone}
       errors={errors}
-      isValid={isValid}
       register={register}
-      email={email}
-      confirmPassword={confirmPassword}
       countryOptions={countryOptions}
       country={country}
     />,
@@ -93,10 +93,10 @@ function IndividualForm() {
         {
           title: "Account Information",
           content: [
-            { title: "Firstname", data: firstname },
-            { title: "Lastname", data: lastname },
-            { title: "Phone Number", data: phone },
-            { title: "Email", data: email },
+            { title: "Firstname", data: allValues.firstname },
+            { title: "Lastname", data: allValues.lastname },
+            { title: "Phone Number", data: allValues.phone },
+            { title: "Email", data: allValues.email },
             { title: "Country", data: country?.label },
           ],
         },
@@ -116,9 +116,9 @@ function IndividualForm() {
     isLastStep,
   } = useMultiStepForm(formSteps, formTitles);
 
-  function setCountry(item) {
-    setValue(item?.label, item?.value);
-  }
+  // function setCountry(item) {
+  //   setValue(item?.label, item?.value);
+  // }
 
   function signUp(signUpValues) {
     const signUpData = {
@@ -133,19 +133,19 @@ function IndividualForm() {
     };
 
     dispatch(postSignUp({ ...signUpData }))
-      .then((result) => {
-        const {
-          payload: { data },
-        } = result;
-        const success = Boolean(data?.success);
-        if (success === true) {
-          navigate("/signup/otp");
-        } else {
-          // console.log(result?.payload?.response?.data?.errors);
-          toast.error(result?.payload?.response?.data?.errors);
-        }
-      })
-      .finally();
+    .then((result) => {
+      const {
+        payload: { data },
+      } = result;
+      const success: boolean = Boolean(data?.success);
+      if (success === true) {
+        navigate("/signup/otp");
+      } else {
+        // console.log(result?.payload?.response?.data?.errors);
+        // toast.error(result?.payload?.response?.data?.errors);
+      }
+    })
+    .finally(); // Remove this line if you don't need a finally block
   }
 
   return (
@@ -172,7 +172,7 @@ function IndividualForm() {
                   {title.buttonText}
                 </Button>
               ) : (
-                <Button disabled={!isValid} onClick={handleSubmit(signUp)}>
+                <Button onClick={handleSubmit(signUp)}>
                   {title.buttonText}
                 </Button>
               )}
