@@ -83,7 +83,7 @@ function VerificationTableColumn({ data }) {
         <div>
           <div className="bg-black/70 fixed top-0 left-0 w-full h-full z-20"></div>
           <div className="bg-white fixed px-2 top-0 right-0 lg:w-[400px] w-full z-20 h-screen overflow-y-auto custom__scrollbar">
-            <div className="flex py-1 justify-between bg-white sticky top-0  z-20 w-full items-center">
+            <div className="flex py-1 justify-between bg-white sticky top-0  z-50 w-full items-center">
               <h1 className="font-semibold">Transaction Details</h1>
 
               <button onClick={toggleModal} className="bg-transparent">

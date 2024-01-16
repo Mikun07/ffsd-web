@@ -1,5 +1,8 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import { BASE_URL } from "../../config/api";
+import { userToken } from "../../config/auth";
+import { EnhancedStore } from "@reduxjs/toolkit";
+import { logout } from "../features/loginSlice";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -8,32 +11,39 @@ const axiosInstance = axios.create({
   },
 });
 
-// axiosInstance.interceptors.request.use((config) => {
-//   // set token
-// });
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
-    const errorResponse = error.response;
 
-    if (
-      errorResponse &&
-      (errorResponse.status === 401 || errorResponse === 403) &&
-      !originalRequest._retry
-    ) {
-        originalRequest._retry = true;
-        try {
-            // use refresh token to refresh auth
-            // store the new auth token in originalRequest.headers.Authorization
-        } catch (error) {
-            // logout, clear token
-        }
+export const useInterceptor = (instance: AxiosInstance, store: EnhancedStore) => {
+  instance.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${userToken}`;
+    return config;
+  });
+  
+  instance.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      const originalRequest = error.config;
+      const errorResponse = error.response;
+  
+      if (
+        errorResponse &&
+        (errorResponse.status === 401 || errorResponse === 403) &&
+        !originalRequest._retry
+      ) {
+          originalRequest._retry = true;
+          try {
+              // use refresh token to refresh auth
+              // store the new auth token in originalRequest.headers.Authorization
+          } catch (error) {
+              // logout, clear token
+              store.dispatch(logout())
+              return Promise.reject(error)
+          }
+      }
+
+      return Promise.reject(error)
     }
-  }
-);
-
-// console.log({axiosInstance})
+  );
+}
 
 export default axiosInstance

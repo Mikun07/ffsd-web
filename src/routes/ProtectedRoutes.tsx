@@ -1,17 +1,15 @@
 import { useSelector } from "react-redux";
 import { Outlet, Navigate } from "react-router";
 import { useLocation } from "react-router-dom";
+import { userToken } from "../config/auth";
 
 const PROTECTED_ROUTES = () => {
-  const isLoggedIn = useSelector((state) => state?.login?.isLoggedIn);
-
-  console.log({isLoggedIn})
+  const isLoggedIn = useSelector((state) => state?.login?.isLoggedIn) || !!userToken;
 
   const location = useLocation();
   return isLoggedIn ? (
     <Outlet />
   ) : (
-    // add token
     <Navigate to={"/login"} state={{ from: location }} replace />
   );
 };

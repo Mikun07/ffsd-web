@@ -80,7 +80,6 @@ function OTPPage() {
       );
 
       if (OTPResult.data[0].success === true) {
-        console.log(OTPResult.data[0].success);
         navigate("/login")
         toast.success(OTPResult.data[0].message);
       }
@@ -104,7 +103,6 @@ function OTPPage() {
           },
         }
       );
-      console.log({ OTPResend });
       if (OTPResend.success === true) {
         toast.success(OTPResend.data.message);
       }

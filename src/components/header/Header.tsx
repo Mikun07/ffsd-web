@@ -1,18 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BellIcon from "../../assets/icons/BellIcon";
 import SidebarButton from "../button/SidebarButton";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../../redux/features/userSlice";
 
 function Header() {
-  const [profile, setProfile] = [{ Name: "Festus-Olaleye Ayomikun" }];
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state?.user?.data);
+
+  async function getUser() {
+    dispatch(fetchUser());
+  }
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <>
-      <div className="flex h-12 px-4 py-2 bg-white w-full sticky top-0 justify-between">
+      <div className="flex h-14 px-4 py-2 bg-gray-200 w-full sticky z-20 top-0 shadow-sm justify-between">
         <div className="flex items-center gap-3">
           <div className="lg:hidden flex">
             <SidebarButton />
           </div>
           <p className="lg:flex hidden font-bold capitalize text-[15px] gap-1">
-            Hi<span className="text-[#D4973B]"> Festus-olaleye ayomikun</span>
+            Hi
+            <span className="text-[#D4973B]">
+              {user?.lastName} {user?.firstName}
+            </span>
           </p>
         </div>
 
@@ -25,9 +40,9 @@ function Header() {
           </button>
 
           <div className="h-[35px] w-[35px] text-xl rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
-            <p className="font-semibold lg:text-[20px] text-[18px]">
-              {profile.Name.split(" ")[0][0]}
-              {profile.Name.split(" ")[1][0]}
+            <p className="font-semibold text-[18px]">
+              {user?.firstName[0]}
+              {user?.lastName[0]}
             </p>
           </div>
         </div>

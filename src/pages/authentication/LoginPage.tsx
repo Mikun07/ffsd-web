@@ -30,7 +30,6 @@ function LoginPage() {
   } = useForm({ mode: "all" });
 
   const loginFields = watch("email");
-  console.log({ isValid });
 
   function login(data) {
     dispatch(postLogin({ ...data }))

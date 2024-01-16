@@ -18,7 +18,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 function VerifyDocumentPage() {
-  const [countryData, setCountryData] = useState(null);
+  const [countryData, setCountryData] = useState([]);
 
   useEffect(() => {
     axios
@@ -133,20 +133,28 @@ function VerifyDocumentPage() {
     handleSubmit,
   } = useForm({ resolver: zodResolver(DocumentSchema), mode: "all" });
 
-  const allValues = watch();
-  console.log({ allValues, isValid });
+  const {
+    getValues: docUploadGetValues,
+    watch: docUploadWatch,
+    setValue: docUploadSetValue,
+    formState: { errors: docUploadErrors, isValid: docUploadIsValid },
+    register: docUploadRegister,
+    control: docUploadControl
+  } = useForm({ mode: "all" });
 
   const formSteps = [
     <DocumentDetails setValue={setValue} errors={errors} register={register} />,
     <UploadDocument
-      setValue={setValue}
+      setValue={docUploadSetValue}
       countryOptions={countryOptions}
       EducationOptions={EducationOptions}
       professionalCertificateOptions={professionalCertificateOptions}
       DocumentOptions={DocumentOptions}
       financialRecordOptions={financialRecordOptions}
-      errors={errors}
-      register={register}
+      errors={docUploadErrors}
+      register={docUploadRegister}
+      isValid={docUploadIsValid}
+      control={docUploadControl}
     />,
     // <ReviewDetails
     //   details={[
@@ -183,8 +191,8 @@ function VerifyDocumentPage() {
 
   return (
     <>
-      <div className="flex flex-col mb-16 gap-4 h-full lg:px-4">
-        <div className="bg-slate-100 p-3 z-10 sticky top-4 rounded-lg">
+      <div className="flex flex-col gap-4 h-full mt-2 lg:px-2">
+        <div className="bg-slate-100 px-4 py-2 z-10 sticky top-4 rounded-lg">
           <ProgressBar
             progressSteps={formTitles}
             currentStepIndex={currentStepIndex}
@@ -192,7 +200,7 @@ function VerifyDocumentPage() {
           />
         </div>
 
-        <div className="mb-16 p-2 overflow-y-auto custom__scrollbar">
+        <div className="mb-16 py-2 px-1 overflow-y-auto custom__scrollbar">
           <form className="flex flex-col gap-[4rem]">{step}</form>
           <div className="flex py-2 mt-2 flex-col">
             {!isLastStep ? (

@@ -90,7 +90,6 @@ function OrganizationForm() {
   ];
 
   const allValues = watch();
-  console.log({ allValues });
   const industry = watch("industry");
   const country = watch("country");
 
@@ -167,7 +166,6 @@ function OrganizationForm() {
         if (success === true) {
           navigate("/signup/otp");
         } else {
-          console.log(result);
           // toast.error(result?.payload?.error);
         }
       })

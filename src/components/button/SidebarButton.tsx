@@ -8,9 +8,12 @@ import ArchiveIcon from "../../assets/icons/ArchiveIcon";
 import ManageUserIcon from "../../assets/icons/ManageUserIcon";
 import ReceiptIcon from "../../assets/icons/ReceiptIcon";
 import LogoutIcon from "../../assets/icons/LogoutIcon";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/features/loginSlice";
 
 function SidebarButton() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
 
@@ -42,9 +45,8 @@ function SidebarButton() {
     },
   ];
 
-  function logout() {
-    localStorage.setItem("authToken", null);
-    navigate("/login");
+  function signOut() {
+    dispatch(logout())
   }
 
   return (
@@ -92,7 +94,7 @@ function SidebarButton() {
           </div>
 
           <button
-            onClick={logout}
+            onClick={signOut}
             className={`flex items-center w-full mx-4 p-1 gap-2 text-[#D43B3B]`}
           >
             <LogoutIcon />

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../api/axios";
 import axios from "axios";
 import { BASE_URL } from "../../config/api";
 
@@ -7,7 +6,7 @@ const initialState = {
   success: false,
   data: null,
   error: null,
-  isLoggedIn: JSON.parse(localStorage.getItem("userToken")),
+  isLoggedIn: false,
 };
 
 export const postLogin = createAsyncThunk("login/postSignUp", async (body) => {
@@ -23,8 +22,11 @@ const loginSlice = createSlice({
   name: "login",
   initialState,
   reducers: {
-    resetSuccess: (state) => {
-      (state.success = false), (state.error = null), (state.isLoggedIn = false);
+    logout: (state) => {
+      localStorage.setItem("userToken", "")
+      state.isLoggedIn = false;
+      state.data = null;
+      location.assign('/')
     },
   },
   extraReducers: (builder) => {
@@ -32,10 +34,9 @@ const loginSlice = createSlice({
       const { payload } = action;
       if (payload?.data?.errors) {
         (state.success = false),
-        (state.data = null),
-        (state.error = payload?.data?.errors);
+          (state.data = null),
+          (state.error = payload?.data?.errors);
       } else {
-        console.log({payload: payload?.data})
         localStorage.setItem("userToken", JSON.stringify(payload?.data?.token));
         (state.success = true),
           (state.isLoggedIn = true),
@@ -48,5 +49,7 @@ const loginSlice = createSlice({
     });
   },
 });
+
+export const {logout} = loginSlice.actions
 
 export default loginSlice;

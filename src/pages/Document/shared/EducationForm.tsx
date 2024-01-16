@@ -44,7 +44,7 @@ const EducationForm = ({
               {...register("matricNumber", {
                 required: {
                   value: true,
-                  message: "matricNumber is required",
+                  message: "ID is required",
                 },
               })}
               onChange={(e) => setValue("matricNumber", e.target.value)}
@@ -57,7 +57,7 @@ const EducationForm = ({
               {...register("schoolNameEduc", {
                 required: {
                   value: true,
-                  message: "matricNumber is required",
+                  message: "School Name is required",
                 },
               })}
               onChange={(e) => setValue("schoolNameEduc", e.target.value)}
@@ -125,7 +125,10 @@ const EducationForm = ({
               title={"Course Studied"}
               errors={errors}
               {...register("courseOrSubject", {
-                required: true,
+                required: {
+                  value: true,
+                  message: "Course is required",
+                },
               })}
               onChange={(e) => setValue("courseOrSubject", e.target.value)}
             />

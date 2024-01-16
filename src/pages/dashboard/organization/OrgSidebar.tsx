@@ -9,10 +9,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from "../../../assets/icons/LogoutIcon";
 import LeftOutlineIcon from "../../../assets/icons/LeftOutlineIcon";
 import SchoolIcon from "../../../assets/icons/SchoolIcon";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../redux/features/loginSlice";
 
 function OrgSidebar() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   const [open, setOpen] = useState(true);
 
@@ -45,14 +48,13 @@ function OrgSidebar() {
     },
     {
       name: " Manage account",
-      url: "",
+      url: "/org/account",
       icon: <AccountIcon width="25" height="25" />,
     },
   ];
 
-  function logout() {
-    localStorage.setItem("authToken", null);
-    navigate("/login");
+  function signOut() {
+    dispatch(logout())
   }
 
   return (
@@ -60,16 +62,16 @@ function OrgSidebar() {
       <div
         className={`${
           open ? "w-64" : "w-16"
-        } duration-300 relative h-screen lg:flex hidden flex-col justify-between bg-slate-200 shadow-sm shadow-primary py-2`}
+        } duration-300 relative h-screen lg:flex hidden flex-col justify-between bg-gray-200 z-30 shadow-md py-2`}
       >
-        <div
+        {/* <div
           onClick={() => setOpen(!open)}
           className={`${
             !open && "rotate-180"
           } h-6 w-6 z-20 border-[1px] cursor-pointer flex items-center justify-center border-primary absolute bg-white text-primary top-6 -right-3 rounded-full`}
         >
           <LeftOutlineIcon />
-        </div>
+        </div> */}
         <div className={`flex items-center gap-2 mx-4 p-1`}>
           <img src={LogoDP} alt="" className={`w-[70px]`} />
           <p
@@ -118,8 +120,8 @@ function OrgSidebar() {
         </div>
 
         <button
-          onClick={logout}
-          className={`flex items-center w-full mx-4 p-1 gap-2 text-[#D43B3B]`}
+          onClick={signOut}
+          className={`flex items-center w-full px-4 pt-2 border-t-2 border-gray-300 p-1 gap-2 text-[#D43B3B]`}
         >
           <LogoutIcon />
           <p className={`${!open && "hidden"} duration-200 flex font-bold`}>

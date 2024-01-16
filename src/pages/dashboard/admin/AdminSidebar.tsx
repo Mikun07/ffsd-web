@@ -8,9 +8,12 @@ import ManageUserIcon from "../../../assets/icons/ManageUserIcon";
 import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
 import Logo from "../../../assets/Logo.png";
 import SchoolIcon from "../../../assets/icons/SchoolIcon";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../redux/features/loginSlice";
 
 function AdminSidebar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
 
   const [open, setOpen] = useState(true);
@@ -48,9 +51,8 @@ function AdminSidebar() {
     },
   ];
 
-  function logout() {
-    localStorage.setItem("authToken", null);
-    navigate("/login");
+  function signOut() {
+    dispatch(logout());
   }
   return (
     <>
@@ -110,7 +112,7 @@ function AdminSidebar() {
         </div>
 
         <button
-          onClick={logout}
+          onClick={signOut}
           className={`${
             !open && "flex items-center justify-center mx-0"
           } flex items-center w-full mx-4 p-1 gap-2 text-[#D43B3B]`}

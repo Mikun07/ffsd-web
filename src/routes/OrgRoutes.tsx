@@ -1,5 +1,6 @@
 import VerifyDocumentPage from "../pages/Document/VerifyDocumentPage";
 import OrgDashBoard from "../pages/dashboard/organization/OrgDashBoard";
+import OrgManageAccountPage from "../pages/dashboard/organization/OrgManageAccountPage";
 import OrgManageDocument from "../pages/dashboard/organization/OrgManageDocument";
 
 const OrgDashBoardRoute = {
@@ -20,8 +21,15 @@ const OrgManageDocumentRoute = {
   isProtected: true,
 };
 
+const OrgManageAccountRoute = {
+  link: "/org/account",
+  element: <OrgManageAccountPage />,
+  isProtected: true,
+}
+
 export const ORG_ROUTES = [
   OrgDashBoardRoute,
   VerifyDocumentPageRoute,
   OrgManageDocumentRoute,
+  OrgManageAccountRoute,
 ];

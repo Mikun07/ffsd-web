@@ -19,6 +19,8 @@ const UploadDocument = ({
   setValue,
   errors,
   register,
+  isValid,
+  control,
 }) => {
   const [fileSections, updateFileSection] = useState([
     {
@@ -26,13 +28,10 @@ const UploadDocument = ({
       formDataContent: null,
     },
   ]);
-
-  console.log({ fileSections });
   function handleDocumentCategorySelection(
     documentCategoryValue,
     fileSectionIndex
   ) {
-    console.log({ documentCategoryValue, fileSectionIndex });
     const newArray = [...fileSections];
     const documentCategory = documentCategoryValue?.value?.label || null;
     newArray[fileSectionIndex].documentCategory = documentCategory;
@@ -103,6 +102,7 @@ const UploadDocument = ({
         register={register}
         EducationOptions={EducationOptions}
         countryOptions={countryOptions}
+        control={control}
       />
     ),
     "Professional Certification": (
@@ -146,10 +146,13 @@ const UploadDocument = ({
               <SelectInput
                 label="File to you want to upload"
                 options={DocumentOptions}
-                handleChange={(documentCategoryValue) =>
-                  handleDocumentCategorySelection(documentCategoryValue, index)
-                }
-                value={fileSections[index]?.documentCategory}
+                control={control}
+                {...register("documentCategory", {
+                  required: true,
+                })}
+                handleChange={(documentCategoryValue) => {
+                  handleDocumentCategorySelection(documentCategoryValue, index);
+                }}
               />
 
               <div>

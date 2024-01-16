@@ -78,7 +78,6 @@ function IndividualForm() {
   const country = watch("country");
 
   const allValues = watch();
-  console.log({ allValues });
 
   const formSteps = [
     <AccountInfo
@@ -141,7 +140,6 @@ function IndividualForm() {
       if (success === true) {
         navigate("/signup/otp");
       } else {
-        // console.log(result?.payload?.response?.data?.errors);
         // toast.error(result?.payload?.response?.data?.errors);
       }
     })
