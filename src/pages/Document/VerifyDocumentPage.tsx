@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import UploadDocument from "./UploadDocument";
 import ReviewDetails from "./shared/ReviewDetails";
 import ProgressBar from "../../components/progressBar/ProgressBar";
@@ -16,6 +16,7 @@ import axios from "axios";
 import { BASE_URL } from "../../config/api";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { startCase } from "lodash";
 
 function VerifyDocumentPage() {
   const [countryData, setCountryData] = useState([]);
@@ -79,51 +80,50 @@ function VerifyDocumentPage() {
     },
   ];
 
-  const DocumentSchema = z
-    .object({
-      firstName: z.string().min(2).max(30),
-      lastName: z.string().min(2).max(30),
-      middleName: z.string().min(2).max(30),
-      dob: z.string(),
-      matricNumber: z.string(),
-      dateOfIssueEduc: z.string(),
-      schoolCountryEduc: z.string(),
-      schoolNameEduc: z.string(),
-      schoolCity: z.string(),
-      enrollmentYearEduc: z.string().min(4).max(4),
-      graduationYearEduc: z.string().min(4).max(4),
-      addInfo: z.string(),
-      courseOrSubject: z.string(),
-      studentIdProf: z.string(),
-      qualificationProf: z.string(),
-      enrolmentStatusProf: z.string(),
-      schoolNameProf: z.string(),
-      enrollmentYearProf: z.string().min(4).max(4),
-      graduationYearProf: z.string().min(4).max(4),
-      addInfoProf: z.string(),
-      profCourse: z.string(),
-      finName: z.string(),
-      finInfo: z.string(),
-      // finDocFile: z.string(),
-      // fileDocProf: z.string(),
-      // fileDocEduc: z.string(),
-    })
-    // .refine(
-    //   (value) => {
-    //     // Ensure the person is at least 15 years old
-    //     const currentDate = new Date();
-    //     const minimumAllowedDate = new Date(
-    //       currentDate.getFullYear() - 15,
-    //       currentDate.getMonth(),
-    //       currentDate.getDate()
-    //     );
-    //     return value <= minimumAllowedDate;
-    //   },
-    //   {
-    //     message: "Must be at least 15 years old.",
-    //     path: ["dob"]
-    //   }
-    // );
+  const DocumentSchema = z.object({
+    firstName: z.string().min(2).max(30),
+    lastName: z.string().min(2).max(30),
+    middleName: z.string().min(2).max(30),
+    dob: z.string(),
+    matricNumber: z.string(),
+    dateOfIssueEduc: z.string(),
+    schoolCountryEduc: z.string(),
+    schoolNameEduc: z.string(),
+    schoolCity: z.string(),
+    enrollmentYearEduc: z.string().min(4).max(4),
+    graduationYearEduc: z.string().min(4).max(4),
+    addInfo: z.string(),
+    courseOrSubject: z.string(),
+    studentIdProf: z.string(),
+    qualificationProf: z.string(),
+    enrolmentStatusProf: z.string(),
+    schoolNameProf: z.string(),
+    enrollmentYearProf: z.string().min(4).max(4),
+    graduationYearProf: z.string().min(4).max(4),
+    addInfoProf: z.string(),
+    profCourse: z.string(),
+    finName: z.string(),
+    finInfo: z.string(),
+    // finDocFile: z.string(),
+    // fileDocProf: z.string(),
+    // fileDocEduc: z.string(),
+  });
+  // .refine(
+  //   (value) => {
+  //     // Ensure the person is at least 15 years old
+  //     const currentDate = new Date();
+  //     const minimumAllowedDate = new Date(
+  //       currentDate.getFullYear() - 15,
+  //       currentDate.getMonth(),
+  //       currentDate.getDate()
+  //     );
+  //     return value <= minimumAllowedDate;
+  //   },
+  //   {
+  //     message: "Must be at least 15 years old.",
+  //     path: ["dob"]
+  //   }
+  // );
 
   const {
     watch,
@@ -139,8 +139,39 @@ function VerifyDocumentPage() {
     setValue: docUploadSetValue,
     formState: { errors: docUploadErrors, isValid: docUploadIsValid },
     register: docUploadRegister,
-    control: docUploadControl
+    control: docUploadControl,
   } = useForm({ mode: "all" });
+
+  const docUploadValueObj = docUploadWatch();
+  const reviewValues = docUploadValueObj["documentCategory"]?.map(
+    (item, index) => ({
+      title: item?.label,
+      content: Object.keys(docUploadValueObj)
+        ?.filter((i) => i != "documentCategory")
+        ?.map((contentItem) => ({
+          title: startCase(contentItem),
+          data:
+            docUploadValueObj[contentItem][index]?.label ||
+            docUploadValueObj[contentItem][index],
+        })),
+    })
+  ) || [];
+  console.log({ reviewValues: reviewValues });
+  console.log(
+    "x",
+    docUploadValueObj["documentCategory"]?.map((item, index) => ({
+      title: item?.label,
+      content: Object.keys(docUploadValueObj)
+        ?.filter((i) => i != "documentCategory")
+        ?.map((contentItem) => ({
+          title: contentItem,
+          data: docUploadValueObj[contentItem][index],
+        })),
+    }))
+  );
+  // console.log("watch: ", Object.entries(docUploadWatch()));
+  // console.log("getValues: ", docUploadGetValues());
+  // console.log("getValues: ", docUploadGetValues()["documentCategory"]);
 
   const formSteps = [
     <DocumentDetails setValue={setValue} errors={errors} register={register} />,
@@ -156,25 +187,7 @@ function VerifyDocumentPage() {
       isValid={docUploadIsValid}
       control={docUploadControl}
     />,
-    // <ReviewDetails
-    //   details={[
-    //     {
-    //       title: "Account Information",
-    //       content: [
-    //         { title: "Firstname", data: firstName },
-    //         { title: "Lastname", data: lastName },
-    //         { title: "Middlename", data: middleName },
-    //         { title: "Date of birth", data: dob },
-    //       ],
-    //     },
-    //     {
-    //       title: "Document Uploaded",
-    //       content: [
-    //         // { title: "Type of File you uploaded", data: document?.label },
-    //       ],
-    //     },
-    //   ]}
-    // />,
+    <ReviewDetails details={reviewValues} />,
   ];
 
   const {
@@ -205,13 +218,11 @@ function VerifyDocumentPage() {
           <div className="flex py-2 mt-2 flex-col">
             {!isLastStep ? (
               <div className="flex justify-end">
-                <Button onClick={next}>
-                  {title.buttonText}
-                </Button>
+                <Button onClick={next}>{title.buttonText}</Button>
               </div>
             ) : (
               <div className="flex justify-end">
-                <Button disabled={!isValid}>{title.buttonText}</Button>
+                <Button>{title.buttonText}</Button>
               </div>
             )}
 

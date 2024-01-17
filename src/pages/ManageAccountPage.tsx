@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "../../../redux/features/loginSlice";
+import { logout } from "../redux/features/loginSlice";
 
-function OrgManageAccountPage() {
+function ManageAccountPage() {
   const navigate = useNavigate();
   const dispatch =  useDispatch();
 
@@ -50,4 +50,4 @@ function OrgManageAccountPage() {
   );
 }
 
-export default OrgManageAccountPage;
+export default ManageAccountPage;

@@ -8,6 +8,9 @@ import { fetchUser } from "../../redux/features/userSlice";
 function Header() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.user?.data);
+  const userLoading = useSelector((state) => state?.user?.loading);
+
+  console.log({ userLoading });
 
   async function getUser() {
     dispatch(fetchUser());
@@ -23,12 +26,16 @@ function Header() {
           <div className="lg:hidden flex">
             <SidebarButton />
           </div>
-          <p className="lg:flex hidden font-bold capitalize text-[15px] gap-1">
-            Hi
-            <span className="text-[#D4973B]">
-              {user?.lastName} {user?.firstName}
-            </span>
-          </p>
+          {userLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <p className="lg:flex hidden font-bold capitalize text-[15px] gap-1">
+              Hi
+              <span className="text-[#D4973B]">
+                {user?.lastName} {user?.firstName}
+              </span>
+            </p>
+          )}
         </div>
 
         <div className="flex items-center gap-3">

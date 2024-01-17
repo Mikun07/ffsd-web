@@ -7,6 +7,7 @@ import { PUBLIC_ROUTES } from "./routes/PublicRoutes";
 import { ORG_ROUTES } from "./routes/OrgRoutes";
 import PROTECTED_ROUTES from "./routes/ProtectedRoutes";
 import ErrorBoundary from "./components/withStatus/error/ErrorBoundary";
+import { Suspense } from "react";
 
 function App() {
   return (
@@ -20,12 +21,28 @@ function App() {
           <Route element={<PROTECTED_ROUTES />}>
             <Route path="admin" element={<AdminLayout />}>
               {ADMIN_ROUTES.map(({ link, element }, index) => (
-                <Route path={link} element={element} key={index} />
+                <Route
+                  path={link}
+                  element={
+                    <ErrorBoundary>
+                      <Suspense fallback={"Loading..."}>{element}</Suspense>
+                    </ErrorBoundary>
+                  }
+                  key={index}
+                />
               ))}
             </Route>
             <Route path="org" element={<OrgLayout />}>
               {ORG_ROUTES.map(({ link, element }, index) => (
-                <Route path={link} element={element} key={index} />
+                <Route
+                  path={link}
+                  element={
+                    <ErrorBoundary>
+                      <Suspense fallback={"Loading..."}>{element}</Suspense>
+                    </ErrorBoundary>
+                  }
+                  key={index}
+                />
               ))}
             </Route>
           </Route>

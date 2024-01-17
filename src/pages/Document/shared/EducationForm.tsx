@@ -10,10 +10,12 @@ const EducationForm = ({
   Education,
   countryOptions,
   errors,
+  control,
   register,
   schoolCountryEduc,
   addInfo,
   fileDocEduc,
+  index
 }) => {
   function setEducation(item) {
     setValue(item?.label, item?.value);
@@ -31,112 +33,114 @@ const EducationForm = ({
         <div className="w-full flex flex-col gap-6">
           <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-4">
             <SelectInput
-              label="File type"
+              label={`fileType.${index}`}
+              title="File Type"
+              control={control}
               options={EducationOptions}
-              value={Education}
               handleChange={setEducation}
             />
 
             <FormTextInput
-              label="matricNumber"
+              label={`matricNumber.${index}`}
               title="School ID or Matric Number"
               errors={errors}
-              {...register("matricNumber", {
+              {...register(`matricNumber.${index}`, {
                 required: {
                   value: true,
                   message: "ID is required",
                 },
               })}
-              onChange={(e) => setValue("matricNumber", e.target.value)}
+              onChange={(e) => setValue(`matricNumber.${index}`, e.target.value)}
             />
 
             <FormTextInput
-              label="schoolNameEduc"
+              label={`schoolNameEduc.${index}`}
               title="School Name"
               errors={errors}
-              {...register("schoolNameEduc", {
+              {...register(`schoolNameEduc.${index}`, {
                 required: {
                   value: true,
                   message: "School Name is required",
                 },
               })}
-              onChange={(e) => setValue("schoolNameEduc", e.target.value)}
+              onChange={(e) => setValue(`schoolNameEduc.${index}`, e.target.value)}
             />
 
             <SelectInput
-              label="country is the school located in"
+              title="School country"
+              label={`schoolCountryEdu.${index}`}
               options={countryOptions}
               handleChange={setCountry}
-              value={schoolCountryEduc}
+              control={control}
             />
 
             <FormTextInput
-              label="schoolCity"
-              title="City is the school located in"
+              label={`schoolCity.${index}`}
+              title="School city"
               errors={errors}
-              {...register("schoolCity", {
+              {...register(`schoolCity.${index}`, {
                 required: {
                   value: true,
                   message: "school city is required",
                 },
               })}
-              onChange={(e) => setValue("schoolCity", e.target.value)}
+              onChange={(e) => setValue(`schoolCity.${index}`, e.target.value)}
             />
 
             <FormTextInput
-              label="enrollmentYearEduc"
+              label={`enrollmentYearEduc.${index}`}
               title="Enrollment Year"
               errors={errors}
-              {...register("enrollmentYearEduc", {
+              {...register(`enrollmentYearEduc.${index}`, {
                 required: {
                   value: true,
                   message: "Enrollment Year is required",
                 },
               })}
-              onChange={(e) => setValue("enrollmentYearEduc", e.target.value)}
+              onChange={(e) => setValue(`enrollmentYearEduc.${index}`, e.target.value)}
             />
 
             <FormTextInput
-              label="graduationYearEduc"
+              label={`graduationYearEduc.${index}`}
               title="Graduation Year"
               errors={errors}
-              {...register("graduationYearEduc", {
+              {...register(`graduationYearEduc.${index}`, {
                 required: {
                   value: true,
                   message: "Graduation Year is required",
                 },
               })}
-              onChange={(e) => setValue("graduationYearEduc", e.target.value)}
+              onChange={(e) => setValue(`graduationYearEduc.${index}`, e.target.value)}
             />
 
             <FormTextInput
-              label="dateOfIssueEduc"
-              title={"Date Certificate was issued"}
+              label={`dateOfIssueEduc.${index}`}
+              title={"Certificate issue date"}
               errors={errors}
-              {...register("dateOfIssueEduc", {
+              {...register(`dateOfIssueEduc.${index}`, {
                 required: true,
               })}
-              onChange={(e) => setValue("dateOfIssueEduc", e.target.value)}
+              onChange={(e) => setValue(`dateOfIssueEduc.${index}`, e.target.value)}
               type="date"
             />
 
             <FormTextInput
-              label="courseOrSubject"
+              label={`courseOrSubject.${index}`}
               title={"Course Studied"}
               errors={errors}
-              {...register("courseOrSubject", {
+              {...register(`courseOrSubject.${index}`, {
                 required: {
                   value: true,
                   message: "Course is required",
                 },
               })}
-              onChange={(e) => setValue("courseOrSubject", e.target.value)}
+              onChange={(e) => setValue(`courseOrSubject.${index}`, e.target.value)}
             />
           </div>
 
           <div>
             <TextAreaInput
-              label="Additional Information"
+              label={`Additional Information.${index}`}
               value={addInfo}
               onChange={(e) => setValue("addInfo", e.target.value)}
             />

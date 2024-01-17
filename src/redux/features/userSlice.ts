@@ -5,6 +5,7 @@ const initialState = {
   data: null,
   success: false,
   error: null,
+  loading: false,
 };
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async (body) => {
@@ -21,6 +22,9 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
+    builder.addCase(fetchUser.pending, (state, action) => {
+      state.loading = true
+    });
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       const { payload } = action;
       if (payload?.data?.errors) {
@@ -32,13 +36,14 @@ const userSlice = createSlice({
         state.data = payload?.data;
         state.error = null;
       }
+      state.loading = false
     });
     builder.addCase(fetchUser.rejected, (state, action) => {
       state.success = false;
       state.error = "Could not fetch user";
+      state.loading = false
     });
   },
 });
 
-
-export default userSlice
+export default userSlice;

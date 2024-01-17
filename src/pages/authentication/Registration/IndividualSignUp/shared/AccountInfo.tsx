@@ -8,6 +8,7 @@ const AccountInfo = ({
   register,
   countryOptions,
   country,
+  control
 }) => {
   function setCountry(item) {
     setValue(item?.label, item?.value);
@@ -88,7 +89,8 @@ const AccountInfo = ({
           label="country"
           options={countryOptions}
           handleChange={setCountry}
-          value={country}
+          // value={country}
+          control={control}
         />
       </div>
     </>

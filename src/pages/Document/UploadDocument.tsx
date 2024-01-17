@@ -28,6 +28,7 @@ const UploadDocument = ({
       formDataContent: null,
     },
   ]);
+
   function handleDocumentCategorySelection(
     documentCategoryValue,
     fileSectionIndex
@@ -95,7 +96,7 @@ const UploadDocument = ({
   }
 
   const DocumentUrl = {
-    Education: (
+    Education: (index: number) => (
       <EducationForm
         setValue={setValue}
         errors={errors}
@@ -103,28 +104,30 @@ const UploadDocument = ({
         EducationOptions={EducationOptions}
         countryOptions={countryOptions}
         control={control}
+        index={index}
       />
     ),
-    "Professional Certification": (
+    "Professional Certification": (index: number) => (
       <ProfessionalCertificateForm
         setValue={setValue}
         errors={errors}
         register={register}
         professionalCertificateOptions={professionalCertificateOptions}
         countryOptions={countryOptions}
+        index={index}
       />
     ),
-    "Financial Record": (
+    "Financial Record": (index: number) => (
       <FinancialRecord
         setValue={setValue}
         errors={errors}
         register={register}
         financialRecordOptions={financialRecordOptions}
         countryOptions={countryOptions}
+        index={index}
       />
     ),
   };
-
   return (
     <>
       <div>
@@ -144,12 +147,10 @@ const UploadDocument = ({
                 </span>
               )}
               <SelectInput
-                label="File to you want to upload"
+                title="File to you want to upload"
+                label={`documentCategory.${index}`}
                 options={DocumentOptions}
                 control={control}
-                {...register("documentCategory", {
-                  required: true,
-                })}
                 handleChange={(documentCategoryValue) => {
                   handleDocumentCategorySelection(documentCategoryValue, index);
                 }}
@@ -157,7 +158,7 @@ const UploadDocument = ({
 
               <div>
                 {fileSections[index].documentCategory &&
-                  DocumentUrl[fileSections[index]?.documentCategory]}
+                  DocumentUrl[fileSections[index]?.documentCategory](index)}
               </div>
             </div>
           );

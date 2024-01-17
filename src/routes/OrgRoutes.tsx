@@ -1,7 +1,8 @@
-import VerifyDocumentPage from "../pages/Document/VerifyDocumentPage";
-import OrgDashBoard from "../pages/dashboard/organization/OrgDashBoard";
-import OrgManageAccountPage from "../pages/dashboard/organization/OrgManageAccountPage";
-import OrgManageDocument from "../pages/dashboard/organization/OrgManageDocument";
+import { lazy } from "react";
+const VerifyDocumentPage = lazy(() => import("../pages/Document/VerifyDocumentPage"))
+const OrgDashBoard = lazy(() => import("../pages/dashboard/organization/OrgDashBoard"))
+const ManageAccountPage = lazy(() => import("../pages/ManageAccountPage")) 
+const OrgManageDocument = lazy(() => import("../pages/dashboard/organization/OrgManageDocument"))
 
 const OrgDashBoardRoute = {
   link: "/org/dashboard",
@@ -21,9 +22,9 @@ const OrgManageDocumentRoute = {
   isProtected: true,
 };
 
-const OrgManageAccountRoute = {
+const ManageAccountRoute = {
   link: "/org/account",
-  element: <OrgManageAccountPage />,
+  element: <ManageAccountPage />,
   isProtected: true,
 }
 
@@ -31,5 +32,5 @@ export const ORG_ROUTES = [
   OrgDashBoardRoute,
   VerifyDocumentPageRoute,
   OrgManageDocumentRoute,
-  OrgManageAccountRoute,
+  ManageAccountRoute,
 ];

@@ -37,7 +37,7 @@ function OrgSidebar() {
       icon: <ArchiveIcon width="25" height="25" />,
     },
     {
-      name: "manage users",
+      name: "manage staff",
       url: "",
       icon: <ManageUserIcon width="25" height="25" />,
     },

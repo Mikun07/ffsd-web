@@ -9,6 +9,7 @@ const CompanyInfo = ({
   register,
   industry,
   country,
+  control,
 }) => {
   function setCountry(item) {
     setValue(item?.label, item?.value);
@@ -20,7 +21,7 @@ const CompanyInfo = ({
   return (
     <>
       <div className="grid grid-cols-2 gap-y-4 gap-x-3">
-      <FormTextInput
+        <FormTextInput
           label="companyName"
           title="company Name"
           errors={errors}
@@ -49,13 +50,15 @@ const CompanyInfo = ({
           label="country"
           options={countryOptions}
           handleChange={setCountry}
-          value={country}
+          // value={country}
+          control={control}
         />
         <SelectInput
           label="industry"
           options={industryOptions}
           handleChange={setIndustry}
-          value={industry}
+          // value={industry}
+          control={control}
         />
       </div>
     </>

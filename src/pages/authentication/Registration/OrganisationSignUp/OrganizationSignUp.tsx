@@ -69,6 +69,7 @@ function OrganizationForm() {
     formState: { errors, isValid },
     handleSubmit,
     getValues,
+    control
   } = useForm({ resolver: zodResolver(OrganizationSchema), mode: "all" });
 
   const formTitles = [
@@ -107,6 +108,7 @@ function OrganizationForm() {
       countryOptions={countryOptions}
       industry={industry}
       country={country}
+      control={control}
     />,
     <ReviewDetails
       details={[

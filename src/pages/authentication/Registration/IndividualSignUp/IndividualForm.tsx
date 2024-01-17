@@ -60,6 +60,7 @@ function IndividualForm() {
     formState: { errors, isValid },
     handleSubmit,
     getValues,
+    control,
   } = useForm({ resolver: zodResolver(IndividualSchema), mode: "all" });
 
   const formTitles = [
@@ -86,6 +87,7 @@ function IndividualForm() {
       register={register}
       countryOptions={countryOptions}
       country={country}
+      control={control}
     />,
     <ReviewDetails
       details={[

@@ -1,14 +1,16 @@
-import React from "react";
-import AdminDashBoard from "../pages/dashboard/admin/AdminDashBoard";
-import VerifyDocumentPage from "../pages/Document/VerifyDocumentPage"
-import AdminAccountPage from "../pages/dashboard/admin/AdminAccountPage";
-import AdminArchivePage from "../pages/dashboard/admin/AdminArchivePage";
-import ManageUserPage from "../pages/dashboard/admin/ManageUserPage";
-import AdminReceiptsPage from "../pages/dashboard/admin/AdminReceiptsPage";
+import { lazy } from "react";
+const AdminDashboard = lazy(() => import("../pages/dashboard/admin/AdminDashBoard"))
+const VerifyDocumentPage = lazy(() => import("../pages/Document/VerifyDocumentPage"))
+const AdminAccountPage = lazy(() => import("../pages/dashboard/admin/AdminAccountPage"))
+const AdminArchivePage = lazy(() => import("../pages/dashboard/admin/AdminArchivePage"))
+const ManageUserPage = lazy(() => import("../pages/dashboard/admin/ManageUserPage"))
+const AdminReceiptsPage = lazy(() => import("../pages/dashboard/admin/AdminReceiptsPage"))
+const ManageAccountPage = lazy(() => import("../pages/ManageAccountPage")) 
+
 
 const AdminDashBoardRoute = {
   link: "/admin/dashboard",
-  element: <AdminDashBoard />,
+  element: <AdminDashboard />,
   isProtected: true
 };
 
@@ -42,11 +44,18 @@ const VerifyDocumentPageRoute = {
   isProtected: true
 };
 
+const ManageAccountRoute = {
+  link: "/admin/account",
+  element: <ManageAccountPage />,
+  isProtected: true,
+}
+
 export const ADMIN_ROUTES = [
   AdminDashBoardRoute,
   AdminArchivePageRoute,
   AdminAccountPageRoute,
   ManageUserPageRoute,
   AdminReceiptsPageRoute,
-  VerifyDocumentPageRoute
+  VerifyDocumentPageRoute,
+  ManageAccountRoute,
 ];
