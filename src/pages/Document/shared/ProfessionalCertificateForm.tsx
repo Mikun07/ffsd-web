@@ -2,6 +2,7 @@ import SelectInput from "../../../components/input/SelectInput";
 import FileInput from "../../../components/input/FileInput";
 import TextAreaInput from "../../../components/input/TextAreaInput";
 import FormTextInput from "../../../components/input/Form/FormTextInput";
+import FormTextAreaInput from "../../../components/input/Form/FormTextAreaInput";
 
 const ProfessionalCertificateForm = ({
   setValue,
@@ -15,6 +16,8 @@ const ProfessionalCertificateForm = ({
   schoolCountryProf,
   addInfoProf,
   fileDocProf,
+  index,
+  control,
 }) => {
   function setCountry(item) {
     setValue(item?.label, item?.value);
@@ -31,100 +34,111 @@ const ProfessionalCertificateForm = ({
         <div className="w-full flex flex-col gap-6">
           <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-4">
             <SelectInput
-              label="Professional Body"
+              label={`schoolNameProf.${index}`}
+              title="Professional Body"
               options={professionalCertificateOptions}
-              value={schoolNameProf}
               handleChange={setProfessionalCertificate}
+              control={control}
             />
 
             <FormTextInput
-              label="studentIdProf"
+              label={`studentIdProf.${index}`}
               title={"Exam ID"}
               errors={errors}
-              {...register("studentIdProf", {
+              {...register(`studentIdProf.${index}`, {
                 required: {
                   value: true,
                   message: "Exam ID is required",
                 },
               })}
-              onChange={(e) => setValue("studentIdProf", e.target.value)}
+              onChange={(e) =>
+                setValue(`studentIdProf..${index}`, e.target.value)
+              }
             />
 
             <FormTextInput
-              label="qualificationProf"
+              label={`qualificationProf.${index}`}
               title={"Qualification gotten"}
               errors={errors}
-              {...register("qualificationProf", {
+              {...register(`qualificationProf.${index}`, {
                 required: {
                   value: true,
-                  message: "Exam ID is required",
+                  message: "required",
                 },
               })}
-              onChange={(e) => setValue("qualificationProf", e.target.value)}
+              onChange={(e) =>
+                setValue(`qualificationProf.${index}`, e.target.value)
+              }
             />
 
             <SelectInput
-              label="country is the school located in"
+              label={`schoolCountryProf.${index}`}
+              title="school country"
               options={countryOptions}
               handleChange={setCountry}
-              value={schoolCountryProf}
+              control={control}
             />
 
             <FormTextInput
-              label="enrolmentStatusProf"
-              title={"Are you a current or past student"}
+              label={`enrolmentStatusProf.${index}`}
+              title={"current or past student"}
               errors={errors}
-              {...register("enrolmentStatusProf", {
+              {...register(`enrolmentStatusProf.${index}`, {
                 required: {
                   value: true,
-                  message: "enrollment Status is required",
+                  message: "Status is required",
                 },
               })}
-              onChange={(e) => setValue("enrolmentStatusProf", e.target.value)}
+              onChange={(e) =>
+                setValue(`enrolmentStatusProf.${index}`, e.target.value)
+              }
             />
 
             <FormTextInput
-              label="enrollmentYearProf"
+              label={`enrollmentYearProf.${index}`}
               title={"Enrollment Year"}
               errors={errors}
-              {...register("enrollmentYearProf", {
+              {...register(`enrollmentYearProf.${index}`, {
                 required: {
                   value: true,
                   message: "Enrollment Year is required",
                 },
               })}
-              onChange={(e) => setValue("enrollmentYearProf", e.target.value)}
+              onChange={(e) =>
+                setValue(`enrollmentYearProf.${index}`, e.target.value)
+              }
             />
 
             <FormTextInput
-              label="graduationYearProf"
+              label={`enrollmentYearProf.${index}`}
               title={"Graduation Year"}
               errors={errors}
-              {...register("graduationYearProf", {
+              {...register(`enrollmentYearProf.${index}`, {
                 required: {
                   value: true,
                   message: "Graduation Year is required",
                 },
               })}
-              onChange={(e) => setValue("graduationYearProf", e.target.value)}
+              onChange={(e) => setValue(`enrollmentYearProf.${index}`, e.target.value)}
             />
 
             <FormTextInput
-              label="profCourse"
+              label={`profCourse.${index}`}
               title={"Course Studied"}
               errors={errors}
-              {...register("profCourse", {
+              {...register(`profCourse.${index}`, {
                 required: true,
               })}
-              onChange={(e) => setValue("profCourse", e.target.value)}
+              onChange={(e) => setValue(`profCourse.${index}`, e.target.value)}
             />
           </div>
 
           <div>
-            <TextAreaInput
-              label="Additional Information"
-              value={addInfoProf}
-              onChange={(e) => setValue("addInfoProf", e.target.value)}
+            <FormTextAreaInput
+              title="Additional Information"
+              label={`addInfoProf.${index}`}
+              errors={errors}
+              onChange={(e) => setValue(`addInfoProf.${index}`, e.target.value)}
             />
           </div>
         </div>

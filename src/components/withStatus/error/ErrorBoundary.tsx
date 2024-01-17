@@ -30,7 +30,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
           </div>
           <div>
             <h1 className=" capitalize font-medium">
-              Oops something went wrong...Try again Later
+              Oops something went wrong...
             </h1>
           </div>
         </div>

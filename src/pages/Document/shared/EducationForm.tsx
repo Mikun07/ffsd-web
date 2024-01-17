@@ -3,6 +3,7 @@ import SelectInput from "../../../components/input/SelectInput";
 import FileInput from "../../../components/input/FileInput";
 import TextAreaInput from "../../../components/input/TextAreaInput";
 import FormTextInput from "../../../components/input/Form/FormTextInput";
+import FormTextAreaInput from "../../../components/input/Form/FormTextAreaInput";
 
 const EducationForm = ({
   setValue,
@@ -139,10 +140,11 @@ const EducationForm = ({
           </div>
 
           <div>
-            <TextAreaInput
-              label={`Additional Information.${index}`}
-              value={addInfo}
-              onChange={(e) => setValue("addInfo", e.target.value)}
+            <FormTextAreaInput
+              title={"Additional Information"}
+              label={`addInfo.${index}`}
+              errors={errors}
+              onChange={(e) => setValue(`addInfo.${index}`, e.target.value)}
             />
           </div>
         </div>

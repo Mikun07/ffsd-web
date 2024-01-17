@@ -114,6 +114,7 @@ const UploadDocument = ({
         register={register}
         professionalCertificateOptions={professionalCertificateOptions}
         countryOptions={countryOptions}
+        control={control}
         index={index}
       />
     ),
@@ -124,6 +125,7 @@ const UploadDocument = ({
         register={register}
         financialRecordOptions={financialRecordOptions}
         countryOptions={countryOptions}
+        control={control}
         index={index}
       />
     ),
