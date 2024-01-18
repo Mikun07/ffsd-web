@@ -60,7 +60,7 @@ const ProgressBar: FC<ProgressBarProps> = ({
             <hr className={currentStepIndex > index ? "done" : "not-done"} />
           </div>
           {showStepTitle && vertical && (
-            <div className={step.info ? "title-info" : "title"}>
+            <div className={step.info ? "title-info lg:text-[15px] text-[10px]" : "title lg:text-[15px] text-[10px]"}>
               <h3 className={currentStepIndex >= index ? "current" : ""}>
                 {typeof step === "object" ? step.title : step}
               </h3>

@@ -7,6 +7,7 @@ import {
   DocumentCategories,
   DocumentCategoryMap,
   FileSection,
+  getFormDataContent,
 } from "../../types/global/verifydocuments/fileSections";
 import { AiFillCloseCircle } from "react-icons/ai";
 
@@ -40,44 +41,6 @@ const UploadDocument = ({
     const formContent = getFormDataContent(documentCategory);
     newArray[fileSectionIndex].formDataContent = formContent;
     updateFileSection(newArray);
-  }
-
-  function getFormDataContent(documentCategory) {
-    const values = {
-      Education: {
-        fileType: null,
-        matricNumber: null,
-        schoolNameEduc: null,
-        schoolCountryEduc: null,
-        schoolCity: null,
-        enrollmentYearEduc: null,
-        graduationYearEduc: null,
-        addInfo: null,
-        courseOrSubject: null,
-        fileDocEduc: null,
-      },
-      "Professional Certification": {
-        schoolNameProf: null,
-        studentIdProf: null,
-        qualificationProf: null,
-        schoolCountryProf: null,
-        enrolmentStatusProf: null,
-        enrollmentYearProf: null,
-        graduationYearProf: null,
-        profCourse: null,
-        addInfoProf: null,
-        fileDocProf: null,
-      },
-      "Financial Record": {
-        financialRecord: null,
-        finName: null,
-        finCountry: null,
-        finInfo: null,
-        finDocFile: null,
-      },
-    };
-
-    return values[documentCategory];
   }
 
   function addNewFileSection() {
@@ -149,7 +112,7 @@ const UploadDocument = ({
                 </span>
               )}
               <SelectInput
-                title="File to you want to upload"
+                title="Document category"
                 label={`documentCategory.${index}`}
                 options={DocumentOptions}
                 control={control}

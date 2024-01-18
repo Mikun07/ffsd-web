@@ -112,22 +112,6 @@ function VerifyDocumentPage() {
     // fileDocProf: z.string(),
     // fileDocEduc: z.string(),
   });
-  // .refine(
-  //   (value) => {
-  //     // Ensure the person is at least 15 years old
-  //     const currentDate = new Date();
-  //     const minimumAllowedDate = new Date(
-  //       currentDate.getFullYear() - 15,
-  //       currentDate.getMonth(),
-  //       currentDate.getDate()
-  //     );
-  //     return value <= minimumAllowedDate;
-  //   },
-  //   {
-  //     message: "Must be at least 15 years old.",
-  //     path: ["dob"]
-  //   }
-  // );
 
   const {
     watch,
@@ -147,7 +131,11 @@ function VerifyDocumentPage() {
   } = useForm({ mode: "all" });
 
   const docUploadValueObj = docUploadWatch();
-  const reviewValues =
+  const documentDetailsValues = watch();
+
+  console.log({ documentDetailsValues });
+
+  const docUploadValues =
     docUploadValueObj["documentCategory"]?.map((item, index) => ({
       title: item?.label,
       content: Object.keys(docUploadValueObj)
@@ -160,7 +148,8 @@ function VerifyDocumentPage() {
         })),
     })) || [];
 
-  let formattedReviewValues = reviewValues?.map((x) => {
+  let formattedReviewValues = docUploadValues?.map((x) => {
+    console.log({x})
     const expectedKeys = Object.keys(getFormDataContent(x?.title));
     const providedContent = x?.content || [];
 
@@ -170,22 +159,33 @@ function VerifyDocumentPage() {
       .filter((contentItem) => expectedKeys.includes(contentItem?.title))
       .map((contentItem) => ({
         title: keyLabels[contentItem?.title] || contentItem?.title,
-        data: contentItem?.data,
+        data: Array.isArray(contentItem?.data)
+          ? contentItem?.data?.map((fileItem) => fileItem?.name).join(" ")
+          : contentItem?.data,
       }));
-
-    // console.log({
-    //   expectedKeys,
-    //   providedKeys: filteredContent.map((c) => c?.title),
-    // });
 
     return {
       title: x?.title,
       content: filteredContent,
     };
   });
-  console.log({ formattedReviewValues });
 
-  const allValues = watch();
+  const reviewValues = [
+    {
+      title: "Applicant Information",
+      content: [
+        ...Object.entries(documentDetailsValues)?.map(
+          ([itemKey, itemValue], index) => {
+            return {
+              title: startCase(itemKey),
+              data: itemValue,
+            };
+          }
+        ),
+      ],
+    },
+    ...formattedReviewValues,
+  ];
 
   const formSteps = [
     <DocumentDetails setValue={setValue} errors={errors} register={register} />,
@@ -202,7 +202,7 @@ function VerifyDocumentPage() {
       control={docUploadControl}
     />,
 
-    <ReviewDetails details={formattedReviewValues} />,
+    <ReviewDetails details={reviewValues} />,
   ];
 
   const {

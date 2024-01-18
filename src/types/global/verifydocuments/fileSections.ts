@@ -110,7 +110,7 @@ export function getFormDataLabels(documentCategory) {
       graduationYearEduc: "Graduation Year",
       addInfo: "Additional Information",
       courseOrSubject: "Course Studied",
-      fileDocEduc: "File uploaded",
+      fileDocEduc: "uploaded files",
     },
     "Professional Certification": {
       schoolNameProf: "Professional Body",
