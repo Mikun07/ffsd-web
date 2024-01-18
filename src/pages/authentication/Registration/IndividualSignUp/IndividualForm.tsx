@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // import toast from "react-hot-toast";
-import { BASE_URL } from "../../../../config/api";
+// import { BASE_URL } from "../../../../config/api";
 import { postSignUp } from "../../../../redux/features/signupSlice";
 import { useDispatch } from "react-redux";
 import Button from "../../../../components/button/Button";
@@ -19,25 +19,25 @@ function IndividualForm() {
   const navigate = useNavigate();
   const [countryData, setCountryData] = useState(null);
 
-  const countryOptions =
-    countryData?.map((country) => ({
-      label: country?.name,
-      value: country?.id,
-    })) || [];
+  // const countryOptions =
+  //   countryData?.map((country) => ({
+  //     label: country?.name,
+  //     value: country?.id,
+  //   })) || [];
 
-  useEffect(() => {
-    axios
-      .post(`${BASE_URL}/countries`, {
-        access: "docs_verify_frontend",
-      })
-      .then((response) => {
-        const data = response.data?.data;
-        setCountryData(data);
-      })
-      .catch((error) => {
-        error("Error fetching data:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .post(`${BASE_URL}/countries`, {
+  //       access: "docs_verify_frontend",
+  //     })
+  //     .then((response) => {
+  //       const data = response.data?.data;
+  //       setCountryData(data);
+  //     })
+  //     .catch((error) => {
+  //       error("Error fetching data:", error);
+  //     });
+  // }, []);
 
   const IndividualSchema = z
     .object({
@@ -76,8 +76,6 @@ function IndividualForm() {
     },
   ];
 
-  const country = watch("country");
-
   const allValues = watch();
 
   const formSteps = [
@@ -85,9 +83,6 @@ function IndividualForm() {
       setValue={setValue}
       errors={errors}
       register={register}
-      countryOptions={countryOptions}
-      country={country}
-      control={control}
     />,
     <ReviewDetails
       details={[
@@ -98,7 +93,7 @@ function IndividualForm() {
             { title: "Lastname", data: allValues.lastname },
             { title: "Phone Number", data: allValues.phone },
             { title: "Email", data: allValues.email },
-            { title: "Country", data: country?.label },
+            // { title: "Country", data: country?.label },
           ],
         },
       ]}
@@ -117,10 +112,6 @@ function IndividualForm() {
     isLastStep,
   } = useMultiStepForm(formSteps, formTitles);
 
-  // function setCountry(item) {
-  //   setValue(item?.label, item?.value);
-  // }
-
   function signUp(signUpValues) {
     const signUpData = {
       firstName: signUpValues?.firstname,
@@ -130,7 +121,7 @@ function IndividualForm() {
       password: signUpValues?.password,
       password_confirmation: signUpValues?.confirmPassword,
       category: "indv",
-      country: signUpValues?.country?.value,
+      // country: signUpValues?.country?.value,
     };
 
     dispatch(postSignUp({ ...signUpData }))

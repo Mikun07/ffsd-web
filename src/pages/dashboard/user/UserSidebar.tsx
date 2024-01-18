@@ -1,53 +1,47 @@
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import LogoutIcon from "../../../assets/icons/LogoutIcon";
-import AccountIcon from "../../../assets/icons/AccountIcon";
-import DashboardIcon from "../../../assets/icons/DashboardIcon";
-import ArchiveIcon from "../../../assets/icons/ArchiveIcon";
-import ManageUserIcon from "../../../assets/icons/ManageUserIcon";
-import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
-import Logo from "../../../assets/Logo.png";
-import SchoolIcon from "../../../assets/icons/SchoolIcon";
+import LogoDP from "../../../assets/Logo.png";
 import { useDispatch } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import DashboardIcon from "../../../assets/icons/DashboardIcon";
+import SchoolIcon from "../../../assets/icons/SchoolIcon";
+import ArchiveIcon from "../../../assets/icons/ArchiveIcon";
+import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
+import AccountIcon from "../../../assets/icons/AccountIcon";
 import { logout } from "../../../redux/features/loginSlice";
+import LogoutIcon from "../../../assets/icons/LogoutIcon";
 
-function AdminSidebar() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+function UserSidebar() {
+//   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
-  const [open, setOpen] = useState(true);
 
   const menu = [
     {
       name: "dashboard",
-      url: "/admin/dashboard",
+      url: "/dashboard",
       icon: <DashboardIcon width="25" height="25" />,
     },
     {
       name: "verify Documents",
-      url: "",
+      url: "/dashboard/verifydocument",
       icon: <SchoolIcon width="25" height="25" />,
     },
+
     {
-      name: " Manage account",
-      url: "",
-      icon: <AccountIcon width="25" height="25" />,
-    },
-    {
-      name: "Manage Verification",
+      name: "Manage Documents",
       url: "",
       icon: <ArchiveIcon width="25" height="25" />,
-    },
-    {
-      name: "manage users",
-      url: "",
-      icon: <ManageUserIcon width="25" height="25" />,
     },
     {
       name: "Manage Receipts",
       url: "",
       icon: <ReceiptIcon width="25" height="25" />,
+    },
+    {
+      name: " Manage account",
+      url: "/dashboard/account",
+      icon: <AccountIcon width="25" height="25" />,
     },
   ];
 
@@ -65,7 +59,9 @@ function AdminSidebar() {
             className={`lg:flex md:flex hidden flex-col leading-4 font-semibold tracking-wider capitalize text-[15px] text-[#40B52D]`}
           >
             Documents
-            <span className={`text-[#D4973B] `}>Verification</span>
+            <span className={`text-[#D4973B] `}>
+              Verification
+            </span>
           </p>
         </div>
 
@@ -83,7 +79,9 @@ function AdminSidebar() {
                     : "w-full mx-4 p-1 rounded-lg hover:bg-gray-300"
                 }
               >
-                <div className={` flex gap-2 items-center `}>
+                <div
+                  className={` flex gap-2 items-center `}
+                >
                   {icon}
                   <p
                     className={`lg:flex md:flex hidden font-semibold capitalize text-sm`}
@@ -101,11 +99,13 @@ function AdminSidebar() {
           className={`flex items-center w-full px-4 pt-2 border-t-2 border-gray-300 p-1 gap-2 text-[#D43B3B]`}
         >
           <LogoutIcon />
-          <p className={`lg:flex md:flex hidden font-bold`}>Logout</p>
+          <p className={`lg:flex md:flex hidden font-bold`}>
+            Logout
+          </p>
         </button>
       </div>
     </>
   );
 }
 
-export default AdminSidebar;
+export default UserSidebar;

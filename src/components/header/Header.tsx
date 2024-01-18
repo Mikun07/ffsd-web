@@ -10,8 +10,6 @@ function Header() {
   const user = useSelector((state) => state?.user?.data);
   const userLoading = useSelector((state) => state?.user?.loading);
 
-  console.log({ userLoading });
-
   async function getUser() {
     dispatch(fetchUser());
   }
@@ -23,11 +21,10 @@ function Header() {
     <>
       <div className="flex h-14 px-4 py-2 bg-gray-200 w-full sticky z-20 top-0 shadow-sm justify-between">
         <div className="flex items-center gap-3">
-          <div className="lg:hidden flex">
-            <SidebarButton />
-          </div>
           {userLoading ? (
-            <p>Loading...</p>
+            <div className="flex w-[350px] animate-pulse">
+              <div className=" h-4  bg-[#D4973B] rounded-lg p-2 w-full"></div>
+            </div>
           ) : (
             <p className="lg:flex hidden font-bold capitalize text-[15px] gap-1">
               Hi
@@ -45,12 +42,17 @@ function Header() {
               <p className="text-white text-[9px] font-medium">5</p>
             </div>
           </button>
-
-          <div className="h-[35px] w-[35px] text-xl rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
-            <p className="font-semibold text-[18px]">
-              {user?.firstName[0]}
-              {user?.lastName[0]}
-            </p>
+          <div>
+            {userLoading ? (
+              <div className="h-[35px] w-[35px] animate-pulse bg-[#D4973B] rounded-full"></div>
+            ) : (
+              <div className="h-[35px] w-[35px] text-xl rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
+                <p className="font-semibold text-[18px]">
+                  {user?.firstName[0]}
+                  {user?.lastName[0]}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

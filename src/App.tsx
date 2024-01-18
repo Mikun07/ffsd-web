@@ -8,12 +8,14 @@ import { ORG_ROUTES } from "./routes/OrgRoutes";
 import PROTECTED_ROUTES from "./routes/ProtectedRoutes";
 import ErrorBoundary from "./components/withStatus/error/ErrorBoundary";
 import { Suspense } from "react";
+import Loading from "./components/withStatus/loading/Loading";
+import UserLayout from "./pages/layout/UserLayout";
+import { INDIVIDUAL_ROUTES } from "./routes/IndividualRoutes";
 
 function App() {
   return (
     <>
       <Router>
-        {/* <ErrorBoundary> */}
         <Routes>
           {PUBLIC_ROUTES.map(({ link, element }, index) => (
             <Route path={link} element={element} key={index} />
@@ -25,7 +27,7 @@ function App() {
                   path={link}
                   element={
                     <ErrorBoundary>
-                      <Suspense fallback={"Loading..."}>{element}</Suspense>
+                      <Suspense fallback={<Loading />}>{element}</Suspense>
                     </ErrorBoundary>
                   }
                   key={index}
@@ -38,7 +40,20 @@ function App() {
                   path={link}
                   element={
                     <ErrorBoundary>
-                      <Suspense fallback={"Loading..."}>{element}</Suspense>
+                      <Suspense fallback={<Loading />}>{element}</Suspense>
+                    </ErrorBoundary>
+                  }
+                  key={index}
+                />
+              ))}
+            </Route>
+            <Route path="dashboard" element={<UserLayout />}>
+              {INDIVIDUAL_ROUTES.map(({ link, element }, index) => (
+                <Route
+                  path={link}
+                  element={
+                    <ErrorBoundary>
+                      <Suspense fallback={<Loading />}>{element}</Suspense>
                     </ErrorBoundary>
                   }
                   key={index}
@@ -47,7 +62,6 @@ function App() {
             </Route>
           </Route>
         </Routes>
-        {/* </ErrorBoundary> */}
       </Router>
       <Toaster />
     </>

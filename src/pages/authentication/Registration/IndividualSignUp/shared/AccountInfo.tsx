@@ -6,9 +6,9 @@ const AccountInfo = ({
   setValue,
   errors,
   register,
-  countryOptions,
-  country,
-  control
+  // countryOptions,
+  // country,
+  // control
 }) => {
   function setCountry(item) {
     setValue(item?.label, item?.value);
@@ -17,6 +17,7 @@ const AccountInfo = ({
     <>
       <div className="grid grid-cols-2 gap-4">
         <FormTextInput
+          title="Firstname"
           label="firstname"
           errors={errors}
           {...register("firstname", {
@@ -65,33 +66,23 @@ const AccountInfo = ({
         <FormPasswordInput
           label="password"
           errors={errors}
-          {...register("password", {
-            required: {
-              value: true,
-              message: "Password is required",
-            },
-          })}
+          {...register("password", { required: true })}
           onChange={(e) => setValue("password", e.target.value)}
         />
         <FormPasswordInput
           label="confirmPassword"
           title="confirm password"
           errors={errors}
-          {...register("confirmPassword", {
-            required: {
-              value: true,
-              message: "Confirm Password is required",
-            },
-          })}
+          {...register("confirmPassword", { required: true })}
           onChange={(e) => setValue("confirmPassword", e.target.value)}
         />
-        <SelectInput
+        {/* <SelectInput
           label="country"
           options={countryOptions}
           handleChange={setCountry}
           // value={country}
           control={control}
-        />
+        /> */}
       </div>
     </>
   );

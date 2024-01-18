@@ -25,7 +25,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     if (this.state.hasError) {
       return (
         <div className="flex gap-2 flex-col w-full h-screen justify-center items-center">
-          <div className="w-[540px]">
+          <div className="lg:w-[540px] md:w-[440px] sm:w-[340px] w-[240px]">
             <ErrorIMG />
           </div>
           <div>

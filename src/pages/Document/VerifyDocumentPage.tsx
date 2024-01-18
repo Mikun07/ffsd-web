@@ -17,6 +17,10 @@ import { BASE_URL } from "../../config/api";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { startCase } from "lodash";
+import {
+  getFormDataContent,
+  getFormDataLabels,
+} from "../../types/global/verifydocuments/fileSections";
 
 function VerifyDocumentPage() {
   const [countryData, setCountryData] = useState([]);
@@ -143,35 +147,45 @@ function VerifyDocumentPage() {
   } = useForm({ mode: "all" });
 
   const docUploadValueObj = docUploadWatch();
-  const reviewValues = docUploadValueObj["documentCategory"]?.map(
-    (item, index) => ({
-      title: item?.label,
-      content: Object.keys(docUploadValueObj)
-        ?.filter((i) => i != "documentCategory")
-        ?.map((contentItem) => ({
-          title: startCase(contentItem),
-          data:
-            docUploadValueObj[contentItem][index]?.label ||
-            docUploadValueObj[contentItem][index],
-        })),
-    })
-  ) || [];
-  console.log({ reviewValues: reviewValues });
-  console.log(
-    "x",
+  const reviewValues =
     docUploadValueObj["documentCategory"]?.map((item, index) => ({
       title: item?.label,
       content: Object.keys(docUploadValueObj)
         ?.filter((i) => i != "documentCategory")
         ?.map((contentItem) => ({
           title: contentItem,
-          data: docUploadValueObj[contentItem][index],
+          data:
+            docUploadValueObj[contentItem][index]?.label ||
+            docUploadValueObj[contentItem][index],
         })),
-    }))
-  );
-  // console.log("watch: ", Object.entries(docUploadWatch()));
-  // console.log("getValues: ", docUploadGetValues());
-  // console.log("getValues: ", docUploadGetValues()["documentCategory"]);
+    })) || [];
+
+  let formattedReviewValues = reviewValues?.map((x) => {
+    const expectedKeys = Object.keys(getFormDataContent(x?.title));
+    const providedContent = x?.content || [];
+
+    const keyLabels = getFormDataLabels(x?.title);
+
+    const filteredContent = providedContent
+      .filter((contentItem) => expectedKeys.includes(contentItem?.title))
+      .map((contentItem) => ({
+        title: keyLabels[contentItem?.title] || contentItem?.title,
+        data: contentItem?.data,
+      }));
+
+    // console.log({
+    //   expectedKeys,
+    //   providedKeys: filteredContent.map((c) => c?.title),
+    // });
+
+    return {
+      title: x?.title,
+      content: filteredContent,
+    };
+  });
+  console.log({ formattedReviewValues });
+
+  const allValues = watch();
 
   const formSteps = [
     <DocumentDetails setValue={setValue} errors={errors} register={register} />,
@@ -187,7 +201,8 @@ function VerifyDocumentPage() {
       isValid={docUploadIsValid}
       control={docUploadControl}
     />,
-    <ReviewDetails details={reviewValues} />,
+
+    <ReviewDetails details={formattedReviewValues} />,
   ];
 
   const {
@@ -204,7 +219,7 @@ function VerifyDocumentPage() {
 
   return (
     <>
-      <div className="flex flex-col gap-4 h-full mt-2 lg:px-2">
+      <div className="flex flex-col gap-4 h-full mt-2 lg:px-4 px-2">
         <div className="bg-slate-100 px-4 py-2 z-10 sticky top-4 rounded-lg">
           <ProgressBar
             progressSteps={formTitles}

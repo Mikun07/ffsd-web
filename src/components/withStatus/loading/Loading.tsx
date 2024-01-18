@@ -1,9 +1,9 @@
 import React from "react";
 import { Triangle } from "react-loader-spinner";
 
-function Loading({height="80", width="80"}) {
+function Loading({height="80", width="80", className="flex w-full h-screen items-center justify-center"}) {
   return (
-    <div className="flex w-full h-screen items-center justify-center">
+    <div className={className}>
       <Triangle
         visible={true}
         height={height}

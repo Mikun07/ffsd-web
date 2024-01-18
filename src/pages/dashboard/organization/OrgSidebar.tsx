@@ -7,7 +7,6 @@ import ManageUserIcon from "../../../assets/icons/ManageUserIcon";
 import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from "../../../assets/icons/LogoutIcon";
-import LeftOutlineIcon from "../../../assets/icons/LeftOutlineIcon";
 import SchoolIcon from "../../../assets/icons/SchoolIcon";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/features/loginSlice";
@@ -54,35 +53,21 @@ function OrgSidebar() {
   ];
 
   function signOut() {
-    dispatch(logout())
+    dispatch(logout());
   }
 
   return (
     <>
       <div
-        className={`${
-          open ? "w-64" : "w-16"
-        } duration-300 relative h-screen lg:flex hidden flex-col justify-between bg-gray-200 z-30 shadow-md py-2`}
+        className={`lg:w-64 md:w-64 w-16 relative h-screen flex flex-col justify-between bg-gray-200 z-30 shadow-md py-2`}
       >
-        {/* <div
-          onClick={() => setOpen(!open)}
-          className={`${
-            !open && "rotate-180"
-          } h-6 w-6 z-20 border-[1px] cursor-pointer flex items-center justify-center border-primary absolute bg-white text-primary top-6 -right-3 rounded-full`}
-        >
-          <LeftOutlineIcon />
-        </div> */}
         <div className={`flex items-center gap-2 mx-4 p-1`}>
           <img src={LogoDP} alt="" className={`w-[70px]`} />
           <p
-            className={`flex flex-col leading-4 font-semibold tracking-wider capitalize text-[15px] text-[#40B52D] ${
-              !open && "scale-0"
-            }`}
+            className={`lg:flex md:flex hidden flex-col leading-4 font-semibold tracking-wider capitalize text-[15px] text-[#40B52D]`}
           >
             Documents
-            <span className={`text-[#D4973B] ${!open && "scale-0"}`}>
-              Verification
-            </span>
+            <span className={`text-[#D4973B] `}>Verification</span>
           </p>
         </div>
 
@@ -100,16 +85,10 @@ function OrgSidebar() {
                     : "w-full mx-4 p-1 rounded-lg hover:bg-gray-300"
                 }
               >
-                <div
-                  className={`${
-                    !open && "flex items-center justify-center"
-                  } flex gap-2 items-center `}
-                >
+                <div className={` flex gap-2 items-center `}>
                   {icon}
                   <p
-                    className={` ${
-                      !open && "hidden"
-                    } font-semibold capitalize text-sm`}
+                    className={`lg:flex md:flex hidden font-semibold capitalize text-sm`}
                   >
                     {name}
                   </p>
@@ -124,9 +103,7 @@ function OrgSidebar() {
           className={`flex items-center w-full px-4 pt-2 border-t-2 border-gray-300 p-1 gap-2 text-[#D43B3B]`}
         >
           <LogoutIcon />
-          <p className={`${!open && "hidden"} duration-200 flex font-bold`}>
-            Logout
-          </p>
+          <p className={`lg:flex md:flex hidden font-bold`}>Logout</p>
         </button>
       </div>
     </>
