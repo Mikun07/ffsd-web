@@ -8,24 +8,27 @@ const initialState = {
   loading: false,
 };
 
-export const fetchUser = createAsyncThunk("user/fetchUser", async (body) => {
-  try {
-    const response = await axiosInstance.get("/user");
-    return response;
-  } catch (error) {
-    return error?.response?.data?.errors;
+export const fetchDocument = createAsyncThunk(
+  "user/fetchDocument",
+  async (body) => {
+    try {
+      const response = await axiosInstance.get("/get/documents");
+      return response;
+    } catch (error) {
+      return error?.response?.data?.errors;
+    }
   }
-});
+);
 
-const userSlice = createSlice({
-  name: "user",
+const documentSlice = createSlice({
+  name: "document",
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchUser.pending, (state, action) => {
+    builder.addCase(fetchDocument.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(fetchUser.fulfilled, (state, action) => {
+    builder.addCase(fetchDocument.fulfilled, (state, action) => {
       const { payload } = action;
       if (payload?.data?.errors) {
         state.success = false;
@@ -38,12 +41,12 @@ const userSlice = createSlice({
       }
       state.loading = false;
     });
-    builder.addCase(fetchUser.rejected, (state, action) => {
+    builder.addCase(fetchDocument.rejected, (state, action) => {
       state.success = false;
-      state.error = "Could not fetch user";
+      state.error = "Could not fetch document";
       state.loading = false;
     });
   },
 });
 
-export default userSlice;
+export default documentSlice;

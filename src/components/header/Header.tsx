@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import BellIcon from "../../assets/icons/BellIcon";
-import SidebarButton from "../button/SidebarButton";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../redux/features/userSlice";

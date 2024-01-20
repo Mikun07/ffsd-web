@@ -45,13 +45,28 @@ function IndividualForm() {
       lastname: z.string().min(2).max(30),
       email: z.string().email(),
       phone: z.string().min(5).max(15),
-      password: z.string().min(7).max(20),
-      confirmPassword: z.string().min(7).max(20),
+      password: z
+        .string()
+        .min(7, { message: "Password must be at least 7 characters long" })
+        .max(20, { message: "Password must be at most 20 characters long" })
+        .regex(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/,
+          {
+            message:
+              "Password must contain at least one lowercase letter(a-z), one uppercase letter(A-Z), one number(0-9), and one special character(@$!%*#?&)",
+          }
+        ),
+      confirmPassword: z.string(),
     })
-    .refine((data) => data.password === data.confirmPassword, {
-      message: "Password do not match",
-      path: ["confirmPassword"],
-    });
+    .refine(
+      (data) => {
+        return data.password === data.confirmPassword;
+      },
+      {
+        message: "Passwords do not match",
+        path: ["confirmPassword"],
+      }
+    );
 
   const {
     register,
@@ -79,11 +94,7 @@ function IndividualForm() {
   const allValues = watch();
 
   const formSteps = [
-    <AccountInfo
-      setValue={setValue}
-      errors={errors}
-      register={register}
-    />,
+    <AccountInfo setValue={setValue} errors={errors} register={register} />,
     <ReviewDetails
       details={[
         {
@@ -125,18 +136,18 @@ function IndividualForm() {
     };
 
     dispatch(postSignUp({ ...signUpData }))
-    .then((result) => {
-      const {
-        payload: { data },
-      } = result;
-      const success: boolean = Boolean(data?.success);
-      if (success === true) {
-        navigate("/signup/otp");
-      } else {
-        // toast.error(result?.payload?.response?.data?.errors);
-      }
-    })
-    .finally(); // Remove this line if you don't need a finally block
+      .then((result) => {
+        const {
+          payload: { data },
+        } = result;
+        const success: boolean = Boolean(data?.success);
+        if (success === true) {
+          navigate("/signup/otp");
+        } else {
+          // toast.error(result?.payload?.response?.data?.errors);
+        }
+      })
+      .finally(); // Remove this line if you don't need a finally block
   }
 
   return (

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import UploadDocument from "./UploadDocument";
 import ReviewDetails from "./shared/ReviewDetails";
 import ProgressBar from "../../components/progressBar/ProgressBar";
@@ -21,9 +21,20 @@ import {
   getFormDataContent,
   getFormDataLabels,
 } from "../../types/global/verifydocuments/fileSections";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchInstitution } from "../../redux/features/institutionSlice";
 
 function VerifyDocumentPage() {
   const [countryData, setCountryData] = useState([]);
+  const dispatch = useDispatch();
+  const institution = useSelector((state) => state?.institution?.data);
+
+  async function getInstitution() {
+    dispatch(fetchInstitution());
+  }
+  useEffect(() => {
+    getInstitution()
+  }, []);
 
   useEffect(() => {
     axios
@@ -39,10 +50,19 @@ function VerifyDocumentPage() {
       });
   }, []);
 
+
+  
+
   const countryOptions =
     countryData?.map((country) => ({
       label: country?.name,
       value: country?.id,
+    })) || [];
+
+  const InstitutionOptions =
+    institution?.map((institution) => ({
+      label: state?.institution?.name,
+      value: institution?.name,
     })) || [];
 
   const DocumentOptions =
@@ -133,7 +153,7 @@ function VerifyDocumentPage() {
   const docUploadValueObj = docUploadWatch();
   const documentDetailsValues = watch();
 
-  console.log({ documentDetailsValues });
+  // console.log({ documentDetailsValues });
 
   const docUploadValues =
     docUploadValueObj["documentCategory"]?.map((item, index) => ({
@@ -149,7 +169,7 @@ function VerifyDocumentPage() {
     })) || [];
 
   let formattedReviewValues = docUploadValues?.map((x) => {
-    console.log({x})
+    console.log({ x });
     const expectedKeys = Object.keys(getFormDataContent(x?.title));
     const providedContent = x?.content || [];
 
@@ -200,6 +220,7 @@ function VerifyDocumentPage() {
       register={docUploadRegister}
       isValid={docUploadIsValid}
       control={docUploadControl}
+      InstitutionOptions={InstitutionOptions}
     />,
 
     <ReviewDetails details={reviewValues} />,

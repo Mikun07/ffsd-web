@@ -15,7 +15,7 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const redirectUrl = {
-    // org: "/org/dashboard",
+    org: "/org/dashboard",
     // admin: "/admin/dashboard",
     indv: "/dashboard",
   };

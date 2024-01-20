@@ -1,19 +1,18 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { BASE_URL } from "../../config/api";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axiosInstance from "../api/axios";
 
 const initialState = {
-  success: false,
   data: null,
+  success: false,
   error: null,
   loading: false,
 };
 
-export const postSignUp = createAsyncThunk(
-  "signUp/postSignUp",
+export const verifyDocument = createAsyncThunk(
+  "user/verifyDocument",
   async (body) => {
     try {
-      const response = await axios.post(`${BASE_URL}/signup`, body);
+      const response = await axiosInstance.post("/doc/verify");
       return response;
     } catch (error) {
       return error?.response?.data?.errors;
@@ -21,8 +20,8 @@ export const postSignUp = createAsyncThunk(
   }
 );
 
-const signUpSlice = createSlice({
-  name: "signup",
+const verifyDocumentSlice = createSlice({
+  name: "verify",
   initialState,
   reducers: {
     resetSuccess: (state) => {
@@ -30,23 +29,22 @@ const signUpSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(postSignUp.fulfilled, (state, action) => {
+    builder.addCase(verifyDocument.fulfilled, (state, action) => {
       const { payload } = action;
       if (payload?.data?.errors) {
         (state.success = false),
           (state.data = null),
           (state.error = payload?.data?.errors);
       } else {
-        localStorage.setItem("userToken", JSON.stringify(payload?.data?.token));
         (state.success = true),
           (state.data = payload?.data?.user),
           (state.error = null);
       }
     });
-    builder.addCase(postSignUp.rejected, (state, action) => {
+    builder.addCase(verifyDocument.rejected, (state, action) => {
       (state.success = false), (state.error = action.error.message);
     });
   },
 });
 
-export default signUpSlice;
+export default verifyDocumentSlice;

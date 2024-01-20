@@ -59,7 +59,7 @@ function SidebarButton() {
       </button>
       {open && (
         <div
-          className={`w-60 z-20 absolute top-0 left-0 duration-200 h-screen lg:flex hidden flex-col justify-between bg-slate-200 shadow-sm shadow-primary py-2`}
+          className={`w-60 z-20 absolute top-0 left-0 duration-200 h-screen lg:flex hidden flex-col justify-between bg-slate-100 shadow-sm shadow-primary py-2`}
         >
           <div className={`flex items-center gap-2 mx-4 p-1`}>
             <img src={LogoDP} alt="" className={`w-[70px]`} />

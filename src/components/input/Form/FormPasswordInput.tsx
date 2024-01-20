@@ -17,6 +17,21 @@ const FormPasswordInput: FC<TextInputProps> = ({
 
   const [type, toggleType] = useState("password");
 
+  const passwordErrors = errors[label]?.message;
+
+  const renderErrorList = () => {
+    if (!passwordErrors) return null;
+
+    const errorList = passwordErrors.split(", ");
+    return (
+      <ul className="lg:text-[15px] text-[11px] text-red-700 list-disc pl-5">
+        {errorList.map((error, index) => (
+          <li key={index}>{error}</li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor={label} className="text-xs">
@@ -36,11 +51,11 @@ const FormPasswordInput: FC<TextInputProps> = ({
         <input
           type={type}
           placeholder={title}
-          className="w-full bg-[#E2E8F0] text-black min-h-[38px] rounded outline-none p-2 pr-7 text-xs focus:ring-1 ring-[#40B52D]"
+          className={`w-full bg-[#E2E8F0] text-black min-h-[38px] rounded outline-none p-2 pr-7 text-xs focus:ring-1 ring-[#40B52D]`}
           {...rest}
         />
       </div>
-      <p className="text-[10px] text-red-700"> {errors[label]?.message}</p>
+      {passwordErrors && renderErrorList()}
     </div>
   );
 };

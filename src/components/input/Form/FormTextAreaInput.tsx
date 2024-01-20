@@ -11,7 +11,7 @@ const FormTextAreaInput = ({ title, label, errors, ...rest }) => {
         placeholder={title || startCase(label)}
         {...rest}
       />
-      <p className="text-[10px] text-red-700"> {errors[label]?.message}</p>
+      <p className="text-[11px] text-red-700"> {errors[label]?.message}</p>
     </div>
   );
 };

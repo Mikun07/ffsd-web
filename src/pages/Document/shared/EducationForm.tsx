@@ -10,6 +10,7 @@ const EducationForm = ({
   EducationOptions,
   Education,
   countryOptions,
+  InstitutionOptions,
   errors,
   control,
   register,
@@ -23,6 +24,9 @@ const EducationForm = ({
   }
 
   function setCountry(item) {
+    setValue(item?.label, item?.value);
+  }
+  function setInstitution(item) {
     setValue(item?.label, item?.value);
   }
 
@@ -66,7 +70,9 @@ const EducationForm = ({
                 )}
                 <FileInput
                   label="choose file"
-                  onFileSelect={(file) => setValue(`fileDocEduc.${index}.${selectedFileIndex}`, file) }                 
+                  onFileSelect={(file) =>
+                    setValue(`fileDocEduc.${index}.${selectedFileIndex}`, file)
+                  }
                 />
               </div>
             );
@@ -108,7 +114,7 @@ const EducationForm = ({
               }
             />
 
-            <FormTextInput
+            {/* <FormTextInput
               label={`schoolNameEduc.${index}`}
               title="School Name"
               errors={errors}
@@ -121,6 +127,14 @@ const EducationForm = ({
               onChange={(e) =>
                 setValue(`schoolNameEduc.${index}`, e.target.value)
               }
+            /> */}
+
+            <SelectInput
+              label={`schoolNameEduc.${index}`}
+              title="School Name"
+              control={control}
+              options={InstitutionOptions}
+              handleChange={setInstitution}
             />
 
             <SelectInput

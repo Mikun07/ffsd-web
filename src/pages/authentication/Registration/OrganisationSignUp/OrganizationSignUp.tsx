@@ -52,15 +52,29 @@ function OrganizationForm() {
       lastname: z.string().min(2).max(30),
       companyEmail: z.string().email(),
       phone: z.string().min(5).max(15),
-      password: z.string().min(7).max(20),
-      confirmPassword: z.string().min(7).max(20),
-      companyName: z.string().min(2).max(70),
-      
+      password: z
+        .string()
+        .min(7, { message: "Password must be at least 7 characters long" })
+        .max(20, { message: "Password must be at most 20 characters long" })
+        .regex(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/,
+          {
+            message:
+              "Password must contain at least one lowercase letter(a-z), one uppercase letter(A-Z), one number(0-9), and one special character(@$!%*#?&)",
+          }
+        ),
+      confirmPassword: z.string(),
+      companyName: z.string().min(2).max(150),
     })
-    .refine((data) => data.password === data.confirmPassword, {
-      message: "Password do not match",
-      path: ["confirmPassword"],
-    });
+    .refine(
+      (data) => {
+        return data.password === data.confirmPassword;
+      },
+      {
+        message: "Passwords do not match",
+        path: ["confirmPassword"],
+      }
+    );
 
   const {
     register,
@@ -69,7 +83,7 @@ function OrganizationForm() {
     formState: { errors, isValid },
     handleSubmit,
     getValues,
-    control
+    control,
   } = useForm({ resolver: zodResolver(OrganizationSchema), mode: "all" });
 
   const formTitles = [
@@ -95,11 +109,7 @@ function OrganizationForm() {
   const country = watch("country");
 
   const formSteps = [
-    <AccountInfo
-      setValue={setValue}
-      errors={errors}
-      register={register}
-    />,
+    <AccountInfo setValue={setValue} errors={errors} register={register} />,
     <CompanyInfo
       setValue={setValue}
       errors={errors}
@@ -193,9 +203,7 @@ function OrganizationForm() {
             </form>
             <div className="flex flex-col mt-4">
               {!isLastStep ? (
-                <Button onClick={next}>
-                  {title.buttonText}
-                </Button>
+                <Button onClick={next}>{title.buttonText}</Button>
               ) : (
                 <Button onClick={handleSubmit(signUp)}>
                   {title.buttonText}

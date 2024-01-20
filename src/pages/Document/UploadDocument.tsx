@@ -17,6 +17,7 @@ const UploadDocument = ({
   EducationOptions,
   financialRecordOptions,
   professionalCertificateOptions,
+  InstitutionOptions,
   setValue,
   errors,
   register,
@@ -66,6 +67,7 @@ const UploadDocument = ({
         register={register}
         EducationOptions={EducationOptions}
         countryOptions={countryOptions}
+        InstitutionOptions={InstitutionOptions}
         control={control}
         index={index}
       />
