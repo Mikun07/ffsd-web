@@ -1,10 +1,9 @@
 import React, { useState } from "react";
+import OpenVerificationTable from "../../../components/table/OpenVerificationTable/OpenVerificationTable";
 import SchoolIcon from "../../../assets/icons/SchoolIcon";
 import CloseIcon from "../../../assets/icons/CloseIcon";
 
-import OpenVerificationTable from "../../../components/table/OpenVerificationTable/OpenVerificationTable";
-
-function OrgDashBoard() {
+function UserManageDocument() {
   const mockData = [
     {
       applicationId: "JD123456",
@@ -153,16 +152,14 @@ function OrgDashBoard() {
   ];
 
   const [tableData, setTableData] = useState(mockData);
-
   const [modal, openModel] = useState(false);
 
   const toggleModal = () => {
     openModel(!modal);
   };
-
   return (
     <>
-      <div className="flex flex-col w-full max-h-full">
+      <div className="flex flex-col h-full px-4 py-4 overflow-y-auto">
         {/* <div className="w-full mt-2 flex items-center px-3">
           <div
             onClick={toggleModal}
@@ -179,7 +176,9 @@ function OrgDashBoard() {
               <div className="bg-black/70 fixed top-0 left-0 w-full h-full z-20"></div>
               <div className="bg-white fixed flex flex-col z-20 top-0 left-0 w-full h-screen overflow-y-auto custom__scrollbar">
                 <div className="flex py-1 justify-between bg-white sticky top-0 z-20 w-full items-center">
-                  <h1 className="font-semibold text-[25px]">Verify Documents</h1>
+                  <h1 className="font-semibold text-[25px]">
+                    Verify Documents
+                  </h1>
 
                   <button onClick={toggleModal} className="bg-transparent">
                     <CloseIcon />
@@ -188,26 +187,38 @@ function OrgDashBoard() {
 
                 <div>
                   <div className="flex py-2 justify-center">
-                    <p className="text-[12px]">Give us information about the document you want to verify</p>
+                    <p className="text-[12px]">
+                      Give us information about the document you want to verify
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           )}
         </div> */}
+        <div className="flex flex-col gap-2">
+          <div className="w-full border-slate-200 h-full overflow-y-auto custom__scrollbar ">
+            <div className="h-12 w-full bg-slate-200 text-primary rounded-t-lg flex justify-between items-center px-2 z-10 sticky top-0">
+              <h3 className="font-bold">Verification History</h3>
+            </div>
 
-        <div className="mt-4 mb-14 w-full overflow-y-auto custom__scrollbar">
-          <div className="w-full h-12 flex items-center px-4 pt-2 bg-white justify-between z-10 sticky top-0">
-            <h3 className="font-bold">Verification History</h3>
-            <button className="font-medium text-sm text-gray-700">
-              See More
-            </button>
+            <OpenVerificationTable tableData={tableData} />
+
+            <div className="h-12 w-full bg-slate-200 text-primary rounded-b-lg flex justify-between items-center px-2"></div>
           </div>
-          <OpenVerificationTable tableData={tableData} />
+          {/* <div className="mt-4 w-full border-slate-200 h-full overflow-y-auto custom__scrollbar">
+            <div className="h-12 w-full bg-slate-200 text-primary rounded-t-lg flex justify-between items-center px-2 z-10 sticky top-0">
+              <h3 className="font-bold">Verification History</h3>
+            </div>
+
+            <OpenVerificationTable tableData={tableData} />
+
+            <div className="h-12 w-full bg-slate-200 text-primary rounded-b-lg flex justify-between items-center px-2"></div>
+          </div> */}
         </div>
       </div>
     </>
   );
 }
 
-export default OrgDashBoard;
+export default UserManageDocument;

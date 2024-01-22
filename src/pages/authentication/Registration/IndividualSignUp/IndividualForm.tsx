@@ -56,7 +56,10 @@ function IndividualForm() {
               "Password must contain at least one lowercase letter(a-z), one uppercase letter(A-Z), one number(0-9), and one special character(@$!%*#?&)",
           }
         ),
-      confirmPassword: z.string(),
+      confirmPassword: z
+        .string()
+        .min(7, { message: "Password must be at least 7 characters long" })
+        .max(20, { message: "Password must be at most 20 characters long" }),
     })
     .refine(
       (data) => {

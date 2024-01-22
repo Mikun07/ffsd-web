@@ -11,8 +11,8 @@ const rootReducer = combineReducers({
     login: loginSlice.reducer,
     user: userSlice.reducer,
     verify: verifyDocumentSlice.reducer,
-    document: documentSlice,
-    institution: institutionSlice
+    document: documentSlice.reducer,
+    institution: institutionSlice.reducer
 })
 
 export default rootReducer;

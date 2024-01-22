@@ -30,14 +30,16 @@ const institutionSlice = createSlice({
     });
     builder.addCase(fetchInstitution.fulfilled, (state, action) => {
       const { payload } = action;
-      console.log({payload});
-      if (payload?.data?.errors) {
+      const success = payload?.data?.success
+      const data = payload?.data?.data
+      
+      if (!success) {
         state.success = false;
         state.data = null;
         state.error = payload?.data?.errors;
       } else {
         state.success = true;
-        state.data = payload?.data;
+        state.data = data;
         state.error = null;
       }
       state.loading = false;

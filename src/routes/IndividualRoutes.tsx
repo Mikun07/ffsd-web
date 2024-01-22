@@ -1,7 +1,8 @@
 import { lazy } from "react";
 const DashBoard = lazy(() => import("../pages/dashboard/user/UserDashBoard"))
 const VerifyDocumentPage = lazy(() => import("../pages/Document/VerifyDocumentPage"))
-const ManageAccountPage = lazy(() => import("../pages/ManageAccountPage")) 
+const ManageAccountPage = lazy(() => import("../pages/ManageAccountPage"))
+const ManageDocumentPage =lazy(() => import("../pages/dashboard/user/UserManageDocument")) 
 
 
 const DashBoardRoute = {
@@ -21,9 +22,16 @@ const VerifyDocumentPageRoute = {
     element: <ManageAccountPage />,
     isProtected: true,
   }
+  const ManageDocumentRoute = {
+    link: "/dashboard/document",
+    element: <ManageDocumentPage />,
+    isProtected: true,
+  }
+
 
   export const INDIVIDUAL_ROUTES = [
     VerifyDocumentPageRoute,
     ManageAccountRoute,
-    DashBoardRoute
+    DashBoardRoute,
+    ManageDocumentRoute,
   ];

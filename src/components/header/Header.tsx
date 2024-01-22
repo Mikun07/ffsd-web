@@ -6,7 +6,7 @@ import { fetchUser } from "../../redux/features/userSlice";
 
 function Header() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state?.user?.data);
+  const user = useSelector((state) => state?.user?.data ?? state?.login?.data);
   const userLoading = useSelector((state) => state?.user?.loading);
 
   async function getUser() {

@@ -23,33 +23,33 @@ const UploadDocument = ({
   register,
   isValid,
   control,
+  defaultFileSections,
 }) => {
-  const [fileSections, updateFileSection] = useState([
-    {
-      documentCategory: null,
-      formDataContent: null,
-    },
-  ]);
+  const [fileSections, updateFileSection] = useState<FileSection[]>(
+    defaultFileSections || [{ label: null, value: null }]
+  );
 
   function handleDocumentCategorySelection(
     documentCategoryValue,
     fileSectionIndex
   ) {
     const newArray = [...fileSections];
-    const documentCategory = documentCategoryValue?.value?.label || null;
-    newArray[fileSectionIndex].documentCategory = documentCategory;
+    const newDoc = DocumentOptions?.find(
+      (doc) => doc?.title === documentCategoryValue?.value?.label
+    );
 
-    const formContent = getFormDataContent(documentCategory);
-    newArray[fileSectionIndex].formDataContent = formContent;
+    newArray[fileSectionIndex].label = newDoc?.label;
+    newArray[fileSectionIndex].value = newDoc?.value;
+
     updateFileSection(newArray);
+    setValue(`documentCategory`, newArray);
   }
 
   function addNewFileSection() {
     const fileSection: FileSection = {
-      documentCategory: null,
-      formDataContent: null,
+      label: null,
+      value: null,
     };
-
     updateFileSection((prev) => [...prev, fileSection]);
   }
 
@@ -57,48 +57,52 @@ const UploadDocument = ({
     const newArray = [...fileSections];
     newArray.splice(fileSectionIndex, 1);
     updateFileSection(newArray);
+    setValue("documentCategory", newArray);
   }
 
   const DocumentUrl = {
-    Education: (index: number) => (
-      <EducationForm
-        setValue={setValue}
-        errors={errors}
-        register={register}
-        EducationOptions={EducationOptions}
-        countryOptions={countryOptions}
-        InstitutionOptions={InstitutionOptions}
-        control={control}
-        index={index}
-      />
-    ),
-    "Professional Certification": (index: number) => (
-      <ProfessionalCertificateForm
-        setValue={setValue}
-        errors={errors}
-        register={register}
-        professionalCertificateOptions={professionalCertificateOptions}
-        countryOptions={countryOptions}
-        control={control}
-        index={index}
-      />
-    ),
-    "Financial Record": (index: number) => (
-      <FinancialRecord
-        setValue={setValue}
-        errors={errors}
-        register={register}
-        financialRecordOptions={financialRecordOptions}
-        countryOptions={countryOptions}
-        control={control}
-        index={index}
-      />
-    ),
+    Education: (index: number) =>
+      (
+        <EducationForm
+          setValue={setValue}
+          errors={errors}
+          register={register}
+          EducationOptions={EducationOptions}
+          countryOptions={countryOptions}
+          InstitutionOptions={InstitutionOptions}
+          control={control}
+          index={index}
+        />
+      ) || null,
+    "Professional Certification": (index: number) =>
+      (
+        <ProfessionalCertificateForm
+          setValue={setValue}
+          errors={errors}
+          register={register}
+          professionalCertificateOptions={professionalCertificateOptions}
+          countryOptions={countryOptions}
+          control={control}
+          index={index}
+        />
+      ) || null,
+    "Financial Record": (index: number) =>
+      (
+        <FinancialRecord
+          setValue={setValue}
+          errors={errors}
+          register={register}
+          financialRecordOptions={financialRecordOptions}
+          countryOptions={countryOptions}
+          control={control}
+          index={index}
+        />
+      ) || null,
   };
   return (
     <>
       <div>
-        {fileSections.map((fileSection, index) => {
+        {fileSections?.map((fileSection, index) => {
           return (
             <div
               key={index}
@@ -121,24 +125,26 @@ const UploadDocument = ({
                 handleChange={(documentCategoryValue) => {
                   handleDocumentCategorySelection(documentCategoryValue, index);
                 }}
+                useValue
               />
-
               <div>
-                {fileSections[index].documentCategory &&
-                  DocumentUrl[fileSections[index]?.documentCategory](index)}
+                {fileSections[index]?.label &&
+                  DocumentUrl[fileSections[index]?.label](index)}
               </div>
             </div>
           );
         })}
-        <span
-          onClick={addNewFileSection}
-          className="rounded-lg p-2 flex mt-3 lg:w-[8%] w-1/3 bg-transparent font-medium text-[12px] items-center justify-between"
-        >
-          <span className="flex gap-2">
-            {" "}
-            + <p>Add File</p>
+        <div className="mt-1">
+          <span
+            onClick={addNewFileSection}
+            className="rounded-lg p-2 flex bg-transparent font-medium text-[12px] items-center justify-between"
+          >
+            <span className="flex gap-2">
+              {" "}
+              + <p>Add File</p>
+            </span>
           </span>
-        </span>
+        </div>
       </div>
     </>
   );

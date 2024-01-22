@@ -30,7 +30,7 @@ function UserSidebar() {
 
     {
       name: "Manage Documents",
-      url: "",
+      url: "/dashboard/document",
       icon: <ArchiveIcon width="25" height="25" />,
     },
     {

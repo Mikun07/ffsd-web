@@ -15,16 +15,16 @@ const colorStyles = {
 };
 
 const SelectInput = ({
-  label = "",
-  title = "",
   options,
   handleChange,
-  useValue = false,
   control,
+  useValue = false,
+  label = "",
+  title = "",
 }) => {
   function handleValueChange(selected) {
     const value = useValue ? selected?.value : selected;
-    handleChange({ label, value });
+    handleChange({...selected, value});
   }
   return (
     <div className="flex flex-col gap-1">
@@ -35,32 +35,33 @@ const SelectInput = ({
         name={label}
         control={control}
         render={({ field }) => (
-          <Select
-            {...field}
-            inputId={label}
-            options={options}
-            onChange={(v) => {
-              field.onChange(v);
-              handleChange && handleValueChange(v);
-            }}
-            styles={colorStyles}
-            isClearable
-            isSearchable
-            closeMenuOnSelect
-            blurInputOnSelect
-            value={field?.value}
-            theme={(theme) => ({
-              ...theme,
-              borderRadius: 5,
-              height: 1,
-              outline: 0,
-              colors: {
-                ...theme.colors,
-                primary25: "#40B52D",
-                primary: "#40B52D",
-              },
-            })}
-          />
+          <>
+            <Select
+              {...field}
+              options={options}
+              onChange={(v) => {
+                field.onChange(v);
+                handleChange && handleValueChange(v);
+              }}
+              styles={colorStyles}
+              isClearable
+              isSearchable
+              closeMenuOnSelect
+              blurInputOnSelect
+              value={field?.value}
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 5,
+                height: 1,
+                outline: 0,
+                colors: {
+                  ...theme.colors,
+                  primary25: "#40B52D",
+                  primary: "#40B52D",
+                },
+              })}
+            />
+          </>
         )}
       />
     </div>

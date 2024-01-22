@@ -20,20 +20,31 @@ import { startCase } from "lodash";
 import {
   getFormDataContent,
   getFormDataLabels,
+  FileSection,
 } from "../../types/global/verifydocuments/fileSections";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchInstitution } from "../../redux/features/institutionSlice";
+import { postDocument } from "../../redux/features/verifyDocumentSlice";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function VerifyDocumentPage() {
   const [countryData, setCountryData] = useState([]);
   const dispatch = useDispatch();
-  const institution = useSelector((state) => state?.institution?.data);
+  const navigate = useNavigate();
+  const institutions = useSelector((state) => state?.institution?.data);
+
+  const redirectUrl = {
+    org: "/org/dashboard",
+    admin: "/admin/dashboard",
+    indv: "/dashboard/document",
+  };
 
   async function getInstitution() {
     dispatch(fetchInstitution());
   }
   useEffect(() => {
-    getInstitution()
+    getInstitution();
   }, []);
 
   useEffect(() => {
@@ -50,9 +61,6 @@ function VerifyDocumentPage() {
       });
   }, []);
 
-
-  
-
   const countryOptions =
     countryData?.map((country) => ({
       label: country?.name,
@@ -60,8 +68,8 @@ function VerifyDocumentPage() {
     })) || [];
 
   const InstitutionOptions =
-    institution?.map((institution) => ({
-      label: state?.institution?.name,
+    institutions?.map((institution) => ({
+      label: institution?.name,
       value: institution?.name,
     })) || [];
 
@@ -92,7 +100,7 @@ function VerifyDocumentPage() {
   const formTitles = [
     {
       title: "Applicants Information",
-      buttonText: "Enter Upload Document",
+      buttonText: "Proceed to Upload Documents",
     },
     {
       title: "Upload Document",
@@ -104,11 +112,14 @@ function VerifyDocumentPage() {
     },
   ];
 
-  const DocumentSchema = z.object({
+  const AccountSchema = z.object({
     firstName: z.string().min(2).max(30),
     lastName: z.string().min(2).max(30),
     middleName: z.string().min(2).max(30),
     dob: z.string(),
+  });
+
+  const DocumentSchema = z.object({
     matricNumber: z.string(),
     dateOfIssueEduc: z.string(),
     schoolCountryEduc: z.string(),
@@ -128,9 +139,9 @@ function VerifyDocumentPage() {
     profCourse: z.string(),
     finName: z.string(),
     finInfo: z.string(),
-    // finDocFile: z.string(),
-    // fileDocProf: z.string(),
-    // fileDocEduc: z.string(),
+    finDocFile: z.string(),
+    fileDocProf: z.string(),
+    fileDocEduc: z.string(),
   });
 
   const {
@@ -139,7 +150,7 @@ function VerifyDocumentPage() {
     formState: { errors, isValid },
     register,
     handleSubmit,
-  } = useForm({ resolver: zodResolver(DocumentSchema), mode: "all" });
+  } = useForm({ resolver: zodResolver(AccountSchema), mode: "all" });
 
   const {
     getValues: docUploadGetValues,
@@ -148,12 +159,13 @@ function VerifyDocumentPage() {
     formState: { errors: docUploadErrors, isValid: docUploadIsValid },
     register: docUploadRegister,
     control: docUploadControl,
-  } = useForm({ mode: "all" });
+  } = useForm({
+    resolver: zodResolver(DocumentSchema),
+    mode: "all",
+  });
 
   const docUploadValueObj = docUploadWatch();
   const documentDetailsValues = watch();
-
-  // console.log({ documentDetailsValues });
 
   const docUploadValues =
     docUploadValueObj["documentCategory"]?.map((item, index) => ({
@@ -168,27 +180,28 @@ function VerifyDocumentPage() {
         })),
     })) || [];
 
-  let formattedReviewValues = docUploadValues?.map((x) => {
-    console.log({ x });
-    const expectedKeys = Object.keys(getFormDataContent(x?.title));
-    const providedContent = x?.content || [];
+  let formattedReviewValues = docUploadValues
+    ?.map((x) => {
+      const expectedKeys = Object.keys(getFormDataContent(x?.title) ?? []);
+      const providedContent = x?.content || [];
 
-    const keyLabels = getFormDataLabels(x?.title);
+      const keyLabels = getFormDataLabels(x?.title);
 
-    const filteredContent = providedContent
-      .filter((contentItem) => expectedKeys.includes(contentItem?.title))
-      .map((contentItem) => ({
-        title: keyLabels[contentItem?.title] || contentItem?.title,
-        data: Array.isArray(contentItem?.data)
-          ? contentItem?.data?.map((fileItem) => fileItem?.name).join(" ")
-          : contentItem?.data,
-      }));
+      const filteredContent = providedContent
+        .filter((contentItem) => expectedKeys.includes(contentItem?.title))
+        .map((contentItem) => ({
+          title: keyLabels[contentItem?.title] || contentItem?.title,
+          data: Array.isArray(contentItem?.data)
+            ? contentItem?.data?.map((fileItem) => fileItem?.name).join("\n")
+            : contentItem?.data,
+        }));
 
-    return {
-      title: x?.title,
-      content: filteredContent,
-    };
-  });
+      return {
+        title: x?.title,
+        content: filteredContent,
+      };
+    })
+    ?.filter((t) => Boolean(t?.title));
 
   const reviewValues = [
     {
@@ -208,8 +221,14 @@ function VerifyDocumentPage() {
   ];
 
   const formSteps = [
-    <DocumentDetails setValue={setValue} errors={errors} register={register} />,
+    <DocumentDetails
+      setValue={setValue}
+      isValid={isValid}
+      errors={errors}
+      register={register}
+    />,
     <UploadDocument
+      defaultFileSections={docUploadValueObj.documentCategory}
       setValue={docUploadSetValue}
       countryOptions={countryOptions}
       EducationOptions={EducationOptions}
@@ -238,6 +257,63 @@ function VerifyDocumentPage() {
     isLastStep,
   } = useMultiStepForm(formSteps, formTitles);
 
+  // console.log({ isValid, docUploadIsValid });
+
+  function sendDocument() {
+    const verifyDocumentData = {
+      firstName: documentDetailsValues?.firstName,
+      lastName: documentDetailsValues?.lastName,
+      middleName: documentDetailsValues?.middleName,
+      dob: documentDetailsValues?.dob,
+      matricNumber: docUploadValueObj?.matricNumber,
+      // dateOfIssueEduc: docUploadValueObj?.dateOfIssueEduc,
+      schoolCountryEduc: docUploadValueObj?.schoolCountryEduc,
+      schoolNameEduc: docUploadValueObj?.schoolNameEduc,
+      schoolCity: docUploadValueObj?.schoolCity,
+      enrollmentYearEduc: docUploadValueObj?.enrollmentYearEduc,
+      graduationYearEduc: docUploadValueObj?.graduationYearEduc,
+      addInfo: docUploadValueObj?.addInfo,
+      courseOrSubject: docUploadValueObj?.courseOrSubject,
+      studentIdProf: docUploadValueObj?.studentIdProf,
+      qualificationProf: docUploadValueObj?.qualificationProf,
+      enrolmentStatusProf: docUploadValueObj?.enrolmentStatusProf,
+      schoolNameProf: docUploadValueObj?.schoolNameProf,
+      enrollmentYearProf: docUploadValueObj?.enrollmentYearProf,
+      graduationYearProf: docUploadValueObj?.graduationYearProf,
+      addInfoProf: docUploadValueObj?.addInfoProf,
+      profCourse: docUploadValueObj?.profCourse,
+      finName: docUploadValueObj?.finName,
+      finInfo: docUploadValueObj?.finInfo,
+      finDocFile: docUploadValueObj?.finDocFile,
+      fileDocProf: docUploadValueObj?.fileDocProf,
+      fileDocEduc: docUploadValueObj?.fileDocEduc,
+      fileTypeEduc: docUploadValueObj?.fileTypeEduc,
+      fileTypeFin: docUploadValueObj?.fileTypeFin,
+    };
+
+    console.log({verifyDocumentData})
+
+
+    dispatch(postDocument({ ...verifyDocumentData }))
+      .then((result) => {
+        const {
+          payload: { data },
+        } = result;
+        console.log({verifyDocumentData})
+        const success = Boolean(data?.success);
+        console.log({success});
+        if (success === true) {
+          if (data?.user?.category) {
+            navigate(redirectUrl[data?.user?.category]);
+            toast.success("Successful");
+          } else {
+            toast.error(result?.data?.error);
+          }
+        }
+      })
+      .finally();
+  }
+
   return (
     <>
       <div className="flex flex-col gap-4 h-full mt-2 lg:px-4 px-2">
@@ -249,23 +325,31 @@ function VerifyDocumentPage() {
           />
         </div>
 
-        <div className="mb-16 py-2 px-1 overflow-y-auto custom__scrollbar">
+        <div className="mb-16 py-2 px-1 z-20 overflow-y-auto custom__scrollbar">
           <form className="flex flex-col gap-[4rem]">{step}</form>
-          <div className="flex py-2 mt-2 flex-col">
+          <div className="flex flex-col">
             {!isLastStep ? (
-              <div className="flex justify-end">
-                <Button onClick={next}>{title.buttonText}</Button>
+              <div className="w-full py-2 justify-end flex">
+                <Button
+                  disabled={!isValid}
+                  // disabled={docUploadIsValid}
+                  onClick={next}
+                >
+                  {title.buttonText}
+                </Button>
               </div>
             ) : (
-              <div className="flex justify-end">
-                <Button>{title.buttonText}</Button>
+              <div className="w-full py-2 justify-end flex">
+                <Button onClick={(sendDocument)}>{title.buttonText}</Button>
               </div>
             )}
-
+            {/* {JSON.stringify(isValid)} {JSON.stringify(docUploadIsValid)} */}
             {currentStepIndex > 0 ? (
-              <button className="text-[12px] mt-2 self-end" onClick={back}>
-                {" <   "}Go back to {titles[currentStepIndex - 1].title}
-              </button>
+              <div className="w-full py-2 justify-end flex">
+                <button className="text-[12px] self-end" onClick={back}>
+                  {" <   "}Go back to {titles[currentStepIndex - 1].title}
+                </button>
+              </div>
             ) : (
               ""
             )}

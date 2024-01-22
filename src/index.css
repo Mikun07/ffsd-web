@@ -35,6 +35,11 @@ a {
 .custom__scrollbar::-webkit-scrollbar {
   width: 5px;
   height: 5px;
+  visibility: hidden;
+}
+
+.custom__scrollbar:not(.Hidden)::-webkit-scrollbar {
+  visibility: visible;
 }
 
 .custom__scrollbar::-webkit-scrollbar-track {
@@ -48,8 +53,4 @@ a {
 
 .custom__scrollbar::-webkit-scrollbar-thumb:hover {
   background: #d4973b;
-}
-
-.noBorder {
-  border: none;
 }

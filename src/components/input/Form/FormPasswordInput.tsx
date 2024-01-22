@@ -24,7 +24,7 @@ const FormPasswordInput: FC<TextInputProps> = ({
 
     const errorList = passwordErrors.split(", ");
     return (
-      <ul className="lg:text-[15px] text-[11px] text-red-700 list-disc pl-5">
+      <ul className="lg:text-[15px] md:text-[12px] sm:text-[10px] text-[11px] text-red-700 list-disc pl-2">
         {errorList.map((error, index) => (
           <li key={index}>{error}</li>
         ))}

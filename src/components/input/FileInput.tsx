@@ -21,7 +21,6 @@ const FileInput = ({
     const selectedFile = fileList && fileList[0];
 
     setFile(selectedFile);
-    console.log({ selectedFile });
     onFileSelect && onFileSelect(selectedFile);
   };
 

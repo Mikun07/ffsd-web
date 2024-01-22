@@ -4,7 +4,7 @@ import VerificationTablePartition from "./shared/VerificationTablePartition";
 function OpenVerificationTable({ tableData }) {
   return (
     <>
-      <div className="w-full h-full px-1">
+      <div className="w-full px-1 py-1">
         <VerificationTablePartition data={tableData} />
       </div>
     </>

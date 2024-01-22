@@ -11,8 +11,8 @@ export type DocumentCategoryMap = {
 };
 
 export interface FileSection {
-  documentCategory: DocumentCategories | null;
-  formDataContent: DocumentCategoryMap | null;
+  label: "Education" | "Professional Certification" | "Financial Record" | null;
+  value: number | null;
 }
 
 export enum DocumentCategoryEnum {
@@ -64,7 +64,7 @@ interface FinancialRecordFormContent {
 export function getFormDataContent(documentCategory) {
   const values = {
     Education: {
-      fileType: null,
+      fileTypeEduc: null,
       matricNumber: null,
       schoolNameEduc: null,
       schoolCountryEduc: null,
@@ -88,7 +88,7 @@ export function getFormDataContent(documentCategory) {
       fileDocProf: null,
     },
     "Financial Record": {
-      financialRecord: null,
+      fileTypeFin: null,
       finName: null,
       finCountry: null,
       finInfo: null,
@@ -102,7 +102,7 @@ export function getFormDataContent(documentCategory) {
 export function getFormDataLabels(documentCategory) {
   const values = {
     Education: {
-      fileType: "File Type",
+      fileTypeEduc: "File Type",
       matricNumber: "School ID",
       schoolNameEduc: "School Name",
       schoolCountryEduc: "School country",

@@ -8,11 +8,11 @@ const initialState = {
   loading: false,
 };
 
-export const verifyDocument = createAsyncThunk(
-  "user/verifyDocument",
+export const postDocument = createAsyncThunk(
+  "user/postDocument",
   async (body) => {
     try {
-      const response = await axiosInstance.post("/doc/verify");
+      const response = await axiosInstance.post("/doc/verify", body);
       return response;
     } catch (error) {
       return error?.response?.data?.errors;
@@ -29,7 +29,7 @@ const verifyDocumentSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(verifyDocument.fulfilled, (state, action) => {
+    builder.addCase(postDocument.fulfilled, (state, action) => {
       const { payload } = action;
       if (payload?.data?.errors) {
         (state.success = false),
@@ -41,7 +41,7 @@ const verifyDocumentSlice = createSlice({
           (state.error = null);
       }
     });
-    builder.addCase(verifyDocument.rejected, (state, action) => {
+    builder.addCase(postDocument.rejected, (state, action) => {
       (state.success = false), (state.error = action.error.message);
     });
   },
