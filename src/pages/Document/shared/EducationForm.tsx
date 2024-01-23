@@ -161,6 +161,21 @@ const EducationForm = ({
               onChange={(e) => setValue(`schoolCity.${index}`, e.target.value)}
             />
 
+            <FormTextInput
+              label={`enrollmentYearEduc.${index}`}
+              title="Enrollment Year"
+              errors={errors}
+              {...register(`enrollmentYearEduc.${index}`, {
+                required: {
+                  value: true,
+                  message: "Enrollment Year is required",
+                },
+              })}
+              onChange={(e) =>
+                setValue(`enrollmentYearEduc.${index}`, e.target.value)
+              }
+            />
+
             {/* <FormTextInput
               label={`enrollmentYearEduc.${index}`}
               title="Enrollment Year"

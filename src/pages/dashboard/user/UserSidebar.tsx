@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LogoDP from "../../../assets/Logo.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import DashboardIcon from "../../../assets/icons/DashboardIcon";
 import SchoolIcon from "../../../assets/icons/SchoolIcon";
@@ -9,11 +9,21 @@ import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
 import AccountIcon from "../../../assets/icons/AccountIcon";
 import { logout } from "../../../redux/features/loginSlice";
 import LogoutIcon from "../../../assets/icons/LogoutIcon";
+import { fetchUser } from "../../../redux/features/userSlice";
 
 function UserSidebar() {
 //   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state?.user?.data ?? state?.login?.data);
+  const userLoading = useSelector((state) => state?.user?.loading);
+
+  async function getUser() {
+    dispatch(fetchUser());
+  }
+  useEffect(() => {
+    getUser();
+  }, []);
 
 
   const menu = [

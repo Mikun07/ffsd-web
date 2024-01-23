@@ -12,7 +12,7 @@ export const fetchDocument = createAsyncThunk(
   "user/fetchDocument",
   async (body) => {
     try {
-      const response = await axiosInstance.get("/get/documents");
+      const response = await axiosInstance.post("/get/documents", body);
       return response;
     } catch (error) {
       return error?.response?.data?.errors;

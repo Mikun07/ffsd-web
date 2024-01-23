@@ -3,18 +3,23 @@ import CloseIcon from "../../../../assets/icons/CloseIcon";
 import DownloadIcon from "../../../../assets/icons/DownloadIcon";
 
 function VerificationTableColumn({ data }) {
-  const {
-    applicationId,
-    date,
-    time,
-    amount,
-    currency,
-    phoneNumber,
-    description,
-    documentImage,
-    applicantName,
-    status,
-  } = data;
+  function formatCreatedAtDate(createdAt) {
+    const options = {
+      day: "2-digit", // Two-digit day
+      month: "short", // Abbreviated month name
+      year: "numeric",
+    };
+
+    const formattedDate = new Date(createdAt).toLocaleDateString(
+      "en-GB",
+      options
+    );
+    const [day, month, year] = formattedDate.split(" ");
+    const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
+    const formattedWithHyphen = `${day}-${capitalizedMonth}-${year}`;
+
+    return formattedWithHyphen;
+  }
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -38,6 +43,8 @@ function VerificationTableColumn({ data }) {
   };
   return (
     <>
+      {JSON.stringify(data?.user?.documents)}
+      {/* {JSON.stringify(data?.user)} */}
       <div
         onClick={toggleModal}
         className="flex hover:bg-gray-100 px-3 rounded-lg h-[72px] items-center justify-between"
@@ -45,18 +52,19 @@ function VerificationTableColumn({ data }) {
         <div className="flex items-center gap-2">
           <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
             <p className="font-semibold">
-              {applicantName.split(" ")[0][0]}
-              {applicantName.split(" ")[1][0]}
+              {data?.user?.docOwnerLastName && data?.user?.docOwnerLastName[0]}
+              {data?.user?.docOwnerFirstName &&
+                data?.user?.docOwnerFirstName[0]}
             </p>
           </div>
           <div className="font-medium">
-            <h5 className="text-[16px] font-semibold text-black capitalize">
-              {applicantName}
+            <h5 className="text-[16px] font-bold text-black capitalize">
+              {data?.user?.docOwnerLastName} {data?.user?.docOwnerFirstName}
             </h5>
             <p className="flex items-center text-[12px] text-gray-400 gap-2">
-              {applicationId}
-              <span className="w-1 h-1 rounded-full bg-gray-600"></span>
-              {date}
+              {/* {applicationId} */}
+              {/* <span className="w-1 h-1 rounded-full text-[14px] bg-gray-600"></span> */}
+              {formatCreatedAtDate(data?.user?.created_at)}
             </p>
           </div>
         </div>
@@ -71,10 +79,10 @@ function VerificationTableColumn({ data }) {
           >
             {status}
             <span className="w-1 h-1 rounded-full bg-gray-600"></span>
-            {currency} {amount}
+            {/* {currency} {amount} */}
           </p>
           <p className="flex justify-end items-center text-[12px] text-black font-semibold gap-2">
-            {description}
+            {/* {description} */}
           </p>
         </div>
       </div>
@@ -94,7 +102,7 @@ function VerificationTableColumn({ data }) {
             <div className="capitalize gap-y-6 flex flex-col h-full px-4 mt-5">
               <div className="w-[150px] h-[200px] relative overflow-hidden group mb-2 rounded-t-lg cursor-pointer bg-gray-300">
                 <img
-                  src={documentImage}
+                  src="{}"
                   alt=""
                   className="w-[150px] h-[200px] rounded-t-lg cursor-pointer"
                 />
@@ -113,7 +121,7 @@ function VerificationTableColumn({ data }) {
                   type="text"
                   className="h-7 text-sm font-medium px-2 bg-transparent border-b-2 text-black"
                   disabled
-                  placeholder={applicationId}
+                  placeholder="{}"
                 />
               </div>
               <div className="flex flex-col">
@@ -124,7 +132,7 @@ function VerificationTableColumn({ data }) {
                   type="text"
                   className="h-7 text-sm font-medium px-2 bg-transparent border-b-2 text-black"
                   disabled
-                  placeholder={applicantName}
+                  placeholder="{}"
                 />
               </div>
               <div className="flex flex-col">
@@ -135,18 +143,18 @@ function VerificationTableColumn({ data }) {
                   type="number"
                   className="h-7 text-sm font-medium px-2 bg-transparent border-b-2 text-black"
                   disabled
-                  placeholder={phoneNumber}
+                  placeholder="{}"
                 />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="" className="font-medium">
-                  Amount <span className="text-gray-400">{currency}</span>
+                  Amount <span className="text-gray-400">{}</span>
                 </label>
                 <input
                   type="number"
                   className="h-7 text-sm font-medium px-2 bg-transparent border-b-2 text-black"
                   disabled
-                  placeholder={amount}
+                  placeholder="{}"
                 />
               </div>
               <div className="flex flex-col">
@@ -157,7 +165,7 @@ function VerificationTableColumn({ data }) {
                   type="text"
                   className="h-7 text-sm font-medium px-2 bg-transparent border-b-2 text-black"
                   disabled
-                  placeholder={description}
+                  placeholder="{}"
                 />
               </div>
               <div className="flex flex-col">
@@ -168,7 +176,7 @@ function VerificationTableColumn({ data }) {
                   type="text"
                   className="h-7 text-sm font-medium px-2 bg-transparent border-b-2 text-black"
                   disabled
-                  placeholder={date}
+                  placeholder="{}"
                 />
               </div>
               <div className="flex flex-col">
@@ -179,7 +187,7 @@ function VerificationTableColumn({ data }) {
                   type="text"
                   className="h-7 text-sm font-medium px-2 bg-transparent border-b-2 text-black"
                   disabled
-                  placeholder={time}
+                  placeholder="{}"
                 />
               </div>
             </div>

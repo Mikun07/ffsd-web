@@ -37,6 +37,7 @@ interface EducationFormContent {
   graduationYearEduc: string;
   addInfo: string;
   courseOrSubject: string;
+  examBoard: string;
   fileDocEduc: any;
 }
 
@@ -54,11 +55,11 @@ interface ProfessionalCertificationFormContent {
 }
 
 interface FinancialRecordFormContent {
-  fileTypeFin: number;
-  finName: number;
-  finCountry: number;
-  finInfo: number;
-  finDocFile: number;
+  fileTypeFin: string;
+  finName: string;
+  finCountry: string;
+  finInfo: string;
+  finDocFile: any;
 }
 
 export function getFormDataContent(documentCategory) {
@@ -73,6 +74,7 @@ export function getFormDataContent(documentCategory) {
       graduationYearEduc: null,
       addInfo: null,
       courseOrSubject: null,
+      examBoard: null,
       fileDocEduc: null,
     },
     "Professional Certification": {
@@ -108,8 +110,10 @@ export function getFormDataLabels(documentCategory) {
       schoolCountryEduc: "School country",
       schoolCity: "School city",
       graduationYearEduc: "Graduation Year",
+      enrollmentYearEduc: "enrollment Year",
       addInfo: "Additional Information",
       courseOrSubject: "Course Studied",
+      examBoard: "Exam Board",
       fileDocEduc: "uploaded files",
     },
     "Professional Certification": {

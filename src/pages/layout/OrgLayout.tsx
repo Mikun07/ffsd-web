@@ -10,9 +10,11 @@ function OrgLayout() {
         <div className="flex h-full">
           <OrgSidebar />
         </div>
-        <div className="w-full flex-1 flex-col overflow-hidden">
+        <div className="flex flex-col w-full h-screen">
           <Header />
-          <Outlet />
+          <div className="h-screen overflow-hidden">
+            <Outlet />
+          </div>
         </div>
       </div>
     </>

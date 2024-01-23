@@ -45,8 +45,8 @@ function Header() {
             {userLoading ? (
               <div className="h-[35px] w-[35px] animate-pulse bg-[#D4973B] rounded-full"></div>
             ) : (
-              <div className="h-[35px] w-[35px] text-xl rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
-                <p className="font-semibold text-[18px]">
+              <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
+                <p className="font-semibold">
                   {user?.firstName[0]}
                   {user?.lastName[0]}
                 </p>

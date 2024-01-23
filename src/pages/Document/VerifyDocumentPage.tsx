@@ -120,15 +120,18 @@ function VerifyDocumentPage() {
   });
 
   const DocumentSchema = z.object({
+    fileTypeEduc: z.string(),
+    fileDocEduc: z.string(),
     matricNumber: z.string(),
-    dateOfIssueEduc: z.string(),
     schoolCountryEduc: z.string(),
     schoolNameEduc: z.string(),
     schoolCity: z.string(),
     enrollmentYearEduc: z.string().min(4).max(4),
     graduationYearEduc: z.string().min(4).max(4),
     addInfo: z.string(),
+    examBoard: z.string(),
     courseOrSubject: z.string(),
+
     studentIdProf: z.string(),
     qualificationProf: z.string(),
     enrolmentStatusProf: z.string(),
@@ -137,11 +140,14 @@ function VerifyDocumentPage() {
     graduationYearProf: z.string().min(4).max(4),
     addInfoProf: z.string(),
     profCourse: z.string(),
+    fileDocProf: z.string(),
+    schoolCountryProf:z.string(),
+
     finName: z.string(),
     finInfo: z.string(),
     finDocFile: z.string(),
-    fileDocProf: z.string(),
-    fileDocEduc: z.string(),
+    fileTypeFin: z.string(),
+    finCountry: z.string(),
   });
 
   const {
@@ -265,34 +271,45 @@ function VerifyDocumentPage() {
       lastName: documentDetailsValues?.lastName,
       middleName: documentDetailsValues?.middleName,
       dob: documentDetailsValues?.dob,
+      // education
+      fileDocEduc: docUploadValueObj?.fileDocEduc?.map(doc => doc[0]),
+      fileTypeEduc: docUploadValueObj?.fileTypeEduc?.map(type => type.value),
       matricNumber: docUploadValueObj?.matricNumber,
-      // dateOfIssueEduc: docUploadValueObj?.dateOfIssueEduc,
-      schoolCountryEduc: docUploadValueObj?.schoolCountryEduc,
-      schoolNameEduc: docUploadValueObj?.schoolNameEduc,
+      schoolCountryEduc: docUploadValueObj?.schoolCountryEduc?.map(type => type.value),
+      schoolNameEduc: docUploadValueObj?.schoolNameEduc?.map(type => type.value),
       schoolCity: docUploadValueObj?.schoolCity,
       enrollmentYearEduc: docUploadValueObj?.enrollmentYearEduc,
       graduationYearEduc: docUploadValueObj?.graduationYearEduc,
       addInfo: docUploadValueObj?.addInfo,
+      examBoard: docUploadValueObj?.examBoard,
       courseOrSubject: docUploadValueObj?.courseOrSubject,
+
+      // Professional Certification 
+      fileDocProf: docUploadValueObj?.fileDocProf?.map(doc => doc[0]),
+      schoolNameProf: docUploadValueObj?.schoolNameProf,
       studentIdProf: docUploadValueObj?.studentIdProf,
       qualificationProf: docUploadValueObj?.qualificationProf,
       enrolmentStatusProf: docUploadValueObj?.enrolmentStatusProf,
-      schoolNameProf: docUploadValueObj?.schoolNameProf,
       enrollmentYearProf: docUploadValueObj?.enrollmentYearProf,
       graduationYearProf: docUploadValueObj?.graduationYearProf,
       addInfoProf: docUploadValueObj?.addInfoProf,
       profCourse: docUploadValueObj?.profCourse,
+      schoolCountryProf: docUploadValueObj?.schoolCountryProf?.map(type => type.value),
+
+      // Financial records
+      fileTypeFin: docUploadValueObj?.fileTypeFin?.map(type => type.value),
       finName: docUploadValueObj?.finName,
       finInfo: docUploadValueObj?.finInfo,
-      finDocFile: docUploadValueObj?.finDocFile,
-      fileDocProf: docUploadValueObj?.fileDocProf,
-      fileDocEduc: docUploadValueObj?.fileDocEduc,
-      fileTypeEduc: docUploadValueObj?.fileTypeEduc,
-      fileTypeFin: docUploadValueObj?.fileTypeFin,
+      finCountry:  docUploadValueObj?.finCountry?.map(type => type.value),
+      finDocFile: docUploadValueObj?.finDocFile?.map(doc => doc[0]),
     };
 
-    console.log({verifyDocumentData})
+    console.log({verifyDocumentData: verifyDocumentData.fileTypeEduc})
+    const formData = new FormData();
 
+    for(let key of Object.keys(verifyDocumentData)) {
+      formData.append(key, verifyDocumentData[key])
+    }
 
     dispatch(postDocument({ ...verifyDocumentData }))
       .then((result) => {
