@@ -34,12 +34,7 @@ const UploadDocument = ({
     fileSectionIndex
   ) {
     const newArray = [...fileSections];
-    const newDoc = DocumentOptions?.find(
-      (doc) => doc?.title === documentCategoryValue?.value?.label
-    );
-
-    newArray[fileSectionIndex].label = newDoc?.label;
-    newArray[fileSectionIndex].value = newDoc?.value;
+    newArray[fileSectionIndex] = documentCategoryValue;
 
     updateFileSection(newArray);
     setValue(`documentCategory`, newArray);

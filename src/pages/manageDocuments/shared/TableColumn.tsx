@@ -1,93 +1,99 @@
 import React, { useState } from "react";
-import CloseIcon from "../../../../assets/icons/CloseIcon";
-import DownloadIcon from "../../../../assets/icons/DownloadIcon";
+import { useNavigate } from "react-router-dom";
 
-function VerificationTableColumn({ data }) {
+function tableColumn({ data }) {
+  const navigate = useNavigate();
+
   function formatCreatedAtDate(createdAt) {
     const options = {
-      day: "2-digit", // Two-digit day
-      month: "short", // Abbreviated month name
+      day: "2-digit", 
+      month: "short",
       year: "numeric",
     };
-
+    
     const formattedDate = new Date(createdAt).toLocaleDateString(
       "en-GB",
       options
-    );
-    const [day, month, year] = formattedDate.split(" ");
-    const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
-    const formattedWithHyphen = `${day}-${capitalizedMonth}-${year}`;
-
-    return formattedWithHyphen;
-  }
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "In review":
-        return "#46A437";
-      case "Pending":
-        return "#D4973B";
-      case "Archived":
-        return "#D1D43B";
-      case "Queried":
-        return "#D43B3B";
-      default:
-        return "";
+      );
+      const [day, month, year] = formattedDate.split(" ");
+      const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
+      const formattedWithHyphen = `${day}-${capitalizedMonth}-${year}`;
+      
+      return formattedWithHyphen;
     }
-  };
+    
+    console.log(data?.user?.documents?.educationalDocuments?.map(doc => doc))
+  // const getStatusColor = (status) => {
+  //   switch ({status}) {
+  //     case "In review":
+  //       return "#46A437";
+  //     case "Pending":
+  //       return "#D4973B";
+  //     case "Archived":
+  //       return "#D1D43B";
+  //     case "Queried":
+  //       return "#D43B3B";
+  //     default:
+  //       return "";
+  //   }
+  // };
 
-  const [modal, openModel] = useState(false);
+ function viewContent() {
+  navigate("/")
+ }
 
-  const toggleModal = () => {
-    openModel(!modal);
-  };
+  // const [modal, openModel] = useState(false);
+
+  // const toggleModal = () => {
+  //   openModel(!modal);
+  // };
   return (
     <>
-      {JSON.stringify(data?.user?.documents)}
+      {/* {JSON.stringify(data?.user?.documents)} */}
       {/* {JSON.stringify(data?.user)} */}
       <div
-        onClick={toggleModal}
+        onClick={viewContent}
         className="flex hover:bg-gray-100 px-3 rounded-lg h-[72px] items-center justify-between"
       >
         <div className="flex items-center gap-2">
           <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
             <p className="font-semibold">
-              {data?.user?.docOwnerLastName && data?.user?.docOwnerLastName[0]}
-              {data?.user?.docOwnerFirstName &&
-                data?.user?.docOwnerFirstName[0]}
+              {data?.user?.info?.docOwnerLastName && data?.user?.info?.docOwnerLastName[0]}
+              {data?.user?.info?.docOwnerFirstName &&
+                data?.user?.info?.docOwnerFirstName[0]}
             </p>
           </div>
           <div className="font-medium">
             <h5 className="text-[16px] font-bold text-black capitalize">
-              {data?.user?.docOwnerLastName} {data?.user?.docOwnerFirstName}
+              {data?.user?.info?.docOwnerLastName} {data?.user?.info?.docOwnerFirstName}
             </h5>
             <p className="flex items-center text-[12px] text-gray-400 gap-2">
               {/* {applicationId} */}
               {/* <span className="w-1 h-1 rounded-full text-[14px] bg-gray-600"></span> */}
-              {formatCreatedAtDate(data?.user?.created_at)}
+              {formatCreatedAtDate(data?.user?.info?.created_at)}
             </p>
           </div>
         </div>
 
         <div className="flex flex-col font-medium">
-          <p
+          {/* <p
             className="flex justify-end items-center text-[12px] gap-2"
             style={{
-              color: getStatusColor(status),
+              color: getStatusColor(status), pass the status
               opacity: "0.95",
             }}
           >
             {status}
             <span className="w-1 h-1 rounded-full bg-gray-600"></span>
-            {/* {currency} {amount} */}
-          </p>
-          <p className="flex justify-end items-center text-[12px] text-black font-semibold gap-2">
-            {/* {description} */}
-          </p>
+            {currency} {amount}
+          </p> */}
+          {/* <p className="flex justify-end items-center text-[12px] text-black font-semibold gap-2">
+            {description}
+          </p> */}
         </div>
       </div>
 
-      {modal && (
+      {/* {modal && (
         <div>
           <div className="bg-black/70 fixed top-0 left-0 w-full h-full z-20"></div>
           <div className="bg-white fixed px-2 top-0 right-0 lg:w-[400px] w-full z-20 h-screen overflow-y-auto custom__scrollbar">
@@ -193,9 +199,9 @@ function VerificationTableColumn({ data }) {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 }
 
-export default VerificationTableColumn;
+export default tableColumn;

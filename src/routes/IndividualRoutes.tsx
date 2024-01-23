@@ -1,8 +1,8 @@
 import { lazy } from "react";
 const DashBoard = lazy(() => import("../pages/dashboard/user/UserDashBoard"))
-const VerifyDocumentPage = lazy(() => import("../pages/Document/VerifyDocumentPage"))
+const VerifyDocumentPage = lazy(() => import("../pages/verifyDocuments/VerifyDocumentPage"))
 const ManageAccountPage = lazy(() => import("../pages/ManageAccountPage"))
-const ManageDocumentPage =lazy(() => import("../pages/ManageDocumentPage")) 
+const ManageDocumentPage =lazy(() => import("../pages/manageDocuments/ManageDocumentPage")) 
 
 
 const DashBoardRoute = {

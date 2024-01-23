@@ -1,8 +1,9 @@
 import { lazy } from "react";
-const VerifyDocumentPage = lazy(() => import("../pages/Document/VerifyDocumentPage"))
+const VerifyDocumentPage = lazy(() => import("../pages/verifyDocuments/VerifyDocumentPage"))
 const OrgDashBoard = lazy(() => import("../pages/dashboard/organization/OrgDashBoard"))
 const ManageAccountPage = lazy(() => import("../pages/ManageAccountPage")) 
-const ManageDocumentPage = lazy(() => import("../pages/ManageDocumentPage"))
+const ManageDocumentPage = lazy(() => import("../pages/manageDocuments/ManageDocumentPage"))
+const DocumentDetails =lazy(() => import("../pages/manageDocuments/shared/PreviewData"))
 
 const OrgDashBoardRoute = {
   link: "/org/dashboard",
@@ -22,6 +23,12 @@ const OrgManageDocumentRoute = {
   isProtected: true,
 };
 
+const OrgManageDocumentDetailsRoute = {
+  link: "/org/managedocument/details/:id",
+  element: <DocumentDetails />,
+  isProtected: true,
+};
+
 const ManageAccountRoute = {
   link: "/org/account",
   element: <ManageAccountPage />,
@@ -34,4 +41,5 @@ export const ORG_ROUTES = [
   VerifyDocumentPageRoute,
   OrgManageDocumentRoute,
   ManageAccountRoute,
+  OrgManageDocumentDetailsRoute,
 ];

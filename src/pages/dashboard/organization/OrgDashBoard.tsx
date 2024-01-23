@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SchoolIcon from "../../../assets/icons/SchoolIcon";
 import CloseIcon from "../../../assets/icons/CloseIcon";
 
-import OpenVerificationTable from "../../../components/table/OpenVerificationTable/OpenVerificationTable";
+// import OpenVerificationTable from "../../../components/table/OpenVerificationTable/OpenVerificationTable";
 
 function OrgDashBoard() {
   const mockData = [
@@ -203,7 +203,7 @@ function OrgDashBoard() {
               See More
             </button>
           </div>
-          <OpenVerificationTable tableData={tableData} />
+          {/* <OpenVerificationTable tableData={tableData} /> */}
         </div>
       </div>
     </>

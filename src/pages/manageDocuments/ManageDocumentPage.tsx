@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDocument } from "../redux/features/documentSlice";
-import OpenVerificationTable from "../components/table/OpenVerificationTable/OpenVerificationTable";
+import { fetchDocument } from "../../redux/features/documentSlice";
+import Table from "./Table";
 
 function ManageDocumentPage() {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ function ManageDocumentPage() {
               <h3 className="font-bold">Verification History</h3>
             </div>
 
-            <OpenVerificationTable tableData={document?.data?.data} />
+            <Table tableData={document?.data?.data} />
           </div>
           <div className="h-12 w-full sticky bottom bg-slate-200 text-primary rounded-b-lg flex justify-between items-center px-2"></div>
         </div>
