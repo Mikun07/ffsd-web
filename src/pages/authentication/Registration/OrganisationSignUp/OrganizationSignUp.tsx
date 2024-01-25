@@ -159,6 +159,7 @@ function OrganizationForm() {
   } = useMultiStepForm(formSteps, formTitles);
 
   function signUp(signUpValues) {
+    // console.log(signUpValues)
     const signUpData = {
       firstName: signUpValues?.firstname,
       lastName: signUpValues?.lastname,
@@ -167,10 +168,12 @@ function OrganizationForm() {
       password: signUpValues?.password,
       password_confirmation: signUpValues?.confirmPassword,
       category: "org",
-      country: signUpValues?.country?.value,
+      country: country?.value,
       company_name: signUpValues?.companyName,
-      industry: signUpValues?.industry?.value,
+      industry: industry?.value,
     };
+
+    // console.log({signUp})
 
     dispatch(postSignUp({ ...signUpData }))
       .then((result) => {

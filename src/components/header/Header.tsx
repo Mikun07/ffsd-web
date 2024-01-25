@@ -41,18 +41,16 @@ function Header() {
               <p className="text-white text-[9px] font-medium">5</p>
             </div>
           </button>
-          <div>
-            {userLoading ? (
-              <div className="h-[35px] w-[35px] animate-pulse bg-[#D4973B] rounded-full"></div>
-            ) : (
-              <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
-                <p className="font-semibold">
-                  {user?.firstName[0]}
-                  {user?.lastName[0]}
-                </p>
-              </div>
-            )}
-          </div>
+              {userLoading ? (
+                <div className="h-[35px] w-[35px] animate-pulse bg-[#D4973B] rounded-full"></div>
+              ) : (
+                <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center capitalize text-white">
+                  <p className="font-semibold">
+                    {user?.firstName[0]?.toUpperCase()}
+                    {user?.lastName[0]?.toUpperCase()}
+                  </p>
+                </div>
+              )}
         </div>
       </div>
     </>

@@ -145,7 +145,7 @@ function VerifyDocumentPage() {
 
     finName: z.string(),
     finInfo: z.string(),
-    finDocFile: z.string(),
+    fileDocFin: z.string(),
     fileTypeFin: z.string(),
     finCountry: z.string(),
   });
@@ -286,7 +286,7 @@ function VerifyDocumentPage() {
 
       // Professional Certification 
       fileDocProf: docUploadValueObj?.fileDocProf?.map(doc => doc[0]),
-      schoolNameProf: docUploadValueObj?.schoolNameProf,
+      schoolNameProf: docUploadValueObj?.schoolNameProf?.map(type => type.value),
       studentIdProf: docUploadValueObj?.studentIdProf,
       qualificationProf: docUploadValueObj?.qualificationProf,
       enrolmentStatusProf: docUploadValueObj?.enrolmentStatusProf,
@@ -301,7 +301,7 @@ function VerifyDocumentPage() {
       finName: docUploadValueObj?.finName,
       finInfo: docUploadValueObj?.finInfo,
       finCountry:  docUploadValueObj?.finCountry?.map(type => type.value),
-      finDocFile: docUploadValueObj?.finDocFile?.map(doc => doc[0]),
+      fileDocFin: docUploadValueObj?.fileDocFin?.map(doc => doc[0]),
     };
 
     console.log({verifyDocumentData: verifyDocumentData.fileTypeEduc})

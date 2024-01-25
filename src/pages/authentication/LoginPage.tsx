@@ -15,6 +15,7 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const loginLoading = useSelector((state) => state?.login?.loading);
+  const loginError = useSelector((state) => state?.login?.error);
 
   const redirectUrl = {
     org: "/org/dashboard",
@@ -31,7 +32,7 @@ function LoginPage() {
     getValues,
   } = useForm({ mode: "all" });
 
-  const loginFields = watch("email");
+  // const loginFields = watch("email");
 
   function login(data) {
     dispatch(postLogin({ ...data }))
@@ -39,16 +40,20 @@ function LoginPage() {
         const {
           payload: { data },
         } = result;
+
+        console.log({loginError, result})
         if (data?.token) {
           if (data?.user?.category) {
             navigate(redirectUrl[data?.user?.category]);
             toast.success(data?.message);
           } else {
-            toast.error(result?.data?.error);
+            toast.error(loginError);
           }
+        } else {
+          toast.error(loginError);
         }
       })
-      .finally();
+      // .finally();
   }
 
   return (

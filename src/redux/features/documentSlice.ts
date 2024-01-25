@@ -37,6 +37,7 @@ const documentSlice = createSlice({
       } else {
         state.success = true;
         state.data = payload?.data;
+        ///
         state.error = null;
       }
       state.loading = false;

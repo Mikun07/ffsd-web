@@ -24,7 +24,7 @@ const OrgManageDocumentRoute = {
 };
 
 const OrgManageDocumentDetailsRoute = {
-  link: "/org/managedocument/details/:id",
+  link: "/org/managedocument/details",
   element: <DocumentDetails />,
   isProtected: true,
 };

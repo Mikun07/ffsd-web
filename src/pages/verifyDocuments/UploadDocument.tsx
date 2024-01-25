@@ -120,7 +120,7 @@ const UploadDocument = ({
                 handleChange={(documentCategoryValue) => {
                   handleDocumentCategorySelection(documentCategoryValue, index);
                 }}
-                useValue
+                // useValue
               />
               <div>
                 {fileSections[index]?.label &&

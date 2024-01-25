@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LogoDP from "../../../assets/Logo.png";
 import DashboardIcon from "../../../assets/icons/DashboardIcon";
 import AccountIcon from "../../../assets/icons/AccountIcon";
@@ -8,13 +8,34 @@ import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from "../../../assets/icons/LogoutIcon";
 import SchoolIcon from "../../../assets/icons/SchoolIcon";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/features/loginSlice";
+import { fetchUser } from "../../../redux/features/userSlice";
+import { fetchDocument } from "../../../redux/features/documentSlice";
 
 function OrgSidebar() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+  // const user = useSelector((state) => state?.user?.data);
+  // const userLoading = useSelector((state) => state?.user?.loading);
+  // const document = useSelector((state) => state?.document?.data);
+  // const documentLoading = useSelector((state) => state?.document?.loading);
+
+  async function getDocuments() {
+    dispatch(fetchDocument());
+  }
+
+  useEffect(() => {
+    getDocuments();
+  }, []);
+
+  async function getUser() {
+    dispatch(fetchUser());
+  }
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const [open, setOpen] = useState(true);
 

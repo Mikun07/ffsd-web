@@ -15,11 +15,15 @@ const initialState = {
 export const postLogin = createAsyncThunk("login/postSignUp", async (body) => {
   try {
     const response = await axios.post(`${BASE_URL}/login`, body);
+    console.log({response})
+
     return response;
   } catch (error) {
-    return error?.response?.data?.errors;
+    console.log({error})
+    return error?.response?.data;
   }
 });
+// console.log(response)
 
 const loginSlice = createSlice({
   name: "login",
@@ -38,17 +42,19 @@ const loginSlice = createSlice({
     });
     builder.addCase(postLogin.fulfilled, (state, action) => {
       const { payload } = action;
-      if (payload?.data?.errors) {
-        (state.success = false),
-          (state.data = null),
-          (state.error = payload?.data?.errors);
+      if (payload?.error) {        
+        console.log("HERE")
+        state.success = false
+          state.data = null
+          state.error = payload?.error || payload?.message
       } else {
-        localStorage.setItem("userToken", JSON.stringify(payload?.data?.token));
+        localStorage.setItem("userToken", JSON.stringify(payload?.data?.token || ""));
         (state.success = true),
           (state.isLoggedIn = true),
           (state.data = payload?.data?.user),
           (state.error = null);
       }
+      console.log(payload?.error)
       state.loading = false;
     });
     builder.addCase(postLogin.rejected, (state, action) => {

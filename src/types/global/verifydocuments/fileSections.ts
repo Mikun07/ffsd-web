@@ -59,7 +59,7 @@ interface FinancialRecordFormContent {
   finName: string;
   finCountry: string;
   finInfo: string;
-  finDocFile: any;
+  fileDocFin: any;
 }
 
 export function getFormDataContent(documentCategory) {
@@ -94,7 +94,7 @@ export function getFormDataContent(documentCategory) {
       finName: null,
       finCountry: null,
       finInfo: null,
-      finDocFile: null,
+      fileDocFin: null,
     },
   };
 
@@ -133,7 +133,7 @@ export function getFormDataLabels(documentCategory) {
       finName: "Bank Name",
       finCountry: "Bank Country",
       finInfo: "Additional Information",
-      finDocFile: "File Uploaded",
+      fileDocFin: "File Uploaded",
     },
   };
 
