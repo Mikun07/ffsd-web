@@ -31,21 +31,21 @@ const FinancialRecord = ({
     <FileInput key={0} label="choose file" />,
   ]);
 
-  const addFileInput = () => {
-    setFileInputs((prevInputs) => [
-      ...prevInputs,
-      <FileInput
-        key={prevInputs.length}
-        label={`choose file ${prevInputs.length + 1}`}
-      />,
-    ]);
-  };
+  // const addFileInput = () => {
+  //   setFileInputs((prevInputs) => [
+  //     ...prevInputs,
+  //     <FileInput
+  //       key={prevInputs.length}
+  //       label={`choose file ${prevInputs.length + 1}`}
+  //     />,
+  //   ]);
+  // };
 
-  const deleteFileInput = () => {
-    if (fileInputs.length > 1) {
-      setFileInputs((prevInputs) => prevInputs.slice(0, -1));
-    }
-  };
+  // const deleteFileInput = () => {
+  //   if (fileInputs.length > 1) {
+  //     setFileInputs((prevInputs) => prevInputs.slice(0, -1));
+  //   }
+  // };
   return (
     <>
       <div className=" mt-10 flex lg:flex-row flex-col gap-4">
@@ -53,7 +53,7 @@ const FinancialRecord = ({
           {fileInputs.map((fileInputs, selectedFileIndex) => {
             return (
               <div className="mt-3" key={selectedFileIndex}>
-                {selectedFileIndex !== 0 && (
+                {/* {selectedFileIndex !== 0 && (
                   <div
                     onClick={() => deleteFileInput(selectedFileIndex)}
                     className="relative cursor-pointer"
@@ -63,7 +63,7 @@ const FinancialRecord = ({
                       <AiFillCloseCircle size={15} />{" "}
                     </span>
                   </div>
-                )}
+                )} */}
                 <FileInput
                   label="choose file"
                   onFileSelect={(file) =>
@@ -73,7 +73,7 @@ const FinancialRecord = ({
               </div>
             );
           })}
-          <div
+          {/* <div
             onClick={addFileInput}
             className="flex p-1 mt-3 w-full cursor-pointer"
           >
@@ -83,7 +83,7 @@ const FinancialRecord = ({
                 + <p>Add File</p>
               </span>
             </span>
-          </div>
+          </div> */}
         </div>
         <div className="w-full flex flex-col gap-6">
           <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-4">

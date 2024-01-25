@@ -54,6 +54,7 @@ const UploadDocument = ({
     updateFileSection(newArray);
     setValue("documentCategory", newArray);
   }
+  
 
   const DocumentUrl = {
     Education: (index: number) =>
