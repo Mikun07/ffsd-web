@@ -12,17 +12,24 @@ function ManageDocumentPage() {
   const dispatch = useDispatch();
   const upload = useSelector((state) => state?.document?.data);
   const documentLoading = useSelector((state) => state?.document?.loading);
+  const [selectedFilter, setSelectedFilter] = useState(null);
 
+  // Function to fetch documents
   async function getDocuments() {
-    dispatch(fetchDocument());
+    dispatch(fetchDocument({ type: selectedFilter }));
+  }
+
+  // Function to update filter
+  function updateFilter(newFilter) {
+    setSelectedFilter(newFilter);
   }
 
   useEffect(() => {
     getDocuments();
-  }, []);
+  }, [selectedFilter]);
 
   // Array of data to process
-const dataArray = upload?.data?.data || [];
+  const dataArray = upload?.data?.data || [];
 // console.log(dataArray)
 
 // Total length of all documents combined
@@ -64,20 +71,7 @@ dataArray.forEach((item, index) => {
   totalEducationalDocumentsLength += educationalDocumentsLength;
   totalFinancialDocumentsLength += financialDocumentsLength;
   totalProfessionalDocumentsLength += professionalDocumentsLength;
-
-  // Logging the variables for this item
-  // console.log(`Item ${index + 1}:`);
-  // console.log("Financial Documents Length:", financialDocumentsLength);
-  // console.log("Educational Documents Length:", educationalDocumentsLength);
-  // console.log("Professional Documents Length:", professionalDocumentsLength);
-  // console.log("Total Documents Length:", totalDocumentsLength);
 });
-
-// Logging the total variables
-// console.log("Total Financial Documents Length:", totalFinancialDocumentsLength);
-// console.log("Total Educational Documents Length:", totalEducationalDocumentsLength);
-// console.log("Total Professional Documents Length:", totalProfessionalDocumentsLength);
-// console.log("Total All Documents Length:", totalAllDocumentsLength);
 
 
   return (
@@ -108,7 +102,7 @@ dataArray.forEach((item, index) => {
               <h3 className="font-bold">Verification History</h3>
               <div className="flex gap-2">
                 <SearchInput />
-                <FilterModel />
+                <FilterModel setSelectedFilter={updateFilter}/>
               </div>
             </div>
 
@@ -122,11 +116,11 @@ dataArray.forEach((item, index) => {
           </div>
           <div className="h-24 w-full bg-slate-200 text-primary rounded-b-lg flex justify-end items-center px-2">
             <div className="flex gap-1">
-              <div className="h-8 w-8 border-2 border-primary bg-transparent rounded-lg flex items-center justify-center text-primary">
+              <div className="h-8 w-8 border-2 border-primary bg-transparent rounded-lg flex items-center justify-center text-black">
                 <BiLeftArrow />
               </div>
-              <div className="h-8 w-8 border-2 border-primary bg-transparent rounded-lg flex items-center justify-center text-primary"></div>
-              <div className="h-8 w-8 border-2 border-primary bg-transparent rounded-lg flex items-center justify-center text-primary">
+              <div className="h-8 w-8 border-2 border-primary bg-transparent rounded-lg flex items-center justify-center text-black"></div>
+              <div className="h-8 w-8 border-2 border-primary bg-transparent rounded-lg flex items-center justify-center text-black">
                 <BiRightArrow />
               </div>
             </div>

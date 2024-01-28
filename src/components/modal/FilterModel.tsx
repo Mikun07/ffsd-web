@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function FilterModel() {
+function FilterModel({setSelectedFilter}) {
   const [modal, openModal] = useState(false);
 
   const status = [
@@ -41,6 +41,7 @@ function FilterModel() {
               {status.map(({ name, style }, index) => (
                 <p
                   key={index}
+                  onClick={() => setSelectedFilter(name)}
                   className="py-2 pl-2 capitalize flex flex-col gap-2 hover:bg-slate-200"
                   style={{
                     color: style,

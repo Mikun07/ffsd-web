@@ -40,8 +40,6 @@ function LoginPage() {
         const {
           payload: { data },
         } = result;
-
-        console.log({loginError, result})
         if (data?.token) {
           if (data?.user?.category) {
             navigate(redirectUrl[data?.user?.category]);
@@ -50,7 +48,7 @@ function LoginPage() {
             toast.error(loginError);
           }
         } else {
-          toast.error(loginError);
+          toast.error("Invalid Email or Password");
         }
       })
       // .finally();

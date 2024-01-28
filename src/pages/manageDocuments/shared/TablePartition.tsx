@@ -3,23 +3,37 @@ import TableColumn from "./TableColumn";
 
 // Variable to extract users from data and log them
 const users = (data) => {
-  const extractedUsers = data.map((item) => item.user);
+  const extractedUsers = data?.map((item) => item.user);
+  // console.log({extractedUsers})
   return extractedUsers;
 };
 
-// Get educational documents for each user
-const educationalDocuments = (user) => {
-  return user?.documents?.educationalDocuments || [];
+const educationalDocumentsWithUserInfo = (user) => {
+  return (
+    user?.documents?.educationalDocuments.map((document) => ({
+      ...document,
+      userInfo: user.info,
+      Tag: "Educational Document"
+    })) || []
+  );
 };
-
-// Get financial documents for each user
-const financialDocuments = (user) => {
-  return user?.documents?.financialDocuments || [];
+const financialDocumentsWithUserInfo = (user) => {
+  return (
+    user?.documents?.financialDocuments.map((document) => ({
+      ...document,
+      userInfo: user.info,
+      Tag: "financial Document"
+    })) || []
+  );
 };
-
-// Get professional documents for each user
-const professionalDocuments = (user) => {
-  return user?.documents?.professionalDocuments || [];
+const professionalDocumentsWithUserInfo = (user) => {
+  return (
+    user?.documents?.professionalDocuments.map((document) => ({
+      ...document,
+      userInfo: user.info,
+      Tag: "professional Document"
+    })) || []
+  );
 };
 
 function TablePartition({ data }) {
@@ -27,36 +41,31 @@ function TablePartition({ data }) {
   const usersArray = users(data);
   // console.log({usersArray})
 
-  // Extract educational documents for each user from usersArray
-  const usersEducationalDocuments = usersArray.map((user) =>
-    educationalDocuments(user)
+  // Extract educational documents for each user from usersArray along with user info
+  const usersEducationalDocumentsWithUserInfo = usersArray?.flatMap((user) =>
+    educationalDocumentsWithUserInfo(user)
   );
-  
-
-  // Extract financial documents for each user from usersArray
-  const usersFinancialDocuments = usersArray.map((user) =>
-    financialDocuments(user)
+  const usersFinancialDocumentsWithUserInfo = usersArray?.flatMap((user) =>
+    financialDocumentsWithUserInfo(user)
   );
-
-  // Extract professional documents for each user from usersArray
-  const usersProfessionalDocuments = usersArray.map((user) =>
-    professionalDocuments(user)
+  const usersProfessionalDocumentsWithUserInfo = usersArray?.flatMap((user) =>
+    professionalDocumentsWithUserInfo(user)
   );
 
   // Combine educational, financial, and professional documents
-  const allDocuments = usersArray.flatMap((user) => [
-    ...educationalDocuments(user),
-    ...financialDocuments(user),
-    ...professionalDocuments(user),
+  const allDocuments = usersArray?.flatMap((user) => [
+    ...educationalDocumentsWithUserInfo(user),
+    ...financialDocumentsWithUserInfo(user),
+    ...professionalDocumentsWithUserInfo(user),
   ]);
 
   // Reverse the order of allDocuments and map it
-  const reversedDocuments = allDocuments.reverse();
+  const reversedDocuments = allDocuments?.reverse();
 
   return (
     <div className="w-full h-auto">
       <div className="flex flex-col gap-2">
-        {reversedDocuments.map((document, index) => (
+        {reversedDocuments?.map((document, index) => (
           <TableColumn key={index} data={document} />
         ))}
       </div>
