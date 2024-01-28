@@ -4,7 +4,6 @@ import TableColumn from "./TableColumn";
 // Variable to extract users from data and log them
 const users = (data) => {
   const extractedUsers = data?.map((item) => item.user);
-  // console.log({extractedUsers})
   return extractedUsers;
 };
 
@@ -39,7 +38,6 @@ const professionalDocumentsWithUserInfo = (user) => {
 function TablePartition({ data }) {
   // Extract users and log them
   const usersArray = users(data);
-  // console.log({usersArray})
 
   // Extract educational documents for each user from usersArray along with user info
   const usersEducationalDocumentsWithUserInfo = usersArray?.flatMap((user) =>

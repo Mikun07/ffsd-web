@@ -141,7 +141,7 @@ function VerifyDocumentPage() {
     addInfoProf: z.string(),
     profCourse: z.string(),
     fileDocProf: z.string(),
-    schoolCountryProf:z.string(),
+    schoolCountryProf: z.string(),
 
     finName: z.string(),
     finInfo: z.string(),
@@ -263,8 +263,6 @@ function VerifyDocumentPage() {
     isLastStep,
   } = useMultiStepForm(formSteps, formTitles);
 
-  // console.log({ isValid, docUploadIsValid });
-
   function sendDocument() {
     const verifyDocumentData = {
       firstName: documentDetailsValues?.firstName,
@@ -272,11 +270,15 @@ function VerifyDocumentPage() {
       middleName: documentDetailsValues?.middleName,
       dob: documentDetailsValues?.dob,
       // education
-      fileDocEduc: docUploadValueObj?.fileDocEduc?.map(doc => doc[0]),
-      fileTypeEduc: docUploadValueObj?.fileTypeEduc?.map(type => type.value),
+      fileDocEduc: docUploadValueObj?.fileDocEduc?.map((doc) => doc[0]),
+      fileTypeEduc: docUploadValueObj?.fileTypeEduc?.map((type) => type?.value),
       matricNumber: docUploadValueObj?.matricNumber,
-      schoolCountryEduc: docUploadValueObj?.schoolCountryEduc?.map(type => type.value),
-      schoolNameEduc: docUploadValueObj?.schoolNameEduc?.map(type => type.value),
+      schoolCountryEduc: docUploadValueObj?.schoolCountryEduc?.map(
+        (type) => type?.value
+      ),
+      schoolNameEduc: docUploadValueObj?.schoolNameEduc?.map(
+        (type) => type?.value
+      ),
       schoolCity: docUploadValueObj?.schoolCity,
       enrollmentYearEduc: docUploadValueObj?.enrollmentYearEduc,
       graduationYearEduc: docUploadValueObj?.graduationYearEduc,
@@ -284,9 +286,11 @@ function VerifyDocumentPage() {
       examBoard: docUploadValueObj?.examBoard,
       courseOrSubject: docUploadValueObj?.courseOrSubject,
 
-      // Professional Certification 
-      fileDocProf: docUploadValueObj?.fileDocProf?.map(doc => doc[0]),
-      schoolNameProf: docUploadValueObj?.schoolNameProf?.map(type => type.value),
+      // Professional Certification
+      fileDocProf: docUploadValueObj?.fileDocProf?.map((doc) => doc[0]),
+      schoolNameProf: docUploadValueObj?.schoolNameProf?.map(
+        (type) => type?.value
+      ),
       studentIdProf: docUploadValueObj?.studentIdProf,
       qualificationProf: docUploadValueObj?.qualificationProf,
       enrolmentStatusProf: docUploadValueObj?.enrolmentStatusProf,
@@ -294,21 +298,21 @@ function VerifyDocumentPage() {
       graduationYearProf: docUploadValueObj?.graduationYearProf,
       addInfoProf: docUploadValueObj?.addInfoProf,
       profCourse: docUploadValueObj?.profCourse,
-      schoolCountryProf: docUploadValueObj?.schoolCountryProf?.map(type => type.value),
+      schoolCountryProf: docUploadValueObj?.schoolCountryProf?.map(
+        (type) => type?.value
+      ),
 
       // Financial records
-      fileTypeFin: docUploadValueObj?.fileTypeFin?.map(type => type.value),
+      fileTypeFin: docUploadValueObj?.fileTypeFin?.map((type) => type?.value),
       finName: docUploadValueObj?.finName,
       finInfo: docUploadValueObj?.finInfo,
-      finCountry:  docUploadValueObj?.finCountry?.map(type => type.value),
-      fileDocFin: docUploadValueObj?.fileDocFin?.map(doc => doc[0]),
+      finCountry: docUploadValueObj?.finCountry?.map((type) => type?.value),
+      fileDocFin: docUploadValueObj?.fileDocFin?.map((doc) => doc[0]),
     };
-
-    console.log({verifyDocumentData: verifyDocumentData.fileTypeEduc})
     const formData = new FormData();
 
-    for(let key of Object.keys(verifyDocumentData)) {
-      formData.append(key, verifyDocumentData[key])
+    for (let key of Object.keys(verifyDocumentData)) {
+      formData.append(key, verifyDocumentData[key]);
     }
 
     dispatch(postDocument({ ...verifyDocumentData }))
@@ -316,16 +320,11 @@ function VerifyDocumentPage() {
         const {
           payload: { data },
         } = result;
-        console.log({verifyDocumentData})
         const success = Boolean(data?.success);
-        console.log({success});
         if (success === true) {
-          if (data?.user?.category) {
-            navigate(redirectUrl[data?.user?.category]);
-            toast.success("Successful");
-          } else {
-            toast.error(result?.data?.error);
-          }
+          toast.success("Upload Successful");
+        } else {
+          toast.error("Upload Failed");
         }
       })
       .finally();
@@ -357,7 +356,7 @@ function VerifyDocumentPage() {
               </div>
             ) : (
               <div className="w-full py-2 justify-end flex">
-                <Button onClick={(sendDocument)}>{title.buttonText}</Button>
+                <Button onClick={sendDocument}>{title.buttonText}</Button>
               </div>
             )}
             {/* {JSON.stringify(isValid)} {JSON.stringify(docUploadIsValid)} */}

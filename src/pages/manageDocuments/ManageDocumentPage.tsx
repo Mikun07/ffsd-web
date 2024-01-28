@@ -30,7 +30,6 @@ function ManageDocumentPage() {
 
   // Array of data to process
   const dataArray = upload?.data?.data || [];
-// console.log(dataArray)
 
 // Total length of all documents combined
 let totalAllDocumentsLength = 0;

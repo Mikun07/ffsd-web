@@ -72,7 +72,6 @@ const EducationForm = ({
                   label="choose file"
                   onFileSelect={(file) =>
                     {
-                      console.log({file})
                       setValue(`fileDocEduc.${index}.${selectedFileIndex}`, file)
                     }
                   }

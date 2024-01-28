@@ -159,7 +159,6 @@ function OrganizationForm() {
   } = useMultiStepForm(formSteps, formTitles);
 
   function signUp(signUpValues) {
-    // console.log(signUpValues)
     const signUpData = {
       firstName: signUpValues?.firstname,
       lastName: signUpValues?.lastname,
@@ -173,8 +172,6 @@ function OrganizationForm() {
       industry: industry?.value,
     };
 
-    // console.log({signUp})
-
     dispatch(postSignUp({ ...signUpData }))
       .then((result) => {
         const {
@@ -184,7 +181,7 @@ function OrganizationForm() {
         if (success === true) {
           navigate("/signup/otp");
         } else {
-          // toast.error(result?.payload?.error);
+          toast.error("Invalid OTP");
         }
       })
       .finally();

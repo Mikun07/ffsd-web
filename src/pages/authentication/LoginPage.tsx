@@ -105,14 +105,14 @@ function LoginPage() {
                   <Button type="submit" disabled={!isValid || loginLoading}>
                     Login
                   </Button>
-                  <div className="flex justify-end">
+                  {/* <div className="flex justify-end">
                     <p
                       onClick={() => navigate("/forgotpassword")}
                       className="text-xs cursor-pointer"
                     >
                       Forgot password?
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </form>
               <p className="text-[15px] font-semibold capitalize self-center">
