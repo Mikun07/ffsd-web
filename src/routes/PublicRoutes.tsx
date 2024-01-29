@@ -2,7 +2,7 @@ import LoginPage from "../pages/authentication/LoginPage";
 import RegisterPage from "../pages/authentication/Registration/RegisterPage";
 import ForgotPasswordPage from "../pages/authentication/ForgotPassword/ForgotPasswordPage";
 import OTPPage from "../pages/authentication/OTPPage";
-import Landing from "../pages/Landing";
+// import Landing from "../pages/";
 import { Navigate } from "react-router-dom";
 
 
