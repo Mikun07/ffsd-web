@@ -60,7 +60,7 @@ function AdminSidebar() {
         className={`lg:w-64 md:w-64 w-16 relative h-screen flex flex-col justify-between bg-gray-200 z-30 shadow-md py-2`}
       >
         <div className={`flex items-center gap-2 mx-4 p-1`}>
-          <img src={LogoDP} alt="" className={`w-[70px]`} />
+          <img src={Logo} alt="" className={`w-[70px]`} />
           <p
             className={`lg:flex md:flex hidden flex-col leading-4 font-semibold tracking-wider capitalize text-[15px] text-[#40B52D]`}
           >

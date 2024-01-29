@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Card from "../../../components/card/Card";
 import FilterIcon from "../../../assets/icons/FilterIcon";
-import OpenVerificationTable from "../../../components/table/OpenVerificationTable/OpenVerificationTable";
+// import OpenVerificationTable from "../../../components/table/OpenVerificationTable/OpenVerificationTable";
 import CheckCircleIcon from "../../../assets/icons/CheckCircleIcon";
 import PendingIcon from "../../../assets/icons/PendingIcon";
 import ArchiveIcon from "../../../assets/icons/ArchiveIcon";
@@ -211,7 +211,7 @@ function AdminDashBoard() {
         </div>
 
         <div className="mt-2 mb-16 w-full overflow-y-auto custom__scrollbar">
-          <OpenVerificationTable tableData={tableData} />
+          {/* <OpenVerificationTable tableData={tableData} /> */}
         </div>
       </div>
     </>

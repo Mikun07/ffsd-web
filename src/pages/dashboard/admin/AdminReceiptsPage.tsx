@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReceiptsTable from "../../../components/table/ReceiptTable/ReceiptsTable";
+// import ReceiptsTable from "../../../components/table/ReceiptTable/ReceiptsTable";
 
 function AdminReceiptsPage() {
   const mockTransactionData = [
@@ -149,7 +149,7 @@ function AdminReceiptsPage() {
         </div>
 
         <div className="mt-5 pb-[120px] h-full">
-          <ReceiptsTable tableData={tableData} />
+          {/* <ReceiptsTable tableData={tableData} /> */}
         </div>
       </div>
     </>

@@ -1,11 +1,11 @@
 import React from "react";
 
-function PendingIcon({ width, height }) {
+function PendingIcon({ width="30", height="30" }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={70}
-      height={70}
+      width={width}
+      height={height}
       viewBox="0 0 24 24"
     >
       <rect x={0} y={0} width={24} height={24} fill="none" stroke="none" />

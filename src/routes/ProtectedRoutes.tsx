@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { userToken } from "../config/auth";
 
 const PROTECTED_ROUTES = () => {
-  const isLoggedIn = useSelector((state) => state?.login?.isLoggedIn) || !!userToken;
+  const isLoggedIn = useSelector((state) => state?.login?.isLoggedIn) || !!userToken;  // eslint-disable-next-line
 
   const location = useLocation();
   return isLoggedIn ? (

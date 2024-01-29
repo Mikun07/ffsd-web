@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddIcon from "../../../assets/icons/AddIcon";
-import ManageUserTable from "../../../components/table/ManageUserTable";
+// import ManageUserTable from "../../../";
 
 function ManageUserPage() {
   const [open, setOpen] = useState(false);
@@ -27,7 +27,7 @@ function ManageUserPage() {
         </div>
 
         <div className="mt-5 pb-[100px] h-full overflow-y-auto custom__scrollbar">
-          <ManageUserTable />
+          {/* <ManageUserTable /> */}
         </div>
       </div>
     </>
