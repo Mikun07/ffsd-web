@@ -1,7 +1,7 @@
 import React from "react";
-import Avatar from "../../../components/avatar/Avatar";
-import EditIcon from "../../../assets/icons/EditIcon";
-import AdminAccountForm from "../../../components/form/AdminAccountForm";
+// import Avatar from "../../../components/avatar/Avatar";
+import EditIcon from "../../assets/icons/EditIcon";
+import AdminAccountForm from "../../components/form/AdminAccountForm";
 
 function AdminAccountPage() {
   return (
@@ -9,7 +9,7 @@ function AdminAccountPage() {
       <div className="px-1 py-3 flex w-full max-h-screen items-center ">
         <div className="flex lg:py-0 py-[50px] lg:gap-y-11 flex-col w-full h-full items-center lg:justify-center overflow-y-auto">
           <div className="relative">
-            <Avatar />
+            {/* <Avatar /> */}
             <button className="bg-white absolute z-10 bottom-0 right-0 h-[35px] rounded-full flex items-center justify-center w-[35px] border-2 border-[#d4973b]">
               <EditIcon />
             </button>

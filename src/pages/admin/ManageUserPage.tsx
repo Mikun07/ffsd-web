@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AddIcon from "../../../assets/icons/AddIcon";
+import AddIcon from "../../assets/icons/AddIcon";
 // import ManageUserTable from "../../../";
 
 function ManageUserPage() {

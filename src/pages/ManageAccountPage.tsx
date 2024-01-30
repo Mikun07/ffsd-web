@@ -7,11 +7,12 @@ import AccountCard from "../components/card/AccountCard";
 import { AiOutlineMail, AiOutlineUser } from "react-icons/ai";
 import { BsPhone } from "react-icons/bs";
 import { BiWorld } from "react-icons/bi";
+import { RootState } from "../types/redux/root";
 
 function ManageAccountPage() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state?.user?.data);
-  const userLoading = useSelector((state) => state?.user?.loading);
+  const user = useSelector((state : RootState) => state?.user?.data);
+  const userLoading = useSelector((state: RootState) => state?.user?.loading);
 
   async function getUser() {
     dispatch(fetchUser());

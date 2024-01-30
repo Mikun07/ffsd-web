@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { BASE_URL } from "../../config/api";
-import LogoDP from "../../../../assets/Logo.png";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "../../../types/redux/root";
+import { BASE_URL } from "../../../config/api";
 import axios from "axios";
 import toast from "react-hot-toast";
-import LeftView from "./LeftView";
-import { RootState } from "../../types/redux/root";
+import AdminLeftView from "./shared/AdminLeftView";
 
-function OTPPage() {
+const AdminOTPPage = () => {
   const navigate = useNavigate();
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const email = useSelector(
@@ -69,7 +68,7 @@ function OTPPage() {
   async function OTP() {
     try {
       let OTPResult = await axios.post(
-        `${BASE_URL}/confirm_otp`,
+        `${BASE_URL}/system/admin/confirm/otp`,
         {
           email,
           otp: otp.join(""),
@@ -83,7 +82,7 @@ function OTPPage() {
       );
 
       if (OTPResult.data[0].success === true) {
-        navigate("/login");
+        navigate("/admin/login");
         toast.success(OTPResult.data[0].message);
       }
     } catch (error) {
@@ -114,21 +113,14 @@ function OTPPage() {
       toast.error(error?.response.data.message);
     }
   }
-
   return (
     <>
       <div className="bg-white flex h-screen">
         <div className="z-10 absolute lg:top-5 lg:left-[50px] top-6 left-4 flex gap-2 items-center justify-center">
-          <div className="w-[50px] cursor-pointer">
-            <img src={LogoDP} alt="" />
-          </div>
-          <p className="flex flex-col cursor-pointer font-bold leading-5 tracking-tight capitalize lg:text-[15px] text-[#40B52D]">
-            Document And Qualification Verification LTD
-            <span className="text-[#D4973B]">Admin</span>
-          </p>
+          <Logo />
         </div>
 
-        <LeftView />
+        <AdminLeftView />
 
         <div className="lg:w-[60%] w-full h-screen flex flex-col items-center justify-center gap-y-3">
           <h2 className=" font-semibold text-primary capitalize">
@@ -189,6 +181,6 @@ function OTPPage() {
       </div>
     </>
   );
-}
+};
 
-export default OTPPage;
+export default AdminOTPPage;

@@ -1,25 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { BASE_URL } from "../../config/api";
-// import store from "../store";
-// import { setLoggedInUser } from "./userSlice";
-import { BaseState } from "../../types/redux/root";
+import { BASE_URL } from "../../../config/api";
+import { BaseState } from "../../../types/redux/root";
 
-export interface LoginState extends BaseState {
-  isLoggedIn: boolean
+export interface AdminLoginState extends BaseState {
+    isAdminLoggedIn: boolean
 }
 
-const initialState: LoginState = {
+const initialState: AdminLoginState = {
   success: false,
   data: null,
   error: null,
-  isLoggedIn: false,
+  isAdminLoggedIn: false,
   loading: false,
 };
 
-export const postLogin = createAsyncThunk("login/postSignUp", async (body) => {
+export const postAdminLogin = createAsyncThunk("login/postAdminSignUp", async (body) => {
   try {
-    const response = await axios.post(`${BASE_URL}/login`, body);
+    const response = await axios.post(`${BASE_URL}/system/admin/login`, body);
 
     return response;
   } catch (error) {
@@ -27,22 +25,22 @@ export const postLogin = createAsyncThunk("login/postSignUp", async (body) => {
   }
 });
 
-const loginSlice = createSlice({
-  name: "login",
+const adminLoginSlice = createSlice({
+  name: "adminLogin",
   initialState,
   reducers: {
     logout: (state) => {
       localStorage.setItem("userToken", "");
-      state.isLoggedIn = false;
+      state.isAdminLoggedIn = false;
       state.data = null;
       location.assign("/");
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(postLogin.pending, (state, action) => {
+    builder.addCase(postAdminLogin.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(postLogin.fulfilled, (state, action) => {
+    builder.addCase(postAdminLogin.fulfilled, (state, action) => {
       const { payload } = action;
       if (payload?.error) {
         state.success = false;
@@ -54,19 +52,19 @@ const loginSlice = createSlice({
           JSON.stringify(payload?.data?.token || "")
         );
         (state.success = true),
-          (state.isLoggedIn = true),
+          (state.isAdminLoggedIn = true),
           (state.data = payload?.data?.user),
           (state.error = null);
       }
       state.loading = false;
     });
-    builder.addCase(postLogin.rejected, (state, action) => {
+    builder.addCase(postAdminLogin.rejected, (state, action) => {
       (state.success = false), (state.error = action.error.message);
       state.loading = false;
     });
   },
 });
 
-export const { logout } = loginSlice.actions;
+export const { logout } = adminLoginSlice.actions;
 
-export default loginSlice;
+export default adminLoginSlice;

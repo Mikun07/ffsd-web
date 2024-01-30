@@ -1,8 +1,10 @@
-import LoginPage from "../pages/authentication/LoginPage";
-import RegisterPage from "../pages/authentication/Registration/RegisterPage";
-import ForgotPasswordPage from "../pages/authentication/ForgotPassword/ForgotPasswordPage";
-import OTPPage from "../pages/authentication/OTPPage";
-// import Landing from "../pages/";
+import { lazy } from "react"
+const OTPPage = lazy(() => import("../pages/authentication/OTPPage"))
+const LoginPage = lazy(() => import("../pages/authentication/LoginPage"))
+const RegisterPage = lazy(() => import("../pages/authentication/Registration/RegisterPage"))
+const ForgotPasswordPage = lazy(() => import("../pages/authentication/ForgotPassword/ForgotPasswordPage"))
+const AdminLoginPage = lazy(() => import("../pages/admin/adminAuthentication/AdminLoginPage"))
+const AdminSignUpPage = lazy(() => import("../pages/admin/adminAuthentication/AdminSignUpPage"))
 import { Navigate } from "react-router-dom";
 
 
@@ -31,10 +33,22 @@ const ForgotPasswordPageRoute = {
     element: <ForgotPasswordPage />
 }
 
+const AdminLoginPageRoute = {
+    link: "/admin/login",
+    element: <AdminLoginPage />
+}
+
+const AdminSignUpPageRoute = {
+    link: "/admin/signup",
+    element: <AdminSignUpPage />
+}
+
 export const PUBLIC_ROUTES = [
     LangPageRoute,
     LoginPageRoute,
     RegisterPageRoute,
     OTPPageRoute,
     ForgotPasswordPageRoute,
+    AdminLoginPageRoute,
+    AdminSignUpPageRoute,
 ]

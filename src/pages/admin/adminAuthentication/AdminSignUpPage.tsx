@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-// import toast from "react-hot-toast";
-// import { BASE_URL } from "../../../../config/api";
-import { postSignUp } from "../../../../redux/features/signupSlice";
-import { useDispatch } from "react-redux";
-import Button from "../../../../components/button/Button";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
+import { useMultiStepForm } from "../../../hooks/useMultiTabForm";
+import { postAdminSignUp } from "../../../redux/features/Admin/adminSignUpSlice";
+import ProgressBar from "../../../components/progressBar/ProgressBar";
+import Button from "../../../components/button/Button";
 import AccountInfo from "./shared/AccountInfo";
 import ReviewDetails from "./shared/ReviewDetails";
-import ProgressBar from "../../../../components/progressBar/ProgressBar";
-import { useMultiStepForm } from "../../../../hooks/useMultiTabForm";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import AdminLeftView from "./shared/AdminLeftView";
+import LogoDP from "../../../assets/Logo.png";
 
-function IndividualForm() {
+const AdminSignUpPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const IndividualSchema = z
+  const AdminSchema = z
     .object({
       firstname: z.string().min(2).max(30),
       lastname: z.string().min(2).max(30),
@@ -58,7 +57,7 @@ function IndividualForm() {
     handleSubmit,
     getValues,
     control,
-  } = useForm({ resolver: zodResolver(IndividualSchema), mode: "all" });
+  } = useForm({ resolver: zodResolver(AdminSchema), mode: "all" });
 
   const formTitles = [
     {
@@ -105,7 +104,7 @@ function IndividualForm() {
     isLastStep,
   } = useMultiStepForm(formSteps, formTitles);
 
-  function signUp(signUpValues) {
+  function adminSignUp(signUpValues) {
     const signUpData = {
       firstName: signUpValues?.firstname,
       lastName: signUpValues?.lastname,
@@ -113,11 +112,9 @@ function IndividualForm() {
       phone: signUpValues?.phone,
       password: signUpValues?.password,
       password_confirmation: signUpValues?.confirmPassword,
-      category: "indv",
-      // country: signUpValues?.country?.value,
     };
 
-    dispatch(postSignUp({ ...signUpData }))
+    dispatch(postAdminSignUp({ ...signUpData }))
       .then((result) => {
         const {
           payload: { data },
@@ -134,49 +131,75 @@ function IndividualForm() {
 
   return (
     <>
-      <div className="flex flex-col mt-1 w-full gap-6">
-        <div className="flex gap-[6rem] pt-[2rem] pb-[4rem]">
-          <div className="lg:flex md:flex sm:flex hidden">
-            <ProgressBar
-              progressSteps={formTitles}
-              currentStepIndex={currentStepIndex}
-              goTo={goTo}
-              vertical
-              showStepTitle
-            />
+      <div className="bg-white flex h-screen">
+        <div className="z-10 absolute lg:top-5 lg:left-[50px] top-6 left-4 flex gap-2 items-center justify-center">
+          <div className="w-[50px] cursor-pointer">
+            <img src={LogoDP} alt="" />
           </div>
+          <p className="flex flex-col cursor-pointer font-bold lg:leading-5 leading-3 tracking-tight capitalize lg:text-[15px] text-[12px] text-[#40B52D]">
+            Document And Qualification Verification LTD
+            <span className="text-[#D4973B]">Admin</span>
+          </p>
+        </div>
 
-          <div className="flex flex-col justify-between w-full">
-            <form className="flex flex-col gap-[4rem] w-full h-full">
-              {step}
-            </form>
-            <div className="flex mt-4 flex-col">
-              {!isLastStep ? (
-                <Button disabled={!isValid} onClick={next}>
-                  {title.buttonText}
-                </Button>
-              ) : (
-                <Button onClick={handleSubmit(signUp)}>
-                  {title.buttonText}
-                </Button>
-              )}
+        <AdminLeftView />
 
-              {currentStepIndex > 0 ? (
-                <button
-                  className="text-[15px] font-medium p-2 self-end"
-                  onClick={back}
-                >
-                  {" <   "}Go back to {titles[currentStepIndex - 1].title}
-                </button>
-              ) : (
-                ""
-              )}
+        <div className="lg:w-[60%] w-full h-screen flex flex-col items-center justify-center lg:gap-y-3">
+          <h4 className="text-[#40B52D] mt-10 font-semibold self-center">
+            Admin Sign Up
+          </h4>
+
+          <div className="flex gap-[6rem] pt-[2rem] pb-[4rem]">
+            <div className="lg:flex md:flex sm:flex hidden">
+              <ProgressBar
+                progressSteps={formTitles}
+                currentStepIndex={currentStepIndex}
+                goTo={goTo}
+                vertical
+                showStepTitle
+              />
+            </div>
+
+            <div className="flex flex-col justify-between w-full">
+              <form>{step}</form>
+              <div className="flex mt-4 flex-col">
+                {!isLastStep ? (
+                  <Button disabled={!isValid} onClick={next}>
+                    {title.buttonText}
+                  </Button>
+                ) : (
+                  <Button onClick={handleSubmit(adminSignUp)}>
+                    {title.buttonText}
+                  </Button>
+                )}
+
+                {currentStepIndex > 0 ? (
+                  <button
+                    className="text-[15px] font-medium p-2 self-end"
+                    onClick={back}
+                  >
+                    {" <   "}Go back to {titles[currentStepIndex - 1].title}
+                  </button>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
           </div>
+
+          <p className="text-[15px] font-semibold capitalize self-center">
+            I'm already an admin{" "}
+            <span
+              onClick={() => navigate("/admin/login")}
+              className="text-[#40B52D] cursor-pointer hover:text-[#D4973B] hover:text-opacity-85"
+            >
+              Login
+            </span>
+          </p>
         </div>
       </div>
     </>
   );
-}
+};
 
-export default IndividualForm;
+export default AdminSignUpPage;

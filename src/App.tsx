@@ -11,6 +11,7 @@ import { Suspense } from "react";
 import Loading from "./components/withStatus/loading/Loading";
 import UserLayout from "./pages/layout/UserLayout";
 import { INDIVIDUAL_ROUTES } from "./routes/IndividualRoutes";
+import ADMIN_PROTECTED from "./routes/AdminProtected";
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
           {PUBLIC_ROUTES.map(({ link, element }, index) => (
             <Route path={link} element={element} key={index} />
           ))}
-          <Route element={<PROTECTED_ROUTES />}>
+
+          {/* admin routes */}
+          {/* <Route element={<ADMIN_PROTECTED />}> */}
             <Route path="admin" element={<AdminLayout />}>
               {ADMIN_ROUTES.map(({ link, element }, index) => (
                 <Route
@@ -34,6 +37,10 @@ function App() {
                 />
               ))}
             </Route>
+          {/* </Route> */}
+
+          {/* Individual and Organization routes */}
+          <Route element={<PROTECTED_ROUTES />}>
             <Route path="org" element={<OrgLayout />}>
               {ORG_ROUTES.map(({ link, element }, index) => (
                 <Route

@@ -20,6 +20,18 @@ export const fetchDocument = createAsyncThunk(
   }
 );
 
+export const fetchDocumentLength = createAsyncThunk(
+  "user/fetchDocumentLength",
+  async (body) => {
+    try {
+      const response = await axiosInstance.post("/get/documents", body);
+      return response;
+    } catch (error) {
+      return error?.response?.data?.errors;
+    }
+  }
+);
+
 const documentSlice = createSlice({
   name: "document",
   initialState,
@@ -37,7 +49,6 @@ const documentSlice = createSlice({
       } else {
         state.success = true;
         state.data = payload?.data;
-        ///
         state.error = null;
       }
       state.loading = false;

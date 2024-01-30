@@ -3,16 +3,16 @@ import BellIcon from "../../assets/icons/BellIcon";
 // import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../redux/features/userSlice";
+import { RootState } from "../../types/redux/root";
 
 function Header() {
   const dispatch = useDispatch();
   /* eslint-disable */
-  const user = useSelector((state) => state?.user?.data ?? state?.login?.data); // eslint-disable-line
-  const userLoading = useSelector((state) => state?.user?.loading); // eslint-disable-line
+  const user = useSelector((state: RootState) => state?.user?.data ?? state?.login?.data); 
+  const userLoading = useSelector((state: RootState) => state?.user?.loading); 
 
   async function getUser() {
-    dispatch(fetchUser()); // eslint-disable-line
-    /* eslint-disable */
+    dispatch(fetchUser());
   }
   useEffect(() => {
     getUser();

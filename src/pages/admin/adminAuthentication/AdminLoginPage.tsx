@@ -1,27 +1,22 @@
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import Logo from "../../assets/Logo";
-import Button from "../../components/button/Button";
-import { postLogin } from "../../redux/features/loginSlice";
-import LeftView from "./LeftView";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import AdminLeftView from "./shared/AdminLeftView";
+import FormTextInput from "../../../components/input/Form/FormTextInput";
+import FormPasswordInput from "../../../components/input/Form/FormPasswordInput";
+import Button from "../../../components/button/Button";
 import { useForm } from "react-hook-form";
-import FormTextInput from "../../components/input/Form/FormTextInput";
-import FormPasswordInput from "../../components/input/Form/FormPasswordInput";
-import Loading from "../../components/withStatus/loading/Loading";
-import { RootState } from "../../types/redux/root";
+import LogoDP from "../../../../assets/Logo.png";
+import toast from "react-hot-toast";
+import { postAdminLogin } from "../../../redux/features/Admin/AdminSlice";
+import { RootState } from "../../../types/redux/root";
+import Loading from "../../../components/withStatus/loading/Loading";
 
-function LoginPage() {
+const AdminLoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loginLoading = useSelector((state: RootState) => state?.login?.loading);
-  const loginError = useSelector((state: RootState) => state?.login?.error);
-
-  const redirectUrl = {
-    org: "/org/dashboard",
-    // admin: "/admin/dashboard",
-    indv: "/dashboard",
-  };
+  const adminLoginLoading = useSelector(
+    (state: RootState) => state?.adminLogin.loading
+  );
 
   const {
     register,
@@ -32,48 +27,45 @@ function LoginPage() {
     getValues,
   } = useForm({ mode: "all" });
 
-  // const loginFields = watch("email");
-
-  function login(data) {
-    dispatch(postLogin({ ...data }))
-      .then((result) => {
-        const {
-          payload: { data },
-        } = result;
-        if (data?.token) {
-          if (data?.user?.category) {
-            navigate(redirectUrl[data?.user?.category]);
-            toast.success(data?.message);
-          } else {
-            toast.error(loginError);
-          }
-        } else {
-          toast.error("Invalid Email or Password");
-        }
-      })
-      // .finally();
+  function AdminLogin(data) {
+    dispatch(postAdminLogin({ ...data })).then((result) => {
+      const {
+        payload: { data },
+      } = result;
+      if (data?.token) {
+        navigate("/admin/dashboard");
+        toast.success(data?.message);
+      } else {
+        toast.error("Invalid Admin User");
+      }
+    });
   }
-
   return (
     <>
-      {loginLoading ? (
+      {adminLoginLoading ? (
         <Loading />
       ) : (
         <div className="bg-white flex h-screen">
           <div className="z-10 absolute lg:top-5 lg:left-[50px] top-6 left-4 flex gap-2 items-center justify-center">
-            <Logo />
+            <div className="w-[50px] cursor-pointer">
+              <img src={LogoDP} alt="" />
+            </div>
+            <p className="flex flex-col cursor-pointer font-bold leading-5 tracking-tight capitalize lg:text-[15px] text-[#40B52D]">
+              Document And Qualification Verification LTD
+              <span className="text-[#D4973B]">Admin</span>
+            </p>
           </div>
 
-          <LeftView />
+          <AdminLeftView />
 
           <div className="lg:w-[60%] w-full h-screen flex flex-col items-center justify-center lg:gap-y-3">
             <div className="flex flex-col justify-center lg:w-[50%] w-full items-center gap-y-6">
               <h4 className="text-[#40B52D] mt-10 font-semibold self-center">
-                Login to account
+                Admin Login
               </h4>
 
               <form
-                onSubmit={handleSubmit(login)}
+                onSubmit={handleSubmit(AdminLogin)}
                 className="flex flex-col px-8 gap-6 mt-5 w-full"
               >
                 <FormTextInput
@@ -86,7 +78,7 @@ function LoginPage() {
                     },
                   })}
                   onChange={(e) => setValue("email", e.target.value)}
-                  disabled={loginLoading}
+                  disabled={adminLoginLoading}
                 />
                 <FormPasswordInput
                   label="password"
@@ -98,11 +90,14 @@ function LoginPage() {
                     },
                   })}
                   onChange={(e) => setValue("password", e.target.value)}
-                  disabled={loginLoading}
+                  disabled={adminLoginLoading}
                 />
 
                 <div className="flex flex-col gap-2">
-                  <Button type="submit" disabled={!isValid || loginLoading}>
+                  <Button
+                    type="submit"
+                    disabled={!isValid || adminLoginLoading}
+                  >
                     Login
                   </Button>
                   {/* <div className="flex justify-end">
@@ -118,20 +113,20 @@ function LoginPage() {
               <p className="text-[15px] font-semibold capitalize self-center">
                 Don't have an account?{" "}
                 <span
-                  onClick={() => navigate("/signup")}
+                  onClick={() => navigate("/admin/signup")}
                   className="text-[#40B52D] cursor-pointer hover:text-[#D4973B] hover:text-opacity-85"
                 >
                   Sign up
                 </span>
               </p>
 
-              <div className="mt-8"></div>
+              {/* <div className="mt-8"></div */}
             </div>
           </div>
         </div>
       )}
     </>
   );
-}
+};
 
-export default LoginPage;
+export default AdminLoginPage;

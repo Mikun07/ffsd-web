@@ -10,13 +10,14 @@ import AccountIcon from "../../../assets/icons/AccountIcon";
 import { logout } from "../../../redux/features/loginSlice";
 import LogoutIcon from "../../../assets/icons/LogoutIcon";
 import { fetchUser } from "../../../redux/features/userSlice";
+import { RootState } from "../../../types/redux/root";
 
 function UserSidebar() {
 //   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state?.user?.data ?? state?.login?.data);
-  const userLoading = useSelector((state) => state?.user?.loading);
+  const user = useSelector((state: RootState) => state?.user?.data ?? state?.login?.data);
+  const userLoading = useSelector((state :RootState) => state?.user?.loading);
 
   async function getUser() {
     dispatch(fetchUser());

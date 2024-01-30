@@ -15,7 +15,7 @@ function FilterModel({setSelectedFilter}) {
       <div className="relative">
         <div
           onClick={() => openModal(!modal)}
-          className="bg-white w-12 h-12 rounded-lg relative flex items-center justify-center cursor-pointer"
+          className="bg-white w-12 h-12 rounded-lg relative flex items-center shadow-md justify-center cursor-pointer"
         >
           <svg
             className="h-8 w-8"

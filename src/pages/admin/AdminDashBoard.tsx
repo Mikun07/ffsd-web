@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import FilterIcon from "../../../assets/icons/FilterIcon";
-import ArchivedTable from "../../../components/table/ArchivedTable";
-import OpenVerificationTable from "../../../components/table/OpenVerificationTable/OpenVerificationTable";
+import Card from "../../components/card/Card";
+import FilterIcon from "../../assets/icons/FilterIcon";
+// import OpenVerificationTable from "../../../components/table/OpenVerificationTable/OpenVerificationTable";
+import CheckCircleIcon from "../../assets/icons/CheckCircleIcon";
+import PendingIcon from "../../assets/icons/PendingIcon";
+import ArchiveIcon from "../../assets/icons/ArchiveIcon";
+import VerifiedIcon from "../../assets/icons/VerifiedIcon";
 
-function AdminArchivePage() {
+function AdminDashBoard() {
   const [open, setOpen] = useState(false);
 
   const status = [
-    { name: "By Archived" },
-    { name: "by Review" },
-    { name: "by Pending" },
-    { name: "by Queried" },
+    { name: "By Status" },
+    { name: "by date" },
+    { name: "by name" },
+    { name: "by application number" },
   ];
+
+  
 
   const mockData = [
     {
@@ -50,7 +56,6 @@ function AdminArchivePage() {
       status: "Archived",
       documentImage: "https://example.com/document3.jpg",
     },
-    // Add more entries here...
     {
       applicationId: "CN654321",
       date: "12-Dec-23",
@@ -165,40 +170,52 @@ function AdminArchivePage() {
 
   return (
     <>
-      <div className="mt-3 w-full flex items-center justify-between px-3">
-        <div>
-          <b className="lg:text-xl">Verification History</b>
+      <div className="flex flex-col w-full max-h-screen image_bg">
+        <div className="w-full lg:h-[350px] lg:flex lg:items-center lg:justify-between lg:overflow-x-auto grid grid-cols-2 gap-4">
+          <Card name="in review" number={1107} icon={<CheckCircleIcon />} />
+
+          <Card name="Pending" number={1107} icon={<PendingIcon />} />
+
+          <Card name="Archive" number={1107} icon={<ArchiveIcon width={70} height={70}/>}/>
+
+          <Card name="Verified" number={1107} icon={<VerifiedIcon width={70} height={70} />}/>
         </div>
 
-        <div className="flex items-center gap-2">
-          <b className=" capitalize">filter</b>
-          <button
-            onClick={() => setOpen(!open)}
-            className="bg-transparent shadow-md rounded-lg relative flex items-center justify-center border-2 border-[#40B52D] p-1"
-          >
-            <FilterIcon />
-          </button>
-          {open && (
-            <div className="absolute z-20 sm:bottom-[250px] top-[100px] right-[20px] overflow-y-auto custom__scrollbar border-2 rounded-lg bg-white w-[200px] h-[120px]">
-              {status.map(({ name }, index) => (
-                <button
-                  key={index}
-                  onClick={() => setOpen(!open)}
-                  className="flex flex-col pl-2 py-2 w-full text-black hover:bg-[#40B52D] hover:text-white"
-                >
-                  <p className="font-semibold capitalize">{name}</p>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+        <div className="mt-3 w-full flex items-center justify-between px-3">
+          <div>
+            <b className="lg:text-xl">Verification History</b>
+          </div>
 
-      <div className="px-1 h-full overflow-y-auto custom__scrollbar mt-5 pb-[120px]">
-        <OpenVerificationTable tableData={tableData} />
+          <div className="flex items-center gap-2">
+            <b className=" capitalize">filter</b>
+            <button
+              onClick={() => setOpen(!open)}
+              className="bg-transparent shadow-md rounded-lg relative flex items-center justify-center border-2 border-[#40B52D] p-1"
+            >
+              <FilterIcon />
+            </button>
+            {open && (
+              <div className="absolute z-20 sm:bottom-[250px] top-[210px] right-[20px] overflow-y-auto custom__scrollbar border-2 rounded-lg bg-white w-[200px] h-[120px]">
+                {status.map(({ name }, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setOpen(!open)}
+                    className="flex flex-col pl-2 py-2 w-full text-black hover:bg-[#40B52D] hover:text-white"
+                  >
+                    <p className="font-semibold capitalize">{name}</p>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-2 mb-16 w-full overflow-y-auto custom__scrollbar">
+          {/* <OpenVerificationTable tableData={tableData} /> */}
+        </div>
       </div>
     </>
   );
 }
 
-export default AdminArchivePage;
+export default AdminDashBoard;

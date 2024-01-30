@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import LogoutIcon from "../../../assets/icons/LogoutIcon";
-import AccountIcon from "../../../assets/icons/AccountIcon";
-import DashboardIcon from "../../../assets/icons/DashboardIcon";
-import ArchiveIcon from "../../../assets/icons/ArchiveIcon";
-import ManageUserIcon from "../../../assets/icons/ManageUserIcon";
-import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
-import Logo from "../../../assets/Logo.png";
-import SchoolIcon from "../../../assets/icons/SchoolIcon";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { logout } from "../../../redux/features/loginSlice";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import DashboardIcon from "../../assets/icons/DashboardIcon";
+import SchoolIcon from "../../assets/icons/SchoolIcon";
+import AccountIcon from "../../assets/icons/AccountIcon";
+import ArchiveIcon from "../../assets/icons/ArchiveIcon";
+import ManageUserIcon from "../../assets/icons/ManageUserIcon";
+import ReceiptIcon from "../../assets/icons/ReceiptIcon";
+import { logout } from "../../redux/features/loginSlice";
+import Logo from "../../assets/Logo.png";
+import LogoutIcon from "../../assets/icons/LogoutIcon";
 
 function AdminSidebar() {
   const navigate = useNavigate();
@@ -17,6 +17,7 @@ function AdminSidebar() {
   const { pathname } = useLocation();
 
   const [open, setOpen] = useState(true);
+
 
   const menu = [
     {

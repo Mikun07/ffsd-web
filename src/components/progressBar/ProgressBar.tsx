@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { FC } from "react";
 import "./Progress.css";
 import CheckIcon from "../../assets/icons/CheckIcon";

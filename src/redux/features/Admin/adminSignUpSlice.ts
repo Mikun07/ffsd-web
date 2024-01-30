@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { BASE_URL } from "../../config/api";
-import { BaseState } from "../../types/redux/root";
+import { BASE_URL } from "../../../config/api";
+import { BaseState } from "../../../types/redux/root";
 
 const initialState: BaseState = {
   success: false,
@@ -10,11 +10,11 @@ const initialState: BaseState = {
   loading: false,
 };
 
-export const postSignUp = createAsyncThunk(
-  "signUp/postSignUp",
+export const postAdminSignUp = createAsyncThunk(
+  "signUp/postAdminSignUp",
   async (body) => {
     try {
-      const response = await axios.post(`${BASE_URL}/signup`, body);
+      const response = await axios.post(`${BASE_URL}/system/admin/signup`, body);
       return response;
     } catch (error) {
       return error?.response?.data?.errors;
@@ -22,8 +22,8 @@ export const postSignUp = createAsyncThunk(
   }
 );
 
-const signUpSlice = createSlice({
-  name: "signup",
+const adminSignUpSlice = createSlice({
+  name: "adminSignup",
   initialState,
   reducers: {
     resetSuccess: (state) => {
@@ -31,7 +31,7 @@ const signUpSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(postSignUp.fulfilled, (state, action) => {
+    builder.addCase(postAdminSignUp.fulfilled, (state, action) => {
       const { payload } = action;
       if (payload?.data?.errors) {
         (state.success = false),
@@ -44,10 +44,10 @@ const signUpSlice = createSlice({
           (state.error = null);
       }
     });
-    builder.addCase(postSignUp.rejected, (state, action) => {
+    builder.addCase(postAdminSignUp.rejected, (state, action) => {
       (state.success = false), (state.error = action.error.message);
     });
   },
 });
 
-export default signUpSlice;
+export default adminSignUpSlice;
