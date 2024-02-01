@@ -3,7 +3,7 @@ import LogoDP from "../../../assets/Logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import DashboardIcon from "../../../assets/icons/DashboardIcon";
-import SchoolIcon from "../../../assets/icons/SchoolIcon";
+import SchoolIcon from "../../../assets/icons/DocumentIcon";
 import ArchiveIcon from "../../../assets/icons/ArchiveIcon";
 import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
 import AccountIcon from "../../../assets/icons/AccountIcon";

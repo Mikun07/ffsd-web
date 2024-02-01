@@ -1,15 +1,10 @@
 import { useState } from "react";
-import SelectInput from "../../components/input/SelectInput";
 import EducationForm from "./shared/EducationForm";
 import ProfessionalCertificateForm from "./shared/ProfessionalCertificateForm";
 import FinancialRecord from "./shared/FinancialRecord";
-import {
-  DocumentCategories,
-  DocumentCategoryMap,
-  FileSection,
-  getFormDataContent,
-} from "../../types/global/verifydocuments/fileSections";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { FileSection } from "../../../types/global/verifydocuments/fileSections";
+import SelectInput from "../../../components/input/SelectInput";
 
 const UploadDocument = ({
   countryOptions,

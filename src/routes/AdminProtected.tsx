@@ -13,7 +13,7 @@ const ADMIN_PROTECTED = () => {
   return isAdminLoggedIn ? (
     <Outlet />
   ) : (
-    <Navigate to={"/adminlogin"} state={{ from: location }} replace />
+    <Navigate to={"/login/admin"} state={{ from: location }} replace />
   );
 };
 

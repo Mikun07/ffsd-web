@@ -7,7 +7,7 @@ import ManageUserIcon from "../../../assets/icons/ManageUserIcon";
 import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LogoutIcon from "../../../assets/icons/LogoutIcon";
-import SchoolIcon from "../../../assets/icons/SchoolIcon";
+import SchoolIcon from "../../../assets/icons/DocumentIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/features/loginSlice";
 import { fetchUser } from "../../../redux/features/userSlice";

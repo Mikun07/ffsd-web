@@ -5,7 +5,7 @@ import FormTextInput from "../../../components/input/Form/FormTextInput";
 import FormPasswordInput from "../../../components/input/Form/FormPasswordInput";
 import Button from "../../../components/button/Button";
 import { useForm } from "react-hook-form";
-import LogoDP from "../../../../assets/Logo.png";
+import LogoDP from "../../../assets/Logo.png";
 import toast from "react-hot-toast";
 import { postAdminLogin } from "../../../redux/features/Admin/AdminSlice";
 import { RootState } from "../../../types/redux/root";
@@ -113,7 +113,7 @@ const AdminLoginPage = () => {
               <p className="text-[15px] font-semibold capitalize self-center">
                 Don't have an account?{" "}
                 <span
-                  onClick={() => navigate("/admin/signup")}
+                  onClick={() => navigate("/signup/admin")}
                   className="text-[#40B52D] cursor-pointer hover:text-[#D4973B] hover:text-opacity-85"
                 >
                   Sign up

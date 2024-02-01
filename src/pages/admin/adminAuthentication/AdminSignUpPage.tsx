@@ -190,7 +190,7 @@ const AdminSignUpPage = () => {
           <p className="text-[15px] font-semibold capitalize self-center">
             I'm already an admin{" "}
             <span
-              onClick={() => navigate("/admin/login")}
+              onClick={() => navigate("/login/admin")}
               className="text-[#40B52D] cursor-pointer hover:text-[#D4973B] hover:text-opacity-85"
             >
               Login

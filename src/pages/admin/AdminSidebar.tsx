@@ -1,23 +1,20 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import DashboardIcon from "../../assets/icons/DashboardIcon";
-import SchoolIcon from "../../assets/icons/SchoolIcon";
 import AccountIcon from "../../assets/icons/AccountIcon";
 import ArchiveIcon from "../../assets/icons/ArchiveIcon";
 import ManageUserIcon from "../../assets/icons/ManageUserIcon";
 import ReceiptIcon from "../../assets/icons/ReceiptIcon";
-import { logout } from "../../redux/features/loginSlice";
 import Logo from "../../assets/Logo.png";
 import LogoutIcon from "../../assets/icons/LogoutIcon";
+import DocumentIcon from "../../assets/icons/DocumentIcon";
+import SchoolIcon from "../../assets/icons/SchoolIcon";
+import { adminLogout } from "../../redux/features/Admin/AdminSlice";
 
 function AdminSidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-
-  const [open, setOpen] = useState(true);
-
 
   const menu = [
     {
@@ -26,14 +23,24 @@ function AdminSidebar() {
       icon: <DashboardIcon width="25" height="25" />,
     },
     {
-      name: "verify Documents",
+      name: "manage users",
       url: "",
-      icon: <SchoolIcon width="25" height="25" />,
+      icon: <ManageUserIcon width="25" height="25" />,
     },
     {
       name: " Manage account",
-      url: "",
+      url: "/admin/account",
       icon: <AccountIcon width="25" height="25" />,
+    },
+    {
+      name: "Manage Receipts",
+      url: "",
+      icon: <ReceiptIcon width="25" height="25" />,
+    },
+    {
+      name: "verify Documents",
+      url: "/admin/verifydocument",
+      icon: <DocumentIcon width="25" height="25" />,
     },
     {
       name: "Manage Verification",
@@ -41,19 +48,14 @@ function AdminSidebar() {
       icon: <ArchiveIcon width="25" height="25" />,
     },
     {
-      name: "manage users",
+      name: " Manage institutions",
       url: "",
-      icon: <ManageUserIcon width="25" height="25" />,
-    },
-    {
-      name: "Manage Receipts",
-      url: "",
-      icon: <ReceiptIcon width="25" height="25" />,
+      icon: <SchoolIcon width="25" height="25" />,
     },
   ];
 
   function signOut() {
-    dispatch(logout());
+    dispatch(adminLogout());
   }
   return (
     <>

@@ -1,4 +1,4 @@
-import FormTextInput from "../../../components/input/Form/FormTextInput";
+import FormTextInput from "../../../../components/input/Form/FormTextInput";
 
 const DocumentDetails = ({ setValue, errors, register, isValid }) => {
   const handleChange = (e) => {

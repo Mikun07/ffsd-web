@@ -19,11 +19,19 @@ function App() {
       <Router>
         <Routes>
           {PUBLIC_ROUTES.map(({ link, element }, index) => (
-            <Route path={link} element={element} key={index} />
+            <Route
+              path={link}
+              element={
+                <ErrorBoundary>
+                  <Suspense fallback={<Loading />}>{element}</Suspense>
+                </ErrorBoundary>
+              }
+              key={index}
+            />
           ))}
 
           {/* admin routes */}
-          {/* <Route element={<ADMIN_PROTECTED />}> */}
+          <Route element={<ADMIN_PROTECTED />}>
             <Route path="admin" element={<AdminLayout />}>
               {ADMIN_ROUTES.map(({ link, element }, index) => (
                 <Route
@@ -37,7 +45,7 @@ function App() {
                 />
               ))}
             </Route>
-          {/* </Route> */}
+          </Route>
 
           {/* Individual and Organization routes */}
           <Route element={<PROTECTED_ROUTES />}>

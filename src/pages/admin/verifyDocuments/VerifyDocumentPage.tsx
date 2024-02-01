@@ -1,33 +1,24 @@
 import { useEffect, useState } from "react";
 import UploadDocument from "./UploadDocument";
 import ReviewDetails from "./shared/ReviewDetails";
-import ProgressBar from "../../components/progressBar/ProgressBar";
-import { useMultiStepForm } from "../../hooks/useMultiTabForm";
-import Button from "../../components/button/Button";
 import { useForm } from "react-hook-form";
 import DocumentDetails from "./shared/DocumentDetails";
-import {
-  DocumentCategory,
-  EducationDocType,
-  ProfessionalCertificateDocType,
-  FinancialDocType,
-} from "../../data/data";
 import axios from "axios";
-import { BASE_URL } from "../../config/api";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { startCase } from "lodash";
-import {
-  getFormDataContent,
-  getFormDataLabels,
-  FileSection,
-} from "../../types/global/verifydocuments/fileSections";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchInstitution } from "../../redux/features/institutionSlice";
-import { postDocument } from "../../redux/features/verifyDocumentSlice";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { RootState } from "../../types/redux/root";
+import { fetchInstitution } from "../../../redux/features/institutionSlice";
+import { RootState } from "../../../types/redux/root";
+import { BASE_URL } from "../../../config/api";
+import { DocumentCategory, EducationDocType, FinancialDocType, ProfessionalCertificateDocType } from "../../../data/data";
+import { getFormDataContent, getFormDataLabels } from "../../../types/global/verifydocuments/fileSections";
+import { useMultiStepForm } from "../../../hooks/useMultiTabForm";
+import { postDocument } from "../../../redux/features/verifyDocumentSlice";
+import ProgressBar from "../../../components/progressBar/ProgressBar";
+import Button from "../../../components/button/Button";
 
 function VerifyDocumentPage() {
   const [countryData, setCountryData] = useState([]);

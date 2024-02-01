@@ -5,6 +5,7 @@ const RegisterPage = lazy(() => import("../pages/authentication/Registration/Reg
 const ForgotPasswordPage = lazy(() => import("../pages/authentication/ForgotPassword/ForgotPasswordPage"))
 const AdminLoginPage = lazy(() => import("../pages/admin/adminAuthentication/AdminLoginPage"))
 const AdminSignUpPage = lazy(() => import("../pages/admin/adminAuthentication/AdminSignUpPage"))
+const AdminOTPPage = lazy(() => import("../pages/admin/adminAuthentication/AdminOTPPage"))
 import { Navigate } from "react-router-dom";
 
 
@@ -34,13 +35,18 @@ const ForgotPasswordPageRoute = {
 }
 
 const AdminLoginPageRoute = {
-    link: "/admin/login",
+    link: "/login/admin",
     element: <AdminLoginPage />
 }
 
 const AdminSignUpPageRoute = {
-    link: "/admin/signup",
+    link: "/signup/admin",
     element: <AdminSignUpPage />
+}
+
+const AdminOTPPageRoute = {
+    link: "/otp/admin",
+    element: <AdminOTPPage />
 }
 
 export const PUBLIC_ROUTES = [
@@ -51,4 +57,5 @@ export const PUBLIC_ROUTES = [
     ForgotPasswordPageRoute,
     AdminLoginPageRoute,
     AdminSignUpPageRoute,
+    AdminOTPPageRoute,
 ]

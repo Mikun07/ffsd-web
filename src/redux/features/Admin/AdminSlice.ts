@@ -29,11 +29,11 @@ const adminLoginSlice = createSlice({
   name: "adminLogin",
   initialState,
   reducers: {
-    logout: (state) => {
+    adminLogout: (state) => {
       localStorage.setItem("userToken", "");
       state.isAdminLoggedIn = false;
       state.data = null;
-      location.assign("/");
+      location.assign("/login/admin");
     },
   },
   extraReducers: (builder) => {
@@ -65,6 +65,6 @@ const adminLoginSlice = createSlice({
   },
 });
 
-export const { logout } = adminLoginSlice.actions;
+export const { adminLogout } = adminLoginSlice.actions;
 
 export default adminLoginSlice;

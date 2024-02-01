@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SchoolIcon from "../../../assets/icons/SchoolIcon";
+import SchoolIcon from "../../../assets/icons/DocumentIcon";
 import CloseIcon from "../../../assets/icons/CloseIcon";
 
 // import OpenVerificationTable from "../../../components/table/OpenVerificationTable/OpenVerificationTable";

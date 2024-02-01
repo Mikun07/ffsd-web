@@ -82,7 +82,7 @@ const AdminOTPPage = () => {
       );
 
       if (OTPResult.data[0].success === true) {
-        navigate("/admin/login");
+        navigate("/login/admin");
         toast.success(OTPResult.data[0].message);
       }
     } catch (error) {
@@ -94,7 +94,7 @@ const AdminOTPPage = () => {
     restartTimer();
     try {
       let OTPResend = await axios.post(
-        `${BASE_URL}/otp/regenerate`,
+        `${BASE_URL}/system/admin/regenerate/otp`,
         {
           email,
         },
