@@ -7,14 +7,9 @@ import FormTextAreaInput from "../../../../components/input/Form/FormTextAreaInp
 const ProfessionalCertificateForm = ({
   setValue,
   countryOptions,
- 
   professionalCertificateOptions,
   errors,
   register,
-  schoolNameProf,
-  schoolCountryProf,
-  addInfoProf,
-  fileDocProf,
   index,
   control,
 }) => {
@@ -36,7 +31,6 @@ const ProfessionalCertificateForm = ({
           {fileInputs.map((fileInputs, selectedFileIndex) => {
             return (
               <div className="mt-3" key={selectedFileIndex}>
-              
                 <FileInput
                   label="choose file"
                   onFileSelect={(file) =>

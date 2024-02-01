@@ -8,15 +8,9 @@ import { AiFillCloseCircle } from "react-icons/ai";
 const FinancialRecord = ({
   setValue,
   countryOptions,
-  country,
-  financialRecord,
   financialRecordOptions,
   errors,
   register,
-  finName,
-  finCountry,
-  finInfo,
-  finDocFile,
   control,
   index,
 }) => {
@@ -31,21 +25,6 @@ const FinancialRecord = ({
     <FileInput key={0} label="choose file" />,
   ]);
 
-  // const addFileInput = () => {
-  //   setFileInputs((prevInputs) => [
-  //     ...prevInputs,
-  //     <FileInput
-  //       key={prevInputs.length}
-  //       label={`choose file ${prevInputs.length + 1}`}
-  //     />,
-  //   ]);
-  // };
-
-  // const deleteFileInput = () => {
-  //   if (fileInputs.length > 1) {
-  //     setFileInputs((prevInputs) => prevInputs.slice(0, -1));
-  //   }
-  // };
   return (
     <>
       <div className=" mt-10 flex lg:flex-row flex-col gap-4">
@@ -53,17 +32,6 @@ const FinancialRecord = ({
           {fileInputs.map((fileInputs, selectedFileIndex) => {
             return (
               <div className="mt-3" key={selectedFileIndex}>
-                {/* {selectedFileIndex !== 0 && (
-                  <div
-                    onClick={() => deleteFileInput(selectedFileIndex)}
-                    className="relative cursor-pointer"
-                  >
-                    <span className="absolute z-30 p-3 rounded-r right-1 text-[12px]">
-                      {" "}
-                      <AiFillCloseCircle size={15} />{" "}
-                    </span>
-                  </div>
-                )} */}
                 <FileInput
                   label="choose file"
                   onFileSelect={(file) =>
@@ -73,17 +41,6 @@ const FinancialRecord = ({
               </div>
             );
           })}
-          {/* <div
-            onClick={addFileInput}
-            className="flex p-1 mt-3 w-full cursor-pointer"
-          >
-            <span className="rounded-lg flex bg-transparent font-medium text-[12px] items-center justify-between">
-              <span className="flex gap-2">
-                {" "}
-                + <p>Add File</p>
-              </span>
-            </span>
-          </div> */}
         </div>
         <div className="w-full flex flex-col gap-6">
           <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-4">

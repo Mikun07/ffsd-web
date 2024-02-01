@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BASE_URL } from "../../config/api";
-import LogoDP from "../../../../assets/Logo.png";
+import LogoDP from "../../assets/Logo.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -13,7 +13,7 @@ function OTPPage() {
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const email = useSelector(
     (state: RootState) => state?.signUp?.data?.email || null
-  );
+  ) as any;
 
   const [minutes, setMinutes] = useState(2);
   const [seconds, setSeconds] = useState(minutes * 60);
@@ -68,7 +68,7 @@ function OTPPage() {
 
   async function OTP() {
     try {
-      let OTPResult = await axios.post(
+      let OTPResult: any = await axios.post(
         `${BASE_URL}/confirm_otp`,
         {
           email,
@@ -94,7 +94,7 @@ function OTPPage() {
   async function resendOtp() {
     restartTimer();
     try {
-      let OTPResend = await axios.post(
+      let OTPResend: any = await axios.post(
         `${BASE_URL}/otp/regenerate`,
         {
           email,

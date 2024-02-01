@@ -4,14 +4,13 @@ import "./Progress.css";
 import CheckIcon from "../../assets/icons/CheckIcon";
 
 interface ProgressBarProps {
-  progressSteps:
-    | string[]
-    | { title: string; info: string; buttonText: string }[];
+  progressSteps: string[]
+    | { title: string; info?: string; buttonText: string }[];
   showStepTitle?: boolean;
   currentStepIndex: number;
   isFirstStep?: boolean;
   goTo: (index: number) => void;
-  vertical: boolean;
+  vertical?: boolean;
   isDisabled?: boolean;
 }
 const ProgressBar: FC<ProgressBarProps> = ({
@@ -53,7 +52,9 @@ const ProgressBar: FC<ProgressBarProps> = ({
               disabled={currentStepIndex <= index}
             >
               {currentStepIndex > index ? (
-                <span className="icon"><CheckIcon /></span>
+                <span className="icon">
+                  <CheckIcon />
+                </span>
               ) : (
                 index + 1
               )}
@@ -61,7 +62,13 @@ const ProgressBar: FC<ProgressBarProps> = ({
             <hr className={currentStepIndex > index ? "done" : "not-done"} />
           </div>
           {showStepTitle && vertical && (
-            <div className={step.info ? "title-info lg:text-[15px] text-[10px]" : "title lg:text-[15px] text-[10px]"}>
+            <div
+              className={
+                step.info
+                  ? "title-info lg:text-[15px] text-[10px]"
+                  : "title lg:text-[15px] text-[10px]"
+              }
+            >
               <h3 className={currentStepIndex >= index ? "current" : ""}>
                 {typeof step === "object" ? step.title : step}
               </h3>

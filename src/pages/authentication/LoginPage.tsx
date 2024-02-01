@@ -10,9 +10,10 @@ import FormTextInput from "../../components/input/Form/FormTextInput";
 import FormPasswordInput from "../../components/input/Form/FormPasswordInput";
 import Loading from "../../components/withStatus/loading/Loading";
 import { RootState } from "../../types/redux/root";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 function LoginPage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate();
   const loginLoading = useSelector((state: RootState) => state?.login?.loading);
   const loginError = useSelector((state: RootState) => state?.login?.error);
@@ -35,6 +36,7 @@ function LoginPage() {
   // const loginFields = watch("email");
 
   function login(data) {
+    // @ts-ignore
     dispatch(postLogin({ ...data }))
       .then((result) => {
         const {

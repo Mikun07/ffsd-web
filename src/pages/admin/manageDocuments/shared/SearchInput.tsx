@@ -18,7 +18,7 @@ const SearchInput = ({ result, setResult, data }) => {
       );
     });
     setResult(result);
-    // console.log(result);
+    console.log({result});
   };
   return (
     <>
@@ -36,10 +36,11 @@ const SearchInput = ({ result, setResult, data }) => {
         <div className=" absolute z-20 w-full border-2 rounded-lg mt-3 h-40 bg-white">
           {
             result.map((result, index) => {
-              console.log(result)
+              // console.log(result)
+              {JSON.stringify(result)}
               return (
                 <div key={index}>
-                    <p>{result.docOwnerFirstName}</p>
+                    <p>{result.userInfo.docOwnerFirstName}</p>
                 </div>
               )
             })

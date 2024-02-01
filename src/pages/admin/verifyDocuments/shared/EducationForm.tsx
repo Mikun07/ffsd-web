@@ -7,15 +7,11 @@ import FormTextAreaInput from "../../../../components/input/Form/FormTextAreaInp
 const EducationForm = ({
   setValue,
   EducationOptions,
-  Education,
   countryOptions,
   InstitutionOptions,
   errors,
   control,
   register,
-  schoolCountryEduc,
-  addInfo,
-  fileDocEduc,
   index,
 }) => {
   function setEducation(item) {

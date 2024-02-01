@@ -13,18 +13,9 @@ import { fetchUser } from "../../../redux/features/userSlice";
 import { RootState } from "../../../types/redux/root";
 
 function UserSidebar() {
-//   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state?.user?.data ?? state?.login?.data);
-  const userLoading = useSelector((state :RootState) => state?.user?.loading);
 
-  async function getUser() {
-    dispatch(fetchUser());
-  }
-  useEffect(() => {
-    getUser();
-  }, []);
 
 
   const menu = [

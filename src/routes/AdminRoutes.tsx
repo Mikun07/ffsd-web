@@ -3,9 +3,10 @@ const AdminDashboard = lazy(() => import("../pages/admin/AdminDashBoard"))
 const AdminVerifyDocumentPage = lazy(() => import("../pages/admin/verifyDocuments/VerifyDocumentPage"))
 const AdminAccountPage = lazy(() => import("../pages/admin/AdminAccountPage"))
 const AdminArchivePage = lazy(() => import("../pages/admin/AdminArchivePage"))
-const ManageUserPage = lazy(() => import("../pages/admin/ManageUserPage"))
+const AdminManageUserPage = lazy(() => import("../pages/admin/ManageUserPage"))
 const AdminReceiptsPage = lazy(() => import("../pages/admin/AdminReceiptsPage"))
-const ManageAccountPage = lazy(() => import("../pages/admin/ManageUserPage")) 
+const AdminManageAccountPage = lazy(() => import("../pages/admin/ManageUserPage")) 
+const AdminMangeDocumentPage = lazy(() => import("../pages/admin/manageDocuments/AdminManageDocumentPage"))
 
 
 const AdminDashBoardRoute = {
@@ -26,9 +27,9 @@ const AdminAccountPageRoute = {
   isAdminProtected: true,
 };
 
-const ManageUserPageRoute = {
+const AdminManageUserPageRoute = {
   link: "/admin/manageuser",
-  element: <ManageUserPage />,
+  element: <AdminManageUserPage />,
   isAdminProtected: true,
 };
 
@@ -38,15 +39,21 @@ const AdminReceiptsPageRoute = {
   isAdminProtected: true,
 };
 
-const VerifyDocumentPageRoute = {
+const AdminVerifyDocumentPageRoute = {
   link: "/admin/verifydocument",
   element: <AdminVerifyDocumentPage />,
   isAdminProtected: true,
 };
 
-const ManageAccountRoute = {
+const AdminManageAccountPageRoute = {
   link: "/admin/account",
-  element: <ManageAccountPage />,
+  element: <AdminManageAccountPage />,
+  isAdminProtected: true,
+}
+
+const AdminManageDocumentPageRoute = {
+  link: "/admin/managedocument",
+  element: <AdminMangeDocumentPage />,
   isAdminProtected: true,
 }
 
@@ -54,8 +61,9 @@ export const ADMIN_ROUTES = [
   AdminDashBoardRoute,
   AdminArchivePageRoute,
   AdminAccountPageRoute,
-  ManageUserPageRoute,
+  AdminManageUserPageRoute,
   AdminReceiptsPageRoute,
-  VerifyDocumentPageRoute,
-  ManageAccountRoute,
+  AdminVerifyDocumentPageRoute,
+  AdminManageAccountPageRoute,
+  AdminManageDocumentPageRoute,
 ];

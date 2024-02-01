@@ -3,12 +3,7 @@ import SelectInput from "../../components/input/SelectInput";
 import EducationForm from "./shared/EducationForm";
 import ProfessionalCertificateForm from "./shared/ProfessionalCertificateForm";
 import FinancialRecord from "./shared/FinancialRecord";
-import {
-  DocumentCategories,
-  DocumentCategoryMap,
-  FileSection,
-  getFormDataContent,
-} from "../../types/global/verifydocuments/fileSections";
+import { FileSection } from "../../types/global/verifydocuments/fileSections";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 const UploadDocument = ({
@@ -54,7 +49,6 @@ const UploadDocument = ({
     updateFileSection(newArray);
     setValue("documentCategory", newArray);
   }
-  
 
   const DocumentUrl = {
     Education: (index: number) =>
@@ -121,7 +115,6 @@ const UploadDocument = ({
                 handleChange={(documentCategoryValue) => {
                   handleDocumentCategorySelection(documentCategoryValue, index);
                 }}
-                // useValue
               />
               <div>
                 {fileSections[index]?.label &&

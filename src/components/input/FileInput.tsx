@@ -7,7 +7,7 @@ import UploadIMG from "../../assets/UploadIMG.png";
 
 const FileInput = ({
   label = "",
-  onFileSelect,
+  onFileSelect = (file) => {},
   // ...rest
 }) => {
   const title: string = startCase(label);

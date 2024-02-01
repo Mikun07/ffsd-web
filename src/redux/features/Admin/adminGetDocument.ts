@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axiosInstance from "../api/axios";
+import axiosInstance from "../../api/axios";
 
 const initialState = {
   data: null,
@@ -8,11 +8,13 @@ const initialState = {
   loading: false,
 };
 
-export const fetchDocument = createAsyncThunk(
-  "user/fetchDocument",
-  async (body) => {
+export const adminFetchDocument = createAsyncThunk(
+  "admin/fetchDocument",
+  async () => {
     try {
-      const response = await axiosInstance.post("/get/documents", body);
+      const response = await axiosInstance.get(
+        "system/admin/get/all/documents"
+      );
       return response;
     } catch (error) {
       return error?.response?.data?.errors;
@@ -20,28 +22,32 @@ export const fetchDocument = createAsyncThunk(
   }
 );
 
-const documentSlice = createSlice({
-  name: "document",
+const adminDocumentSlice = createSlice({
+  name: "adminDocument",
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchDocument.pending, (state, action) => {
+    builder.addCase(adminFetchDocument.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(fetchDocument.fulfilled, (state, action) => {
+    builder.addCase(adminFetchDocument.fulfilled, (state, action) => {
       const { payload } = action;
-      if (payload?.data?.errors) {
+      // console.log(payload)
+      // const success = payload?.data?.success;
+      const data = payload?.data;
+      // console.log({data})
+      if (!data.length) {
         state.success = false;
         state.data = null;
         state.error = payload?.data?.errors;
       } else {
         state.success = true;
-        state.data = payload?.data;
+        state.data = data;
         state.error = null;
       }
       state.loading = false;
     });
-    builder.addCase(fetchDocument.rejected, (state, action) => {
+    builder.addCase(adminFetchDocument.rejected, (state, action) => {
       state.success = false;
       state.error = "Could not fetch document";
       state.loading = false;
@@ -49,4 +55,4 @@ const documentSlice = createSlice({
   },
 });
 
-export default documentSlice;
+export default adminDocumentSlice;

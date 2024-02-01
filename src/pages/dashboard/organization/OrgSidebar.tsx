@@ -17,26 +17,6 @@ function OrgSidebar() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state?.user?.data);
-  // const userLoading = useSelector((state) => state?.user?.loading);
-  // const document = useSelector((state) => state?.document?.data);
-  // const documentLoading = useSelector((state) => state?.document?.loading);
-
-  async function getDocuments() {
-    dispatch(fetchDocument());
-  }
-
-  useEffect(() => {
-    getDocuments();
-  }, []);
-
-  async function getUser() {
-    dispatch(fetchUser());
-  }
-  useEffect(() => {
-    getUser();
-  }, []);
-
   const [open, setOpen] = useState(true);
 
   const menu = [

@@ -14,9 +14,11 @@ import { useForm } from "react-hook-form";
 import { postSignUp } from "../../../../redux/features/signupSlice";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 function OrganizationForm() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate();
   const [countryData, setCountryData] = useState(null);
 
@@ -172,6 +174,7 @@ function OrganizationForm() {
       industry: industry?.value,
     };
 
+    // @ts-ignore
     dispatch(postSignUp({ ...signUpData }))
       .then((result) => {
         const {

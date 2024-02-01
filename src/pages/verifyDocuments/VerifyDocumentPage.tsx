@@ -1,3 +1,4 @@
+// @ts-ignore
 import { useEffect, useState } from "react";
 import UploadDocument from "./UploadDocument";
 import ReviewDetails from "./shared/ReviewDetails";
@@ -28,14 +29,15 @@ import { postDocument } from "../../redux/features/verifyDocumentSlice";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { RootState } from "../../types/redux/root";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 function VerifyDocumentPage() {
   const [countryData, setCountryData] = useState([]);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate();
   const institutions = useSelector(
     (state: RootState) => state?.institution?.data
-  );
+  ) as any;
 
   const redirectUrl = {
     org: "/org/dashboard",
@@ -317,7 +319,7 @@ function VerifyDocumentPage() {
     for (let key of Object.keys(verifyDocumentData)) {
       formData.append(key, verifyDocumentData[key]);
     }
-
+// @ts-ignore
     dispatch(postDocument({ ...verifyDocumentData }))
       .then((result) => {
         const {

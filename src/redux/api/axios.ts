@@ -11,11 +11,9 @@ const axiosInstance = axios.create({
   },
 });
 
-
-
 export const useInterceptor = (instance: AxiosInstance, store: EnhancedStore) => {
   instance.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${userToken}`;
+    config.headers.Authorization = `Bearer ${userToken || JSON.parse(localStorage.getItem("userToken"))}`;
     return config;
   });
   

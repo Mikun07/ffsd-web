@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchDocument,
-  fetchDocumentLength,
-} from "../../redux/features/documentSlice";
+import { fetchDocument } from "../../redux/features/documentSlice";
 import Table from "./Table";
 import ManageDocumentCard from "../../components/card/ManageDocumentCard";
 import Loading from "../../components/withStatus/loading/Loading";
@@ -11,10 +8,13 @@ import SearchInput from "./shared/SearchInput";
 import FilterModel from "../../components/modal/FilterModel";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { RootState } from "../../types/redux/root";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 function ManageDocumentPage() {
-  const dispatch = useDispatch();
-  const upload = useSelector((state: RootState) => state?.document?.data);
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const upload = useSelector(
+    (state: RootState) => state?.document?.data
+  ) as any;
   const documentLoading = useSelector(
     (state: RootState) => state?.document?.loading
   );
@@ -23,6 +23,7 @@ function ManageDocumentPage() {
 
   // Function to fetch documents
   async function getDocuments() {
+    // @ts-ignore
     dispatch(fetchDocument({ type: selectedFilter }));
   }
 
@@ -31,21 +32,20 @@ function ManageDocumentPage() {
     setSelectedFilter(newFilter);
   }
 
-  async function getDocumentsLength() {
-    dispatch(fetchDocumentLength());
-  }
-
   useEffect(() => {
     getDocuments();
-    getDocumentsLength();
   }, [selectedFilter]);
 
   // Array of data to process
-  const dataArray = upload?.data?.data || [];
+  const dataArray = (upload?.data?.data as Array<any>) || [];
   // console.log({dataArray})
 
   // Combined array to store all documents
   let allDocuments = [];
+  let totalEducationalDocumentsLength = 0;
+  let totalFinancialDocumentsLength = 0;
+  let totalProfessionalDocumentsLength = 0;
+  let totalAllDocumentsLength = 0; // Total length of all documents combined
 
   // Loop through each item in dataArray
   dataArray.forEach((item, index) => {
@@ -56,6 +56,11 @@ function ManageDocumentPage() {
     // Professional documents for the current item
     const professionalDocuments =
       item.user.documents.professionalDocuments || [];
+
+    // Update total lengths
+    totalEducationalDocumentsLength += educationalDocuments.length;
+    totalFinancialDocumentsLength += financialDocuments.length;
+    totalProfessionalDocumentsLength += professionalDocuments.length;
 
     // Concatenate all document types for the current item
     const allItemDocuments = [
@@ -81,28 +86,6 @@ function ManageDocumentPage() {
 
     // Add the documents for the current item to the combined array
     allDocuments = [...allDocuments, ...allItemDocuments];
-  });
-
-  const LengthArray = upload?.data?.data || [];
-
-  let totalEducationalDocumentsLength = 0;
-  let totalFinancialDocumentsLength = 0;
-  let totalProfessionalDocumentsLength = 0;
-  let totalAllDocumentsLength = 0; // Total length of all documents combined
-
-  LengthArray.forEach((item, index) => {
-    // Educational documents for the current item
-    const educationalDocuments = item.user.documents.educationalDocuments || [];
-    // Financial documents for the current item
-    const financialDocuments = item.user.documents.financialDocuments || [];
-    // Professional documents for the current item
-    const professionalDocuments =
-      item.user.documents.professionalDocuments || [];
-
-    // Update total lengths
-    totalEducationalDocumentsLength += educationalDocuments.length;
-    totalFinancialDocumentsLength += financialDocuments.length;
-    totalProfessionalDocumentsLength += professionalDocuments.length;
   });
 
   // Calculate total length of all documents combined
@@ -147,8 +130,8 @@ function ManageDocumentPage() {
                     setResult={setResult}
                     data={allDocuments}
                   />
-                </div>
-                <FilterModel setSelectedFilter={updateFilter} /> */}
+                </div> */}
+                <FilterModel setSelectedFilter={updateFilter} />
               </div>
             </div>
 

@@ -8,24 +8,6 @@ interface TableColumnProps {
 function TableColumn({ data }: TableColumnProps): JSX.Element {
   const navigate = useNavigate();
 
-  function formatCreatedAtDate(createdAt: string): string {
-    const options = {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    };
-
-    const formattedDate = new Date(createdAt).toLocaleDateString(
-      "en-GB",
-      options
-    );
-    const [day, month, year] = formattedDate.split(" ");
-    const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
-    const formattedWithHyphen = `${day}-${capitalizedMonth}-${year}`;
-
-    return formattedWithHyphen;
-  }
-
   const getStatusColor = (status) => {
     switch (status) {
       case "submitted":
@@ -74,7 +56,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
               </p>
               <span className="w-1 h-1 rounded-full text-[14px] bg-black"></span>
               <p className="flex items-center text-[12px] text-gray-400 gap-2">
-                {formatCreatedAtDate(data?.created_at)}
+                {new Date(data?.created_at).toLocaleDateString()}
               </p>
             </div>
           </div>

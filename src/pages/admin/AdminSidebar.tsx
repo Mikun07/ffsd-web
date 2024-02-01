@@ -44,7 +44,7 @@ function AdminSidebar() {
     },
     {
       name: "Manage Verification",
-      url: "",
+      url: "/admin/managedocument",
       icon: <ArchiveIcon width="25" height="25" />,
     },
     {

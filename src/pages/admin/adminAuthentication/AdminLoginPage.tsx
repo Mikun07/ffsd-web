@@ -10,9 +10,10 @@ import toast from "react-hot-toast";
 import { postAdminLogin } from "../../../redux/features/Admin/AdminSlice";
 import { RootState } from "../../../types/redux/root";
 import Loading from "../../../components/withStatus/loading/Loading";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 const AdminLoginPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate();
   const adminLoginLoading = useSelector(
     (state: RootState) => state?.adminLogin.loading
@@ -28,6 +29,7 @@ const AdminLoginPage = () => {
   } = useForm({ mode: "all" });
 
   function AdminLogin(data) {
+    // @ts-ignore
     dispatch(postAdminLogin({ ...data })).then((result) => {
       const {
         payload: { data },

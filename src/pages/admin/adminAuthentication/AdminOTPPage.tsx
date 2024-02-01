@@ -6,13 +6,15 @@ import { BASE_URL } from "../../../config/api";
 import axios from "axios";
 import toast from "react-hot-toast";
 import AdminLeftView from "./shared/AdminLeftView";
+import LogoDP from "../../../assets/Logo.png";
 
 const AdminOTPPage = () => {
   const navigate = useNavigate();
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const email = useSelector(
-    (state: RootState) => state?.signUp?.data?.email || null
-  );
+    (state: RootState) => state?.adminSignUp?.data?.email || null
+  ) as any;
+  console.log({email})
 
   const [minutes, setMinutes] = useState(2);
   const [seconds, setSeconds] = useState(minutes * 60);
@@ -67,7 +69,7 @@ const AdminOTPPage = () => {
 
   async function OTP() {
     try {
-      let OTPResult = await axios.post(
+      let OTPResult: any = await axios.post(
         `${BASE_URL}/system/admin/confirm/otp`,
         {
           email,
@@ -93,7 +95,7 @@ const AdminOTPPage = () => {
   async function resendOtp() {
     restartTimer();
     try {
-      let OTPResend = await axios.post(
+      let OTPResend: any = await axios.post(
         `${BASE_URL}/system/admin/regenerate/otp`,
         {
           email,
@@ -117,7 +119,13 @@ const AdminOTPPage = () => {
     <>
       <div className="bg-white flex h-screen">
         <div className="z-10 absolute lg:top-5 lg:left-[50px] top-6 left-4 flex gap-2 items-center justify-center">
-          <Logo />
+          <div className="w-[50px] cursor-pointer">
+            <img src={LogoDP} alt="" />
+          </div>
+          <p className="flex flex-col cursor-pointer font-bold lg:leading-5 leading-3 tracking-tight capitalize lg:text-[15px] text-[12px] text-[#40B52D]">
+            Document And Qualification Verification LTD
+            <span className="text-[#D4973B]">Admin</span>
+          </p>
         </div>
 
         <AdminLeftView />

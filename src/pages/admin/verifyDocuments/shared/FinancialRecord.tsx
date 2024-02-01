@@ -8,15 +8,9 @@ import FormTextAreaInput from "../../../../components/input/Form/FormTextAreaInp
 const FinancialRecord = ({
   setValue,
   countryOptions,
-  country,
-  financialRecord,
   financialRecordOptions,
   errors,
   register,
-  finName,
-  finCountry,
-  finInfo,
-  finDocFile,
   control,
   index,
 }) => {

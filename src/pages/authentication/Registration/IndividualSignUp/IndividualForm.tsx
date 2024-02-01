@@ -13,9 +13,10 @@ import ProgressBar from "../../../../components/progressBar/ProgressBar";
 import { useMultiStepForm } from "../../../../hooks/useMultiTabForm";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 function IndividualForm() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate();
 
   const IndividualSchema = z
@@ -117,6 +118,7 @@ function IndividualForm() {
       // country: signUpValues?.country?.value,
     };
 
+    // @ts-ignore
     dispatch(postSignUp({ ...signUpData }))
       .then((result) => {
         const {

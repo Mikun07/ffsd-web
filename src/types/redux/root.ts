@@ -3,7 +3,7 @@ import { LoginState } from "../../redux/features/loginSlice";
 
 export interface BaseState {
   success: boolean;
-  data: unknown;
+  data: any;
   error: string;
   loading: boolean;
 };
@@ -15,5 +15,7 @@ export type RootState = {
     institution: BaseState,
     user: BaseState,
     verify: BaseState,
-    adminLogin: AdminLoginState
+    adminLogin: AdminLoginState,
+    adminDocument: BaseState,
+    adminSignUp: BaseState,
 }

@@ -6,6 +6,8 @@ import verifyDocumentSlice from "./features/verifyDocumentSlice";
 import documentSlice from "./features/documentSlice";
 import institutionSlice from "./features/institutionSlice"
 import adminLoginSlice from "./features/Admin/AdminSlice";
+import adminDocumentSlice from "./features/Admin/adminGetDocument";
+import adminSignUpSlice from "./features/Admin/adminSignUpSlice";
 
 const rootReducer = combineReducers({
     signUp: signUpSlice.reducer,
@@ -14,7 +16,9 @@ const rootReducer = combineReducers({
     verify: verifyDocumentSlice.reducer,
     document: documentSlice.reducer,
     institution: institutionSlice.reducer,
-    adminLogin: adminLoginSlice.reducer
+    adminLogin: adminLoginSlice.reducer,
+    adminSignUp: adminSignUpSlice.reducer,
+    adminDocument: adminDocumentSlice.reducer,
 })
 
 export default rootReducer;

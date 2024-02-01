@@ -1,5 +1,5 @@
 import React from "react";
-import ArchiveIcon from "../../../assets/icons/ArchiveIcon";
+import ArchiveIcon from "../../../../assets/icons/ArchiveIcon";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 function PreviewData() {

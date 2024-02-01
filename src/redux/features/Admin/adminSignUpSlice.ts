@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../../../config/api";
 import { BaseState } from "../../../types/redux/root";
+import { Console } from "console";
 
 const initialState: BaseState = {
   success: false,
@@ -33,14 +34,14 @@ const adminSignUpSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(postAdminSignUp.fulfilled, (state, action) => {
       const { payload } = action;
+      console.log({payload})
       if (payload?.data?.errors) {
         (state.success = false),
           (state.data = null),
           (state.error = payload?.data?.errors);
       } else {
-        localStorage.setItem("userToken", JSON.stringify(payload?.data?.token));
         (state.success = true),
-          (state.data = payload?.data?.user),
+          (state.data = payload?.data[0]?.user),
           (state.error = null);
       }
     });

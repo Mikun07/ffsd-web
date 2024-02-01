@@ -12,9 +12,10 @@ import AccountInfo from "./shared/AccountInfo";
 import ReviewDetails from "./shared/ReviewDetails";
 import AdminLeftView from "./shared/AdminLeftView";
 import LogoDP from "../../../assets/Logo.png";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 const AdminSignUpPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate();
 
   const AdminSchema = z
@@ -114,14 +115,16 @@ const AdminSignUpPage = () => {
       password_confirmation: signUpValues?.confirmPassword,
     };
 
+    // @ts-ignore
     dispatch(postAdminSignUp({ ...signUpData }))
       .then((result) => {
         const {
           payload: { data },
         } = result;
-        const success: boolean = Boolean(data?.success);
+        const success: boolean = Boolean(data[0]?.success);
+        console.log({success})
         if (success === true) {
-          navigate("/signup/otp");
+          navigate("/otp/admin");
         } else {
           // toast.error(result?.payload?.response?.data?.errors);
         }

@@ -1,54 +1,48 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchDocument,
-  fetchDocumentLength,
-} from "../../redux/features/documentSlice";
-import Table from "./Table";
-import ManageDocumentCard from "../../components/card/ManageDocumentCard";
-import Loading from "../../components/withStatus/loading/Loading";
-import SearchInput from "./shared/SearchInput";
-import FilterModel from "../../components/modal/FilterModel";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
-import { RootState } from "../../types/redux/root";
+import { RootState } from "../../../types/redux/root";
+import { adminFetchDocument } from "../../../redux/features/Admin/adminGetDocument";
+import Loading from "../../../components/withStatus/loading/Loading";
+import Table from "./Table";
+import SearchInput from "./shared/SearchInput";
+import FilterModel from "../../../components/modal/FilterModel";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
-function ManageDocumentPage() {
-  const dispatch = useDispatch();
-  const upload = useSelector((state: RootState) => state?.document?.data);
+function AdminManageDocumentPage() {
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const getAllDocument = useSelector((state: RootState) => state?.adminDocument?.data)
   const documentLoading = useSelector(
     (state: RootState) => state?.document?.loading
   );
   const [selectedFilter, setSelectedFilter] = useState(null);
   const [result, setResult] = useState([]);
 
-  // Function to fetch documents
-  async function getDocuments() {
-    dispatch(fetchDocument({ type: selectedFilter }));
+  async function fetchAllDocument() {
+    // @ts-ignore
+    dispatch(adminFetchDocument({ type: selectedFilter }))
   }
 
-  // Function to update filter
-  function updateFilter(newFilter) {
-    setSelectedFilter(newFilter);
-  }
-
-  async function getDocumentsLength() {
-    dispatch(fetchDocumentLength());
-  }
+    // Function to update filter
+    function updateFilter(newFilter) {
+      setSelectedFilter(newFilter);
+    }
 
   useEffect(() => {
-    getDocuments();
-    getDocumentsLength();
-  }, [selectedFilter]);
+    fetchAllDocument()
+  }, [selectedFilter])
+
+  // console.log({getAllDocument})
 
   // Array of data to process
-  const dataArray = upload?.data?.data || [];
+  const dataArray = getAllDocument as Array<any> || [] ;
   // console.log({dataArray})
 
   // Combined array to store all documents
   let allDocuments = [];
 
   // Loop through each item in dataArray
-  dataArray.forEach((item, index) => {
+  dataArray?.forEach((item, index) => {
     // Educational documents for the current item
     const educationalDocuments = item.user.documents.educationalDocuments || [];
     // Financial documents for the current item
@@ -83,84 +77,40 @@ function ManageDocumentPage() {
     allDocuments = [...allDocuments, ...allItemDocuments];
   });
 
-  const LengthArray = upload?.data?.data || [];
-
-  let totalEducationalDocumentsLength = 0;
-  let totalFinancialDocumentsLength = 0;
-  let totalProfessionalDocumentsLength = 0;
-  let totalAllDocumentsLength = 0; // Total length of all documents combined
-
-  LengthArray.forEach((item, index) => {
-    // Educational documents for the current item
-    const educationalDocuments = item.user.documents.educationalDocuments || [];
-    // Financial documents for the current item
-    const financialDocuments = item.user.documents.financialDocuments || [];
-    // Professional documents for the current item
-    const professionalDocuments =
-      item.user.documents.professionalDocuments || [];
-
-    // Update total lengths
-    totalEducationalDocumentsLength += educationalDocuments.length;
-    totalFinancialDocumentsLength += financialDocuments.length;
-    totalProfessionalDocumentsLength += professionalDocuments.length;
-  });
-
-  // Calculate total length of all documents combined
-  totalAllDocumentsLength =
-    totalEducationalDocumentsLength +
-    totalFinancialDocumentsLength +
-    totalProfessionalDocumentsLength;
-
   const reversedDocuments = allDocuments?.reverse();
+
 
   return (
     <>
       <div className="flex flex-col h-full py-2 px-4  overflow-y-auto">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 md:gap-3 grid-cols-1 gap-4 w-full">
-          <ManageDocumentCard
-            header="Total Documents uploaded"
-            headerNumber={totalAllDocumentsLength}
-            titles={[
-              {
-                title: "Total Financial Document",
-                number: totalFinancialDocumentsLength,
-              },
-              {
-                title: "Total Educational Document",
-                number: totalEducationalDocumentsLength,
-              },
-              {
-                title: "Total Professional Document",
-                number: totalProfessionalDocumentsLength,
-              },
-            ]}
-          />
+         
         </div>
         <div className="flex flex-col mt-4 h-screen overflow-hidden">
           <div className="w-full h-screen overflow-hidden">
             <div className="h-16 w-full bg-slate-200 text-primary rounded-t-lg flex justify-between items-center px-2">
               <h3 className="font-bold">Verification History</h3>
               <div className="flex gap-2 w-[450px]">
-                {/* <div className="w-[400px]">
+                <div className="w-[400px]">
                   <SearchInput
                     result={result}
                     setResult={setResult}
                     data={allDocuments}
                   />
                 </div>
-                <FilterModel setSelectedFilter={updateFilter} /> */}
+                {/* <FilterModel setSelectedFilter={updateFilter} /> */}
               </div>
             </div>
 
             <div className="flex w-full h-full overflow-hidden justify-center border-l-2 border-r-2 border-slate-200 items-center">
-              {documentLoading ? (
+             {documentLoading ? (
                 <Loading className="" />
               ) : (
                 <Table tableData={reversedDocuments} />
               )}
             </div>
           </div>
-          <div className="h-24 w-full bg-slate-200 text-primary rounded-b-lg flex justify-end items-center px-2">
+          <div className="h-16 w-full bg-slate-200 text-primary rounded-b-lg flex justify-end items-center px-2">
             <div className="flex gap-1">
               <div className="h-8 w-8 border-2 border-primary bg-transparent rounded-lg flex items-center justify-center text-black">
                 <BiLeftArrow />
@@ -177,4 +127,4 @@ function ManageDocumentPage() {
   );
 }
 
-export default ManageDocumentPage;
+export default AdminManageDocumentPage;

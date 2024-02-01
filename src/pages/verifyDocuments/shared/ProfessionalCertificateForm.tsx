@@ -9,15 +9,9 @@ import { useState } from "react";
 const ProfessionalCertificateForm = ({
   setValue,
   countryOptions,
-  // country,
-  // professionalCertificate,
   professionalCertificateOptions,
   errors,
   register,
-  schoolNameProf,
-  schoolCountryProf,
-  addInfoProf,
-  fileDocProf,
   index,
   control,
 }) => {

@@ -19,10 +19,11 @@ import { useMultiStepForm } from "../../../hooks/useMultiTabForm";
 import { postDocument } from "../../../redux/features/verifyDocumentSlice";
 import ProgressBar from "../../../components/progressBar/ProgressBar";
 import Button from "../../../components/button/Button";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 function VerifyDocumentPage() {
   const [countryData, setCountryData] = useState([]);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate();
   const institutions = useSelector(
     (state: RootState) => state?.institution?.data
@@ -309,6 +310,7 @@ function VerifyDocumentPage() {
       formData.append(key, verifyDocumentData[key]);
     }
 
+    // @ts-ignore
     dispatch(postDocument({ ...verifyDocumentData }))
       .then((result) => {
         const {

@@ -8,10 +8,11 @@ import { AiOutlineMail, AiOutlineUser } from "react-icons/ai";
 import { BsPhone } from "react-icons/bs";
 import { BiWorld } from "react-icons/bi";
 import { RootState } from "../types/redux/root";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 function ManageAccountPage() {
-  const dispatch = useDispatch();
-  const user = useSelector((state : RootState) => state?.user?.data);
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const user = useSelector((state : RootState) => state?.user?.data) as any;
   const userLoading = useSelector((state: RootState) => state?.user?.loading);
 
   async function getUser() {

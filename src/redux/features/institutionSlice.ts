@@ -32,7 +32,6 @@ const institutionSlice = createSlice({
       const { payload } = action;
       const success = payload?.data?.success
       const data = payload?.data?.data
-      
       if (!success) {
         state.success = false;
         state.data = null;

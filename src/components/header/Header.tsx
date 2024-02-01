@@ -4,11 +4,12 @@ import BellIcon from "../../assets/icons/BellIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../redux/features/userSlice";
 import { RootState } from "../../types/redux/root";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 function Header() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   /* eslint-disable */
-  const user = useSelector((state: RootState) => state?.user?.data ?? state?.login?.data); 
+  const user = useSelector((state: RootState) => state?.user?.data ?? state?.login?.data) as any; 
   const userLoading = useSelector((state: RootState) => state?.user?.loading); 
 
   async function getUser() {
