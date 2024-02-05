@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AddIcon from "../../assets/icons/AddIcon";
 // import ManageUserTable from "../../../";
 
-function ManageUserPage() {
+function AdminManageUserPage() {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -34,4 +34,4 @@ function ManageUserPage() {
   );
 }
 
-export default ManageUserPage;
+export default AdminManageUserPage;

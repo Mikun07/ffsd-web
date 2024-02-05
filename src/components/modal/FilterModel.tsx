@@ -15,7 +15,7 @@ function FilterModel({setSelectedFilter}) {
       <div className="relative">
         <div
           onClick={() => openModal(!modal)}
-          className="bg-white w-12 h-12 rounded-lg relative flex items-center shadow-md justify-center cursor-pointer"
+          className="bg-slate-200 w-12 h-12 rounded-lg relative flex items-center shadow-md justify-center cursor-pointer"
         >
           <svg
             className="h-8 w-8"
@@ -36,7 +36,7 @@ function FilterModel({setSelectedFilter}) {
         </div>
 
         {modal && (
-          <div className="absolute z-10 w-56 bg-white border-2 border-slate-200 top-16 right-0 rounded-lg">
+          <div className="absolute z-10 w-56 bg-slate-100 top-16 right-3 rounded-lg">
             <div className="flex flex-col gap-2">
               {status.map(({ name, style }, index) => (
                 <p

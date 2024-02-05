@@ -11,7 +11,9 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 
 function AdminManageDocumentPage() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const getAllDocument = useSelector((state: RootState) => state?.adminDocument?.data)
+  const getAllDocument = useSelector(
+    (state: RootState) => state?.adminDocument?.data
+  );
   const documentLoading = useSelector(
     (state: RootState) => state?.document?.loading
   );
@@ -20,23 +22,20 @@ function AdminManageDocumentPage() {
 
   async function fetchAllDocument() {
     // @ts-ignore
-    dispatch(adminFetchDocument({ type: selectedFilter }))
+    dispatch(adminFetchDocument({ type: selectedFilter }));
   }
 
-    // Function to update filter
-    function updateFilter(newFilter) {
-      setSelectedFilter(newFilter);
-    }
+  // Function to update filter
+  function updateFilter(newFilter) {
+    setSelectedFilter(newFilter);
+  }
 
   useEffect(() => {
-    fetchAllDocument()
-  }, [selectedFilter])
-
-  // console.log({getAllDocument})
+    fetchAllDocument();
+  }, [selectedFilter]);
 
   // Array of data to process
-  const dataArray = getAllDocument as Array<any> || [] ;
-  // console.log({dataArray})
+  const dataArray = (getAllDocument as Array<any>) || [];
 
   // Combined array to store all documents
   let allDocuments = [];
@@ -79,44 +78,41 @@ function AdminManageDocumentPage() {
 
   const reversedDocuments = allDocuments?.reverse();
 
-
   return (
     <>
       <div className="flex flex-col h-full py-2 px-4  overflow-y-auto">
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 md:gap-3 grid-cols-1 gap-4 w-full">
-         
-        </div>
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 md:gap-3 grid-cols-1 gap-4 w-full"></div>
         <div className="flex flex-col mt-4 h-screen overflow-hidden">
           <div className="w-full h-screen overflow-hidden">
-            <div className="h-16 w-full bg-slate-200 text-primary rounded-t-lg flex justify-between items-center px-2">
-              <h3 className="font-bold">Verification History</h3>
-              <div className="flex gap-2 w-[450px]">
-                <div className="w-[400px]">
-                  <SearchInput
-                    result={result}
-                    setResult={setResult}
-                    data={allDocuments}
-                  />
-                </div>
-                {/* <FilterModel setSelectedFilter={updateFilter} /> */}
+            <div className="h-16 w-full text-primary rounded-t-lg flex justify-between items-center px-2">
+              <h3 className="font-semibold capitalize leading-5 tracking-wide">
+                verification history
+              </h3>
+              <div className="flex gap-2">
+                <SearchInput
+                  result={result}
+                  setResult={setResult}
+                  data={allDocuments}
+                />
+                <FilterModel setSelectedFilter={updateFilter} />
               </div>
             </div>
 
-            <div className="flex w-full h-full overflow-hidden justify-center border-l-2 border-r-2 border-slate-200 items-center">
-             {documentLoading ? (
+            <div className="flex w-full h-full overflow-hidden justify-center items-center">
+              {documentLoading ? (
                 <Loading className="" />
               ) : (
                 <Table tableData={reversedDocuments} />
               )}
             </div>
           </div>
-          <div className="h-16 w-full bg-slate-200 text-primary rounded-b-lg flex justify-end items-center px-2">
+          <div className="h-16 w-full text-primary rounded-b-lg flex justify-end items-center px-2">
             <div className="flex gap-1">
-              <div className="h-8 w-8 border-2 border-primary bg-transparent rounded-lg flex items-center justify-center text-black">
+              <div className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary">
                 <BiLeftArrow />
               </div>
-              <div className="h-8 w-8 border-2 border-primary bg-transparent rounded-lg flex items-center justify-center text-black"></div>
-              <div className="h-8 w-8 border-2 border-primary bg-transparent rounded-lg flex items-center justify-center text-black">
+              <div className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary"></div>
+              <div className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary">
                 <BiRightArrow />
               </div>
             </div>

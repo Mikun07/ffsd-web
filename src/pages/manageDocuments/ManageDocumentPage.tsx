@@ -38,7 +38,6 @@ function ManageDocumentPage() {
 
   // Array of data to process
   const dataArray = (upload?.data?.data as Array<any>) || [];
-  // console.log({dataArray})
 
   // Combined array to store all documents
   let allDocuments = [];
@@ -122,16 +121,16 @@ function ManageDocumentPage() {
         <div className="flex flex-col mt-4 h-screen overflow-hidden">
           <div className="w-full h-screen overflow-hidden">
             <div className="h-16 w-full bg-slate-200 text-primary rounded-t-lg flex justify-between items-center px-2">
-              <h3 className="font-bold">Verification History</h3>
-              <div className="flex gap-2 w-[450px]">
-                {/* <div className="w-[400px]">
-                  <SearchInput
-                    result={result}
-                    setResult={setResult}
-                    data={allDocuments}
-                  />
-                </div> */}
-                <FilterModel setSelectedFilter={updateFilter} />
+              <div>
+                <h3 className="font-bold">Verification History</h3>
+              </div>
+              <div className="flex gap-2">
+                <SearchInput
+                  result={result}
+                  setResult={setResult}
+                  data={allDocuments}
+                />
+                {/* <FilterModel setSelectedFilter={updateFilter} /> */}
               </div>
             </div>
 

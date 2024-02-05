@@ -10,10 +10,11 @@ const initialState = {
 
 export const adminFetchDocument = createAsyncThunk(
   "admin/fetchDocument",
-  async () => {
+  async (body) => {
     try {
-      const response = await axiosInstance.get(
-        "system/admin/get/all/documents"
+      const response = await axiosInstance.post(
+        "system/admin/get/all/documents",
+        body
       );
       return response;
     } catch (error) {
@@ -32,10 +33,8 @@ const adminDocumentSlice = createSlice({
     });
     builder.addCase(adminFetchDocument.fulfilled, (state, action) => {
       const { payload } = action;
-      // console.log(payload)
       // const success = payload?.data?.success;
       const data = payload?.data;
-      // console.log({data})
       if (!data.length) {
         state.success = false;
         state.data = null;

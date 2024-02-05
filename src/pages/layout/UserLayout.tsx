@@ -1,7 +1,7 @@
-import React from "react";
 import Header from "../../components/header/Header";
 import { Outlet } from "react-router-dom";
 import UserSidebar from "../dashboard/user/UserSidebar";
+import BGPattern from "../../assets/BG-pattern.png";
 
 function UserLayout() {
   return (
@@ -12,7 +12,14 @@ function UserLayout() {
         </div>
         <div className="flex flex-col w-full h-screen">
           <Header />
-          <div className="h-screen overflow-hidden">
+          <div
+            className="h-screen overflow-hidden"
+            style={{
+              backgroundImage: `url(${BGPattern})`,
+              backgroundSize: "contain",
+              backgroundAttachment: "fixed",
+            }}
+          >
             <Outlet />
           </div>
         </div>

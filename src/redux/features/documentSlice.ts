@@ -10,15 +10,16 @@ const initialState = {
 
 export const fetchDocument = createAsyncThunk(
   "user/fetchDocument",
-  async (body) => {
+  async (type) => {
     try {
-      const response = await axiosInstance.post("/get/documents", body);
+      const response = await axiosInstance.post("/get/documents", type);
       return response;
     } catch (error) {
       return error?.response?.data?.errors;
     }
   }
 );
+
 
 const documentSlice = createSlice({
   name: "document",

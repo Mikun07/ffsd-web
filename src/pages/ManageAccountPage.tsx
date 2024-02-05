@@ -37,9 +37,9 @@ function ManageAccountPage() {
 
                 <div className="px-4 py-2 flex flex-col gap-2 justify-center items-center rounded-lg lg:w-1/3 w-full">
                   <div className="h-[100px] w-[100px] text-xl rounded-full bg-[#40B52D] flex items-center justify-center text-white">
-                    <p className="font-semibold text-[35px]">
-                      {user?.firstName[0]}
+                    <p className="font-semibold text-[35px] uppercase">
                       {user?.lastName[0]}
+                      {user?.firstName[0]}
                     </p>
                   </div>
 

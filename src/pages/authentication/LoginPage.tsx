@@ -20,7 +20,6 @@ function LoginPage() {
 
   const redirectUrl = {
     org: "/org/dashboard",
-    // admin: "/admin/dashboard",
     indv: "/dashboard",
   };
 
@@ -33,7 +32,6 @@ function LoginPage() {
     getValues,
   } = useForm({ mode: "all" });
 
-  // const loginFields = watch("email");
 
   function login(data) {
     // @ts-ignore
@@ -53,7 +51,6 @@ function LoginPage() {
           toast.error("Invalid Email or Password");
         }
       })
-      // .finally();
   }
 
   return (

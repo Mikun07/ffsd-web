@@ -34,7 +34,6 @@ const adminSignUpSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(postAdminSignUp.fulfilled, (state, action) => {
       const { payload } = action;
-      console.log({payload})
       if (payload?.data?.errors) {
         (state.success = false),
           (state.data = null),

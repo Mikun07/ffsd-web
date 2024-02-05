@@ -2,6 +2,8 @@ import React from "react";
 import Header from "../../components/header/Header";
 import AdminSidebar from "../admin/AdminSidebar";
 import { Outlet } from "react-router-dom";
+import BGPattern from "../../assets/BG-pattern.png";
+
 
 function AdminLayout() {
   return (
@@ -12,7 +14,13 @@ function AdminLayout() {
         </div>
         <div className="flex flex-col w-full h-screen">
           <Header />
-          <div className="h-screen overflow-hidden">
+          <div className="h-screen overflow-hidden"
+             // style={{
+            //   backgroundImage: `url(${BGPattern})`,
+            //   backgroundSize: "contain",
+            //   backgroundAttachment: "fixed",
+            // }}
+            >
             <Outlet />
           </div>
         </div>

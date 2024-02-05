@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { BASE_URL } from "../../config/api";
-import LogoDP from "../../assets/Logo.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import toast from "react-hot-toast";
 import LeftView from "./LeftView";
 import { RootState } from "../../types/redux/root";
+import Logo from "../../assets/Logo";
 
 function OTPPage() {
   const navigate = useNavigate();
@@ -119,13 +119,7 @@ function OTPPage() {
     <>
       <div className="bg-white flex h-screen">
         <div className="z-10 absolute lg:top-5 lg:left-[50px] top-6 left-4 flex gap-2 items-center justify-center">
-          <div className="w-[50px] cursor-pointer">
-            <img src={LogoDP} alt="" />
-          </div>
-          <p className="flex flex-col cursor-pointer font-bold leading-5 tracking-tight capitalize lg:text-[15px] text-[#40B52D]">
-            Document And Qualification Verification LTD
-            <span className="text-[#D4973B]">Admin</span>
-          </p>
+          <Logo />
         </div>
 
         <LeftView />

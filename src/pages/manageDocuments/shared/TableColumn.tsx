@@ -23,8 +23,6 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
     }
   };
 
-  // console.log(data)
-
   // function viewContent(): void {
   //   navigate("/");
   // }

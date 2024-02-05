@@ -21,7 +21,7 @@ import ProgressBar from "../../../components/progressBar/ProgressBar";
 import Button from "../../../components/button/Button";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 
-function VerifyDocumentPage() {
+function AdminVerifyDocumentPage() {
   const [countryData, setCountryData] = useState([]);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate();
@@ -373,4 +373,4 @@ function VerifyDocumentPage() {
   );
 }
 
-export default VerifyDocumentPage;
+export default AdminVerifyDocumentPage;

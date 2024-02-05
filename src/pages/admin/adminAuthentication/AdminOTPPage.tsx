@@ -14,7 +14,6 @@ const AdminOTPPage = () => {
   const email = useSelector(
     (state: RootState) => state?.adminSignUp?.data?.email || null
   ) as any;
-  console.log({email})
 
   const [minutes, setMinutes] = useState(2);
   const [seconds, setSeconds] = useState(minutes * 60);

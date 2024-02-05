@@ -122,14 +122,13 @@ const AdminSignUpPage = () => {
           payload: { data },
         } = result;
         const success: boolean = Boolean(data[0]?.success);
-        console.log({success})
         if (success === true) {
           navigate("/otp/admin");
         } else {
           // toast.error(result?.payload?.response?.data?.errors);
         }
       })
-      .finally(); // Remove this line if you don't need a finally block
+      // .finally(); // Remove this line if you don't need a finally block
   }
 
   return (
