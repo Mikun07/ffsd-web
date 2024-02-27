@@ -1,7 +1,7 @@
 import { lazy } from "react";
 const AdminDashboard = lazy(() => import("../pages/admin/AdminDashBoard"))
 const AdminVerifyDocumentPage = lazy(() => import("../pages/admin/verifyDocuments/AdminVerifyDocumentPage"))
-const AdminAccountPage = lazy(() => import("../pages/admin/AdminAccountPage"))
+const AdminAccountPage = lazy(() => import("../pages/ManageAccountPage"))
 const AdminArchiveDocumentPage = lazy(() => import("../pages/admin/manageDocuments/AdminArchiveDocumentPage"))
 const AdminQueriedDocumentPage = lazy(() => import("../pages/admin/manageDocuments/AdminQueriedDocumentPage"))
 const AdminSubmittedDocumentPage = lazy(() => import("../pages/admin/manageDocuments/AdminSubmittedDocumentPage"))

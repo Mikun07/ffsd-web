@@ -35,4 +35,7 @@ export type RootState = {
   editingAdmin: BaseState,
   editingDocumentStatus: BaseState,
   editingStaff: BaseState,
+  cost: BaseState,
+  startPayment: BaseState,
+  checkPayment: BaseState,
 }

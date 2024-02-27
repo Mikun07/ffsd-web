@@ -32,27 +32,24 @@ export const postDocument = createAsyncThunk(
 const verifyDocumentSlice = createSlice({
   name: "verify",
   initialState,
-  reducers: {
-    resetSuccess: (state) => {
-      (state.success = false), (state.error = null);
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(postDocument.fulfilled, (state, action) => {
-      const { payload } = action;
-      if (payload?.data?.errors) {
-        (state.success = false),
-          (state.data = null),
-          (state.error = payload?.data?.errors);
-      } else {
-        (state.success = true),
-          (state.data = payload?.data?.user),
-          (state.error = null);
-      }
-    });
-    builder.addCase(postDocument.rejected, (state, action) => {
-      (state.success = false), (state.error = action.error.message);
-    });
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(postDocument.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(postDocument.fulfilled, (state, action) => {
+        const { payload } = action;
+        state.success = true;
+        state.data = payload
+        state.error = null;
+        state.loading = false;
+      })
+      .addCase(postDocument.rejected, (state, action) => {
+        state.success = false;
+        state.loading = false;
+        state.error = action.error.message || "Could not get cost";
+      });
   },
 });
 

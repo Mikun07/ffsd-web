@@ -13,7 +13,7 @@ function UserLayout() {
         <div className="flex flex-col w-full h-screen">
           <Header />
           <div
-            className="h-screen overflow-hidden"
+            className="h-screen overflow-hidden py-2 lg:px-4 px-2"
             // style={{
             //   backgroundImage: `url(${BGPattern})`,
             //   backgroundSize: "contain",

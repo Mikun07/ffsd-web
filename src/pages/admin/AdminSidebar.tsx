@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import DashboardIcon from "../../assets/icons/DashboardIcon";
 import AccountIcon from "../../assets/icons/AccountIcon";
@@ -7,11 +7,12 @@ import ManageUserIcon from "../../assets/icons/ManageUserIcon";
 import ReceiptIcon from "../../assets/icons/ReceiptIcon";
 import Logo from "../../assets/Logo.png";
 import LogoutIcon from "../../assets/icons/LogoutIcon";
-import DocumentIcon from "../../assets/icons/DocumentIcon";
 import SchoolIcon from "../../assets/icons/SchoolIcon";
 import { adminLogout } from "../../redux/features/Admin/AdminSlice";
 import { BsFillCaretDownFill } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../types/redux/root";
+import { fetchUser } from "../../redux/features/userSlice";
 
 function AdminSidebar() {
   const location = useLocation();
@@ -21,6 +22,15 @@ function AdminSidebar() {
     manageinstitution: false,
     manageuser: false,
   });
+
+  const { data: user, loading: loadingMenu } = useSelector(
+    (state: RootState) => state?.user
+  ) as any;
+
+  useEffect(() => {
+    //@ts-ignore
+    dispatch(fetchUser());
+  }, [dispatch]);
 
   const isMenuActive = (menuUrl) => {
     return location.pathname === menuUrl;
@@ -77,10 +87,14 @@ function AdminSidebar() {
       icon: <ManageUserIcon width="25" height="25" />,
       submenu: true,
       submenuItems: [
-        { name: "Admin", url: "/admin/manageuser/admin" },
+        {
+          name: "Admin",
+          url: "/admin/manageuser/admin",
+          condition: user?.is_system_admin === "1",
+        },
         { name: "individual", url: "/admin/manageuser/individual" },
         { name: "Organization", url: "/admin/manageuser/organization" },
-      ],
+      ].filter((item) => item.condition !== false),
       active: isMenuActive("/admin/manageuser"),
     },
     {

@@ -30,27 +30,30 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { RootState } from "../../types/redux/root";
 import { ThunkDispatch } from "@reduxjs/toolkit";
+import { fetchCost } from "../../redux/features/getCostSlice";
+import GetCost from "./shared/GetCost";
+import { fetchUser } from "../../redux/features/userSlice";
+import { initiatePayment } from "../../redux/features/initiatePayment";
+import Loading from "../../components/withStatus/loading/Loading";
 
 function VerifyDocumentPage() {
   const [countryData, setCountryData] = useState([]);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate();
-  const institutions = useSelector(
-    (state: RootState) => state?.institution?.data
+  const { data: institutions } = useSelector(
+    (state: RootState) => state?.institution
   ) as any;
 
-  const redirectUrl = {
-    org: "/org/dashboard",
-    admin: "/admin/dashboard",
-    indv: "/dashboard/document",
-  };
+  const { data: cost, loading: loadingCost } = useSelector(
+    (state: RootState) => state?.cost
+  );
+  const { data: payment, loading: loadingPayment } = useSelector(
+    (state: RootState) => state?.startPayment
+  );
 
-  async function getInstitution() {
-    dispatch(fetchInstitution());
-  }
   useEffect(() => {
-    getInstitution();
-  }, []);
+    dispatch(fetchInstitution());
+  }, [dispatch]);
 
   useEffect(() => {
     axios
@@ -109,11 +112,15 @@ function VerifyDocumentPage() {
     },
     {
       title: "Upload Document",
-      buttonText: "Review and Submit Details",
+      buttonText: "Review",
     },
     {
-      title: "Review and Save",
-      buttonText: "Submit Details",
+      title: "Review",
+      buttonText: "Get cost",
+    },
+    {
+      title: "Get Cost",
+      buttonText: "Make Payment",
     },
   ];
 
@@ -254,6 +261,8 @@ function VerifyDocumentPage() {
     />,
 
     <ReviewDetails details={reviewValues} />,
+
+    <GetCost data={cost} />,
   ];
 
   const {
@@ -268,7 +277,7 @@ function VerifyDocumentPage() {
     isLastStep,
   } = useMultiStepForm(formSteps, formTitles);
 
-  function sendDocument() {
+  function getDocumentCost() {
     const verifyDocumentData = {
       firstName: documentDetailsValues?.firstName,
       lastName: documentDetailsValues?.lastName,
@@ -320,24 +329,41 @@ function VerifyDocumentPage() {
       formData.append(key, verifyDocumentData[key]);
     }
     // @ts-ignore
-    dispatch(postDocument({ ...verifyDocumentData }))
-      .then((result) => {
-        const {
-          payload: { data },
-        } = result;
-        const success = Boolean(data?.success);
-        if (success === true) {
-          toast.success("Upload Successful");
-        } else {
-          toast.error("Upload Failed");
-        }
-      })
-      .finally();
+    dispatch(fetchCost({ ...verifyDocumentData })).then((result) => {
+      const { payload } = result;
+      const success = Boolean(payload?.success);
+      if (success === true) {
+        toast.success(payload?.message || "Upload Successful");
+        next();
+      } else {
+        toast.error(payload.error || "Upload Failed");
+      }
+    });
+  }
+
+  function makePayment() {
+    const initiatePaymentData = {
+      email: cost?.data?.email,
+      amount: cost?.data?.total_amount,
+    };
+
+    // @ts-ignore
+    dispatch(initiatePayment({ ...initiatePaymentData })).then((result) => {
+      const { payload } = result;
+      const success = Boolean(payload?.success);
+      if (success === true) {
+        toast.success(payload?.message || "Upload Successful");
+        const data = JSON.parse(payload.data);
+        window.location.assign(data?.data.authorization_url);
+      } else {
+        toast.error(payload.errors || "Upload Failed");
+      }
+    });
   }
 
   return (
     <>
-      <div className="flex flex-col gap-4 h-full mt-2 lg:px-4 px-2">
+      <div className="flex flex-col gap-4 h-full mt-2">
         <div className="bg-slate-100 px-4 py-2 z-10 sticky top-4 rounded-lg">
           <ProgressBar
             /* eslint-disable */
@@ -350,7 +376,15 @@ function VerifyDocumentPage() {
         <div className="mb-16 py-2 px-1 z-20 overflow-y-auto custom__scrollbar">
           <form className="flex flex-col gap-[4rem]">{step}</form>
           <div className="flex flex-col">
-            {!isLastStep ? (
+            {currentStepIndex == 2 ? (
+              <>
+                <div className="w-full py-2 justify-end flex">
+                  <Button loading={loadingCost} onClick={getDocumentCost}>
+                    {title.buttonText}{" "}
+                  </Button>
+                </div>
+              </>
+            ) : !isLastStep ? (
               <div className="w-full py-2 justify-end flex">
                 <Button
                   disabled={!isValid}
@@ -362,10 +396,11 @@ function VerifyDocumentPage() {
               </div>
             ) : (
               <div className="w-full py-2 justify-end flex">
-                <Button onClick={sendDocument}>{title.buttonText}</Button>
+                <Button loading={loadingPayment} onClick={makePayment}>
+                  {title.buttonText}
+                </Button>
               </div>
             )}
-            {/* {JSON.stringify(isValid)} {JSON.stringify(docUploadIsValid)} */}
             {currentStepIndex > 0 ? (
               <div className="w-full py-2 justify-end flex">
                 <button className="text-[12px] self-end" onClick={back}>

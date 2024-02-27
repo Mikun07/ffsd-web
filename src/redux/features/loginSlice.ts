@@ -59,8 +59,8 @@ const loginSlice = createSlice({
     });
     builder.addCase(postLogin.rejected, (state, action) => {
       state.success = false;
-      state.error = action?.error?.message || "Could not login";
       state.loading = false;
+      state.error = action?.error?.message || "Could not login";
     });
   },
 });

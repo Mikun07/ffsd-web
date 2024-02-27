@@ -18,8 +18,6 @@ function Header() {
     (state: RootState) => state?.user
   );
 
-  console.log({ user });
-
   // Render user greeting based on loading state and user data
   const renderUserGreeting = () => {
     if (userLoading) {

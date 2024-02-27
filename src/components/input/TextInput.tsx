@@ -20,7 +20,7 @@ const TextInput: FC<CustomTextInputProps> = ({
       </label>
       <input
         className={`bg-[#E2E8F0] text-black rounded outline-none min-h-[38px] p-2 text-xs focus:ring-1 ring-[#40B52D] ${inputClassName} ${
-          disabled ? "text-gray-700" : ""
+          disabled ? "text-gray-500 font-medium" : ""
         }`}
         placeholder={title}
         disabled={disabled}

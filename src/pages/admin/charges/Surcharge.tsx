@@ -10,6 +10,7 @@ import CreateSurChargeForm from "./CreateSurChargeForm";
 import { FaChevronLeft, FaChevronRight, FaEdit } from "react-icons/fa";
 import { fetchInstitution } from "../../../redux/features/institutionSlice";
 import EditSurChargeForm from "./EditSurChargeForm";
+import { fetchUser } from "../../../redux/features/userSlice";
 
 const Surcharge = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -25,16 +26,18 @@ const Surcharge = () => {
   const { data: institutions } = useSelector(
     (state: RootState) => state?.institution
   );
-  
+
+  const { data: user } = useSelector((state: RootState) => state?.user) as any;
 
   // Close modal handler
   const handleOnClose = () => [setShowModal(false), setEditModal(false)];
 
   // Fetch data on component mount
   useEffect(() => {
+    dispatch(fetchUser());
+    dispatch(fetchInstitution());
     // @ts-ignore
     dispatch(fetchSurCharge({ getter_type: "all" }));
-    dispatch(fetchInstitution());
   }, [dispatch]);
 
   // Generate institution options for select dropdown
@@ -101,26 +104,31 @@ const Surcharge = () => {
                       {" "}
                       <span>&#36;</span> {charge?.institution_charge}
                     </span>
-                    <button
-                      onClick={() => setEditModal(charge)}
-                      className="text-blue-600 hover:text-blue-900"
-                    >
-                      <FaEdit size={20} />
-                    </button>
-                    {/* Edit Modal */}
-                    <Modal
-                      className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
-                      onClose={handleOnClose}
-                      visible={editModal === charge}
-                      body={
-                        <EditSurChargeForm
+                    {(user?.is_system_admin === "1" ||
+                      user?.system_admin_type === "1") && (
+                      <div className="flex items-center">
+                        <button
+                          onClick={() => setEditModal(charge)}
+                          className="text-blue-600 hover:text-blue-900 ml-2"
+                        >
+                          <FaEdit size={20} />
+                        </button>
+                        {/* Edit Modal */}
+                        <Modal
+                          className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
                           onClose={handleOnClose}
-                          instId={charge.instId}
-                          instName={charge?.instName}
-                          institution_charge={charge?.institution_charge}
+                          visible={editModal === charge}
+                          body={
+                            <EditSurChargeForm
+                              onClose={handleOnClose}
+                              instId={charge.instId}
+                              instName={charge?.instName}
+                              institution_charge={charge?.institution_charge}
+                            />
+                          }
                         />
-                      }
-                    />
+                      </div>
+                    )}
                   </div>
                 </td>
               </tr>
@@ -146,29 +154,32 @@ const Surcharge = () => {
               </h3>
             </div>
 
-            {/* Create Charge Button */}
-            <div className="mt-5 ml-5">
-              <button
-                onClick={() => setShowModal(true)}
-                className="bg-slate-200 text-black relative font-semibold rounded-lg h-12 p-4 gap-2 shadow-md flex items-center"
-              >
-                <AiOutlinePlus size={20} />
-                <p className="capitalize">Create charge</p>
-              </button>
+            {/* Conditionally render Create Charge Button */}
+            {(user?.is_system_admin === "1" ||
+              user?.system_admin_type === "1") && (
+              <div className="mt-5 ml-5">
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="bg-slate-200 text-black relative font-semibold rounded-lg h-12 p-4 gap-2 shadow-md flex items-center"
+                >
+                  <AiOutlinePlus size={20} />
+                  <p className="capitalize">Create charge</p>
+                </button>
 
-              {/* Create Charge Modal */}
-              <Modal
-                className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
-                onClose={handleOnClose}
-                visible={showModal}
-                body={
-                  <CreateSurChargeForm
-                    onClose={handleOnClose}
-                    institutionOptions={InstitutionOptions}
-                  />
-                }
-              />
-            </div>
+                {/* Create Charge Modal */}
+                <Modal
+                  className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
+                  onClose={handleOnClose}
+                  visible={showModal}
+                  body={
+                    <CreateSurChargeForm
+                      onClose={handleOnClose}
+                      institutionOptions={InstitutionOptions}
+                    />
+                  }
+                />
+              </div>
+            )}
 
             {/* Charge Table */}
             <div className=" mt-4 h-full">

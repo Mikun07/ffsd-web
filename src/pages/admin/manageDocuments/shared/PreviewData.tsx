@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import Modal from "../../../../components/modal/Modal";
 import EditDocumentStatus from "./EditDocumentStatus";
+import { fetchUser } from "../../../../redux/features/userSlice";
 
 const PreviewData = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -21,6 +22,7 @@ const PreviewData = () => {
   const { data: getDocumentById, loading: documentLoading } = useSelector(
     (state: RootState) => state?.adminDocumentId
   );
+  const { data: user } = useSelector((state: RootState) => state?.user) as any;
 
   const [editModal, setEditModal] = useState(false);
   const handleOnClose = () => [setEditModal(false)];
@@ -42,6 +44,7 @@ const PreviewData = () => {
 
   // Fetch document data when component mounts
   useEffect(() => {
+    dispatch(fetchUser());
     dispatch(adminFetchDocumentId({ doc_type: type, id, docOwnerId: owner }));
   }, [type, id, owner]);
 
@@ -257,11 +260,11 @@ const PreviewData = () => {
                             upload status
                           </p>
                           <div
-                            onClick={() => setEditModal(getDocumentById)}
-                            className="flex w-full gap-9 cursor-pointer"
+                            // onClick={() => setEditModal(getDocumentById)}
+                            className="flex w-full gap-9"
                           >
                             <p
-                              className="text-[12px] font-medium"
+                              className="text-[15px] font-medium"
                               style={{
                                 color: getStatusColor(
                                   getDocumentById?.document[0]?.status
@@ -271,21 +274,29 @@ const PreviewData = () => {
                             >
                               {getDocumentById?.document[0]?.status}
                             </p>
-                            <button className="text-blue-600 hover:text-blue-900">
-                              <FaEdit size={15} />
-                            </button>
+                            {(user?.is_system_admin === "1" ||
+                              user?.system_admin_type === "1") && (
+                              <div>
+                                <button
+                                  onClick={() => setEditModal(getDocumentById)}
+                                  className="text-blue-600 hover:text-blue-900"
+                                >
+                                  <FaEdit size={20} />
+                                </button>
+                                <Modal
+                                  className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
+                                  onClose={handleOnClose}
+                                  visible={editModal === getDocumentById}
+                                  body={
+                                    <EditDocumentStatus
+                                      onClose={handleOnClose}
+                                      data={getDocumentById}
+                                    />
+                                  }
+                                />
+                              </div>
+                            )}
                           </div>
-                          <Modal
-                            className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
-                            onClose={handleOnClose}
-                            visible={editModal === getDocumentById}
-                            body={
-                              <EditDocumentStatus
-                                onClose={handleOnClose}
-                                data={getDocumentById}
-                              />
-                            }
-                          />
                         </div>
 
                         <div className="flex flex-col w-full gap-1">
@@ -428,11 +439,11 @@ const PreviewData = () => {
                             upload status
                           </p>
                           <div
-                            onClick={() => setEditModal(getDocumentById)}
-                            className="flex w-full gap-9 cursor-pointer"
+                            // onClick={() => setEditModal(getDocumentById)}
+                            className="flex w-full gap-9"
                           >
                             <p
-                              className="text-[12px] font-medium"
+                              className="text-[15px] font-medium"
                               style={{
                                 color: getStatusColor(
                                   getDocumentById?.document[0]?.status
@@ -442,24 +453,29 @@ const PreviewData = () => {
                             >
                               {getDocumentById?.document[0]?.status}
                             </p>
-                            <button
-                              // onClick={() => setEditModal(getDocumentById)}
-                              className="text-blue-600 hover:text-blue-900"
-                            >
-                              <FaEdit size={15} />
-                            </button>
+                            {(user?.is_system_admin === "1" ||
+                              user?.system_admin_type === "1") && (
+                              <div>
+                                <button
+                                  onClick={() => setEditModal(getDocumentById)}
+                                  className="text-blue-600 hover:text-blue-900"
+                                >
+                                  <FaEdit size={20} />
+                                </button>
+                                <Modal
+                                  className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
+                                  onClose={handleOnClose}
+                                  visible={editModal === getDocumentById}
+                                  body={
+                                    <EditDocumentStatus
+                                      onClose={handleOnClose}
+                                      data={getDocumentById}
+                                    />
+                                  }
+                                />
+                              </div>
+                            )}
                           </div>
-                          <Modal
-                            className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
-                            onClose={handleOnClose}
-                            visible={editModal === getDocumentById}
-                            body={
-                              <EditDocumentStatus
-                                onClose={handleOnClose}
-                                data={getDocumentById}
-                              />
-                            }
-                          />
                         </div>
 
                         <div className="flex flex-col w-full gap-1">
@@ -601,11 +617,11 @@ const PreviewData = () => {
                             upload status
                           </p>
                           <div
-                            onClick={() => setEditModal(getDocumentById)}
-                            className="flex w-full gap-9 cursor-pointer"
+                            // onClick={() => setEditModal(getDocumentById)}
+                            className="flex w-full gap-9"
                           >
                             <p
-                              className="text-[12px] font-medium"
+                              className="text-[15px] font-medium"
                               style={{
                                 color: getStatusColor(
                                   getDocumentById?.document[0]?.status
@@ -615,24 +631,29 @@ const PreviewData = () => {
                             >
                               {getDocumentById?.document[0]?.status}
                             </p>
-                            <button
-                              // onClick={() => setEditModal(getDocumentById)}
-                              className="text-blue-600 hover:text-blue-900"
-                            >
-                              <FaEdit size={15} />
-                            </button>
+                            {(user?.is_system_admin === "1" ||
+                              user?.system_admin_type === "1") && (
+                              <div>
+                                <button
+                                  onClick={() => setEditModal(getDocumentById)}
+                                  className="text-blue-600 hover:text-blue-900"
+                                >
+                                  <FaEdit size={20} />
+                                </button>
+                                <Modal
+                                  className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
+                                  onClose={handleOnClose}
+                                  visible={editModal === getDocumentById}
+                                  body={
+                                    <EditDocumentStatus
+                                      onClose={handleOnClose}
+                                      data={getDocumentById}
+                                    />
+                                  }
+                                />
+                              </div>
+                            )}
                           </div>
-                          <Modal
-                            className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
-                            onClose={handleOnClose}
-                            visible={editModal === getDocumentById}
-                            body={
-                              <EditDocumentStatus
-                                onClose={handleOnClose}
-                                data={getDocumentById}
-                              />
-                            }
-                          />
                         </div>
 
                         <div className="flex flex-col w-full gap-1">

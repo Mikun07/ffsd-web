@@ -13,7 +13,7 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
     const response = await axiosInstance.get("/user");
     return response?.data;
   } catch (error) {
-    return error?.response?.data?.errors;
+    return error?.response?.data?.error;
   }
 });
 
@@ -32,10 +32,10 @@ const userSlice = createSlice({
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
         const { payload } = action;
-        state.loading = false;
-        state.success = !!payload;
+        state.success = true;
         state.data = payload;
-        state.error = payload ? null : action.payload.errors;
+        state.error = null;
+        state.loading = false;
       })
       .addCase(fetchUser.rejected, (state) => {
         state.loading = false;

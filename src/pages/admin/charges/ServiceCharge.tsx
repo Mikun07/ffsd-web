@@ -9,6 +9,7 @@ import Modal from "../../../components/modal/Modal";
 import CreateServiceChargeform from "./CreateServiceChargeForm";
 import { FaEdit } from "react-icons/fa";
 import EditServiceChargeForm from "./EditServiceChargeForm";
+import { fetchUser } from "../../../redux/features/userSlice";
 
 const ServiceCharge = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -16,12 +17,14 @@ const ServiceCharge = () => {
   const { data: serviceCharge, loading: loadingServiceCharge } = useSelector(
     (state: RootState) => state?.getServiceCharge
   );
+  const { data: user } = useSelector((state: RootState) => state?.user) as any;
 
   const [showModal, setShowModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const handleOnClose = () => [setShowModal(false), setEditModal(false)];
 
   useEffect(() => {
+    dispatch(fetchUser());
     dispatch(fetchServiceCharge());
   }, []);
 
@@ -58,26 +61,31 @@ const ServiceCharge = () => {
                   <p>
                     <span>&#36;</span> {charge.doc_charge}
                   </p>
-                  <button
-                    onClick={() => setEditModal(charge)}
-                    className="text-blue-600 hover:text-blue-900 mr-2"
-                  >
-                    <FaEdit size={25} />
-                  </button>
+                  {(user?.is_system_admin === "1" ||
+                    user?.system_admin_type === "1") && (
+                    <div className="flex items-center">
+                      <button
+                        onClick={() => setEditModal(charge)}
+                        className="text-blue-600 hover:text-blue-900 mr-2"
+                      >
+                        <FaEdit size={25} />
+                      </button>
 
-                  <Modal
-                    className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
-                    onClose={handleOnClose}
-                    visible={editModal === charge}
-                    body={
-                      <EditServiceChargeForm
-                        chargeId={charge.id}
-                        categoryUser={charge.category_user}
-                        category={charge.doc_cat}
+                      <Modal
+                        className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
                         onClose={handleOnClose}
+                        visible={editModal === charge}
+                        body={
+                          <EditServiceChargeForm
+                            chargeId={charge.id}
+                            categoryUser={charge.category_user}
+                            category={charge.doc_cat}
+                            onClose={handleOnClose}
+                          />
+                        }
                       />
-                    }
-                  />
+                    </div>
+                  )}
                 </div>
               </td>
             </tr>
@@ -107,23 +115,25 @@ const ServiceCharge = () => {
                 Service Charge
               </h3>
             </div>
+            {(user?.is_system_admin === "1" ||
+              user?.system_admin_type === "1") && (
+              <div className="mt-5 ml-5">
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="bg-slate-200 text-black relative font-semibold rounded-lg h-12 p-4 gap-2 shadow-md flex items-center"
+                >
+                  <AiOutlinePlus size={20} />
+                  <p className=" capitalize">Create charge</p>
+                </button>
 
-            <div className="mt-5 ml-5">
-              <button
-                onClick={() => setShowModal(true)}
-                className="bg-slate-200 text-black relative font-semibold rounded-lg h-12 p-4 gap-2 shadow-md flex items-center"
-              >
-                <AiOutlinePlus size={20} />
-                <p className=" capitalize">Create charge</p>
-              </button>
-
-              <Modal
-                className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
-                onClose={handleOnClose}
-                visible={showModal}
-                body={<CreateServiceChargeform onClose={handleOnClose} />}
-              />
-            </div>
+                <Modal
+                  className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
+                  onClose={handleOnClose}
+                  visible={showModal}
+                  body={<CreateServiceChargeform onClose={handleOnClose} />}
+                />
+              </div>
+            )}
 
             <div className="lg:px-10 mt-4">
               <div className="mx-3 mt-3">

@@ -1,4 +1,5 @@
 import React, { FC, ButtonHTMLAttributes, useMemo } from "react";
+import Loading from "../withStatus/loading/Loading";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -6,18 +7,27 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ icon, children, className, ...rest }) => {
+const Button: FC<ButtonProps> = ({
+  icon,
+  children,
+  className,
+  loading,
+  ...rest
+}) => {
   const classNames = useMemo(() => {
     return `p-2 rounded ring-1 ring-[#40B52D] hover:text-white hover:bg-[#D4973B] hover:bg-opacity-85 hover:ring-[#D4973B] hover:ring-opacity-85 disabled:ring-gray-600 disabled:text-gray-600 disabled:hover:bg-transparent text-sm bg-transparent text-[#40B52D] ${className}`;
   }, [className]);
 
   return (
-    <button
-      className={classNames}
-      {...rest}
-    >
-      <span>{icon}</span>
-      <span>{children}</span>
+    <button className={classNames} {...rest}>
+      {loading ? (
+        <Loading width="15" className="p-2 rounded hover:text-white hover:bg-[#D4973B] hover:bg-opacity-85 hover:ring-[#D4973B] hover:ring-opacity-85 disabled:ring-gray-600 disabled:text-gray-600 disabled:hover:bg-transparent text-sm bg-transparent text-[#40B52D] ${className}" />
+      ) : (
+        <>
+          <span>{icon}</span>
+          <span>{children}</span>
+        </>
+      )}
     </button>
   );
 };

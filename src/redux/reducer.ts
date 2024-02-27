@@ -25,6 +25,9 @@ import updateSurChargeSlice from "./features/Admin/updateSurChargeSlice";
 import updateAdminSlice from "./features/Admin/updateAdminSlice";
 import updateDocumentStatusSlice from "./features/Admin/updateDocumentStatusSlice";
 import updateStaffSlice from "./features/updateStaffSlice";
+import getCostSlice from "./features/getCostSlice";
+import initiatePaymentSlice from "./features/initiatePayment";
+import confirmPaymentSlice from "./features/confirmPayment";
 
 const rootReducer = combineReducers({
     signUp: signUpSlice.reducer,
@@ -53,6 +56,9 @@ const rootReducer = combineReducers({
     editingAdmin: updateAdminSlice.reducer,
     editingDocumentStatus: updateDocumentStatusSlice.reducer,
     editingStaff: updateStaffSlice.reducer,
+    cost: getCostSlice.reducer,
+    startPayment: initiatePaymentSlice.reducer,
+    checkPayment: confirmPaymentSlice.reducer,
 })
 
 export default rootReducer;

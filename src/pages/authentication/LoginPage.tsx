@@ -15,7 +15,7 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 function LoginPage() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate();
-  const { loading: loginLoading, error: loginError } = useSelector(
+  const { loading: loginLoading } = useSelector(
     (state: RootState) => state?.login
   );
 
@@ -43,10 +43,8 @@ function LoginPage() {
           navigate(redirectUrl[payload?.user?.category]);
           toast.success(payload?.message);
         } else {
-          toast.error(loginError);
+          toast.error(payload?.error) || toast.error(payload?.message);
         }
-      } else {
-        toast.error("Invalid Email or Password");
       }
     });
   }

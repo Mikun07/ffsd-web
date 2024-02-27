@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LogoDP from "../../../assets/Logo.png";
 import DashboardIcon from "../../../assets/icons/DashboardIcon";
 import AccountIcon from "../../../assets/icons/AccountIcon";
 import ArchiveIcon from "../../../assets/icons/ArchiveIcon";
 import ManageUserIcon from "../../../assets/icons/ManageUserIcon";
 import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LogoutIcon from "../../../assets/icons/LogoutIcon";
 import SchoolIcon from "../../../assets/icons/DocumentIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/features/loginSlice";
+import { RootState } from "../../../types/redux/root";
+import { fetchUser } from "../../../redux/features/userSlice";
 
 function OrgSidebar() {
   const location = useLocation();
@@ -19,8 +21,17 @@ function OrgSidebar() {
     return location.pathname === menuUrl;
   };
 
+  const { data: user, loading: loadingMenu } = useSelector(
+    (state: RootState) => state?.user
+  ) as any;
+
+  useEffect(() => {
+    //@ts-ignore
+    dispatch(fetchUser());
+  }, []);
+
   // Sidebar menu items
-  const menu = [
+  let menu = [
     {
       name: "dashboard",
       url: "/org/dashboard",
@@ -61,6 +72,14 @@ function OrgSidebar() {
       spacing: true,
     },
   ];
+
+  // Function to check if user category is "staff"
+  const isStaff = user?.category === "staff";
+
+  // Filter out "manage staff" menu item if user category is "staff"
+  menu = menu.filter(
+    (menuItem) => !(isStaff && menuItem.name === "manage staff")
+  );
 
   function signOut() {
     dispatch(logout());
