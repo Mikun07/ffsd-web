@@ -1,0 +1,179 @@
+.horizontal-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .horizontal-bar .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .horizontal-bar .step .title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    align-items: center;
+  }
+  
+  .horizontal-bar .step .title h4 {
+    font-weight: 600;
+    font-size: 0.58rem;
+    opacity: 0.5;
+    min-width: fit-content;
+  }
+  
+  .horizontal-bar .step .title p {
+    min-width: fit-content;
+  }
+  
+  .horizontal-bar .step .title .current {
+    opacity: 1;
+  }
+  
+  .horizontal-bar .step .bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .horizontal-bar .step .bar hr {
+    min-width: 10px;
+    width: 100%;
+    height: 2px;
+    border: none;
+  }
+  
+  .horizontal-bar .step .bar .done {
+    background-color: #40B52D;
+  }
+  
+  .horizontal-bar .step .bar .not-done {
+    background-color: grey;
+  }
+  
+  .horizontal-bar .step .bar button {
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #40B52D;
+    color: #40B52D;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  
+  .horizontal-bar .step .bar button:disabled {
+    cursor: default;
+  }
+  
+  .horizontal-bar .step .bar .icon {
+    font-size: 1.5rem;
+  }
+  
+  .horizontal-bar .active .bar button {
+    background-color: #40B52D;
+    color: #fff;
+  }
+  
+  .vertical-bar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .vertical-bar .step {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .vertical-bar .step .title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    color: blue;
+  }
+  
+  .vertical-bar .step .title h3,
+  .vertical-bar .step .title p {
+    opacity: 0.5;
+    min-width: fit-content;
+  }
+  
+  .vertical-bar .step .title .current {
+    opacity: 1;
+  }
+  
+  .vertical-bar .step .title-info {
+    transform: translateY(0.65rem);
+  }
+
+  .title-info > h3 {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .title-info > p {
+    
+    font-size: .7rem;
+    font-weight: 400;
+  }
+  
+  .vertical-bar .step .bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .vertical-bar .step .bar hr {
+    min-height: 40px;
+    height: 100%;
+    width: 2px;
+    border: none;
+  }
+  
+  .vertical-bar .step .bar .done {
+    background-color: #40B52D;
+  }
+  
+  .vertical-bar .step .bar .not-done {
+    background-color: grey;
+  }
+  
+  .vertical-bar .step .bar button {
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #40B52D;
+    color: #40B52D;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  
+  .vertical-bar .step .bar button:disabled {
+    cursor: default;
+  }
+  
+  .vertical-bar .step .bar .icon {
+    font-size: 1.5rem;
+  }
+  
+  .vertical-bar .active .bar button {
+    background-color: #40B52D;
+    color: #fff;
+  }

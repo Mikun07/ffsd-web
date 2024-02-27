@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css?family=Bai+Jamjuree:200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: Bai Jamjuree;
+  }
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+h1 {
+  font-size: 1.75rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+}
+
+h3 {
+  font-size: 1.125rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+.custom__scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  visibility: hidden;
+}
+
+.custom__scrollbar:not(.Hidden)::-webkit-scrollbar {
+  visibility: visible;
+}
+
+.custom__scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.custom__scrollbar::-webkit-scrollbar-thumb {
+  background: #40b52d;
+  border-radius: 24px;
+}
+
+.custom__scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #d4973b;
+}
+
+
+/* <div className="flex flex-col">
+            <p className="text-xs">status</p>
+            <div className="flex items-center gap-4 text-sm">
+              <span>inactive</span>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={status === "active"}
+                  onChange={handleStatusChange}
+                />
+                <span className="slider round"></span>
+              </label>
+              <span>active</span>
+            </div>
+          </div> 
+
+/* CSS for the toggle switch */
+/* .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #D43B3B;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #40b52d;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #40b52d;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+} */
+
+/* Rounded sliders */
+/* .slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+} */
