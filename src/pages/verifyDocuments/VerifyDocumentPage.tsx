@@ -14,7 +14,7 @@ import {
   FinancialDocType,
 } from "../../data/data";
 import axios from "axios";
-import { BASE_URL } from "../../config/api";
+import { BASE_URL, PAYSTACK_KEY } from "../../config/api";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { startCase } from "lodash";
@@ -35,11 +35,16 @@ import GetCost from "./shared/GetCost";
 import { fetchUser } from "../../redux/features/userSlice";
 import { initiatePayment } from "../../redux/features/initiatePayment";
 import Loading from "../../components/withStatus/loading/Loading";
+import { usePaystackPayment, PaystackButton } from "react-paystack";
+import { confirmPayment } from "../../redux/features/confirmPayment";
 
 function VerifyDocumentPage() {
   const [countryData, setCountryData] = useState([]);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const navigate = useNavigate();
+  const paystackInit = usePaystackPayment({
+    publicKey: PAYSTACK_KEY,
+  });
   const { data: institutions } = useSelector(
     (state: RootState) => state?.institution
   ) as any;
@@ -259,7 +264,6 @@ function VerifyDocumentPage() {
       control={docUploadControl}
       InstitutionOptions={InstitutionOptions}
     />,
-
     <ReviewDetails details={reviewValues} />,
 
     <GetCost data={cost} />,
@@ -341,23 +345,99 @@ function VerifyDocumentPage() {
     });
   }
 
-  function makePayment() {
-    const initiatePaymentData = {
-      email: cost?.data?.email,
-      amount: cost?.data?.total_amount,
-    };
+  function verifyDocuments() {
+    const uploadDocumentData = {
+      firstName: documentDetailsValues?.firstName,
+      lastName: documentDetailsValues?.lastName,
+      middleName: documentDetailsValues?.middleName,
+      dob: documentDetailsValues?.dob,
+      // education
+      fileDocEduc: docUploadValueObj?.fileDocEduc?.map((doc) => doc[0]),
+      fileTypeEduc: docUploadValueObj?.fileTypeEduc?.map((type) => type?.value),
+      matricNumber: docUploadValueObj?.matricNumber,
+      schoolCountryEduc: docUploadValueObj?.schoolCountryEduc?.map(
+        (type) => type?.value
+      ),
+      schoolNameEduc: docUploadValueObj?.schoolNameEduc?.map(
+        (type) => type?.value
+      ),
+      schoolCity: docUploadValueObj?.schoolCity,
+      enrollmentYearEduc: docUploadValueObj?.enrollmentYearEduc,
+      graduationYearEduc: docUploadValueObj?.graduationYearEduc,
+      addInfo: docUploadValueObj?.addInfo,
+      examBoard: docUploadValueObj?.examBoard,
+      courseOrSubject: docUploadValueObj?.courseOrSubject,
 
+      // Professional Certification
+      fileDocProf: docUploadValueObj?.fileDocProf?.map((doc) => doc[0]),
+      schoolNameProf: docUploadValueObj?.schoolNameProf?.map(
+        (type) => type?.value
+      ),
+      studentIdProf: docUploadValueObj?.studentIdProf,
+      qualificationProf: docUploadValueObj?.qualificationProf,
+      enrolmentStatusProf: docUploadValueObj?.enrolmentStatusProf,
+      enrollmentYearProf: docUploadValueObj?.enrollmentYearProf,
+      graduationYearProf: docUploadValueObj?.graduationYearProf,
+      addInfoProf: docUploadValueObj?.addInfoProf,
+      profCourse: docUploadValueObj?.profCourse,
+      schoolCountryProf: docUploadValueObj?.schoolCountryProf?.map(
+        (type) => type?.value
+      ),
+
+      // Financial records
+      fileTypeFin: docUploadValueObj?.fileTypeFin?.map((type) => type?.value),
+      finName: docUploadValueObj?.finName,
+      finInfo: docUploadValueObj?.finInfo,
+      finCountry: docUploadValueObj?.finCountry?.map((type) => type?.value),
+      fileDocFin: docUploadValueObj?.fileDocFin?.map((doc) => doc[0]),
+    };
+    const formData = new FormData();
+
+    for (let key of Object.keys(uploadDocumentData)) {
+      formData.append(key, uploadDocumentData[key]);
+    }
+    console.log({ uploadDocumentData });
     // @ts-ignore
-    dispatch(initiatePayment({ ...initiatePaymentData })).then((result) => {
+    dispatch(postDocument({ ...uploadDocumentData })).then((result) => {
       const { payload } = result;
       const success = Boolean(payload?.success);
       if (success === true) {
         toast.success(payload?.message || "Upload Successful");
-        const data = JSON.parse(payload.data);
-        window.location.assign(data?.data.authorization_url);
+        // next();
       } else {
-        toast.error(payload.errors || "Upload Failed");
+        toast.error(payload.error || "Upload Failed");
       }
+    });
+  }
+
+  function onPaystackSuccess(repsonse) {
+    console.log({ repsonse });
+    if (repsonse?.status && repsonse?.status == "success") {
+      console.log("IN HERE");
+      const { reference } = repsonse;
+      dispatch(confirmPayment({ reference })).then((result) => {
+        const { payload } = result;
+        const success = Boolean(payload?.success);
+        if (success === true) {
+          verifyDocuments()
+        } else {
+          toast.error(payload.error || "Upload Failed");
+        }
+      });
+    }
+  }
+
+  function onPaystackClose() {
+    toast.error("Payment Cancelled");
+  }
+  function payWithPaystack(e) {
+    paystackInit({
+      onSuccess: onPaystackSuccess,
+      onClose: onPaystackClose,
+      config: {
+        email: cost?.data?.email,
+        amount: cost?.data?.payable,
+      },
     });
   }
 
@@ -395,8 +475,8 @@ function VerifyDocumentPage() {
                 </Button>
               </div>
             ) : (
-              <div className="w-full py-2 justify-end flex">
-                <Button loading={loadingPayment} onClick={makePayment}>
+              <div className="w-full py-2 justify-end mt-2 flex">
+                <Button loading={loadingPayment} onClick={payWithPaystack}>
                   {title.buttonText}
                 </Button>
               </div>

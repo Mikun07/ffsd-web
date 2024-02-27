@@ -90,7 +90,7 @@ const OrgManageStaff = () => {
         </button>
 
         <Modal
-          className="bg-white absolute right-0 h-screen lg:w-96 w-full p-3 overflow-hidden"
+          className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
           onClose={handleOnClose}
           visible={showModal}
           body={<CreateStaffForm />}

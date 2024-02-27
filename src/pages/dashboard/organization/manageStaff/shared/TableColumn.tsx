@@ -31,7 +31,6 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
         return "";
     }
   };
-
   return (
     <>
       <div className="flex hover:bg-gray-100 px-3 rounded-lg h-[72px] items-center justify-between">
@@ -83,13 +82,15 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
           </div>
 
           <div className="flex items-center">
-            <button
-              onClick={() => setEditModal(data)} // Pass the data to the edit click handler
-              className="text-blue-600 hover:text-blue-900 mr-2"
-            >
-              <FaEdit size={30} />
-            </button>
-
+            {data?.created_by_user_id === null ||
+              ("N/A" && (
+                <button
+                  onClick={() => setEditModal(data)} // Pass the data to the edit click handler
+                  className="text-blue-600 hover:text-blue-900 mr-2"
+                >
+                  <FaEdit size={30} />
+                </button>
+              ))}
             <Modal
               className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
               onClose={handleOnClose}
@@ -99,12 +100,15 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
           </div>
 
           <div className="flex items-center">
-            <button
-              onClick={() => setDeleteModal(data)} // Pass the data to the edit click handler
-              className="text-red-600 hover:text-red-900 mr-2"
-            >
-              <FaTrash size={30} />
-            </button>
+            {data?.created_by_user_id === null ||
+              ("N/A" && (
+                <button
+                  onClick={() => setDeleteModal(data)} // Pass the data to the edit click handler
+                  className="text-red-600 hover:text-red-900 mr-2"
+                >
+                  <FaTrash size={30} />
+                </button>
+              ))}
 
             <DeleteModal
               className="bg-white overflow-hidden rounded-lg p-3"

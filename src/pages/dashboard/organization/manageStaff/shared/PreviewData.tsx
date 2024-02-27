@@ -21,8 +21,8 @@ const PreviewData = ({ onClose, data }) => {
     <>
       <div className="flex flex-col justify-between h-full px-2 w-full">
         <div className="flex flex-col gap-6">
-          <TextInput disabled label="First Name" value={data?.firstName} />
-          <TextInput disabled label="Last Name" value={data?.lastName} />
+          <TextInput disabled label="First Name" value={data?.firstName} inputClassName="capitalize" />
+          <TextInput disabled label="Last Name" value={data?.lastName} inputClassName="capitalize" />
           <TextInput disabled label="Email Address" value={data?.email} />
           <TextInput
             disabled
@@ -35,7 +35,7 @@ const PreviewData = ({ onClose, data }) => {
             value={formatDate(data?.last_logged_in)}
           />
 
-          <TextInput disabled label="Status" value={data?.status} />
+          <TextInput disabled label="Status" value={data?.status} inputClassName="capitalize" />
         </div>
       </div>
     </>

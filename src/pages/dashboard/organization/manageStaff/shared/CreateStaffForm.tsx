@@ -39,12 +39,12 @@ const CreateStaffForm = () => {
     dispatch(postCreateStaff({ ...createStaffData })).then((result) => {
       const { payload } = result;
       console.log(payload);
-      
+
       const success = Boolean(payload?.success);
       if (success === true) {
         toast.success(payload?.message || "New Staff Created");
       } else {
-          toast.error(payload?.errors || "Email already exist");
+        toast.error(payload?.errors || "Email already exist");
       }
     });
   }
@@ -130,7 +130,7 @@ const CreateStaffForm = () => {
 
             <div className="flex flex-col gap-2">
               <Button type="submit" disabled={!isValid || LoadingPage}>
-                Create staff
+                Create Staff
               </Button>
             </div>
           </form>

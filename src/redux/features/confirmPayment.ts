@@ -10,11 +10,14 @@ const initialState = {
 
 export const confirmPayment = createAsyncThunk(
     "user/confirmPayment",
-    async () => {
+    async (body) => {
         try {
-            const response = await axiosInstance.post("/doc/initiate/payment");
+            console.log({body});
+            const response = await axiosInstance.post("/doc/confirm/transaction", body);
+            console.log({response});
             return response.data;
         } catch (error) {
+            console.log({error});
             throw error.response?.data
         }
     }
