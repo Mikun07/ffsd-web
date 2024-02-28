@@ -46,7 +46,6 @@ const CreateAdminForm = ({ onClose }) => {
     // @ts-ignore
     dispatch(postCreateAdmin({ ...createAdminData })).then((result) => {
       const { payload } = result;
-      console.log(payload)
       const success = Boolean(payload[0]?.success);
       if (success === true) {
         toast.success(payload[0]?.message || "Admin as been created");

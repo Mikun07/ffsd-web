@@ -1,41 +1,30 @@
-import { useEffect, useState } from "react";
-import SearchInput from "./shared/SearchInput";
-import { AiOutlinePlus } from "react-icons/ai";
-import Loading from "../../../../components/withStatus/loading/Loading";
-import Modal from "../../../../components/modal/Modal";
-import CreateStaffForm from "./shared/CreateStaffForm";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../types/redux/root";
-import { fetchStaff } from "../../../../redux/features/getStaffSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import Table from "./shared/Table";
+import SearchInput from "./shared/SearchInput";
+import { adminFetchTransaction } from "../../../redux/features/Admin/adminGetTransactionSlice";
+import { RootState } from "../../../types/redux/root";
+import Loading from "../../../components/withStatus/loading/Loading";
 
-const OrgManageStaff = () => {
+const ManageTransactionPage = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
   // Fetch staff data from Redux store
-  const { data: staff, loading: loadingStaff } = useSelector(
-    (state: RootState) => state?.getStaff
+  const { data: transactions, loading: loadingTransactions } = useSelector(
+    (state: RootState) => state?.adminGetTransaction
   );
 
-  // State variables
-  const [result, setResult] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [showModal, setShowModal] = useState(false);
-
-  // Fetch all staff on component mount
   useEffect(() => {
-    dispatch(fetchStaff());
+    dispatch(adminFetchTransaction());
   }, [dispatch]);
 
-  // Handle modal close
-  const handleOnClose = () => setShowModal(false);
+  const [result, setResult] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // Reverse the staff array
-  const staffArray = staff?.data || [];
-
-  const reverseAllStaff = staffArray.slice().reverse();
+  const TransactionData = transactions?.data || [];
+  const reverseTransaction = TransactionData?.slice()?.reverse();
 
   // Calculate pagination
   const documentsPerPage = 9;
@@ -43,7 +32,7 @@ const OrgManageStaff = () => {
   const indexOfFirstDocument = indexOfLastDocument - documentsPerPage;
 
   // Slice documents for current page
-  const currentStaffs = reverseAllStaff.slice(
+  const currentTransactions = reverseTransaction.slice(
     indexOfFirstDocument,
     indexOfLastDocument
   );
@@ -56,7 +45,7 @@ const OrgManageStaff = () => {
   };
 
   const handleNextPage = () => {
-    const numDocumentsOnPage = currentStaffs.length;
+    const numDocumentsOnPage = currentTransactions.length;
     if (numDocumentsOnPage === documentsPerPage) {
       setCurrentPage(currentPage + 1);
     }
@@ -71,37 +60,26 @@ const OrgManageStaff = () => {
   }
 
   // Calculate total number of pages
-  const totalNumberOfPages = getTotalPages(staffArray.length, documentsPerPage);
+  const totalNumberOfPages = getTotalPages(
+    TransactionData.length,
+    documentsPerPage
+  );
 
   return (
     <div className="flex flex-col h-full py-2 px-4">
       <div className="flex items-center gap-2 mt-3 text-gray-800 font-semibold capitalize">
-        <p className="">Manage Staff</p>
+        <p className="">Manage Transaction</p>
       </div>
 
       <div className="h-16 w-full mt-3 text-black flex justify-between items-center px-2">
-        <SearchInput result={result} setResult={setResult} data={staff} />
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-slate-200 text-black relative font-semibold rounded-lg h-12 p-4 gap-2 shadow-md flex items-center"
-        >
-          <AiOutlinePlus size={20} />
-          <p className=" capitalize">Create Staff</p>
-        </button>
-
-        <Modal
-          className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
-          onClose={handleOnClose}
-          visible={showModal}
-          body={<CreateStaffForm />}
-        />
+        <SearchInput result={result} setResult={setResult} data={transactions} />
       </div>
 
       <div className="flex w-full h-full overflow-hidden justify-center items-center">
-        {loadingStaff ? (
+        {loadingTransactions ? (
           <Loading className="" />
         ) : (
-          <Table tableData={currentStaffs} />
+          <Table tableData={currentTransactions} />
         )}
       </div>
 
@@ -133,4 +111,4 @@ const OrgManageStaff = () => {
   );
 };
 
-export default OrgManageStaff;
+export default ManageTransactionPage;

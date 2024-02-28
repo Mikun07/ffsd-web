@@ -52,10 +52,10 @@ function OrgSidebar() {
       active: isMenuActive("/org/staff"),
     },
     {
-      name: "Manage Receipts",
-      url: "",
+      name: "Manage Transaction",
+      url: "/org/managetransaction",
       icon: <ReceiptIcon width="25" height="25" />,
-      active: isMenuActive(""),
+      active: isMenuActive("/org/managetransaction"),
     },
     {
       name: "Manage Documents",

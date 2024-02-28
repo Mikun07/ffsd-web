@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../api/axios";
-import axios from "axios";
-import { BASE_URL } from "../../config/api";
 import { userToken } from "../../config/auth";
 
 const initialState = {
@@ -14,17 +12,17 @@ const initialState = {
 export const postDocument = createAsyncThunk(
   "user/postDocument",
   async (body) => {
+
     try {
-      const response = await axios.post("/doc/verify", body, {
-        baseURL: BASE_URL,
+      const response = await axiosInstance.post("/doc/verify", body, {
         headers: {
+          Authorization: `Bearer ${userToken}`,
           "Content-Type": 'multipart/form-data',
-          Authorization: `Bearer ${userToken}`
         },
       });
-      return response;
+      return response?.data;
     } catch (error) {
-      return error?.response?.data?.errors;
+      return error?.response?.data;
     }
   }
 );

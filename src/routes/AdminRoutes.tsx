@@ -1,6 +1,5 @@
 import { lazy } from "react";
-const AdminDashboard = lazy(() => import("../pages/admin/AdminDashBoard"))
-const AdminVerifyDocumentPage = lazy(() => import("../pages/admin/verifyDocuments/AdminVerifyDocumentPage"))
+const AdminDashboard = lazy(() => import("../pages/admin/adminDashboard/AdminDashBoard"))
 const AdminAccountPage = lazy(() => import("../pages/ManageAccountPage"))
 const AdminArchiveDocumentPage = lazy(() => import("../pages/admin/manageDocuments/AdminArchiveDocumentPage"))
 const AdminQueriedDocumentPage = lazy(() => import("../pages/admin/manageDocuments/AdminQueriedDocumentPage"))
@@ -16,6 +15,9 @@ const AdminManageAdminUser = lazy(() => import("../pages/admin/adminManageUser/a
 const AdminManageIndividualUser = lazy(() => import("../pages/admin/adminManageUser/individual/IndividualUser"))
 const ServiceCharge = lazy(() => import("../pages/admin/charges/ServiceCharge"))
 const SurCharge = lazy(() => import("../pages/admin/charges/Surcharge"))
+const AdminManageTransactionPage = lazy(
+  () => import("../pages/admin/transaction/ManageTransactionPage")
+);
 
 const AdminDashBoardRoute = {
   link: "/admin/dashboard",
@@ -41,10 +43,10 @@ const AdminReceiptsPageRoute = {
   isAdminProtected: true,
 };
 
-const AdminVerifyDocumentPageRoute = {
-  link: "/admin/verifydocument",
-  element: <AdminVerifyDocumentPage />,
-  isAdminProtected: true,
+const AdminManageTransactionPageRoute = {
+  link: "/admin/managetransaction",
+  element: <AdminManageTransactionPage />,
+  isProtected: true,
 };
 
 const AdminManageAccountPageRoute = {
@@ -124,7 +126,6 @@ export const ADMIN_ROUTES = [
   AdminAccountPageRoute,
   AdminManageUserPageRoute,
   AdminReceiptsPageRoute,
-  AdminVerifyDocumentPageRoute,
   AdminManageAccountPageRoute,
   AdminManageDocumentPageRoute,
   AdminQueriedDocumentPageRoute,
@@ -136,4 +137,5 @@ export const ADMIN_ROUTES = [
   AdminManageIndividualUserRoute,
   SurChargeRoute,
   AdminVerifiedDocumentPageRoute,
+  AdminManageTransactionPageRoute,
 ];

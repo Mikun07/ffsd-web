@@ -1,7 +1,4 @@
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../../components/modal/Modal";
-import PreviewData from "./PreviewData";
 
 interface TableColumnProps {
   data: any; // You should replace 'any' with the actual type of your 'data' prop
@@ -25,14 +22,16 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
     }
   };
 
-  const [showModal, setShowModal] = useState(false);
-  const handleOnClose = () => [setShowModal(false)];
-
+  function viewContent(data): void {
+    const {doc_type, id, doc_owner_id} = data; 
+    navigate(`/admin/managedocument/document/${doc_type}/${id}/${doc_owner_id}`)
+  }
+  
 
   return (
     <>
       <div
-        onClick={() => setShowModal(true)}
+      onClick={() => viewContent(data)}
         className="flex hover:bg-gray-100 px-3 rounded-lg h-[72px] items-center justify-between"
       >
         <div className="flex items-center gap-2">
@@ -76,17 +75,13 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
               <span className="text-black">#</span>
               {data?.ref_id?.split("/")[1]}
             </p>
+            {/* <span className="w-1 h-1 rounded-full bg-black"></span> */}
+            {/* <p className="flex justify-end items-center text-[12px] text-black font-semibold capitalize gap-2">
+              {data?.Tag}
+            </p> */}
           </div>
         </div>
       </div>
-
-      <Modal
-        className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
-        onClose={handleOnClose}
-        visible={showModal}
-        // Pass data to PreviewData component
-        body={<PreviewData data={data} />}
-      />
     </>
   );
 }

@@ -31,7 +31,6 @@ const updateDocumentStatusSlice = createSlice({
             })
             .addCase(updateDocumentStatus.fulfilled, (state, action) => {
                 const { payload } = action;
-                console.log({ payload })
                 state.success = true;
                 state.data = payload;
                 state.error = null;

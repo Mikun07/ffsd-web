@@ -12,12 +12,9 @@ export const confirmPayment = createAsyncThunk(
     "user/confirmPayment",
     async (body) => {
         try {
-            console.log({body});
-            const response = await axiosInstance.post("/doc/confirm/transaction", body);
-            console.log({response});
+            const response = await axiosInstance.post("/confirm/transaction", body);
             return response.data;
         } catch (error) {
-            console.log({error});
             throw error.response?.data
         }
     }
@@ -35,7 +32,7 @@ const confirmPaymentSlice = createSlice({
             .addCase(confirmPayment.fulfilled, (state, action) => {
                 const { payload } = action;
                 state.success = true;
-                state.data = payload.data;
+                state.data = payload;
                 state.error = null;
                 state.loading = false;
             })

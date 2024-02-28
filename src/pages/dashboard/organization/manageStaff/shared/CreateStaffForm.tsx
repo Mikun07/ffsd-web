@@ -38,7 +38,6 @@ const CreateStaffForm = () => {
     // @ts-ignore
     dispatch(postCreateStaff({ ...createStaffData })).then((result) => {
       const { payload } = result;
-      console.log(payload);
 
       const success = Boolean(payload?.success);
       if (success === true) {

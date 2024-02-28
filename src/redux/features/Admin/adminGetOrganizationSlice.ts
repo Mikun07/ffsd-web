@@ -13,7 +13,7 @@ export const fetchOrganization = createAsyncThunk(
     async () => {
         try {
             const response = await axiosInstance.post("/system/admin/get/all/companies");
-             return response
+            return response?.data
         } catch (error) {
             return error?.response?.data?.errors;
         }
@@ -30,16 +30,9 @@ const GetOrganizationSlice = createSlice({
         });
         builder.addCase(fetchOrganization.fulfilled, (state, action) => {
             const { payload } = action;
-            const data = payload?.data?.data;
-            if (!data) {
-                state.success = false;
-                state.data = null;
-                state.error = payload?.data?.errors;
-            } else {
-                state.success = true;
-                state.data = data;
-                state.error = null;
-            }
+            state.success = true;
+            state.data = payload?.data;
+            state.error = null;
             state.loading = false;
         });
         builder.addCase(fetchOrganization.rejected, (state) => {

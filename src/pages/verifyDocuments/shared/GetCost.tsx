@@ -26,19 +26,19 @@ const GetCost = ({ data }) => {
                 </p>
                 <p>
                   <span className="font-semibold">Surcharge:</span>{" "}
-                  {PaymentData?.data?.educational.documents[0].surcharge}
-                </p>
-                <p>
-                  <span className="font-semibold">Charge Per One:</span>{" "}
-                  {PaymentData?.data?.educational.documents[0].charge_per_one}
+                  <span>&#36;</span>{" "}{PaymentData?.data?.educational.documents[0].surcharge}
                 </p>
                 <p>
                   <span className="font-semibold">Number of Documents:</span>{" "}
                   {PaymentData?.data?.educational?.number_docs}
                 </p>
                 <p>
+                  <span className="font-semibold">Charge Per Document:</span>{" "}
+                  <span>&#36;</span>{" "}{PaymentData?.data?.educational.documents[0].charge_per_one}
+                </p>
+                <p>
                   <span className="font-semibold">Charge Total:</span>{" "}
-                  {PaymentData?.data?.educational.documents[0].charge_total}
+                  <span>&#36;</span>{" "}{PaymentData?.data?.educational.documents[0].charge_total}
                 </p>
               </div>
             )}
@@ -48,16 +48,16 @@ const GetCost = ({ data }) => {
                   Financial Documents
                 </h2>
                 <p>
-                  <span className="font-semibold">Charge Per One:</span>{" "}
-                  {PaymentData?.data?.financial?.charge_per_one}
+                  <span className="font-semibold">Number of Documents:</span>{" "}
+                  {PaymentData?.data?.financial.number_docs}
+                </p>
+                <p>
+                  <span className="font-semibold">Charge Per Document:</span>{" "}
+                  <span>&#36;</span>{" "}{PaymentData?.data?.financial?.charge_per_one}
                 </p>
                 <p>
                   <span className="font-semibold">Charge Total:</span>{" "}
-                  {PaymentData?.data?.financial?.charge_total}
-                </p>
-                <p>
-                  <span className="font-semibold">Number of Documents:</span>{" "}
-                  {PaymentData?.data?.financial.number_docs}
+                  <span>&#36;</span>{" "}{PaymentData?.data?.financial?.charge_total}
                 </p>
               </div>
             )}
@@ -67,16 +67,16 @@ const GetCost = ({ data }) => {
                   Professional Documents
                 </h2>
                 <p>
-                  <span className="font-semibold">Charge Per One:</span>{" "}
-                  {PaymentData?.data?.professional.charge_per_one}
+                  <span className="font-semibold">Number of Documents:</span>{" "}
+                  {PaymentData?.data?.professional.number_docs}
+                </p>
+                <p>
+                  <span className="font-semibold">Charge Per Document:</span>{" "}
+                  <span>&#36;</span>{" "}{PaymentData?.data?.professional.charge_per_one}
                 </p>
                 <p>
                   <span className="font-semibold">Charge Total:</span>{" "}
-                  {PaymentData?.data?.professional.charge_total}
-                </p>
-                <p>
-                  <span className="font-semibold">Number of Documents:</span>{" "}
-                  {PaymentData?.data?.professional.number_docs}
+                  <span>&#36;</span>{" "}{PaymentData?.data?.professional.charge_total}
                 </p>
               </div>
             )}
@@ -94,7 +94,7 @@ const GetCost = ({ data }) => {
               </p>
               <p className="mb-2">
                 <span className="font-semibold">Total Amount:</span>{" "}
-                {PaymentData.total_amount}
+                <span>&#36;</span>{" "}{PaymentData.total_amount}
               </p>
             </div>
           </div>

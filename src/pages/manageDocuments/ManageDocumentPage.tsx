@@ -1,7 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDocument } from "../../redux/features/documentSlice";
-import Table from "./Table";
 import ManageDocumentCard from "../../components/card/ManageDocumentCard";
 import Loading from "../../components/withStatus/loading/Loading";
 import SearchInput from "./shared/SearchInput";
@@ -9,6 +8,7 @@ import FilterModel from "../../components/modal/FilterModel";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { RootState } from "../../types/redux/root";
 import { ThunkDispatch } from "@reduxjs/toolkit";
+import Table from "./shared/Table";
 
 function ManageDocumentPage() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -119,6 +119,8 @@ function ManageDocumentPage() {
     indexOfLastDocument
   );
 
+  console.log({ currentDocuments });
+
   // Function to handle page change
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -186,7 +188,7 @@ function ManageDocumentPage() {
                   data={allDocuments}
                 />
                 {/* Filter model */}
-                <FilterModel setSelectedFilter={setSelectedFilter} />
+                {/* <FilterModel setSelectedFilter={setSelectedFilter} /> */}
               </div>
             </div>
 
@@ -203,8 +205,8 @@ function ManageDocumentPage() {
           <div className="h-16 w-full text-primary rounded-b-lg flex justify-between items-center px-2">
             <div className="flex gap-2 items-center capitalize font-bold text-black">
               <p className="flex items-center capitalize font-bold">page</p>
-              <p className="text-primary">{currentPage}</p>
-              / <span>{totalNumberOfPages}</span>
+              <p className="text-primary">{currentPage}</p>/{" "}
+              <span>{totalNumberOfPages}</span>
               {/* <div className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary font-bold"></div> */}
             </div>
             <div className="flex gap-1">

@@ -21,7 +21,6 @@ import { startCase } from "lodash";
 import {
   getFormDataContent,
   getFormDataLabels,
-  FileSection,
 } from "../../types/global/verifydocuments/fileSections";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchInstitution } from "../../redux/features/institutionSlice";
@@ -32,11 +31,9 @@ import { RootState } from "../../types/redux/root";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchCost } from "../../redux/features/getCostSlice";
 import GetCost from "./shared/GetCost";
-import { fetchUser } from "../../redux/features/userSlice";
-import { initiatePayment } from "../../redux/features/initiatePayment";
-import Loading from "../../components/withStatus/loading/Loading";
-import { usePaystackPayment, PaystackButton } from "react-paystack";
+import { usePaystackPayment } from "react-paystack";
 import { confirmPayment } from "../../redux/features/confirmPayment";
+import { fetchUser } from "../../redux/features/userSlice";
 
 function VerifyDocumentPage() {
   const [countryData, setCountryData] = useState([]);
@@ -55,8 +52,16 @@ function VerifyDocumentPage() {
   const { data: payment, loading: loadingPayment } = useSelector(
     (state: RootState) => state?.startPayment
   );
+  const { data: user } = useSelector((state: RootState) => state?.user) as any;
+
+  const redirectUrl = {
+    org: "/org/managedocument",
+    indv: "/dashboard/documentt",
+    staff: "/org/managedocument",
+  };
 
   useEffect(() => {
+    dispatch(fetchUser());
     dispatch(fetchInstitution());
   }, [dispatch]);
 
@@ -66,11 +71,11 @@ function VerifyDocumentPage() {
         access: "docs_verify_frontend",
       })
       .then((response) => {
-        const data = response.data?.data;
+        const data = response?.data?.data;
         setCountryData(data);
       })
       .catch((error) => {
-        error("Error fetching data:", error);
+        error("Error fetching data:", error?.response?.data);
       });
   }, []);
 
@@ -337,15 +342,14 @@ function VerifyDocumentPage() {
       const { payload } = result;
       const success = Boolean(payload?.success);
       if (success === true) {
-        toast.success(payload?.message || "Upload Successful");
         next();
       } else {
-        toast.error(payload.error || "Upload Failed");
+        toast.error(payload.error || "Failed, try again");
       }
     });
   }
 
-  function verifyDocuments() {
+  function verifyDocuments(reference) {
     const uploadDocumentData = {
       firstName: documentDetailsValues?.firstName,
       lastName: documentDetailsValues?.lastName,
@@ -390,36 +394,39 @@ function VerifyDocumentPage() {
       finInfo: docUploadValueObj?.finInfo,
       finCountry: docUploadValueObj?.finCountry?.map((type) => type?.value),
       fileDocFin: docUploadValueObj?.fileDocFin?.map((doc) => doc[0]),
+      tranx_ref: reference,
     };
     const formData = new FormData();
 
     for (let key of Object.keys(uploadDocumentData)) {
       formData.append(key, uploadDocumentData[key]);
     }
-    console.log({ uploadDocumentData });
     // @ts-ignore
     dispatch(postDocument({ ...uploadDocumentData })).then((result) => {
       const { payload } = result;
       const success = Boolean(payload?.success);
       if (success === true) {
-        toast.success(payload?.message || "Upload Successful");
-        // next();
-      } else {
-        toast.error(payload.error || "Upload Failed");
+        if (user?.category) {
+          navigate(redirectUrl[user?.category]);
+          toast.success(payload?.message);
+        } else {
+          toast.error(payload.error || "Upload Failed");
+        }
       }
     });
   }
 
   function onPaystackSuccess(repsonse) {
-    console.log({ repsonse });
     if (repsonse?.status && repsonse?.status == "success") {
-      console.log("IN HERE");
       const { reference } = repsonse;
+      // @ts-ignore
       dispatch(confirmPayment({ reference })).then((result) => {
         const { payload } = result;
         const success = Boolean(payload?.success);
         if (success === true) {
-          verifyDocuments()
+          toast.success(payload?.message || "Transaction Confirmed");
+          toast("Document uploading; delay expected.");
+          verifyDocuments(reference);
         } else {
           toast.error(payload.error || "Upload Failed");
         }

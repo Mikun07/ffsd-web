@@ -62,10 +62,10 @@ function AdminSidebar() {
       active: isMenuActive("/admin/dashboard"),
     },
     {
-      name: "Manage Receipts",
-      url: "/admin/receipts",
+      name: "Manage Transactions",
+      url: "/admin/managetransaction",
       icon: <ReceiptIcon width="25" height="25" />,
-      active: isMenuActive("/admin/receipts"),
+      active: isMenuActive("/admin/managetransaction"),
       spacing: true,
     },
     {

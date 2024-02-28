@@ -6,7 +6,6 @@ import Loading from "../components/withStatus/loading/Loading";
 import { RootState } from "../types/redux/root";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import TextInput from "../components/input/TextInput";
-import { CategoryUser } from "../data/data";
 
 function ManageAccountPage() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -191,29 +190,14 @@ function ManageAccountPage() {
                       }}
                       label="Status"
                       value={user?.status}
+                      inputClassName="capitalize"
                     />
-                  )}
-
-                  {user?.category === "staff" && (
-                    <>
-                      {/* <TextInput
-                          disabled
-                          label="Date Created"
-                          value={formatDate(user?.updated_at)}
-                        />
-                        <TextInput
-                          label="Company ID"
-                          value={`${user?.company_ref?.split("/")[1]}`}
-                          disabled
-                          inputClassName="uppercase"
-                        /> */}
-                    </>
                   )}
                 </div>
               </div>
             </div>
 
-            <div className="w-full flex items-center mb-16 justify-center">
+            <div className="w-full flex items-center lg:mb-16 justify-center">
               <button
                 onClick={signOut}
                 className="p-3 bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white rounded-lg"

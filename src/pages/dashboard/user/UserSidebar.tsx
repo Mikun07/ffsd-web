@@ -39,13 +39,12 @@ function UserSidebar() {
       url: "/dashboard/document",
       icon: <ArchiveIcon width="25" height="25" />,
       active: isMenuActive("/dashboard/document"),
-
     },
     {
-      name: "Manage Receipts",
-      url: "",
+      name: "Manage Transaction",
+      url: "dashboard/managetransaction",
       icon: <ReceiptIcon width="25" height="25" />,
-      active: isMenuActive(""),
+      active: isMenuActive("dashboard/managetransaction"),
       // spacing: true,
     },
     {

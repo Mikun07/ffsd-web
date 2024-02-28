@@ -38,4 +38,6 @@ export type RootState = {
   cost: BaseState,
   startPayment: BaseState,
   checkPayment: BaseState,
+  getTransaction: BaseState,
+  adminGetTransaction: BaseState,
 }

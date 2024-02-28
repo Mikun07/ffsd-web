@@ -2,13 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../api/axios";
 
 export const getAllIndividuals = createAsyncThunk(
-  "admin/fetchAdmins",
+  "admin/fetchIndividuals",
   async () => {
     try {
-      const response = await axiosInstance.get("system/admin/view/indv");
+      const response = await axiosInstance.get("/system/admin/view/indv");
       return response.data;
     } catch (error) {
-      console.log(error?.response?.data)
       return error.response?.data;
     }
   }
@@ -37,8 +36,8 @@ const getAllIndividualsSlice = createSlice({
       })
       .addCase(getAllIndividuals.rejected, (state) => {
         state.success = false;
-        state.error = "Could not fetch individual list";
         state.loading = false;
+        state.error = "Could not fetch individual list";
       });
   },
 });

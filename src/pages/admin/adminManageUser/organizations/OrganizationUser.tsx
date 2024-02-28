@@ -19,13 +19,9 @@ const OrganizationUser = () => {
   const [result, setResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  async function AllOrganization() {
-    dispatch(fetchOrganization());
-  }
-
   useEffect(() => {
-    AllOrganization();
-  }, []);
+    dispatch(fetchOrganization());
+  }, [dispatch]);
 
   const reverseOrganization = organization ? [...organization]?.reverse() : [];
 

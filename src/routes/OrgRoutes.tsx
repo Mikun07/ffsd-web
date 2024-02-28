@@ -1,10 +1,20 @@
 import { lazy } from "react";
-const VerifyDocumentPage = lazy(() => import("../pages/verifyDocuments/VerifyDocumentPage"))
-const OrgDashBoard = lazy(() => import("../pages/dashboard/organization/OrgDashBoard"))
-const ManageAccountPage = lazy(() => import("../pages/ManageAccountPage")) 
-const ManageDocumentPage = lazy(() => import("../pages/manageDocuments/ManageDocumentPage"))
-const DocumentDetails = lazy(() => import("../pages/manageDocuments/shared/PreviewData"))
-const ManageStaffPage = lazy(() => import("../pages/dashboard/organization/manageStaff/OrgManageStaff"))
+const VerifyDocumentPage = lazy(
+  () => import("../pages/verifyDocuments/VerifyDocumentPage")
+);
+const OrgDashBoard = lazy(
+  () => import("../pages/dashboard/organization/OrgDashBoard")
+);
+const ManageAccountPage = lazy(() => import("../pages/ManageAccountPage"));
+const ManageDocumentPage = lazy(
+  () => import("../pages/manageDocuments/ManageDocumentPage")
+);
+const ManageStaffPage = lazy(
+  () => import("../pages/dashboard/organization/manageStaff/OrgManageStaff")
+);
+const ManageTransactionPage = lazy(
+  () => import("../pages/transaction/ManageTransactionPage")
+);
 
 const OrgDashBoardRoute = {
   link: "/org/dashboard",
@@ -24,9 +34,9 @@ const OrgManageDocumentRoute = {
   isProtected: true,
 };
 
-const OrgManageDocumentDetailsRoute = {
-  link: "/org/managedocument/details",
-  element: <DocumentDetails />,
+const OrgManageTransactionPageRoute = {
+  link: "/org/managetransaction",
+  element: <ManageTransactionPage />,
   isProtected: true,
 };
 
@@ -34,19 +44,18 @@ const ManageAccountRoute = {
   link: "/org/account",
   element: <ManageAccountPage />,
   isProtected: true,
-}
+};
 const ManageStaffPageRoute = {
   link: "/org/staff",
   element: <ManageStaffPage />,
   isProtected: true,
-}
-
+};
 
 export const ORG_ROUTES = [
   OrgDashBoardRoute,
   VerifyDocumentPageRoute,
   OrgManageDocumentRoute,
   ManageAccountRoute,
-  OrgManageDocumentDetailsRoute,
+  OrgManageTransactionPageRoute,
   ManageStaffPageRoute,
 ];
