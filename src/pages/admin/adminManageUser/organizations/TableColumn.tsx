@@ -45,7 +45,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
           <div className="flex items-center justify-end gap-2 text-gray-400">
             <p className="flex items-center text-[12px] uppercase">
               <span className="text-black">#</span>
-              {data?.company_ref?.split("/")[1]}
+              {data?.company_ref}
             </p>
             <span className="w-1 h-1 rounded-full bg-black"></span>
             <p className="flex items-center text-[12px] gap-2">

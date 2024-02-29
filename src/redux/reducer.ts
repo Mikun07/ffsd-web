@@ -30,6 +30,7 @@ import initiatePaymentSlice from "./features/initiatePayment";
 import confirmPaymentSlice from "./features/confirmPayment";
 import getTransactionSlice from "./features/getTransactionSlice";
 import adminGetTransactionSlice from "./features/Admin/adminGetTransactionSlice";
+import referralSlice from "./features/referralSlice";
 
 const rootReducer = combineReducers({
     signUp: signUpSlice.reducer,
@@ -63,6 +64,7 @@ const rootReducer = combineReducers({
     checkPayment: confirmPaymentSlice.reducer,
     getTransaction: getTransactionSlice.reducer,
     adminGetTransaction: adminGetTransactionSlice.reducer,
+    getReferral: referralSlice.reducer,
 })
 
 export default rootReducer;

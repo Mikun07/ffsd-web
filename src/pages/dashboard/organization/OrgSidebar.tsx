@@ -73,12 +73,17 @@ function OrgSidebar() {
     },
   ];
 
-  // Function to check if user category is "staff"
   const isStaff = user?.category === "staff";
-
-  // Filter out "manage staff" menu item if user category is "staff"
   menu = menu.filter(
-    (menuItem) => !(isStaff && menuItem.name === "manage staff")
+    (menuItem) =>
+      !(
+        isStaff &&
+        (menuItem.name === "manage staff" ||
+          menuItem.name === "verify Documents" 
+          // ||
+          // menuItem.name === "Manage Transaction"
+          )
+      )
   );
 
   function signOut() {

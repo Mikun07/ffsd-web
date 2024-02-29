@@ -22,7 +22,6 @@ const ManageTransactionPage = () => {
 
   const [result, setResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [showModal, setShowModal] = useState(false);
 
   const TransactionData = transactions?.data || [];
   const reverseTransaction = TransactionData?.slice()?.reverse();

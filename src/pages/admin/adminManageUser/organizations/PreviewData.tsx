@@ -43,7 +43,7 @@ const PreviewData = ({ data }) => {
           <TextInput
             disabled
             label="company_ID"
-            value={`#${data?.company_ref?.split("/")[1]}`}
+            value={`#${data?.company_ref}`}
             inputClassName="uppercase"
           />
           <TextInput

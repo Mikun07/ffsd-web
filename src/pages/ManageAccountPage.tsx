@@ -6,6 +6,8 @@ import Loading from "../components/withStatus/loading/Loading";
 import { RootState } from "../types/redux/root";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import TextInput from "../components/input/TextInput";
+import { MdContentCopy } from "react-icons/md";
+import toast from "react-hot-toast";
 
 function ManageAccountPage() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -47,6 +49,32 @@ function ManageAccountPage() {
       return user?.system_admin_type === "1" || user?.system_admin_type === "2"
         ? user?.system_admin_type
         : null;
+    }
+  };
+
+  const copyReferenceID = () => {
+    const referenceID = `${window.location.origin}/signup/${user?.company_ref}`;
+    if (referenceID) {
+      // Create a temporary textarea element
+      const textarea = document.createElement("textarea");
+      textarea.value = referenceID;
+
+      // Make sure it's not visible
+      textarea.style.position = "absolute";
+      textarea.style.left = "-9999px";
+
+      // Append the textarea to the document
+      document.body.appendChild(textarea);
+
+      // Select and copy the value to the clipboard
+      textarea.select();
+      document.execCommand("copy");
+
+      // Remove the textarea from the document
+      document.body.removeChild(textarea);
+
+      // Optionally, provide feedback to the user
+      toast.success("Reference ID copied to clipboard!");
     }
   };
 
@@ -106,7 +134,7 @@ function ManageAccountPage() {
                       />
                       <TextInput
                         label="Company ID"
-                        value={`${user?.company_ref?.split("/")[1]}`}
+                        value={`${user?.company_ref}`}
                         disabled
                         inputClassName="uppercase"
                       />
@@ -193,6 +221,26 @@ function ManageAccountPage() {
                       inputClassName="capitalize"
                     />
                   )}
+
+                  {user?.category === "org" &&
+                    ("staff" && (
+                      <div className="flex w-full gap-2 items-center">
+                        <div className="w-full">
+                          <TextInput
+                            disabled
+                            label="referral code"
+                            value={user?.company_ref}
+                            onClick={copyReferenceID}
+                          />
+                        </div>
+                        <button
+                          onClick={copyReferenceID}
+                          className="flex items-center min-h-[38px] pt-1 mt-1 text-gray-400 cursor-pointer"
+                        >
+                          <MdContentCopy />
+                        </button>
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>

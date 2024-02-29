@@ -1,8 +1,4 @@
-import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-// import toast from "react-hot-toast";
-// import { BASE_URL } from "../../../../config/api";
 import { postSignUp } from "../../../../redux/features/signupSlice";
 import { useDispatch } from "react-redux";
 import Button from "../../../../components/button/Button";
@@ -131,7 +127,7 @@ function IndividualForm() {
           // toast.error(result?.payload?.response?.data?.errors);
         }
       })
-      .finally(); // Remove this line if you don't need a finally block
+      .finally();
   }
 
   return (

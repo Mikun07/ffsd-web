@@ -30,10 +30,10 @@ const documentSlice = createSlice({
     })
       .addCase(fetchDocument.fulfilled, (state, action) => {
         const { payload } = action;
-        state.loading = false;
-        state.success = !!payload;
+        state.success = true;
         state.data = payload;
-        state.error = payload ? null : action.payload.errors;
+        state.error = null;
+        state.loading = false;
       })
       .addCase(fetchDocument.rejected, (state) => {
         state.loading = false;

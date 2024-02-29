@@ -119,8 +119,6 @@ function ManageDocumentPage() {
     indexOfLastDocument
   );
 
-  console.log({ currentDocuments });
-
   // Function to handle page change
   const handlePrevPage = () => {
     if (currentPage > 1) {

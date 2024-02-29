@@ -23,6 +23,7 @@ function LoginPage() {
     org: "/org/dashboard",
     indv: "/dashboard",
     staff: "/org/dashboard",
+    student: "/dashboard"
   };
 
   const {

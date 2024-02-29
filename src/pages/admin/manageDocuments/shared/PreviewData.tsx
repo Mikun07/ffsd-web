@@ -18,7 +18,6 @@ const PreviewData = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const { type, id, owner } = useParams();
 
-  // Select relevant data from Redux store
   const { data: getDocumentById, loading: documentLoading } = useSelector(
     (state: RootState) => state?.adminDocumentId
   );

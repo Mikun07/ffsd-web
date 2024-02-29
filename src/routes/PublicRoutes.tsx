@@ -6,12 +6,17 @@ const ForgotPasswordPage = lazy(() => import("../pages/authentication/ForgotPass
 const AdminLoginPage = lazy(() => import("../pages/admin/adminAuthentication/AdminLoginPage"))
 const AdminSignUpPage = lazy(() => import("../pages/admin/adminAuthentication/AdminSignUpPage"))
 const AdminOTPPage = lazy(() => import("../pages/admin/adminAuthentication/AdminOTPPage"))
+const Referral = lazy(() => import("../pages/referral/Referral"))
 import { Navigate } from "react-router-dom";
 
 
 const LangPageRoute ={
     link: "/",
     element: <Navigate to={'/login'}/>
+}
+const ReferralsRoute = {
+    link: "/signup/:referral",
+    element: <Referral />
 }
 
 const LoginPageRoute = {
@@ -49,7 +54,9 @@ const AdminOTPPageRoute = {
     element: <AdminOTPPage />
 }
 
+
 export const PUBLIC_ROUTES = [
+    ReferralsRoute,
     LangPageRoute,
     LoginPageRoute,
     RegisterPageRoute,

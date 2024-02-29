@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../../components/modal/Modal";
 import PreviewData from "./PreviewData";
+import Modal from "../../../../components/modal/Modal";
 
 interface TableColumnProps {
   data: any; // You should replace 'any' with the actual type of your 'data' prop
@@ -12,8 +12,12 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case "confirmed":
+      case "verified":
         return "#46A437";
+      case "submitted":
+        return "#D4973B";
+      case "archived":
+        return "#D1D43B";
       case "queried":
         return "#D43B3B";
       default:
@@ -24,6 +28,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
   const [showModal, setShowModal] = useState(false);
   const handleOnClose = () => [setShowModal(false)];
 
+
   return (
     <>
       <div
@@ -33,39 +38,45 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
         <div className="flex items-center gap-2">
           <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
             <p className="font-semibold">
-              {data?.docOwnerFirstName && data?.docOwnerFirstName[0]}
-              {data?.docOwnerLastName && data?.docOwnerLastName[0]}
+              {data?.userInfo?.docOwnerFirstName &&
+                data?.userInfo?.docOwnerFirstName[0]}
+              {data?.userInfo?.docOwnerLastName &&
+                data?.userInfo?.docOwnerLastName[0]}
             </p>
           </div>
-          <div className="font-medium gap-4">
+          <div className="font-medium gap-[0.5rem]">
             <h5 className="text-[16px] font-bold text-black capitalize">
-              {data?.docOwnerFirstName} {data?.docOwnerLastName}
+              {data?.userInfo?.docOwnerFirstName}{" "}
+              {data?.userInfo?.docOwnerLastName}
             </h5>
             <div className="flex items-center gap-2">
               <p className="flex justify-end items-center text-[12px] text-gray-400 font-semibold capitalize gap-2">
-                {`${data?.currency}${" "}${data?.fee}`}
+                {data?.tag}
               </p>
               <span className="w-1 h-1 rounded-full text-[14px] bg-black"></span>
               <p
                 className="flex justify-end items-center text-[12px] gap-2 capitalize"
                 style={{
-                  color: getStatusColor(data?.payment_status),
+                  color: getStatusColor(data?.status),
                   opacity: "0.95",
                 }}
               >
-                {data?.payment_status}
+                {data?.status}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col font-medium justify-end items-end gap-2">
-          <p className="flex items-center text-[12px] text-black font-medium uppercase">
-            {data?.ref_id}
-          </p>
+        <div className="flex flex-col font-medium">
           <p className="flex items-center text-[12px] text-black gap-2">
-            {new Date(data?.transaction_time).toLocaleDateString()}
+            {new Date(data?.created_at).toLocaleDateString()}
           </p>
+          <div className="flex items-center justify-end gap-1">
+            <p className="flex items-center text-[12px] text-black uppercase">
+              <span className="text-black">#</span>
+              {data?.ref_id?.split("/")[1]}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -73,6 +84,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
         className="bg-white absolute right-0 lg:w-[500px] w-full h-full flex flex-col gap-2 overflow-hidden p-2"
         onClose={handleOnClose}
         visible={showModal}
+        // Pass data to PreviewData component
         body={<PreviewData data={data} />}
       />
     </>

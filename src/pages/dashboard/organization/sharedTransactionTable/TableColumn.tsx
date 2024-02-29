@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../../components/modal/Modal";
 import PreviewData from "./PreviewData";
+import Modal from "../../../../components/modal/Modal";
 
 interface TableColumnProps {
   data: any; // You should replace 'any' with the actual type of your 'data' prop
