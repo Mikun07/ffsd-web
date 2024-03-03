@@ -37,12 +37,12 @@ function Header() {
     <div className="flex h-14 px-4 py-2 bg-gray-200 w-full sticky z-20 top-0 shadow-sm justify-between">
       <div className="flex items-center gap-3">{renderUserGreeting()}</div>
       <div className="flex items-center gap-3">
-        <button className="bg-transparent px-1 relative">
+        {/* <button className="bg-transparent px-1 relative">
           <BellIcon width="25" height="25" />
           <div className="absolute top-[-5px] left-[1px] h-4 w-4 items-center justify-center bg-[#D4973B] rounded-full">
             <p className="text-white text-[9px] font-medium">5</p>
           </div>
-        </button>
+        </button> */}
         {userLoading ? (
           <div className="h-[35px] w-[35px] animate-pulse bg-[#D4973B] rounded-full"></div>
         ) : (
