@@ -27,6 +27,8 @@ const Surcharge = () => {
     (state: RootState) => state?.institution
   );
 
+  console.log({institutions})
+
   const { data: user } = useSelector((state: RootState) => state?.user) as any;
 
   // Close modal handler
@@ -42,7 +44,7 @@ const Surcharge = () => {
 
   // Generate institution options for select dropdown
   const InstitutionOptions =
-    institutions?.map((institution) => ({
+    institutions?.data?.map((institution) => ({
       label: institution?.name,
       value: institution?.id,
     })) || [];
@@ -75,6 +77,14 @@ const Surcharge = () => {
     const endIndex = Math.min(startIndex + 13, charges.length);
 
     const currentPageCharges = charges.slice(startIndex, endIndex);
+
+    if (currentPageCharges.length === 0) {
+      return (
+        <div className="mx-3 mt-3 p-3 flex justify-center items-center">
+          <h1 className="font-medium">No Sur-Charge Available</h1>
+        </div>
+      );
+    }
 
     return (
       <div className="overflow-x-auto">

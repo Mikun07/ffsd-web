@@ -13,6 +13,7 @@ import Table from "./sharedTransactionTable/Table";
 import Loading from "../../../components/withStatus/loading/Loading";
 import { fetchTransaction } from "../../../redux/features/getTransactionSlice";
 import { Link } from "react-router-dom";
+import { monitorReferrals } from "../../../redux/features/getReferralsSlice";
 
 function OrgDashBoard() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -29,12 +30,18 @@ function OrgDashBoard() {
   const { data: transactions, loading: loadingTransactions } = useSelector(
     (state: RootState) => state?.getTransaction
   );
+  const { data: referrals, loading: loadingReferrals } = useSelector(
+    (state: RootState) => state?.monitorReferrals
+  );
+
+  console.log({ referrals });
 
   useEffect(() => {
     dispatch(fetchUser());
     dispatch(fetchStaff());
     dispatch(fetchDocument());
     dispatch(fetchTransaction());
+    dispatch(monitorReferrals())
   }, [dispatch]);
 
   const dataArray = upload?.data?.data || [];
@@ -55,7 +62,6 @@ function OrgDashBoard() {
       totalProfessionalDocumentsLength += professionalDocuments.length;
     });
 
-    // Return object containing total lengths
     return {
       totalAllDocumentsLength:
         totalEducationalDocumentsLength +
@@ -208,8 +214,12 @@ function OrgDashBoard() {
             <div className="flex w-full h-full overflow-hidden justify-center items-center">
               {loadingTransactions ? (
                 <Loading className="" />
-              ) : (
+              ) : recentTransactions.length > 0 ? (
                 <Table tableData={recentTransactions} />
+              ) : (
+                <h1 className="flex items-center justify-center font-medium">
+                  No Transaction Available
+                </h1>
               )}
             </div>
           </div>
@@ -223,8 +233,12 @@ function OrgDashBoard() {
             <div className="flex w-full h-full overflow-hidden justify-center items-center">
               {documentLoading ? (
                 <Loading className="" />
-              ) : (
+              ) : recentDocument.length > 0 ? (
                 <DTable tableData={recentDocument} />
+              ) : (
+                <h1 className="flex items-center justify-center font-medium">
+                  No Document Available
+                </h1>
               )}
             </div>
           </div>

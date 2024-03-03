@@ -41,4 +41,5 @@ export type RootState = {
   getTransaction: BaseState,
   adminGetTransaction: BaseState,
   getReferral: BaseState,
+  monitorReferrals: BaseState,
 }

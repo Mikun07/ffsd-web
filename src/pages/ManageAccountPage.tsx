@@ -209,6 +209,20 @@ function ManageAccountPage() {
                         : getCategoryType()
                     }
                   />
+                  {user?.is_system_admin === "1" && (
+                    <>
+                      <TextInput
+                        disabled
+                        label="Date Joined"
+                        value={formatDate(user?.created_at)}
+                      />
+                      <TextInput
+                        disabled
+                        label="Phone Number"
+                        value={user?.phone}
+                      />
+                    </>
+                  )}
 
                   {user?.status !== null && (
                     <TextInput
@@ -222,25 +236,24 @@ function ManageAccountPage() {
                     />
                   )}
 
-                  {user?.category === "org" &&
-                    ("staff" && (
-                      <div className="flex w-full gap-2 items-center">
-                        <div className="w-full">
-                          <TextInput
-                            disabled
-                            label="referral code"
-                            value={user?.company_ref}
-                            onClick={copyReferenceID}
-                          />
-                        </div>
-                        <button
+                  {user?.category === "org" && "staff" && (
+                    <div className="flex w-full gap-2 items-center">
+                      <div className="w-full">
+                        <TextInput
+                          disabled
+                          label="referral code"
+                          value={user?.company_ref}
                           onClick={copyReferenceID}
-                          className="flex items-center min-h-[38px] pt-1 mt-1 text-gray-400 cursor-pointer"
-                        >
-                          <MdContentCopy />
-                        </button>
+                        />
                       </div>
-                    ))}
+                      <button
+                        onClick={copyReferenceID}
+                        className="flex items-center min-h-[38px] pt-1 mt-1 text-gray-400 cursor-pointer"
+                      >
+                        <MdContentCopy />
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

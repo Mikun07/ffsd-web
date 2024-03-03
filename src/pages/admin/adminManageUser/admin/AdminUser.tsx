@@ -67,7 +67,9 @@ const AdminUser = () => {
   }
 
   // Calculate total number of pages
-  const totalNumberOfPages = admin ? getTotalPages(admin.length, documentsPerPage) : 0;
+  const totalNumberOfPages = admin
+    ? getTotalPages(admin.length, documentsPerPage)
+    : 0;
 
   return (
     <div className="flex flex-col h-full overflow-y-auto">
@@ -107,11 +109,14 @@ const AdminUser = () => {
           </div>
 
           <div className="flex w-full h-full overflow-hidden justify-center items-center">
-            {/* Loading or Table */}
             {loadingAdmin ? (
               <Loading className="" />
-            ) : (
+            ) : currentDocuments.length > 0 ? (
               <Table tableData={currentDocuments} />
+            ) : (
+              <h1 className="flex items-center justify-center font-medium">
+                No Admins Available
+              </h1>
             )}
           </div>
         </div>

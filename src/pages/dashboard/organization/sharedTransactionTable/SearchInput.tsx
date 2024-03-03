@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { FaSearch, FaTimes } from "react-icons/fa";
 
 const SearchInput = ({ result, setResult, data }) => {
-  console.log({ data });
   // Define state variables for input value and filtered data
   const [input, setInput] = useState("");
   const [filteredData, setFilteredData] = useState([]);

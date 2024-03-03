@@ -113,7 +113,6 @@ function AdminDashBoard() {
   const totalVerifiedDocuments = countDocumentsByStatus("verified");
   const totalArchivedDocuments = countDocumentsByStatus("archived");
   const totalQueriedDocuments = countDocumentsByStatus("queried");
-  // const totalSubmittedDocuments = countDocumentsByStatus("submitted");
 
   const adminsWithType1 =
     admin?.filter((admin) => admin.system_admin_type === "1") || [];
@@ -229,8 +228,12 @@ function AdminDashBoard() {
             <div className="flex w-full h-full overflow-hidden justify-center items-center">
               {loadingTransactions ? (
                 <Loading className="" />
-              ) : (
+              ) : recentTransactions.length > 0 ? (
                 <Table tableData={recentTransactions} />
+              ) : (
+                <h1 className="flex items-center justify-center font-medium">
+                  No Transaction Available
+                </h1>
               )}
             </div>
           </div>
@@ -244,8 +247,12 @@ function AdminDashBoard() {
             <div className="flex w-full h-full overflow-hidden justify-center items-center">
               {documentLoading ? (
                 <Loading className="" />
-              ) : (
+              ) : recentDocument.length > 0 ? (
                 <DTable tableData={recentDocument} />
+              ) : (
+                <h1 className="flex items-center justify-center font-medium">
+                  No Document Available
+                </h1>
               )}
             </div>
           </div>

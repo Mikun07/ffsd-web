@@ -2,30 +2,22 @@ import React, { useState, useEffect } from "react";
 import { FaSearch, FaTimes } from "react-icons/fa";
 
 const SearchInput = ({ result, setResult, data }) => {
-  // Define state variables for input value and filtered data
   const [input, setInput] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
-  // Define useEffect hook to handle input change and filter data
   useEffect(() => {
     const filterData = (searchTerm) => {
-      // Check if data is null or undefined
       if (!data) {
-        // If data is null or undefined, set filtered data to an empty array
         setFilteredData([]);
         return;
       }
 
-      // Convert search term to lowercase
       const lowerCaseTerm = searchTerm.toLowerCase();
 
-      // Check if the search term starts with "admin status"
       if (lowerCaseTerm.startsWith("admin status")) {
-        // Extract the system admin type from the search term
         const systemAdminType = lowerCaseTerm
           .replace("admin status", "")
           .trim();
-        // Filter data based on system admin type
         const filtered = data.filter((item) =>
           item.system_admin_type?.toString().includes(systemAdminType)
         );
@@ -33,7 +25,7 @@ const SearchInput = ({ result, setResult, data }) => {
         setFilteredData(filtered);
       } else {
         // Filter data based on other fields
-        const filtered = data.filter(
+        const filtered = data?.data?.filter(
           (item) =>
             item.firstName?.toLowerCase().includes(lowerCaseTerm) ||
             item.lastName?.toLowerCase().includes(lowerCaseTerm) ||

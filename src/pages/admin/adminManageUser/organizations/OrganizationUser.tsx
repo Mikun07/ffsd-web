@@ -58,8 +58,9 @@ const OrganizationUser = () => {
   }
 
   // Calculate total number of pages
-  const totalNumberOfPages = organization ? getTotalPages(organization.length, documentsPerPage) : 0;
-
+  const totalNumberOfPages = organization
+    ? getTotalPages(organization.length, documentsPerPage)
+    : 0;
 
   return (
     <>
@@ -82,11 +83,14 @@ const OrganizationUser = () => {
             </div>
 
             <div className="flex w-full h-full overflow-hidden justify-center items-center">
-              {/* Loading or Table */}
               {loadingOrganization ? (
                 <Loading className="" />
-              ) : (
+              ) : currentDocuments.length > 0 ? (
                 <Table tableData={currentDocuments} />
+              ) : (
+                <h1 className="flex items-center justify-center font-medium">
+                  No Admins Available
+                </h1>
               )}
             </div>
           </div>
@@ -94,8 +98,7 @@ const OrganizationUser = () => {
           <div className="h-16 w-full text-primary rounded-b-lg flex justify-between items-center px-2">
             <div className="flex gap-2 items-center capitalize font-bold text-black">
               <p className="flex items-center capitalize font-bold">page</p>
-              <p className="text-primary">{currentPage}</p>
-              /{" "}
+              <p className="text-primary">{currentPage}</p>/{" "}
               <span>{totalNumberOfPages}</span>
             </div>
             <div className="flex gap-1">

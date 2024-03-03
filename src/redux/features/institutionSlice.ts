@@ -13,7 +13,7 @@ export const fetchInstitution = createAsyncThunk(
   async (body) => {
     try {
       const response = await axiosInstance.get("/institutions/all");
-      return response;
+      return response?.data;
     } catch (error) {
       return error?.response?.data?.errors;
     }
@@ -30,17 +30,9 @@ const institutionSlice = createSlice({
     });
     builder.addCase(fetchInstitution.fulfilled, (state, action) => {
       const { payload } = action;
-      const success = payload?.data?.success
-      const data = payload?.data?.data
-      if (!success) {
-        state.success = false;
-        state.data = null;
-        state.error = payload?.data?.errors;
-      } else {
-        state.success = true;
-        state.data = data;
-        state.error = null;
-      }
+      state.success = true;
+      state.data = payload;
+      state.error = null;
       state.loading = false;
     });
     builder.addCase(fetchInstitution.rejected, (state, action) => {

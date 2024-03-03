@@ -140,8 +140,12 @@ const AdminQueriedDocumentPage = () => {
             <div className="flex w-full h-full overflow-hidden justify-center items-center">
               {documentLoading ? (
                 <Loading className="" />
-              ) : (
+              ) : currentDocuments.length > 0 ? (
                 <Table tableData={currentDocuments} />
+              ) : (
+                <h1 className="flex items-center justify-center font-medium">
+                  No Document Available
+                </h1>
               )}
             </div>
           </div>

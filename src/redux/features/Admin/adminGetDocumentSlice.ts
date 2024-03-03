@@ -32,16 +32,9 @@ const adminDocumentSlice = createSlice({
     });
     builder.addCase(adminFetchDocument.fulfilled, (state, action) => {
       const { payload } = action;
-      const data = payload;
-      if (!data.length) {
-        state.success = false;
-        state.data = null;
-        state.error = payload?.data?.errors;
-      } else {
-        state.success = true;
-        state.data = data;
-        state.error = null;
-      }
+      state.success = true;
+      state.data = payload;
+      state.error = null;
       state.loading = false;
     });
     builder.addCase(adminFetchDocument.rejected, (state, action) => {

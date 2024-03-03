@@ -140,8 +140,12 @@ const AdminSubmittedDocumentPage = () => {
             <div className="flex w-full h-full overflow-hidden justify-center items-center">
               {documentLoading ? (
                 <Loading className="" />
-              ) : (
+              ) : currentDocuments.length > 0 ? (
                 <Table tableData={currentDocuments} />
+              ) : (
+                <h1 className="flex items-center justify-center font-medium">
+                  No Document Available
+                </h1>
               )}
             </div>
           </div>
@@ -150,7 +154,7 @@ const AdminSubmittedDocumentPage = () => {
           <div className="h-16 w-full text-primary rounded-b-lg flex justify-between items-center px-2">
             <div className="flex gap-2 items-center capitalize font-bold text-black">
               <p className="flex items-center capitalize font-bold">page</p>
-              <p className="text-primary">{currentPage}</p>/ {" "}
+              <p className="text-primary">{currentPage}</p>/{" "}
               <span>{totalNumberOfPages}</span>
               {/* <div className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary font-bold"></div> */}
             </div>

@@ -23,7 +23,9 @@ const IndividualUser = () => {
     dispatch(getAllIndividuals());
   }, []);
 
-  const reverseIndividual = individual?.data ? [...individual?.data].reverse() : [];
+  const reverseIndividual = individual?.data
+    ? [...individual?.data].reverse()
+    : [];
 
   // Calculate pagination
   const documentsPerPage = 8;
@@ -87,11 +89,14 @@ const IndividualUser = () => {
             </div>
 
             <div className="flex w-full h-full overflow-hidden justify-center items-center">
-              {/* Loading or Table */}
               {loadingIndividual ? (
                 <Loading className="" />
-              ) : (
+              ) : currentDocuments.length > 0 ? (
                 <Table tableData={currentDocuments} />
+              ) : (
+                <h1 className="flex items-center justify-center font-medium">
+                  No Individuals Available
+                </h1>
               )}
             </div>
           </div>

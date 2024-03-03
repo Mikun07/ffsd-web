@@ -3,7 +3,6 @@ import { FILE_URL } from "../../../../config/api";
 
 
 function PreviewData({ data }) {
-  console.log({ data });
   const getStatusColor = (status) => {
     switch (status) {
       case "confirmed":

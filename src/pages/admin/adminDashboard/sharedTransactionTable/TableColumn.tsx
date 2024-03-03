@@ -19,10 +19,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
       default:
         return "";
     }
-  };
-
-  console.log({data});
-  
+  };  
 
   const [showModal, setShowModal] = useState(false);
   const handleOnClose = () => [setShowModal(false)];

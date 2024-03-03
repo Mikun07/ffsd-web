@@ -86,7 +86,7 @@ function VerifyDocumentPage() {
     })) || [];
 
   const InstitutionOptions =
-    institutions?.map((institution) => ({
+    institutions?.data?.map((institution) => ({
       label: institution?.name,
       value: institution?.name,
     })) || [];

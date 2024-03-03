@@ -29,8 +29,17 @@ const ServiceCharge = () => {
   }, []);
 
   // Function to render charge table
-  const renderChargeTable = (charges) => {
-    if (!charges) return null; // Check if charges is null or undefined
+  const renderChargeTable = (charges, type) => {
+    if (!charges || charges.length === 0) {
+      return (
+        <div className="mx-3 mt-3 p-3 flex justify-center items-center">
+          <h2 className="capitalize text-lg font-semibold mb-4">
+            {type === "org" ? "Organization" : "Individual"}
+          </h2>
+          <p>No Service Charge Available</p>
+        </div>
+      );
+    } // Check if charges is null or undefined
 
     return (
       <table className="lg:ml-4 min-w-full divide-y divide-gray-200">
@@ -103,6 +112,15 @@ const ServiceCharge = () => {
     ? serviceCharge.filter((charge) => charge.category_user === "org")
     : [];
 
+  const renderOrganizationChargeTable = (organizationServiceCharge) => {
+    return renderChargeTable(organizationServiceCharge, "org");
+  };
+
+  // Updated function to render individual charge table
+  const renderIndividualChargeTable = (individualServiceCharge) => {
+    return renderChargeTable(individualServiceCharge, "indv");
+  };
+
   return (
     <>
       {loadingServiceCharge ? (
@@ -140,14 +158,14 @@ const ServiceCharge = () => {
                 <h2 className="capitalize text-lg font-semibold mb-4">
                   organization
                 </h2>
-                {renderChargeTable(organizationServiceCharge)}
+                {renderOrganizationChargeTable(organizationServiceCharge)}
               </div>
 
               <div className="mx-3 mt-3">
                 <h2 className="capitalize text-lg font-semibold mt-8 mb-4">
                   Individual
                 </h2>
-                {renderChargeTable(individualServiceCharge)}
+                {renderIndividualChargeTable(individualServiceCharge)}{" "}
               </div>
             </div>
           </div>

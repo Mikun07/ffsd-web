@@ -72,14 +72,22 @@ const ManageTransactionPage = () => {
       </div>
 
       <div className="h-16 w-full mt-3 text-black flex justify-between items-center px-2">
-        <SearchInput result={result} setResult={setResult} data={transactions} />
+        <SearchInput
+          result={result}
+          setResult={setResult}
+          data={transactions}
+        />
       </div>
 
       <div className="flex w-full h-full overflow-hidden justify-center items-center">
         {loadingTransactions ? (
           <Loading className="" />
-        ) : (
+        ) : currentTransactions.length > 0 ? (
           <Table tableData={currentTransactions} />
+        ) : (
+          <h1 className="flex items-center justify-center font-medium">
+            No Transaction Available
+          </h1>
         )}
       </div>
 

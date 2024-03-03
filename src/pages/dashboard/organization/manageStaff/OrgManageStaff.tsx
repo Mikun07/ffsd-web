@@ -100,8 +100,12 @@ const OrgManageStaff = () => {
       <div className="flex w-full h-full overflow-hidden justify-center items-center">
         {loadingStaff ? (
           <Loading className="" />
-        ) : (
+        ) : currentStaffs.length > 0 ? (
           <Table tableData={currentStaffs} />
+        ) : (
+          <h1 className="flex items-center justify-center font-medium">
+            No Staff Available
+          </h1>
         )}
       </div>
 
