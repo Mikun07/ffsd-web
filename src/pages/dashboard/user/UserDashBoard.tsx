@@ -185,7 +185,7 @@ function UserDashBoard() {
         <div className="border-4 border-slate-200 w-full rounded-lg">
           <div className=" flex justify-between p-4 h-12 items-center capitalize">
             <h1 className="font-bold">Recent transaction</h1>
-            <Link to={"/org/transaction"} className="font-semibold">
+            <Link to={"/dashboard/transaction"} className="font-semibold">
               see more
             </Link>
           </div>
@@ -205,7 +205,7 @@ function UserDashBoard() {
         <div className="border-4 border-slate-200 w-full h-full rounded-lg">
           <div className=" flex justify-between p-4 h-12 items-center capitalize">
             <h1 className="font-bold">Recent Uploads</h1>
-            <Link to={"/org/document"} className="font-semibold">
+            <Link to={"/dashboard/document"} className="font-semibold">
               see more
             </Link>
           </div>
