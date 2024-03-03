@@ -198,7 +198,7 @@ function ManageDocumentPage() {
                 <Table tableData={currentDocuments} />
               ) : (
                 <h1 className="flex items-center justify-center font-medium">
-                  No Staff Available
+                  No Documents Available
                 </h1>
               )}
             </div>

@@ -35,7 +35,7 @@ const ManageDocumentRoute = {
 };
 
 const ManageTransactionPageRoute = {
-  link: "/dashboard/managetransaction",
+  link: " ",
   element: <ManageTransactionPage />,
   isProtected: true,
 };

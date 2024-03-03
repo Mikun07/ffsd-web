@@ -203,11 +203,11 @@ function OrgDashBoard() {
           )}
         </div>
 
-        <div className="flex lg:flex-row sm:flex-col gap-4 mt-4 w-full h-screen lg:overflow-hidden ">
+        <div className="flex lg:flex-row flex-col gap-4 mt-4 w-full h-screen lg:overflow-hidden ">
           <div className="border-4 border-slate-200 w-full rounded-lg">
             <div className=" flex justify-between p-4 h-12 items-center capitalize">
               <h1 className="font-bold">Recent transaction</h1>
-              <Link to={"/org/managetransaction"} className="font-semibold">
+              <Link to={"/org/transaction"} className="font-semibold">
                 see more
               </Link>
             </div>
@@ -226,7 +226,7 @@ function OrgDashBoard() {
           <div className="border-4 border-slate-200 w-full rounded-lg">
             <div className=" flex justify-between p-4 h-12 items-center capitalize">
               <h1 className="font-bold">Recent Uploads</h1>
-              <Link to={"/org/managedocument"} className="font-semibold">
+              <Link to={"/org/document"} className="font-semibold">
                 see more
               </Link>
             </div>

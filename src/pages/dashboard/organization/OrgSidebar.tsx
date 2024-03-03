@@ -53,13 +53,13 @@ function OrgSidebar() {
     },
     {
       name: "Manage Transaction",
-      url: "/org/managetransaction",
+      url: "/org/transaction",
       icon: <ReceiptIcon width="25" height="25" />,
-      active: isMenuActive("/org/managetransaction"),
+      active: isMenuActive("/org/transaction"),
     },
     {
       name: "Manage Documents",
-      url: "/org/managedocument",
+      url: "/org/document",
       icon: <ArchiveIcon width="25" height="25" />,
       active: isMenuActive("/org/document"),
       spacing: true,

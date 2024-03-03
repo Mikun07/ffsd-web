@@ -42,9 +42,9 @@ function UserSidebar() {
     },
     {
       name: "Manage Transaction",
-      url: "dashboard/managetransaction",
+      url: "/dashboard/transaction",
       icon: <ReceiptIcon width="25" height="25" />,
-      active: isMenuActive("dashboard/managetransaction"),
+      active: isMenuActive("/dashboard/transaction"),
       // spacing: true,
     },
     {

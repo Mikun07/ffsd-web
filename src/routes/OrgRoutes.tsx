@@ -29,13 +29,13 @@ const VerifyDocumentPageRoute = {
 };
 
 const OrgManageDocumentRoute = {
-  link: "/org/managedocument",
+  link: "/org/document",
   element: <ManageDocumentPage />,
   isProtected: true,
 };
 
 const OrgManageTransactionPageRoute = {
-  link: "/org/managetransaction",
+  link: "/org/transaction",
   element: <ManageTransactionPage />,
   isProtected: true,
 };

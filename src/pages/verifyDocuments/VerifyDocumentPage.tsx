@@ -55,9 +55,9 @@ function VerifyDocumentPage() {
   const { data: user } = useSelector((state: RootState) => state?.user) as any;
 
   const redirectUrl = {
-    org: "/org/managedocument",
-    indv: "/dashboard/documentt",
-    staff: "/org/managedocument",
+    org: "/org/document",
+    indv: "/dashboard/document",
+    staff: "/org/document",
   };
 
   useEffect(() => {

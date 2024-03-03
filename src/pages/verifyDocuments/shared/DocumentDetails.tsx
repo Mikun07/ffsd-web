@@ -1,3 +1,4 @@
+import FormDateInput from "../../../components/input/Form/FormDateInput";
 import FormTextInput from "../../../components/input/Form/FormTextInput";
 
 const DocumentDetails = ({ setValue, errors, register, isValid }) => {
@@ -44,7 +45,7 @@ const DocumentDetails = ({ setValue, errors, register, isValid }) => {
           onChange={(e) => setValue("middleName", e.target.value)}
         />
 
-        <FormTextInput
+        <FormDateInput
           label="dob"
           title={"Date of Birth"}
           errors={errors}
