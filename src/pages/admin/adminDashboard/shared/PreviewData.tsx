@@ -106,7 +106,7 @@ const PreviewData = () => {
     <>
       <div className="flex flex-col h-full ">
         <div className="flex items-center gap-2 mt-3 text-gray-800 font-semibold capitalize py-2 sticky top-3">
-          <Link to={"/admin/managedocument"}>
+          <Link to={"/admin/document"}>
             <p className="cursor-pointer">All Documents</p>
           </Link>
           <div className="text-primary">

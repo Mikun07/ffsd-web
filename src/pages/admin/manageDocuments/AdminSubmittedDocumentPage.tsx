@@ -113,7 +113,7 @@ const AdminSubmittedDocumentPage = () => {
     <>
       <div className="flex flex-col h-full overflow-y-auto">
         <div className="flex items-center gap-2 mt-3 text-gray-800 font-semibold capitalize">
-          <Link to={"/admin/managedocument"}>
+          <Link to={"/admin/document"}>
             <p className="cursor-pointer">All Documents</p>
           </Link>
           <div className="text-primary">

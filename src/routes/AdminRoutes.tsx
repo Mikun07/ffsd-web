@@ -32,7 +32,7 @@ const AdminAccountPageRoute = {
 };
 
 const AdminManageUserPageRoute = {
-  link: "/admin/manageuser",
+  link: "/admin/user",
   element: <AdminManageUserPage />,
   isAdminProtected: true,
 };
@@ -44,7 +44,7 @@ const AdminReceiptsPageRoute = {
 };
 
 const AdminManageTransactionPageRoute = {
-  link: "/admin/managetransaction",
+  link: "/admin/transaction",
   element: <AdminManageTransactionPage />,
   isProtected: true,
 };
@@ -56,55 +56,55 @@ const AdminManageAccountPageRoute = {
 }
 
 const AdminManageDocumentPageRoute = {
-  link: "/admin/managedocument",
+  link: "/admin/document",
   element: <AdminMangeDocumentPage />,
   isAdminProtected: true,
 }
 
 const AdminArchiveDocumentPageRoute = {
-  link: "/admin/managedocument/archived",
+  link: "/admin/document/archived",
   element: <AdminArchiveDocumentPage />,
   isAdminProtected: true,
 };
 
 const AdminQueriedDocumentPageRoute = {
-  link: "/admin/managedocument/queried",
+  link: "/admin/document/queried",
   element: <AdminQueriedDocumentPage />,
   isAdminProtected: true,
 };
 
 const AdminSubmittedDocumentPageRoute = {
-  link: "/admin/managedocument/submitted",
+  link: "/admin/document/submitted",
   element: <AdminSubmittedDocumentPage />,
   isAdminProtected: true,
 };
 
 const AdminVerifiedDocumentPageRoute = {
-  link: "/admin/managedocument/verified",
+  link: "/admin/document/verified",
   element: <AdminVerifiedDocumentPage />,
   isAdminProtected: true,
 };
 
 const AdminGetDocumentByIdRoute = {
-  link: "/admin/managedocument/document/:type/:id/:owner",
+  link: "/admin/document/document/:type/:id/:owner",
   element: <AdminGetDocumentById />,
   isAdminProtected: true,
 }
 
 const AdminManageOrganizationUserRoute = {
-  link: "/admin/manageuser/organization",
+  link: "/admin/user/organization",
   element: <AdminManageOrganizationUser />,
   isAdminProtected: true,
 }
 
 const AdminManageAdminUserRoute = {
-  link: "/admin/manageuser/admin",
+  link: "/admin/user/admin",
   element: <AdminManageAdminUser />,
   isAdminProtected: true,
 }
 
 const AdminManageIndividualUserRoute = {
-  link: "/admin/manageuser/individual",
+  link: "/admin/user/individual",
   element: <AdminManageIndividualUser />,
   isAdminProtected: true,
 }

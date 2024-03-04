@@ -12,7 +12,7 @@ export const monitorReferrals = createAsyncThunk(
     "org/getReferrals",
     async () => {
         try {
-            const response = await axiosInstance.get("/user/monitor/document");
+            const response = await axiosInstance.post("/monitor/document");
             return response?.data;
         } catch (error) {
             return error?.message || error.response?.data;

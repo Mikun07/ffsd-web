@@ -24,7 +24,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
 
   function viewContent(data): void {
     const {doc_type, id, doc_owner_id} = data; 
-    navigate(`/admin/managedocument/document/${doc_type}/${id}/${doc_owner_id}`)
+    navigate(`/admin/document/document/${doc_type}/${id}/${doc_owner_id}`)
   }
   
 

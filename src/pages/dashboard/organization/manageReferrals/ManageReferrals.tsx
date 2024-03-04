@@ -1,87 +1,75 @@
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../types/redux/root";
-import { Link } from "react-router-dom";
-import { AiOutlineRight } from "react-icons/ai";
-import SearchInput from "./shared/SearchInput";
-import Loading from "../../../components/withStatus/loading/Loading";
-import Table from "./shared/Table";
+import { RootState } from "../../../../types/redux/root";
+import { monitorReferrals } from "../../../../redux/features/getReferralsSlice";
+import Loading from "../../../../components/withStatus/loading/Loading";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
-import { adminFetchDocument } from "../../../redux/features/Admin/adminGetDocumentSlice";
+import Table from "./Ref-shared/Table";
 
-const AdminVerifiedDocumentPage = () => {
+const ManageReferrals = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-
-  // Select relevant data from Redux store
-  const { data: getAllDocument, loading: documentLoading } = useSelector(
-    (state: RootState) => state?.adminDocument
+  const { data: referrals, loading: loadingReferrals } = useSelector(
+    (state: RootState) => state?.monitorReferrals
   );
 
-  async function fetchAllDocument() {
-    // @ts-ignore
-    dispatch(adminFetchDocument());
-  }
-
   useEffect(() => {
-    fetchAllDocument();
-  }, []);
+    dispatch(monitorReferrals());
+  }, [dispatch]);
 
-  const [result, setResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Array of data to process
-  const dataArray = (getAllDocument as Array<any>) || [];
+  const allDocuments = useMemo(() => {
+    const referralArray = referrals?.data || [];
+    let combinedDocuments = [];
 
-  // Extract educational, financial, and professional documents with status "archived" from dataArray
-  const allDocuments = dataArray.flatMap(({ documents, doc_owner }) => {
-    // If documents exist, map and merge them into allDocuments
-    if (documents) {
-      return [
-        ...documents.educationalDocuments
-          .filter((doc) => doc.status === "verified")
-          .map((doc) => ({
-            ...doc,
-            userInfo: doc_owner,
-            tag: "Educational Document",
-            status: doc.status, // Add status property here
-          })),
-        ...documents.financialDocuments
-          .filter((doc) => doc.status === "verified")
-          .map((doc) => ({
-            ...doc,
-            userInfo: doc_owner,
-            tag: "Financial Document",
-            status: doc.status, // Add status property here
-          })),
-        ...documents.professionalDocuments
-          .filter((doc) => doc.status === "verified")
-          .map((doc) => ({
-            ...doc,
-            userInfo: doc_owner,
-            tag: "Professional Document",
-            status: doc.status, // Add status property here
-          })),
+    referralArray.forEach((item) => {
+      const docOwner = item.doc_owner;
+
+      const educationalDocuments = item.educational_documents || [];
+      const financialDocuments = item.financial_documents || [];
+      const professionalDocuments = item.professional_documents || [];
+
+      // Map each document type and add additional properties
+      const allItemDocuments = [
+        ...educationalDocuments.map((doc) => ({
+          ...doc,
+          ReferralInfo: docOwner,
+          tag: "Educational Document",
+        })),
+        ...financialDocuments.map((doc) => ({
+          ...doc,
+          ReferralInfo: docOwner,
+          tag: "Financial Document",
+        })),
+        ...professionalDocuments.map((doc) => ({
+          ...doc,
+          ReferralInfo: docOwner,
+          tag: "Professional Document",
+        })),
       ];
-    }
-    // Return an empty array if documents are undefined or null
-    return [];
-  });
 
-  const reverseAllDocuments = allDocuments?.reverse();
+      combinedDocuments = [...combinedDocuments, ...allItemDocuments];
+    });
 
-  // Calculate pagination
-  const documentsPerPage = 9;
-  const indexOfLastDocument = currentPage * documentsPerPage;
-  const indexOfFirstDocument = indexOfLastDocument - documentsPerPage;
+    return combinedDocuments;
+  }, [referrals]);
 
-  // Slice documents for current page
-  const currentDocuments = reverseAllDocuments.slice(
+  const reversedDocuments = useMemo(
+    () => allDocuments?.reverse(),
+    [allDocuments]
+  );
+
+  const documentsPerPage = 7;
+  const indexOfFirstDocument =
+    allDocuments.length - currentPage * documentsPerPage;
+  const indexOfLastDocument = indexOfFirstDocument + documentsPerPage;
+
+  const currentDocuments = reversedDocuments.slice(
     indexOfFirstDocument,
     indexOfLastDocument
   );
 
-  // Function to handle page change
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -107,55 +95,48 @@ const AdminVerifiedDocumentPage = () => {
   const totalNumberOfPages = getTotalPages(
     allDocuments.length,
     documentsPerPage
-  );
+  );  
 
   return (
     <>
-      <div className="flex flex-col h-full overflow-y-auto">
-        <div className="flex items-center gap-2 mt-3 text-gray-800 font-semibold capitalize">
-          <Link to={"/admin/document"}>
-            <p className="cursor-pointer">Manage Documents</p>
-          </Link>
-          <div className="text-primary">
-            <AiOutlineRight />
-          </div>
-          <p className="cursor-pointer">Verified Documents</p>
-        </div>
-
+      <div className="flex flex-col h-full py-2 px-4 overflow-y-auto">
         <div className="flex flex-col mt-4 h-screen overflow-hidden">
           <div className="w-full h-screen overflow-hidden">
+            {/* Search and filter section */}
             <div className="h-16 w-full text-black rounded-t-lg flex justify-between items-center px-2">
               <h3 className="font-semibold capitalize leading-5 tracking-wide">
-                Verified Documents
+                referral Documents
               </h3>
               <div className="flex gap-2">
-                <SearchInput
+                {/* Search input */}
+                {/* <SearchInput
                   result={result}
                   setResult={setResult}
                   data={allDocuments}
-                />
+                /> */}
               </div>
             </div>
 
+            {/* Table displaying document data */}
             <div className="flex w-full h-full overflow-hidden justify-center items-center">
-              {documentLoading ? (
+              {loadingReferrals ? (
                 <Loading className="" />
               ) : currentDocuments.length > 0 ? (
                 <Table tableData={currentDocuments} />
               ) : (
                 <h1 className="flex items-center justify-center font-medium">
-                  No Document Available
+                  No Documents Available
                 </h1>
               )}
             </div>
           </div>
-
           {/* Pagination */}
           <div className="h-16 w-full text-primary rounded-b-lg flex justify-between items-center px-2">
             <div className="flex gap-2 items-center capitalize font-bold text-black">
               <p className="flex items-center capitalize font-bold">page</p>
               <p className="text-primary">{currentPage}</p>/{" "}
               <span>{totalNumberOfPages}</span>
+              {/* <div className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary font-bold"></div> */}
             </div>
             <div className="flex gap-1">
               <div
@@ -181,4 +162,4 @@ const AdminVerifiedDocumentPage = () => {
   );
 };
 
-export default AdminVerifiedDocumentPage;
+export default ManageReferrals;

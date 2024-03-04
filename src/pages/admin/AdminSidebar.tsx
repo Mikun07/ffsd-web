@@ -18,9 +18,8 @@ function AdminSidebar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const [submenuOpen, setSubmenuOpen] = useState({
-    managedocument: false,
-    manageinstitution: false,
-    manageuser: false,
+    document: false,
+    user: false,
   });
 
   const { data: user, loading: loadingMenu } = useSelector(
@@ -63,9 +62,9 @@ function AdminSidebar() {
     },
     {
       name: "Manage Transactions",
-      url: "/admin/managetransaction",
+      url: "/admin/transaction",
       icon: <ReceiptIcon width="25" height="25" />,
-      active: isMenuActive("/admin/managetransaction"),
+      active: isMenuActive("/admin/transaction"),
       spacing: true,
     },
     {
@@ -73,13 +72,13 @@ function AdminSidebar() {
       icon: <ArchiveIcon width="25" height="25" />,
       submenu: true,
       submenuItems: [
-        { name: "All Documents", url: "/admin/managedocument" },
-        { name: "Archived", url: "/admin/managedocument/archived" },
-        { name: "Submitted", url: "/admin/managedocument/submitted" },
-        { name: "Queried", url: "/admin/managedocument/queried" },
-        { name: "Verified", url: "/admin/managedocument/verified" },
+        { name: "All Documents", url: "/admin/document" },
+        { name: "Archived", url: "/admin/document/archived" },
+        { name: "Submitted", url: "/admin/document/submitted" },
+        { name: "Queried", url: "/admin/document/queried" },
+        { name: "Verified", url: "/admin/document/verified" },
       ],
-      active: isMenuActive("/admin/managedocument"),
+      active: isMenuActive("/admin/document"),
     },
 
     {
@@ -89,13 +88,13 @@ function AdminSidebar() {
       submenuItems: [
         {
           name: "Admin",
-          url: "/admin/manageuser/admin",
+          url: "/admin/user/admin",
           condition: user?.is_system_admin === "1",
         },
-        { name: "individual", url: "/admin/manageuser/individual" },
-        { name: "Organization", url: "/admin/manageuser/organization" },
+        { name: "individual", url: "/admin/user/individual" },
+        { name: "Organization", url: "/admin/user/organization" },
       ].filter((item) => item.condition !== false),
-      active: isMenuActive("/admin/manageuser"),
+      active: isMenuActive("/admin/user"),
     },
     {
       name: "Manage Service",
@@ -105,7 +104,7 @@ function AdminSidebar() {
         { name: "service charge", url: "/admin/servicecharge" },
         { name: "sur-charge", url: "/admin/surcharge" },
       ],
-      active: isMenuActive("/admin/managesystem"),
+      active: isMenuActive("/admin/system"),
       spacing: true,
     },
 

@@ -4,7 +4,6 @@ import { fetchDocument } from "../../redux/features/documentSlice";
 import ManageDocumentCard from "../../components/card/ManageDocumentCard";
 import Loading from "../../components/withStatus/loading/Loading";
 import SearchInput from "./shared/SearchInput";
-import FilterModel from "../../components/modal/FilterModel";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { RootState } from "../../types/redux/root";
 import { ThunkDispatch } from "@reduxjs/toolkit";
@@ -185,8 +184,6 @@ function ManageDocumentPage() {
                   setResult={setResult}
                   data={allDocuments}
                 />
-                {/* Filter model */}
-                {/* <FilterModel setSelectedFilter={setSelectedFilter} /> */}
               </div>
             </div>
 
@@ -209,7 +206,6 @@ function ManageDocumentPage() {
               <p className="flex items-center capitalize font-bold">page</p>
               <p className="text-primary">{currentPage}</p>/{" "}
               <span>{totalNumberOfPages}</span>
-              {/* <div className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary font-bold"></div> */}
             </div>
             <div className="flex gap-1">
               <div

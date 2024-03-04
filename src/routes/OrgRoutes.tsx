@@ -15,6 +15,12 @@ const ManageStaffPage = lazy(
 const ManageTransactionPage = lazy(
   () => import("../pages/transaction/ManageTransactionPage")
 );
+const ManageReferralsUserPage = lazy(
+  () => import("../pages/dashboard/organization/manageReferrals/UserReferrals")
+);
+const ManageReferralsDocument = lazy(
+  () => import("../pages/dashboard/organization/manageReferrals/ManageReferrals")
+);
 
 const OrgDashBoardRoute = {
   link: "/org/dashboard",
@@ -45,9 +51,21 @@ const ManageAccountRoute = {
   element: <ManageAccountPage />,
   isProtected: true,
 };
+
 const ManageStaffPageRoute = {
   link: "/org/staff",
   element: <ManageStaffPage />,
+  isProtected: true,
+};
+
+const ManageReferralsUserPageRoute = {
+  link: "/org/referrals",
+  element: <ManageReferralsUserPage />,
+  isProtected: true,
+};
+const ManageReferralsDocumentRoute = {
+  link: "/org/referrals/documents",
+  element: <ManageReferralsDocument />,
   isProtected: true,
 };
 
@@ -58,4 +76,6 @@ export const ORG_ROUTES = [
   ManageAccountRoute,
   OrgManageTransactionPageRoute,
   ManageStaffPageRoute,
+  ManageReferralsUserPageRoute,
+  ManageReferralsDocumentRoute,
 ];

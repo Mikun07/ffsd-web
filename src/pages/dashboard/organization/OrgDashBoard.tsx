@@ -14,6 +14,7 @@ import Loading from "../../../components/withStatus/loading/Loading";
 import { fetchTransaction } from "../../../redux/features/getTransactionSlice";
 import { Link } from "react-router-dom";
 import { monitorReferrals } from "../../../redux/features/getReferralsSlice";
+import { FaNetworkWired } from "react-icons/fa";
 
 function OrgDashBoard() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -34,14 +35,13 @@ function OrgDashBoard() {
     (state: RootState) => state?.monitorReferrals
   );
 
-  console.log({ referrals });
 
   useEffect(() => {
     dispatch(fetchUser());
     dispatch(fetchStaff());
     dispatch(fetchDocument());
     dispatch(fetchTransaction());
-    dispatch(monitorReferrals())
+    dispatch(monitorReferrals());
   }, [dispatch]);
 
   const dataArray = upload?.data?.data || [];
@@ -134,6 +134,9 @@ function OrgDashBoard() {
 
   const staffArray = staff?.data || [];
   const NoOfStaff = staffArray ? staffArray.length : 0;
+  
+  const referralArray = referrals?.data || [];
+  const NoOfReferrals = referralArray ? referralArray.length : 0;
 
   const transactionsData = transactions?.data;
   const reverseTransactionsData = transactionsData
@@ -154,8 +157,8 @@ function OrgDashBoard() {
 
   return (
     <>
-      <div className="flex flex-col h-full lg:overflow-hidden px-1 sm:overflow-y-auto custom__scrollbar">
-        <div className="lg:flex lg:justify-between grid md:grid-cols-2 gap-4 w-full  mt-4">
+      <div className="flex flex-col h-full lg:overflow-hidden px-1 overflow-y-auto custom__scrollbar">
+        <div className="lg:flex lg:justify-between grid md:grid-cols-2 gap-4 w-full mt-4">
           <ManageDocumentCard
             header="Total Documents uploaded"
             headerNumber={totalDocuments.totalAllDocumentsLength}
@@ -195,18 +198,26 @@ function OrgDashBoard() {
           />
 
           {user?.category === "org" && (
+            <>
+            
             <ManageDocumentCardWithImage
               number={NoOfStaff}
               icon={BsPersonFill}
               header="No Of Staff"
             />
+            <ManageDocumentCardWithImage
+              number={NoOfReferrals}
+              icon={FaNetworkWired}
+              header="No Of Referrals"
+            />
+            </>
           )}
         </div>
 
         <div className="flex lg:flex-row flex-col gap-4 mt-4 w-full h-screen lg:overflow-hidden ">
-          <div className="border-4 border-slate-200 w-full rounded-lg">
-            <div className=" flex justify-between p-4 h-12 items-center capitalize">
-              <h1 className="font-bold">Recent transaction</h1>
+          <div className="border-4 border-slate-200 w-full rounded-lg py-1">
+            <div className=" flex justify-between p-2 h-12 items-center capitalize">
+              <h1 className="font-bold text-lg">Recent transaction</h1>
               <Link to={"/org/transaction"} className="font-semibold">
                 see more
               </Link>
@@ -224,8 +235,8 @@ function OrgDashBoard() {
             </div>
           </div>
           <div className="border-4 border-slate-200 w-full rounded-lg">
-            <div className=" flex justify-between p-4 h-12 items-center capitalize">
-              <h1 className="font-bold">Recent Uploads</h1>
+            <div className="flex justify-between p-2 h-12 items-center capitalize">
+              <h1 className="font-bold text-lg">Recent Uploads</h1>
               <Link to={"/org/document"} className="font-semibold">
                 see more
               </Link>

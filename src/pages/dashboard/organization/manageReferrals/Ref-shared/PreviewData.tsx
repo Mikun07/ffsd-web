@@ -1,5 +1,5 @@
-import TextInput from "../../../../components/input/TextInput";
-import { FILE_URL } from "../../../../config/api";
+import TextInput from "../../../../../components/input/TextInput";
+import { FILE_URL } from "../../../../../config/api";
 
 function PreviewData({ data }) {
   const getStatusColor = (status) => {
@@ -52,7 +52,7 @@ function PreviewData({ data }) {
           <TextInput
             disabled
             label="First Name"
-            value={`${data?.userInfo?.docOwnerFirstName} ${data?.userInfo?.docOwnerMiddleName} ${data?.userInfo?.docOwnerLastName}`}
+            value={`${data?.ReferralInfo?.docOwnerFirstName} ${data?.ReferralInfo?.docOwnerMiddleName} ${data?.ReferralInfo?.docOwnerLastName}`}
             inputClassName="capitalize"
           />
           <TextInput
@@ -60,13 +60,6 @@ function PreviewData({ data }) {
             label="Type of document uploaded"
             value={data?.tag}
             inputClassName="capitalize"
-          />
-
-          <TextInput
-            disabled
-            label="Reference ID"
-            value={`#${data?.ref_id?.split("/")[1]}`}
-            inputClassName="uppercase"
           />
 
           <TextInput
@@ -86,7 +79,7 @@ function PreviewData({ data }) {
           <TextInput
             disabled
             label="transaction ID"
-            value={data?.userInfo?.application_id}
+            value={data?.ReferralInfo?.application_id}
             inputClassName="uppercase"
           />
 
