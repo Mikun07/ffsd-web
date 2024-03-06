@@ -101,7 +101,7 @@ a {
   transform: translateY(-50%);
   opacity: 0;
   transition: opacity 0.3s;
-  font-size: 14px; /* Adjust the font size for smaller screens */
+  font-size: 14px; 
 }
 
 .link-tooltip:hover .tooltip-text {
@@ -111,7 +111,7 @@ a {
 
 @media screen and (max-width: 768px) {
   .link-tooltip .tooltip-text {
-    font-size: 12px; /* Adjust font size for smaller screens */
-    left: calc(100% + 5px); /* Adjust the distance from the menu item */
+    font-size: 12px;
+    left: calc(100% + 5px); 
   }
 }
