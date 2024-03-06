@@ -162,7 +162,7 @@ function AdminSidebar() {
   return (
     <>
       <div
-        className={`lg:w-60 md:w-60 w-16 relative h-full overflow-hidden flex flex-col bg-gray-200 z-30 shadow-md py-2`}
+        className={`lg:w-60 md:w-60 w-16 relative h-full flex flex-col bg-gray-200 z-30 shadow-md py-2`}
       >
         <div className={`flex items-center gap-2 mx-4 p-1`}>
           <img src={Logo} alt="" className={`w-[70px]`} />
@@ -189,14 +189,14 @@ function AdminSidebar() {
             >
               <Link
                 to={menuItem.url}
-                className={`${
+                className={`link-tooltip ${
                   menuItem.submenu && submenuOpen[menuItem.name.toLowerCase()]
                     ? "submenu-open"
                     : ""
                 } ${
                   menuItem.active && menuItem.submenu ? "active" : ""
                 } w-full p-2 rounded-lg hover:bg-gray-300`}
-                style={{ textDecoration: 'none' }} // add this style
+                style={{ textDecoration: "none" }} // add this style
               >
                 <div className="flex justify-between items-center">
                   <div className="flex gap-2 items-center">
@@ -207,6 +207,8 @@ function AdminSidebar() {
                   </div>
                   {menuItem.submenu && <BsFillCaretDownFill />}
                 </div>
+                <div className="tooltip-text">{menuItem.name}</div>{" "}
+                {/* Add this */}
               </Link>
               {menuItem.submenu && submenuOpen[menuItem.name.toLowerCase()] && (
                 <div className="flex flex-col w-full">
@@ -214,18 +216,21 @@ function AdminSidebar() {
                     <Link
                       key={index}
                       to={submenuItem.url}
-                      className={
+                      className={`link-tooltip ${
                         isMenuActive(submenuItem.url)
                           ? "w-full p-2 lg:pl-7 mt-2 rounded-lg bg-white font-semibold capitalize text-[14px]"
                           : "w-full p-2 lg:pl-7 mt-2 rounded-lg hover:bg-gray-300 font-semibold capitalize text-[14px]"
-                      }
-                      style={{ textDecoration: 'none' }} // add this style
+                      }`}
+                      style={{ textDecoration: "none" }}
                     >
-                      <div className="flex gap-2 items-center">
-                        {submenuItem.icon}
-                        <p className="lg:flex md:flex hidden font-semibold capitalize text-[14px]">
-                          {submenuItem.name}
-                        </p>
+                      <div className="flex justify-between items-center">
+                        <div className="flex gap-2 items-center">
+                          {submenuItem.icon}
+                          <p className="lg:flex md:flex hidden font-semibold capitalize text-[14px]">
+                            {submenuItem.name}
+                          </p>
+                        </div>
+                        <div className="tooltip-text">{submenuItem.name}</div>{" "}
                       </div>
                     </Link>
                   ))}

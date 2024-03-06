@@ -148,7 +148,7 @@ function ManageDocumentPage() {
 
   return (
     <>
-      <div className="flex flex-col h-full py-2 px-4 overflow-y-auto">
+      <div className="flex flex-col h-full pt-2 overflow-y-auto">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 md:gap-3 grid-cols-1 gap-4 w-full">
           {/* Display total documents card */}
           <ManageDocumentCard
@@ -173,10 +173,10 @@ function ManageDocumentPage() {
         <div className="flex flex-col mt-4 h-screen overflow-hidden">
           <div className="w-full h-screen overflow-hidden">
             {/* Search and filter section */}
-            <div className="h-16 w-full text-black rounded-t-lg flex justify-between items-center px-2">
-              <h3 className="font-semibold capitalize leading-5 tracking-wide">
+            <div className="h-16 w-full text-black rounded-t-lg flex justify-between items-center">
+              {/* <h3 className="font-semibold capitalize leading-5 tracking-wide">
                 verification history
-              </h3>
+              </h3> */}
               <div className="flex gap-2">
                 {/* Search input */}
                 <SearchInput

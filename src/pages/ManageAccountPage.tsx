@@ -119,7 +119,7 @@ function ManageAccountPage() {
                   </div>
                 </div>
 
-                <div className="px-2 py-6 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+                <div className="px-2 py-6 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 h-72 overflow-y-auto custom__scrollbar">
                   {user?.category === "org" && (
                     <>
                       <TextInput

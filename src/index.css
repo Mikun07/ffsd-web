@@ -13,45 +13,27 @@
 *, *::before, *::after {
   box-sizing: border-box;
 }
-/*
-  2. Remove default margin
-*/
+
 * {
   margin: 0;
 }
-/*
-  Typographic tweaks!
-  3. Add accessible line-height
-  4. Improve text rendering
-*/
+
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
-/*
-  5. Improve media defaults
-*/
+
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
 }
-/*
-  6. Remove built-in form typography styles
-*/
+
 input, button, textarea, select {
   font: inherit;
 }
-/*
-  7. Avoid text overflows
-*/
+
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
-}
-/*
-  8. Create a root stacking context
-*/
-#root, #__next {
-  isolation: isolate;
 }
 
 h1 {
@@ -69,6 +51,11 @@ h3 {
 a {
   text-decoration: none;
 }
+
+#root, #__next {
+  isolation: isolate;
+}
+
 
 
 .custom__scrollbar::-webkit-scrollbar {
@@ -94,82 +81,37 @@ a {
   background: #d4973b;
 }
 
-
-/* <div className="flex flex-col">
-            <p className="text-xs">status</p>
-            <div className="flex items-center gap-4 text-sm">
-              <span>inactive</span>
-              <label className="switch">
-                <input
-                  type="checkbox"
-                  checked={status === "active"}
-                  onChange={handleStatusChange}
-                />
-                <span className="slider round"></span>
-              </label>
-              <span>active</span>
-            </div>
-          </div> 
-
-/* CSS for the toggle switch */
-/* .switch {
+.link-tooltip {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
 }
 
-.switch input {
+.link-tooltip .tooltip-text {
+  visibility: hidden;
+  width: auto;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: calc(100% + 10px);
+  transform: translateY(-50%);
   opacity: 0;
-  width: 0;
-  height: 0;
+  transition: opacity 0.3s;
+  font-size: 14px; /* Adjust the font size for smaller screens */
 }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #D43B3B;
-  -webkit-transition: .4s;
-  transition: .4s;
-  border-radius: 34px;
+.link-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-  border-radius: 50%;
+@media screen and (max-width: 768px) {
+  .link-tooltip .tooltip-text {
+    font-size: 12px; /* Adjust font size for smaller screens */
+    left: calc(100% + 5px); /* Adjust the distance from the menu item */
+  }
 }
-
-input:checked + .slider {
-  background-color: #40b52d;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #40b52d;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-} */
-
-/* Rounded sliders */
-/* .slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-} */

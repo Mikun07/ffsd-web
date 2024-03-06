@@ -34,7 +34,7 @@ const SearchInput = ({ result, setResult, data }) => {
         <div className="bg-slate-200 relative rounded-lg h-12 p-4 shadow-md flex items-center">
           <FaSearch className="text-primary cursor-pointer" />
           <input
-            className="bg-transparent border-none outline-none text-[15px] w-[300px] ml-2 py-2 text-black placeholder:text-gray-800"
+            className="bg-transparent border-none outline-none text-[15px] w-[200px] ml-2 py-2 text-black placeholder:text-gray-800"
             type="text"
             placeholder="Search..."
             onChange={(e) => debouncedHandleChange(e.target.value)}

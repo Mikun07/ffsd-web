@@ -204,7 +204,7 @@ function UserDashBoard() {
 
         <div className="flex flex-col border-4 border-slate-200 w-full rounded-lg">
           <div className="flex justify-between p-4 h-12 items-center capitalize">
-            <h1 className="font-bold">Recent Uploads</h1>
+            <h1 className="font-bold text-lg">Recent Uploads</h1>
             <Link to={"/dashboard/document"} className="font-semibold">
               see more
             </Link>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import LogoDP from "../../../assets/Logo.png";
+import Logo from "../../../assets/Logo.png";
 import DashboardIcon from "../../../assets/icons/DashboardIcon";
 import AccountIcon from "../../../assets/icons/AccountIcon";
 import ArchiveIcon from "../../../assets/icons/ArchiveIcon";
@@ -39,10 +39,8 @@ function OrgSidebar() {
     setSubmenuOpen((prevState) => {
       const updatedSubmenuOpen: { [key: string]: boolean } = {};
 
-      // Toggle the clicked submenu
       updatedSubmenuOpen[submenuKey] = !prevState[submenuKey];
 
-      // Close all other submenus
       Object.keys(prevState).forEach((key) => {
         if (key !== submenuKey) {
           updatedSubmenuOpen[key] = false;
@@ -53,23 +51,22 @@ function OrgSidebar() {
     });
   };
 
-  // Sidebar menu items
   let menu = [
     {
-      name: "dashboard",
+      name: "Dashboard",
       url: "/org/dashboard",
       icon: <DashboardIcon width="25" height="25" />,
       active: isMenuActive("/org/dashboard"),
     },
     {
-      name: "verify Documents",
+      name: "Verify Documents",
       url: "/org/verifydocument",
       icon: <SchoolIcon width="25" height="25" />,
       active: isMenuActive("/org/verifydocument"),
       spacing: true,
     },
     {
-      name: "manage staff",
+      name: "Manage Staff",
       url: "/org/staff",
       icon: <ManageUserIcon width="25" height="25" />,
       active: isMenuActive("/org/staff"),
@@ -129,15 +126,15 @@ function OrgSidebar() {
   return (
     <>
       <div
-        className={`lg:w-60 md:w-60 w-16 relative h-screen flex flex-col bg-gray-200 z-30 shadow-md py-2`}
+        className={`lg:w-60 md:w-60 w-16 relative h-full flex flex-col bg-gray-200 z-30 shadow-md py-2`}
       >
         <div className={`flex items-center gap-2 mx-4 p-1`}>
-          <img src={LogoDP} alt="" className={`w-[70px]`} />
+          <img src={Logo} alt="" className={`w-[70px]`} />
           <p
             className={`lg:flex md:flex hidden flex-col leading-4 font-semibold tracking-wider capitalize text-[15px] text-[#40B52D]`}
           >
             Documents
-            <span className={`text-[#D4973B]`}>Verification</span>
+            <span className={`text-[#D4973B] `}>Verification</span>
           </p>
         </div>
 
@@ -156,13 +153,14 @@ function OrgSidebar() {
             >
               <Link
                 to={menuItem.url}
-                className={`${
+                className={`link-tooltip ${
                   menuItem.submenu && submenuOpen[menuItem.name.toLowerCase()]
                     ? "submenu-open"
                     : ""
                 } ${
                   menuItem.active && menuItem.submenu ? "active" : ""
                 } w-full p-2 rounded-lg hover:bg-gray-300`}
+                style={{ textDecoration: "none" }} 
               >
                 <div className="flex justify-between items-center">
                   <div className="flex gap-2 items-center">
@@ -173,6 +171,8 @@ function OrgSidebar() {
                   </div>
                   {menuItem.submenu && <BsFillCaretDownFill />}
                 </div>
+                <div className="tooltip-text">{menuItem.name}</div>{" "}
+                {/* Add this */}
               </Link>
               {menuItem.submenu && submenuOpen[menuItem.name.toLowerCase()] && (
                 <div className="flex flex-col w-full">
@@ -180,17 +180,21 @@ function OrgSidebar() {
                     <Link
                       key={index}
                       to={submenuItem.url}
-                      className={
+                      className={`link-tooltip ${
                         isMenuActive(submenuItem.url)
                           ? "w-full p-2 lg:pl-7 mt-2 rounded-lg bg-white font-semibold capitalize text-[14px]"
                           : "w-full p-2 lg:pl-7 mt-2 rounded-lg hover:bg-gray-300 font-semibold capitalize text-[14px]"
-                      }
+                      }`}
+                      style={{ textDecoration: "none" }}
                     >
-                      <div className="flex gap-2 items-center">
-                        {submenuItem.icon}
-                        <p className="lg:flex md:flex hidden font-semibold capitalize text-[14px]">
-                          {submenuItem.name}
-                        </p>
+                      <div className="flex justify-between items-center">
+                        <div className="flex gap-2 items-center">
+                          {submenuItem.icon}
+                          <p className="lg:flex md:flex hidden font-semibold capitalize text-[14px]">
+                            {submenuItem.name}
+                          </p>
+                        </div>
+                        <div className="tooltip-text">{submenuItem.name}</div>{" "}
                       </div>
                     </Link>
                   ))}
