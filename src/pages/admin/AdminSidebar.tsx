@@ -196,6 +196,7 @@ function AdminSidebar() {
                 } ${
                   menuItem.active && menuItem.submenu ? "active" : ""
                 } w-full p-2 rounded-lg hover:bg-gray-300`}
+                style={{ textDecoration: 'none' }} // add this style
               >
                 <div className="flex justify-between items-center">
                   <div className="flex gap-2 items-center">
@@ -218,6 +219,7 @@ function AdminSidebar() {
                           ? "w-full p-2 lg:pl-7 mt-2 rounded-lg bg-white font-semibold capitalize text-[14px]"
                           : "w-full p-2 lg:pl-7 mt-2 rounded-lg hover:bg-gray-300 font-semibold capitalize text-[14px]"
                       }
+                      style={{ textDecoration: 'none' }} // add this style
                     >
                       <div className="flex gap-2 items-center">
                         {submenuItem.icon}

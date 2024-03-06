@@ -28,8 +28,6 @@ function Header() {
     dispatch(logout());
   };
 
-  console.log({ user });
-
   const renderUserGreeting = () => {
     if (userLoading) {
       return (
