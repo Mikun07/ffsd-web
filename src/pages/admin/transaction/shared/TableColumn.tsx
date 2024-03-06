@@ -4,7 +4,7 @@ import PreviewData from "./PreviewData";
 import Modal from "../../../../components/modal/Modal";
 
 interface TableColumnProps {
-  data: any; // You should replace 'any' with the actual type of your 'data' prop
+  data: any;
 }
 
 function TableColumn({ data }: TableColumnProps): JSX.Element {

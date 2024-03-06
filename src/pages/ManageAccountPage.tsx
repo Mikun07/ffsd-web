@@ -19,10 +19,6 @@ function ManageAccountPage() {
     dispatch(fetchUser());
   }, []);
 
-  function signOut() {
-    dispatch(logout());
-  }
-
   function formatDate(dateString: string | null | undefined) {
     if (!dateString) return "yet to login"; // Handling null or undefined values
     const date = new Date(dateString);
@@ -256,15 +252,6 @@ function ManageAccountPage() {
                   )}
                 </div>
               </div>
-            </div>
-
-            <div className="w-full flex items-center lg:mb-16 justify-center">
-              <button
-                onClick={signOut}
-                className="p-3 bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white rounded-lg"
-              >
-                Logout
-              </button>
             </div>
           </div>
         </>

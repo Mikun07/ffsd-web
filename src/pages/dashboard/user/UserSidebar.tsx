@@ -7,8 +7,6 @@ import SchoolIcon from "../../../assets/icons/DocumentIcon";
 import ArchiveIcon from "../../../assets/icons/ArchiveIcon";
 import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
 import AccountIcon from "../../../assets/icons/AccountIcon";
-import { logout } from "../../../redux/features/loginSlice";
-import LogoutIcon from "../../../assets/icons/LogoutIcon";
 
 function UserSidebar() {
   // Extracting the current path from the location
@@ -56,11 +54,6 @@ function UserSidebar() {
     },
   ];
 
-  // Function to handle user sign out
-  function signOut() {
-    dispatch(logout());
-  }
-
   return (
     <>
       {/* Sidebar container */}
@@ -79,7 +72,7 @@ function UserSidebar() {
         </div>
 
         {/* Sidebar menu */}
-        <div className={`flex flex-col gap-1 mt-[120px]`}>
+        <div className={`flex flex-col gap-1 mt-[50px]`}>
           {menu.map((menuItem, index) => (
             <div
               key={index}
@@ -107,15 +100,6 @@ function UserSidebar() {
             </div>
           ))}
         </div>
-
-        {/* Logout button */}
-        <button
-          onClick={signOut}
-          className={`flex items-center w-full px-4 pt-2 p-1 gap-2 text-[#D43B3B]`}
-        >
-          <LogoutIcon />
-          <p className={`lg:flex md:flex hidden font-bold`}>Logout</p>
-        </button>
       </div>
     </>
   );

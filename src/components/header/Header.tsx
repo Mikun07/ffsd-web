@@ -1,12 +1,17 @@
-import { useEffect } from "react";
-import BellIcon from "../../assets/icons/BellIcon";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../redux/features/userSlice";
 import { RootState } from "../../types/redux/root";
 import { ThunkDispatch } from "@reduxjs/toolkit";
+import { AiFillCaretDown } from "react-icons/ai";
+import { adminLogout } from "../../redux/features/Admin/AdminSlice";
+import LogoutIcon from "../../assets/icons/LogoutIcon";
+import { logout } from "../../redux/features/loginSlice";
+import toast from "react-hot-toast";
 
 function Header() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const [modal, openModal] = useState(false);
 
   useEffect(() => {
     dispatch(fetchUser());
@@ -15,6 +20,15 @@ function Header() {
   const { data: user, loading: userLoading } = useSelector(
     (state: RootState) => state?.user
   );
+
+  const AdminSignOut = () => {
+    dispatch(adminLogout());
+  };
+  const signOut = () => {
+    dispatch(logout());
+  };
+
+  console.log({ user });
 
   const renderUserGreeting = () => {
     if (userLoading) {
@@ -37,18 +51,65 @@ function Header() {
     <div className="flex h-14 px-4 py-2 bg-gray-200 w-full sticky z-20 top-0 shadow-sm justify-between">
       <div className="flex items-center gap-3">{renderUserGreeting()}</div>
       <div className="flex items-center gap-3">
-        {/* <button className="bg-transparent px-1 relative">
-          <BellIcon width="25" height="25" />
-          <div className="absolute top-[-5px] left-[1px] h-4 w-4 items-center justify-center bg-[#D4973B] rounded-full">
-            <p className="text-white text-[9px] font-medium">5</p>
-          </div>
-        </button> */}
         {userLoading ? (
           <div className="h-[35px] w-[35px] animate-pulse bg-[#D4973B] rounded-full"></div>
         ) : (
-          <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center capitalize text-white">
-            <p className="font-semibold">{`${user?.firstName?.[0]?.toUpperCase()}${user?.lastName?.[0]?.toUpperCase()}`}</p>
-          </div>
+          <>
+            <div className="flex items-center gap-2">
+              <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center capitalize text-white">
+                <p className="font-semibold">{`${user?.firstName?.[0]?.toUpperCase()}${user?.lastName?.[0]?.toUpperCase()}`}</p>
+              </div>
+
+              {user?.category === "org" ||
+                user?.category === "staff" ||
+                user?.category === "student" ||
+                (user?.category === "indv" && (
+                  <>
+                    <button
+                      onClick={() => openModal(!modal)}
+                      className="text-primary"
+                    >
+                      <AiFillCaretDown />
+                    </button>
+
+                    {modal && (
+                      <div className="absolute z-20 shadow-md w-56 bg-slate-100 top-16 right-3 rounded-md">
+                        <button
+                          onClick={signOut}
+                          className={`flex items-center w-full p-2 *: gap-2 text-[#D43B3B]`}
+                        >
+                          <LogoutIcon />
+                          <p className={`flex font-bold`}>Logout</p>
+                        </button>
+                      </div>
+                    )}
+                  </>
+                ))}
+
+              {user?.is_system_admin && (
+                <>
+                  <button
+                    onClick={() => openModal(!modal)}
+                    className="text-primary"
+                  >
+                    <AiFillCaretDown />
+                  </button>
+
+                  {modal && (
+                    <div className="absolute z-20 shadow-md w-56 bg-slate-100 top-16 right-3 rounded-md">
+                      <button
+                        onClick={AdminSignOut}
+                        className={`flex items-center w-full p-2 *: gap-2 text-[#D43B3B]`}
+                      >
+                        <LogoutIcon />
+                        <p className={`flex font-bold`}>Logout</p>
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </>
         )}
       </div>
     </div>

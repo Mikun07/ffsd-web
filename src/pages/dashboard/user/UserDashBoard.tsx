@@ -140,8 +140,8 @@ function UserDashBoard() {
   const recentDocument = getRecentDocument(reverseAllDocuments);
 
   return (
-    <div className="flex flex-col h-full lg:overflow-hidden px-1 overflow-y-auto custom__scrollbar">
-      <div className="lg:flex lg:justify-between grid md:grid-cols-2 sm:grid-cols-1 sm:gap-y-4 gap-4 w-full mt-4">
+    <div className="flex flex-col h-full px-1 overflow-y-auto custom__scrollbar">
+      <div className="lg:flex lg:justify-between grid md:grid-cols-2 gap-4 w-full mt-4">
         <ManageDocumentCard
           header="Total Documents uploaded"
           headerNumber={totalDocuments.totalAllDocumentsLength}
@@ -181,15 +181,15 @@ function UserDashBoard() {
         />
       </div>
 
-      <div className="flex lg:flex-row flex-col gap-4 mt-4 w-full h-screen lg:overflow-hidden ">
-        <div className="border-4 border-slate-200 w-full rounded-lg">
-          <div className="flex justify-between p-2 h-12 items-center capitalize">
+      <div className="flex lg:flex-row flex-col gap-4 mt-4 w-full h-screen lg:overflow-hidden">
+        <div className="flex flex-col border-4 border-slate-200 w-full rounded-lg">
+          <div className="flex justify-between p-4 h-12 items-center capitalize">
             <h1 className="font-bold text-lg">Recent transaction</h1>
             <Link to={"/dashboard/transaction"} className="font-semibold">
               see more
             </Link>
           </div>
-          <div className="flex w-full h-full overflow-hidden justify-center items-center">
+          <div className="flex w-full h-full justify-center items-center">
             {loadingTransactions ? (
               <Loading className="" />
             ) : recentTransactions.length > 0 ? (
@@ -202,14 +202,14 @@ function UserDashBoard() {
           </div>
         </div>
 
-        <div className="border-4 border-slate-200 w-full h-full rounded-lg">
-          <div className="flex justify-between p-2 h-12 items-center capitalize">
+        <div className="flex flex-col border-4 border-slate-200 w-full rounded-lg">
+          <div className="flex justify-between p-4 h-12 items-center capitalize">
             <h1 className="font-bold">Recent Uploads</h1>
             <Link to={"/dashboard/document"} className="font-semibold">
               see more
             </Link>
           </div>
-          <div className="flex w-full h-full overflow-hidden justify-center items-center">
+          <div className="flex w-full h-full justify-center items-center">
             {documentLoading ? (
               <Loading className="" />
             ) : recentDocument.length > 0 ? (

@@ -33,9 +33,6 @@ const ServiceCharge = () => {
     if (!charges || charges.length === 0) {
       return (
         <div className="mx-3 mt-3 p-3 flex justify-center items-center">
-          <h2 className="capitalize text-lg font-semibold mb-4">
-            {type === "org" ? "Organization" : "Individual"}
-          </h2>
           <p>No Service Charge Available</p>
         </div>
       );

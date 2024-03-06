@@ -2,28 +2,12 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { SVGProps } from "react";
 
-// const draw = {
-//   hidden: { pathLength: 0, opacity: 0 },
-//   visible: (i) => {
-//     const delay = 1 + i * 0.5;
-//     return {
-//       pathLength: 1,
-//       opacity: 1,
-//       transition: {
-//         pathLength: { delay, type: "spring", duration: 1.5, bounce: 0 },
-//         opacity: { delay, duration: 0.01 },
-//       },
-//     };
-//   },
-// };
-
 const AnimatedLogo = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    // width={688}
-    // height={644}
     viewBox="0 0 688 644"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    style={{ width: "100%", height: "auto" }}
     {...props}
   >
     <motion.g id="Logo" initial="hidden">
@@ -40,8 +24,6 @@ const AnimatedLogo = (props: SVGProps<SVGSVGElement>) => (
           height={40}
           transform="rotate(-42.9949 288.024 536.212)"
           fill="#40B52D"
-          //   variants={draw}
-          //   custom={1}
         />
         <motion.rect
           id="Linear2"
@@ -51,8 +33,6 @@ const AnimatedLogo = (props: SVGProps<SVGSVGElement>) => (
           height={400}
           transform="rotate(-42.9949 42.5278 272.903)"
           fill="#40B52D"
-          //   variants={draw}
-          //   custom={2}
         />
         <motion.rect
           id="Linear3"
@@ -62,8 +42,6 @@ const AnimatedLogo = (props: SVGProps<SVGSVGElement>) => (
           height={40}
           transform="rotate(-42.9949 42.5278 272.903)"
           fill="#40B52D"
-          //   variants={draw}
-          //   custom={3}
         />
         <motion.rect
           id="Linear4"
@@ -73,8 +51,6 @@ const AnimatedLogo = (props: SVGProps<SVGSVGElement>) => (
           height={400}
           transform="rotate(-42.9949 305.837 27.4072)"
           fill="#40B52D"
-          //   variants={draw}
-          //   custom={4}
         />
       </motion.g>
       <motion.g
@@ -110,7 +86,6 @@ const AnimatedLogo = (props: SVGProps<SVGSVGElement>) => (
           height={35}
           transform="rotate(-42.9949 634.77 292.223)"
           fill="#D4973B"
-          //   animate={{ x: [0, 100, 0] }}
           transition={{ ease: "easeOut", duration: 4 }}
         />
       </motion.g>

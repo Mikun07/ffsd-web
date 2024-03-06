@@ -28,14 +28,14 @@ function RegisterPage() {
         <Loading />
       ) : (
         <>
-          <div className="bg-white flex h-screen">
+          <div className="bg-white flex h-screen justify-between mx-5">
             <div className="z-10 absolute lg:top-5 lg:left-[50px] top-6 left-4 flex gap-2 items-center justify-center">
               <Logo />
             </div>
 
             <LeftView />
 
-            <div className="w-full h-screen flex flex-col items-center justify-center">
+            <div className="lg:w-[50%] px-2 w-full h-screen flex flex-col items-center justify-center">
               <h4 className="text-[#40B52D] font-bold self-center">
                 Create Account
               </h4>
@@ -46,7 +46,7 @@ function RegisterPage() {
                 goTo={goTo}
               />
 
-              <div className="flex lg:w-[70%] w-full lg:px-10 px-2">{step}</div>
+              <div>{step}</div>
 
               <p className="text-[15px] font-semibold capitalize self-center">
                 I already have an account{" "}

@@ -66,7 +66,7 @@ const ManageTransactionPage = () => {
   );
 
   return (
-    <div className="flex flex-col h-full py-2 px-4">
+    <div className="flex flex-col h-full">
       <div className="flex items-center gap-2 mt-3 text-gray-800 font-semibold capitalize">
         <p className="">Manage Transaction</p>
       </div>

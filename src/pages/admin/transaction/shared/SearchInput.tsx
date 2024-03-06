@@ -85,7 +85,7 @@ const SearchInput = ({ result, setResult, data }) => {
       <div className="bg-slate-200 relative rounded-lg h-12 p-4 shadow-md flex items-center">
         <FaSearch className="text-primary cursor-pointer" />
         <input
-          className="bg-transparent border-none outline-none text-[15px] w-[300px] ml-2 py-2 text-black placeholder:text-gray-800"
+          className="bg-transparent border-none outline-none text-base md:text-lg w-full md:w-[300px] ml-2 py-2 text-black placeholder:text-gray-800"
           type="text"
           placeholder="Search..."
           value={input}
@@ -104,7 +104,7 @@ const SearchInput = ({ result, setResult, data }) => {
           {filteredData.map((searchResult, index) => (
             <div
               key={index}
-              className="flex hover:bg-gray-100 px-3 rounded-lg h-[72px] items-center justify-between"
+              className="flex hover:bg-gray-100 px-3 rounded-lg md:h-[72px] items-center justify-between"
             >
               <div className="flex items-center gap-2">
                 <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
@@ -116,7 +116,7 @@ const SearchInput = ({ result, setResult, data }) => {
                   </p>
                 </div>
                 <div className="font-medium gap-[0.5rem]">
-                  <p className="flex justify-start items-center text-[14px] text-black  font-semibold capitalize gap-2">
+                  <p className="flex justify-start items-center text-base md:text-lg text-black font-semibold capitalize gap-2">
                     {searchResult?.docOwnerFirstName}{" "}
                     {searchResult?.docOwnerLastName}
                   </p>
@@ -126,7 +126,7 @@ const SearchInput = ({ result, setResult, data }) => {
               <div className="flex flex-col font-medium items-end">
                 <div className="flex items-center justify-end gap-2 text-gray-400">
                   <p
-                    className="flex justify-end items-center text-[12px] gap-2 capitalize"
+                    className="flex justify-end items-center text-base md:text-lg gap-2 capitalize"
                     style={{
                       color: getStatusColor(searchResult?.payment_status),
                       opacity: "0.95",

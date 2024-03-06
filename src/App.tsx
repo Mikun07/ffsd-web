@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AdminLayout from "./pages/layout/AdminLayout";
 import { ADMIN_ROUTES } from "./routes/AdminRoutes";
@@ -12,8 +13,14 @@ import Loading from "./components/withStatus/loading/Loading";
 import UserLayout from "./pages/layout/UserLayout";
 import { INDIVIDUAL_ROUTES } from "./routes/IndividualRoutes";
 import ADMIN_PROTECTED from "./routes/AdminProtected";
+import useZoom from "./hooks/useZoom";
 
 function App() {
+  // const shouldZoom = useZoom();
+  // useEffect(() => {
+  //   (document.body.style as any).zoom = "75%";
+  // })
+
   return (
     <>
       <Router>
