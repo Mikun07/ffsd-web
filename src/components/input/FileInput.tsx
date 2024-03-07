@@ -43,6 +43,7 @@ const FileInput = ({
           name="files"
           accept=".pdf"
           onChange={handleFileChange}
+          required
           className="relative z-10 opacity-0 w-full h-full"
           // {...rest}
         />

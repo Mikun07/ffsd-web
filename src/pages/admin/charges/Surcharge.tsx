@@ -26,9 +26,6 @@ const Surcharge = () => {
   const { data: institutions } = useSelector(
     (state: RootState) => state?.institution
   );
-
-  console.log({institutions})
-
   const { data: user } = useSelector((state: RootState) => state?.user) as any;
 
   // Close modal handler

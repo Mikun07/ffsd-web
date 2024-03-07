@@ -199,17 +199,18 @@ function VerifyDocumentPage() {
     docUploadValueObj["documentCategory"]?.map((item, index) => ({
       title: item?.label,
       content: Object.keys(docUploadValueObj)
-        ?.filter((i) => i != "documentCategory")
+        ?.filter((i) => i !== "documentCategory")
         ?.map((contentItem) => ({
           title: contentItem,
           data:
-            docUploadValueObj[contentItem][index]?.label ||
-            docUploadValueObj[contentItem][index],
+            docUploadValueObj[contentItem]?.[index]?.label ||
+            docUploadValueObj[contentItem]?.[index],
         })),
     })) || [];
 
   let formattedReviewValues = docUploadValues
     ?.map((x) => {
+      if (!x) return null;
       const expectedKeys = Object.keys(getFormDataContent(x?.title) ?? []);
       const providedContent = x?.content || [];
 
@@ -249,12 +250,7 @@ function VerifyDocumentPage() {
   ];
 
   const formSteps = [
-    <DocumentDetails
-      setValue={setValue}
-      isValid={isValid}
-      errors={errors}
-      register={register}
-    />,
+    <DocumentDetails setValue={setValue} errors={errors} register={register} />,
     <UploadDocument
       defaultFileSections={docUploadValueObj.documentCategory}
       setValue={docUploadSetValue}
@@ -293,7 +289,7 @@ function VerifyDocumentPage() {
       middleName: documentDetailsValues?.middleName,
       dob: documentDetailsValues?.dob,
       // education
-      fileDocEduc: docUploadValueObj?.fileDocEduc?.map((doc) => doc[0]),
+      fileDocEduc: docUploadValueObj?.fileDocEduc?.map((doc) => doc[0]) || [],
       fileTypeEduc: docUploadValueObj?.fileTypeEduc?.map((type) => type?.value),
       matricNumber: docUploadValueObj?.matricNumber,
       schoolCountryEduc: docUploadValueObj?.schoolCountryEduc?.map(
@@ -310,7 +306,7 @@ function VerifyDocumentPage() {
       courseOrSubject: docUploadValueObj?.courseOrSubject,
 
       // Professional Certification
-      fileDocProf: docUploadValueObj?.fileDocProf?.map((doc) => doc[0]),
+      fileDocProf: docUploadValueObj?.fileDocProf?.map((doc) => doc[0]) || [],
       schoolNameProf: docUploadValueObj?.schoolNameProf?.map(
         (type) => type?.value
       ),
@@ -330,7 +326,7 @@ function VerifyDocumentPage() {
       finName: docUploadValueObj?.finName,
       finInfo: docUploadValueObj?.finInfo,
       finCountry: docUploadValueObj?.finCountry?.map((type) => type?.value),
-      fileDocFin: docUploadValueObj?.fileDocFin?.map((doc) => doc[0]),
+      fileDocFin: docUploadValueObj?.fileDocFin?.map((doc) => doc[0]) || [],
     };
     const formData = new FormData();
 
@@ -356,7 +352,8 @@ function VerifyDocumentPage() {
       middleName: documentDetailsValues?.middleName,
       dob: documentDetailsValues?.dob,
       // education
-      fileDocEduc: docUploadValueObj?.fileDocEduc?.map((doc) => doc[0]),
+      fileDocEduc: docUploadValueObj?.fileDocEduc?.map((doc) => doc[0]) || [],
+
       fileTypeEduc: docUploadValueObj?.fileTypeEduc?.map((type) => type?.value),
       matricNumber: docUploadValueObj?.matricNumber,
       schoolCountryEduc: docUploadValueObj?.schoolCountryEduc?.map(
@@ -373,7 +370,7 @@ function VerifyDocumentPage() {
       courseOrSubject: docUploadValueObj?.courseOrSubject,
 
       // Professional Certification
-      fileDocProf: docUploadValueObj?.fileDocProf?.map((doc) => doc[0]),
+      fileDocProf: docUploadValueObj?.fileDocProf?.map((doc) => doc[0]) || [],
       schoolNameProf: docUploadValueObj?.schoolNameProf?.map(
         (type) => type?.value
       ),
@@ -393,7 +390,7 @@ function VerifyDocumentPage() {
       finName: docUploadValueObj?.finName,
       finInfo: docUploadValueObj?.finInfo,
       finCountry: docUploadValueObj?.finCountry?.map((type) => type?.value),
-      fileDocFin: docUploadValueObj?.fileDocFin?.map((doc) => doc[0]),
+      fileDocFin: docUploadValueObj?.fileDocFin?.map((doc) => doc[0]) || [],
       tranx_ref: reference,
     };
     const formData = new FormData();
@@ -416,12 +413,13 @@ function VerifyDocumentPage() {
     });
   }
 
-  function onPaystackSuccess(repsonse) {
-    if (repsonse?.status && repsonse?.status == "success") {
-      const { reference } = repsonse;
+  function onPaystackSuccess(response) {
+    if (response?.status && response?.status == "success") {
+      const { reference } = response;
       // @ts-ignore
       dispatch(confirmPayment({ reference })).then((result) => {
         const { payload } = result;
+        toast("Document uploading; delay expected.");
         const success = Boolean(payload?.success);
         if (success === true) {
           toast.success(payload?.message || "Transaction Confirmed");
@@ -473,9 +471,9 @@ function VerifyDocumentPage() {
               </>
             ) : !isLastStep ? (
               <div className="w-full py-2 justify-end flex">
+                {JSON.stringify(isValid)}
                 <Button
-                  disabled={!isValid}
-                  // disabled={docUploadIsValid}
+                  disabled={isFirstStep ? !isValid : !docUploadIsValid}
                   onClick={next}
                 >
                   {title.buttonText}

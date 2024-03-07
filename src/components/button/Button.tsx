@@ -19,7 +19,7 @@ const Button: FC<ButtonProps> = ({
   }, [className]);
 
   const loadingClassNames = useMemo(() => {
-    return `p-2 rounded flex items-center justify-center w-[100px] h-8 text-sm bg-transparent text-[#40B52D] ${className}`;
+    return `p-2 rounded flex items-center justify-center w-full h-8 text-sm bg-transparent text-[#40B52D] ${className}`;
   }, [className]);
 
   return (

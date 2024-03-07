@@ -11,8 +11,6 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
   const [editModal, setEditModal] = useState(false);
   const handleOnClose = () => [setShowModal(false), setEditModal(false)];
 
-  console.log({ data });
-
   return (
     <>
       <div
