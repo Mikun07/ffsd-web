@@ -2,18 +2,23 @@ import React from "react";
 import ErrorIMG from "../../../assets/ErrorIMG";
 import { startCase } from "lodash";
 
-
-function Error({ label = "", ...rest}) {
+function Error({ label = "", ...rest }) {
   const title = startCase(label);
   return (
     <div className="flex gap-2 flex-col w-full h-screen justify-center items-center">
-      <div className="w-[540px]">
+      <div className="w-[400px]">
         <ErrorIMG />
       </div>
       <div>
-        <h1 className=" capitalize font-medium">
-          {title}
-        </h1>
+        <h1 className="capitalize font-medium">{title}</h1>
+      </div>
+      <div>
+        <button
+          onClick={() => window.location.reload()}
+          className="w-24 h-10 capitalize bg-primary text-white rounded-lg"
+        >
+          Refresh
+        </button>
       </div>
     </div>
   );

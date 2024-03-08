@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from "react";
-import ErrorIMG from "../../../assets/ErrorIMG";
+import Error from "./Error";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -24,16 +24,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="flex gap-2 flex-col w-full h-screen justify-center items-center">
-          <div className="lg:w-[540px] md:w-[440px] sm:w-[340px] w-[240px]">
-            <ErrorIMG />
-          </div>
-          <div>
-            <h1 className=" capitalize font-medium">
-              Oops something went wrong...
-            </h1>
-          </div>
-        </div>
+        <Error label="Oops something went wrong..."/>
       );
     }
     return this.props.children || null;

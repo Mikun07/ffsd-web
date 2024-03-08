@@ -194,7 +194,6 @@ function VerifyDocumentPage() {
 
   const docUploadValueObj = docUploadWatch();
   const documentDetailsValues = watch();
-
   const docUploadValues =
     docUploadValueObj["documentCategory"]?.map((item, index) => ({
       title: item?.label,
@@ -471,9 +470,8 @@ function VerifyDocumentPage() {
               </>
             ) : !isLastStep ? (
               <div className="w-full py-2 justify-end flex">
-                {JSON.stringify(isValid)}
                 <Button
-                  disabled={isFirstStep ? !isValid : !docUploadIsValid}
+                  disabled={!isValid}
                   onClick={next}
                 >
                   {title.buttonText}

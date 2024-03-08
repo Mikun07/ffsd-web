@@ -220,7 +220,7 @@ function OrgDashBoard() {
                 see more
               </Link>
             </div>
-            <div className="flex w-full h-full justify-center items-center">
+            <div className="flex w-full h-full justify-center items-center overflow-y-auto custom__scrollbar p-1">
               {loadingTransactions ? (
                 <Loading className="" />
               ) : recentTransactions.length > 0 ? (
@@ -239,7 +239,7 @@ function OrgDashBoard() {
                 see more
               </Link>
             </div>
-            <div className="flex w-full h-full justify-center items-center">
+            <div className="flex w-full h-full justify-center items-center overflow-y-auto custom__scrollbar p-1">
               {documentLoading ? (
                 <Loading className="" />
               ) : recentDocument.length > 0 ? (
