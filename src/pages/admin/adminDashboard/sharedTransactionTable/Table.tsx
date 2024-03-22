@@ -4,7 +4,7 @@ import TablePartition from "./TablePartition";
 function Table({ tableData }) {
   return (
     <>
-      <div className="w-full h-full p-2">
+      <div className="w-full h-full">
         <TablePartition data={tableData} />
       </div>
     </>

@@ -18,6 +18,7 @@ const initialState: LoginState = {
 export const postLogin = createAsyncThunk("login/postSignUp", async (body) => {
   try {
     const response = await axios.post(`${BASE_URL}/login`, body);
+    console.log(response?.data);
     return response?.data;
   } catch (error) {
     return error?.response?.data;

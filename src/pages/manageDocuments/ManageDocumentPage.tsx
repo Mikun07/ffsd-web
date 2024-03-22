@@ -78,19 +78,19 @@ function ManageDocumentPage() {
           ...doc,
           userInfo: item.user.info,
           status: doc.status,
-          tag: "Educational Document",
+          tag: "Educational",
         })),
         ...financialDocuments.map((doc) => ({
           ...doc,
           userInfo: item.user.info,
           status: doc.status,
-          tag: "Financial Document",
+          tag: "Financial",
         })),
         ...professionalDocuments.map((doc) => ({
           ...doc,
           userInfo: item.user.info,
           status: doc.status,
-          tag: "Professional Document",
+          tag: "Professional",
         })),
       ];
 
@@ -171,12 +171,9 @@ function ManageDocumentPage() {
           />
         </div>
         <div className="flex flex-col mt-4 h-screen overflow-hidden">
-          <div className="w-full h-screen overflow-hidden">
+          <div className="w-full h-screen overflow-y-auto custom__scrollbar">
             {/* Search and filter section */}
-            <div className="h-16 w-full text-black rounded-t-lg flex justify-between items-center">
-              {/* <h3 className="font-semibold capitalize leading-5 tracking-wide">
-                verification history
-              </h3> */}
+            <div className="h-16 w-full bg-white z-20 text-black rounded-t-lg flex justify-between items-center sticky top-0">
               <div className="flex gap-2">
                 {/* Search input */}
                 <SearchInput
@@ -188,7 +185,7 @@ function ManageDocumentPage() {
             </div>
 
             {/* Table displaying document data */}
-            <div className="flex w-full h-full overflow-hidden justify-center items-center">
+            <div className="flex w-full h-full justify-center items-center">
               {documentLoading ? (
                 <Loading className="" />
               ) : currentDocuments.length > 0 ? (

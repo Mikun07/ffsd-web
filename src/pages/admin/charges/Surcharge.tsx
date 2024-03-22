@@ -109,7 +109,7 @@ const Surcharge = () => {
                   <div className="flex items-center justify-between">
                     <span>
                       {" "}
-                      <span>&#36;</span> {charge?.institution_charge}
+                      <span>&#8358;</span> {charge?.institution_charge}
                     </span>
                     {(user?.is_system_admin === "1" ||
                       user?.system_admin_type === "1") && (

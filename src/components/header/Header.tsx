@@ -7,7 +7,6 @@ import { AiFillCaretDown } from "react-icons/ai";
 import { adminLogout } from "../../redux/features/Admin/AdminSlice";
 import LogoutIcon from "../../assets/icons/LogoutIcon";
 import { logout } from "../../redux/features/loginSlice";
-import toast from "react-hot-toast";
 
 function Header() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();

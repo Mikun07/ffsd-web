@@ -146,7 +146,7 @@ function AdminDashBoard() {
   return (
     <>
       <div className="flex flex-col h-full px-1 overflow-y-auto custom__scrollbar">
-        <div className="lg:flex lg:justify-between grid md:grid-cols-2 gap-4 w-full mt-4">
+        <div className="lg:flex lg:justify-between grid md:grid-cols-1 gap-4 w-full mt-4">
           <ManageDocumentCard
             header="Documents uploaded"
             headerNumber={totalAllDocuments}

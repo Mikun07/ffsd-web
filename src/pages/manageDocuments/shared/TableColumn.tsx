@@ -44,16 +44,17 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
                 data?.userInfo?.docOwnerLastName[0]}
             </p>
           </div>
-          <div className="font-medium gap-[0.5rem]">
+
+          <div className="font-medium gap-2">
             <h5 className="text-[16px] font-bold text-black capitalize">
               {data?.userInfo?.docOwnerFirstName}{" "}
               {data?.userInfo?.docOwnerLastName}
             </h5>
             <div className="flex items-center gap-2">
-              <p className="flex justify-end items-center text-[12px] text-gray-400 font-semibold capitalize gap-2">
+              <p className="flex justify-end items-center lg:text-[12px] text-xs tracking-tighter text-gray-400 font-semibold capitalize">
                 {data?.tag}
               </p>
-              <span className="w-1 h-1 rounded-full text-[14px] bg-black"></span>
+              <span className="w-1 h-1 rounded-full  bg-black"></span>
               <p
                 className="flex justify-end items-center text-[12px] gap-2 capitalize"
                 style={{

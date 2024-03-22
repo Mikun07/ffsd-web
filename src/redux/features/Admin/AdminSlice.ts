@@ -15,7 +15,7 @@ const initialState: AdminLoginState = {
   loading: false,
 };
 
-export const postAdminLogin = createAsyncThunk("login/postAdminSignUp", async (body) => {
+export const postAdminLogin = createAsyncThunk("admin/login/postAdminSignUp", async (body) => {
   try {
     const response = await axios.post(`${BASE_URL}/system/admin/login`, body);
     return response.data;

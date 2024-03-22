@@ -35,19 +35,21 @@ function OrgSidebar() {
     dispatch(fetchUser());
   }, [dispatch]);
 
-  const toggleSubmenu = (submenuKey: keyof typeof submenuOpen) => {
+  const toggleSubmenu = (submenuKey) => {
     setSubmenuOpen((prevState) => {
-      const updatedSubmenuOpen: { [key: string]: boolean } = {};
+      const updatedSubmenuOpen = { ...prevState };
 
-      updatedSubmenuOpen[submenuKey] = !prevState[submenuKey];
-
-      Object.keys(prevState).forEach((key) => {
+      // Close all other submenus
+      Object.keys(updatedSubmenuOpen).forEach((key) => {
         if (key !== submenuKey) {
           updatedSubmenuOpen[key] = false;
         }
       });
 
-      return updatedSubmenuOpen as typeof prevState; // Type assertion
+      // Toggle the clicked submenu
+      updatedSubmenuOpen[submenuKey] = !prevState[submenuKey];
+
+      return updatedSubmenuOpen;
     });
   };
 
@@ -72,7 +74,7 @@ function OrgSidebar() {
       active: isMenuActive("/org/staff"),
     },
     {
-      name: "Manage Transaction",
+      name: "Transaction History",
       url: "/org/transaction",
       icon: <ReceiptIcon width="25" height="25" />,
       active: isMenuActive("/org/transaction"),
@@ -158,9 +160,10 @@ function OrgSidebar() {
                     ? "submenu-open"
                     : ""
                 } ${
-                  menuItem.active && menuItem.submenu ? "active" : ""
-                } w-full p-2 rounded-lg hover:bg-gray-300`}
-                style={{ textDecoration: "none" }} 
+                  menuItem.active
+                    ? "w-full p-2 rounded-lg bg-white text-primary"
+                    : "w-full p-2 rounded-lg hover:bg-gray-300"
+                }`}
               >
                 <div className="flex justify-between items-center">
                   <div className="flex gap-2 items-center">
@@ -172,7 +175,6 @@ function OrgSidebar() {
                   {menuItem.submenu && <BsFillCaretDownFill />}
                 </div>
                 <div className="tooltip-text">{menuItem.name}</div>{" "}
-                {/* Add this */}
               </Link>
               {menuItem.submenu && submenuOpen[menuItem.name.toLowerCase()] && (
                 <div className="flex flex-col w-full">
@@ -185,7 +187,9 @@ function OrgSidebar() {
                           ? "w-full p-2 lg:pl-7 mt-2 rounded-lg bg-white font-semibold capitalize text-[14px]"
                           : "w-full p-2 lg:pl-7 mt-2 rounded-lg hover:bg-gray-300 font-semibold capitalize text-[14px]"
                       }`}
-                      style={{ textDecoration: "none" }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
                     >
                       <div className="flex justify-between items-center">
                         <div className="flex gap-2 items-center">

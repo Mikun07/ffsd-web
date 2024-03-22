@@ -10,13 +10,9 @@ import ArchiveIcon from "../../../assets/icons/ArchiveIcon";
 import SchoolIcon from "../../../assets/icons/SchoolIcon";
 import AccountIcon from "../../../assets/icons/AccountIcon";
 
-function AdminSidebar() {
+function UserSidebar() {
   const location = useLocation();
   const dispatch = useDispatch();
-
-  const { data: user, loading: loadingMenu } = useSelector(
-    (state: RootState) => state?.user
-  ) as any;
 
   useEffect(() => {
     //@ts-ignore
@@ -32,7 +28,7 @@ function AdminSidebar() {
       name: "dashboard",
       url: "/dashboard",
       icon: <DashboardIcon width="25" height="25" />,
-      active: isMenuActive("/admin/dashboard"),
+      active: isMenuActive("/dashboard"),
     },
     {
       name: "Verify Documents",
@@ -41,7 +37,7 @@ function AdminSidebar() {
       active: isMenuActive("/dashboard/verifydocument"),
     },
     {
-      name: "Manage Transactions",
+      name: "Transactions History",
       url: "/dashboard/transaction",
       icon: <ReceiptIcon width="25" height="25" />,
       active: isMenuActive("/dashboard/transaction"),
@@ -84,9 +80,10 @@ function AdminSidebar() {
               <Link
                 to={menuItem.url}
                 className={`link-tooltip ${
-                  menuItem.active ? "active" : ""
-                } w-full p-2 rounded-lg hover:bg-gray-300`}
-                style={{ textDecoration: "none" }}
+                  menuItem.active
+                    ? "active w-full p-2 rounded-lg bg-white text-primary"
+                    : "w-full p-2 rounded-lg hover:bg-gray-300"
+                }`}
               >
                 <div className="flex justify-between items-center">
                   <div className="flex gap-2 items-center">
@@ -96,7 +93,6 @@ function AdminSidebar() {
                     </p>
                   </div>
                   <div className="tooltip-text">{menuItem.name}</div>{" "}
-                  {/* Add this */}
                 </div>
               </Link>
             </div>
@@ -107,4 +103,4 @@ function AdminSidebar() {
   );
 }
 
-export default AdminSidebar;
+export default UserSidebar;

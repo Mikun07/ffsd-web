@@ -9,7 +9,7 @@ function Logo() {
       </div>
       <p className="flex flex-col cursor-pointer font-bold leading-3 tracking-tight capitalize text-[12px] text-[#40B52D]">
         Document And Qualification Verification 
-        <span className="text-[#D4973B]">LTD</span>
+        {/* <span className="text-[#D4973B]">LTD</span> */}
       </p>
     </>
   );

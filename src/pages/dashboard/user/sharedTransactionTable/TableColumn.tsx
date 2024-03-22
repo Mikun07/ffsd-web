@@ -28,26 +28,26 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
     <>
       <div
         onClick={() => setShowModal(true)}
-        className="flex hover:bg-gray-100 px-3 rounded-lg h-[72px] items-center justify-between"
+        className="flex hover:bg-gray-100 px-2 rounded-lg h-[72px] items-center justify-between"
       >
         <div className="flex items-center gap-2">
-          <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
+          <div className="lg:h-[40px] lg:w-[40px] w-[30px] h-[30px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
             <p className="font-semibold">
               {data?.docOwnerFirstName && data?.docOwnerFirstName[0]}
               {data?.docOwnerLastName && data?.docOwnerLastName[0]}
             </p>
           </div>
           <div className="font-medium gap-4">
-            <h5 className="text-[16px] font-bold text-black capitalize">
+            <h5 className="lg:text-base text-sm font-bold text-black capitalize">
               {data?.docOwnerFirstName} {data?.docOwnerLastName}
             </h5>
             <div className="flex items-center gap-2">
-              <p className="flex justify-end items-center text-[12px] text-gray-400 font-semibold capitalize gap-2">
+              <p className="flex justify-end items-center lg:text-[12px] text-[9px] text-gray-400 font-semibold capitalize gap-2">
                 {`${data?.currency}${" "}${data?.fee}`}
               </p>
               <span className="w-1 h-1 rounded-full text-[14px] bg-black"></span>
               <p
-                className="flex justify-end items-center text-[12px] gap-2 capitalize"
+                className="flex justify-end items-center lg:text-[12px] text-[9px] gap-2 capitalize"
                 style={{
                   color: getStatusColor(data?.payment_status),
                   opacity: "0.95",
@@ -60,10 +60,10 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
         </div>
 
         <div className="flex flex-col font-medium justify-end items-end gap-2">
-          <p className="flex items-center text-[12px] text-black font-medium uppercase">
+          <p className="flex items-center lg:text-[12px] text-[9px] text-black font-medium uppercase">
             {data?.ref_id}
           </p>
-          <p className="flex items-center text-[12px] text-black gap-2">
+          <p className="flex items-center lg:text-[12px] text-[9px] text-black gap-2">
             {new Date(data?.transaction_time).toLocaleDateString()}
           </p>
         </div>

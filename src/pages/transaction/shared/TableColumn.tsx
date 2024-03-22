@@ -44,6 +44,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
             <div className="flex items-center gap-2">
               <p className="flex justify-end items-center text-[12px] text-gray-400 font-semibold capitalize gap-2">
                 {`${data?.currency}${" "}${data?.fee}`}
+                {/*curre */}
               </p>
               <span className="w-1 h-1 rounded-full text-[14px] bg-black"></span>
               <p

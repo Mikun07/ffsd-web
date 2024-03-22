@@ -51,7 +51,7 @@ function PreviewData({ data }) {
         <div className="flex flex-col gap-6 pb-6 capitalize">
           <TextInput
             disabled
-            label="First Name"
+            label="Name"
             value={`${data?.userInfo?.docOwnerFirstName} ${data?.userInfo?.docOwnerMiddleName} ${data?.userInfo?.docOwnerLastName}`}
             inputClassName="capitalize"
           />
@@ -71,7 +71,7 @@ function PreviewData({ data }) {
 
           <TextInput
             disabled
-            label="Reference ID"
+            label="Transaction ID"
             value={data?.application_id}
             inputClassName="uppercase"
           />
@@ -117,7 +117,7 @@ function PreviewData({ data }) {
             <>
               <TextInput
                 disabled
-                label="School"
+                label="institution"
                 value={data?.doc_verifier_name}
                 inputClassName="capitalize"
               />
@@ -164,19 +164,19 @@ function PreviewData({ data }) {
             <>
               <TextInput
                 disabled
-                label="School"
+                label="institution"
                 value={data?.verifier_name}
                 inputClassName="capitalize"
               />
               <TextInput
                 disabled
-                label="School location"
+                label="institution location"
                 value={data?.verifier_city}
                 inputClassName="capitalize"
               />
               <TextInput
                 disabled
-                label="School Country"
+                label="institution Country"
                 value={data?.country_name}
                 inputClassName="capitalize"
               />
@@ -189,7 +189,7 @@ function PreviewData({ data }) {
 
               <TextInput
                 disabled
-                label="Course Study"
+                label="Course of Study"
                 value={data?.course}
                 inputClassName="capitalize"
               />

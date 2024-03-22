@@ -52,7 +52,7 @@ const AdminLoginPage = () => {
             </div>
             <p className="flex flex-col cursor-pointer font-bold leading-5 tracking-tight capitalize lg:text-[15px] text-[#40B52D]">
               Document And Qualification Verification LTD
-              <span className="text-[#D4973B]">Admin</span>
+              {/* <span className="text-[#D4973B]">Admin</span> */}
             </p>
           </div>
 

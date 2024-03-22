@@ -23,19 +23,18 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
   };
 
   function viewContent(data): void {
-    const {doc_type, id, doc_owner_id} = data; 
-    navigate(`/admin/document/document/${doc_type}/${id}/${doc_owner_id}`)
+    const { doc_type, id, doc_owner_id } = data;
+    navigate(`/admin/document/document/${doc_type}/${id}/${doc_owner_id}`);
   }
-  
 
   return (
     <>
       <div
-      onClick={() => viewContent(data)}
-        className="flex hover:bg-gray-100 px-3 rounded-lg h-[72px] items-center justify-between"
+        onClick={() => viewContent(data)}
+        className="flex hover:bg-gray-100 px-2 rounded-lg h-[72px] items-center justify-between"
       >
         <div className="flex items-center gap-2">
-          <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
+          <div className="lg:h-[40px] lg:w-[40px] w-[30px] h-[30px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
             <p className="font-semibold">
               {data?.userInfo?.docOwnerFirstName &&
                 data?.userInfo?.docOwnerFirstName[0]}
@@ -44,17 +43,17 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
             </p>
           </div>
           <div className="font-medium gap-[0.5rem]">
-            <h5 className="text-[16px] font-bold text-black capitalize">
+            <h5 className="lg:text-base text-sm font-bold text-black capitalize">
               {data?.userInfo?.docOwnerFirstName}{" "}
               {data?.userInfo?.docOwnerLastName}
             </h5>
             <div className="flex items-center gap-2">
-              <p className="flex justify-end items-center text-[12px] text-gray-400 font-semibold capitalize gap-2">
+              <p className="flex justify-end items-center lg:text-[12px] text-[9px] text-gray-400 font-semibold capitalize gap-2">
                 {data?.tag}
               </p>
               <span className="w-1 h-1 rounded-full text-[14px] bg-black"></span>
               <p
-                className="flex justify-end items-center text-[12px] gap-2 capitalize"
+                className="flex justify-end items-center lg:text-[12px] text-[9px] gap-2 capitalize"
                 style={{
                   color: getStatusColor(data?.status),
                   opacity: "0.95",
@@ -66,19 +65,14 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
           </div>
         </div>
 
-        <div className="flex flex-col font-medium">
+        <div className="flex flex-col font-medium items-end">
           <p className="flex items-center text-[12px] text-black gap-2">
             {new Date(data?.created_at).toLocaleDateString()}
           </p>
           <div className="flex items-center justify-end gap-1">
-            <p className="flex items-center text-[12px] text-black uppercase">
-              <span className="text-black">#</span>
-              {data?.ref_id?.split("/")[1]}
+            <p className="flex items-center lg:text-[12px] text-[9px] text-black uppercase">
+              {data?.ref_id}
             </p>
-            {/* <span className="w-1 h-1 rounded-full bg-black"></span> */}
-            {/* <p className="flex justify-end items-center text-[12px] text-black font-semibold capitalize gap-2">
-              {data?.Tag}
-            </p> */}
           </div>
         </div>
       </div>

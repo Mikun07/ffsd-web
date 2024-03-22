@@ -65,7 +65,7 @@ const ServiceCharge = () => {
               <td className="px-6 py-4 whitespace-nowrap slashed-zero">
                 <div className="flex items-center justify-between">
                   <p>
-                    <span>&#36;</span> {charge.doc_charge}
+                    <span>&#8358;</span> {charge.doc_charge}
                   </p>
                   {(user?.is_system_admin === "1" ||
                     user?.system_admin_type === "1") && (

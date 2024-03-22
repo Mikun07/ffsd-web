@@ -18,32 +18,32 @@ const PreviewData = ({ data }) => {
   return (
     <>
       {/* <div className="capitalize "></div> */}
-      <div className="flex flex-col justify-between h-full px-2 w-full">
+      <div className="flex flex-col justify-between h-full px-2 w-ful overflow-y-auto custom__scrollbar">
         <div className="flex flex-col gap-6 capitalize">
           <TextInput
             disabled
-            label="Owner of organization"
+            label="Authorized Personal"
             value={`${data?.lastName} ${data?.firstName}`}
             inputClassName="capitalize"
           />
           <TextInput
             disabled
-            label="company_name"
+            label="Institution_name"
             value={data?.company_name}
             inputClassName="uppercase"
           />
-          <TextInput disabled label="Email Address" value={data?.email} />
-          <TextInput disabled label="Phone Number" value={data?.phone} />
+          <TextInput disabled label="Institution Email Address" value={data?.email} />
+          <TextInput disabled label="Institution contact number" value={data?.phone} />
           <TextInput
             disabled
-            label="company_industry"
+            label="Institution_industry"
             value={data?.company_industry}
             inputClassName="capitalize"
           />
           <TextInput
             disabled
-            label="company_ID"
-            value={`#${data?.company_ref}`}
+            label="Institution_ID"
+            value={`${data?.company_ref}`}
             inputClassName="uppercase"
           />
           <TextInput

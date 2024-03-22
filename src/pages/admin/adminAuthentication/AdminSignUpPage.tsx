@@ -148,7 +148,7 @@ const AdminSignUpPage = () => {
               </div>
               <p className="flex flex-col cursor-pointer font-bold lg:leading-5 leading-3 tracking-tight capitalize lg:text-[15px] text-[12px] text-[#40B52D]">
                 Document And Qualification Verification LTD
-                <span className="text-[#D4973B]">Admin</span>
+                {/* <span className="text-[#D4973B]">Admin</span> */}
               </p>
             </div>
 

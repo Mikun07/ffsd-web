@@ -10,11 +10,11 @@ const ADMIN_PROTECTED = () => {
     !!userToken;
 
   const location = useLocation();
-  return isAdminLoggedIn ? (
-    <Outlet />
-  ) : (
-    <Navigate to={"/login/admin"} state={{ from: location }} replace />
-  );
+  if (isAdminLoggedIn) {
+    return <Outlet />;
+  } else {
+    return <Navigate to={"/login/admin"} state={{ from: location }} replace />;
+  }
 };
 
-export default ADMIN_PROTECTED
+export default ADMIN_PROTECTED;

@@ -16,17 +16,9 @@ function UserDashBoard() {
   const { data: upload, loading: documentLoading } = useSelector(
     (state: RootState) => state?.document
   );
-  const { data: user, loading: userLoading } = useSelector(
-    (state: RootState) => state?.user
-  );
-  const { data: staff, loading: loadingStaff } = useSelector(
-    (state: RootState) => state?.getStaff
-  );
+ 
   const { data: transactions, loading: loadingTransactions } = useSelector(
     (state: RootState) => state?.getTransaction
-  );
-  const { data: referrals, loading: loadingReferrals } = useSelector(
-    (state: RootState) => state?.monitorReferrals
   );
 
   useEffect(() => {
@@ -182,14 +174,14 @@ function UserDashBoard() {
       </div>
 
       <div className="flex lg:flex-row flex-col gap-4 mt-4 w-full h-screen lg:overflow-hidden">
-        <div className="flex flex-col border-4 border-slate-200 w-full rounded-lg">
-          <div className="flex justify-between p-4 h-12 items-center capitalize">
+        <div className="flex flex-col border-4 border-slate-200 w-full rounded-lg overflow-y-auto custom__scrollbar">
+          <div className="flex justify-between p-4 h-12 items-center capitalize sticky top-0 bg-white">
             <h1 className="font-bold text-lg">Recent transaction</h1>
             <Link to={"/dashboard/transaction"} className="font-semibold">
               see more
             </Link>
           </div>
-          <div className="flex w-full h-full justify-center items-center overflow-y-auto custom__scrollbar p-1">
+          <div className="flex w-full h-full justify-center items-center">
             {loadingTransactions ? (
               <Loading className="" />
             ) : recentTransactions.length > 0 ? (
@@ -202,14 +194,14 @@ function UserDashBoard() {
           </div>
         </div>
 
-        <div className="flex flex-col border-4 border-slate-200 w-full rounded-lg">
-          <div className="flex justify-between p-4 h-12 items-center capitalize">
+        <div className="flex flex-col border-4 border-slate-200 w-full rounded-lg overflow-y-auto custom__scrollbar">
+          <div className="flex justify-between p-4 h-12 items-center capitalize sticky top-0 bg-white">
             <h1 className="font-bold text-lg">Recent Uploads</h1>
             <Link to={"/dashboard/document"} className="font-semibold">
               see more
             </Link>
           </div>
-          <div className="flex w-full h-full justify-center items-center overflow-y-auto custom__scrollbar p-1">
+          <div className="flex w-full h-full justify-center items-center">
             {documentLoading ? (
               <Loading className="" />
             ) : recentDocument.length > 0 ? (

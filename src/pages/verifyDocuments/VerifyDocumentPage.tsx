@@ -418,11 +418,11 @@ function VerifyDocumentPage() {
       // @ts-ignore
       dispatch(confirmPayment({ reference })).then((result) => {
         const { payload } = result;
-        toast("Document uploading; delay expected.");
+        toast("Document uploading, this may take a while.");
         const success = Boolean(payload?.success);
         if (success === true) {
           toast.success(payload?.message || "Transaction Confirmed");
-          toast("Document uploading; delay expected.");
+          toast("Document uploading, this may take a while.");
           verifyDocuments(reference);
         } else {
           toast.error(payload.error || "Upload Failed");
@@ -470,10 +470,7 @@ function VerifyDocumentPage() {
               </>
             ) : !isLastStep ? (
               <div className="w-full py-2 justify-end flex">
-                <Button
-                  disabled={!isValid}
-                  onClick={next}
-                >
+                <Button disabled={!isValid} onClick={next}>
                   {title.buttonText}
                 </Button>
               </div>
