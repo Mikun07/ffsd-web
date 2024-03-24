@@ -1,6 +1,6 @@
 import { lazy } from "react";
 const AdminDashboard = lazy(
-  () => import("../pages/admin/adminDashboard/AdminDashBoard")
+  () => import("../pages/admin/AdminDashBoard")
 );
 const AdminAccountPage = lazy(() => import("../pages/ManageAccountPage"));
 const AdminArchiveDocumentPage = lazy(
@@ -18,9 +18,7 @@ const AdminVerifiedDocumentPage = lazy(
 const AdminManageUserPage = lazy(
   () => import("../pages/admin/AdminManageUserPage")
 );
-const AdminReceiptsPage = lazy(
-  () => import("../pages/admin/AdminReceiptsPage")
-);
+
 const AdminManageAccountPage = lazy(
   () => import("../pages/admin/AdminManageUserPage")
 );
@@ -28,23 +26,23 @@ const AdminMangeDocumentPage = lazy(
   () => import("../pages/admin/manageDocuments/AdminManageDocumentPage")
 );
 const AdminGetDocumentById = lazy(
-  () => import("../pages/admin/manageDocuments/shared/PreviewData")
+  () => import("../components/table/adminManageDocumentTable/PreviewData")
 );
 const AdminManageOrganizationUser = lazy(
-  () => import("../pages/admin/adminManageUser/organizations/OrganizationUser")
+  () => import("../pages/admin/adminManageUser/OrganizationUser")
 );
 const AdminManageAdminUser = lazy(
-  () => import("../pages/admin/adminManageUser/admin/AdminUser")
+  () => import("../pages/admin/adminManageUser/AdminUser")
 );
 const AdminManageIndividualUser = lazy(
-  () => import("../pages/admin/adminManageUser/individual/IndividualUser")
+  () => import("../pages/admin/adminManageUser/IndividualUser")
 );
 const ServiceCharge = lazy(
   () => import("../pages/admin/charges/ServiceCharge")
 );
 const SurCharge = lazy(() => import("../pages/admin/charges/Surcharge"));
 const AdminManageTransactionPage = lazy(
-  () => import("../pages/admin/transaction/ManageTransactionPage")
+  () => import("../pages/admin/ManageTransactionPage")
 );
 
 const AdminDashBoardRoute = {
@@ -65,11 +63,6 @@ const AdminManageUserPageRoute = {
   isAdminProtected: true,
 };
 
-const AdminReceiptsPageRoute = {
-  link: "/admin/receipts",
-  element: <AdminReceiptsPage />,
-  isAdminProtected: true,
-};
 
 const AdminManageTransactionPageRoute = {
   link: "/admin/transaction",
@@ -153,7 +146,6 @@ export const ADMIN_ROUTES = [
   AdminArchiveDocumentPageRoute,
   AdminAccountPageRoute,
   AdminManageUserPageRoute,
-  AdminReceiptsPageRoute,
   AdminManageAccountPageRoute,
   AdminManageDocumentPageRoute,
   AdminQueriedDocumentPageRoute,

@@ -1,11 +1,11 @@
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../types/redux/root";
-import { fetchTransaction } from "../../redux/features/getTransactionSlice";
-import Loading from "../../components/withStatus/loading/Loading";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
-import Table from "../../components/table/mangeTransactionTable/Table";
+import Table from "../../components/table/adminMangeTransactionTable/Table";
+import { adminFetchTransaction } from "../../redux/features/Admin/adminGetTransactionSlice";
+import { RootState } from "../../types/redux/root";
+import Loading from "../../components/withStatus/loading/Loading";
 import SearchInput from "../../components/input/SearchInput";
 
 const ManageTransactionPage = () => {
@@ -13,11 +13,11 @@ const ManageTransactionPage = () => {
 
   // Fetch staff data from Redux store
   const { data: transactions, loading: loadingTransactions } = useSelector(
-    (state: RootState) => state?.getTransaction
+    (state: RootState) => state?.adminGetTransaction
   );
 
   useEffect(() => {
-    dispatch(fetchTransaction());
+    dispatch(adminFetchTransaction());
   }, [dispatch]);
 
   const [input, setInput] = useState("");
@@ -100,62 +100,59 @@ const ManageTransactionPage = () => {
   };
 
   return (
-    <>
-      <div className="flex flex-col h-full">
-        <div className="flex items-center gap-2 mt-3 text-gray-800 font-semibold capitalize">
-          <p className="">Manage Transaction</p>
+    <div className="flex flex-col h-full overflow-hidden">
+      <div className="flex items-center gap-2 mt-3 text-gray-800 font-semibold capitalize">
+        <p className="">Manage Transaction</p>
+      </div>
+      <div className="w-full h-screen overflow-y-auto custom__scrollbar">
+        <div className="h-16 w-full mt-3 text-black flex justify-between items-center px-2 sticky top-0 z-20 bg-white">
+          <SearchInput
+            clearSearch={() => clearSearch()}
+            handleChange={(e) => handleChange(e)}
+            input={input}
+          />
         </div>
 
-        <div className="w-full h-screen overflow-y-auto custom__scrollbar">
-          <div className="h-16 w-full mt-3 text-black flex justify-between items-center px-2 sticky top-0 z-20 bg-white">
-            <SearchInput
-              clearSearch={() => clearSearch()}
-              handleChange={(e) => handleChange(e)}
-              input={input}
-            />
-          </div>
-
-          <div className="flex w-full h-full justify-center items-center">
-            {loadingTransactions ? (
-              <Loading className="" />
-            ) : filteredData.length > 0 ? (
-              <Table tableData={filteredData} />
-            ) : currentTransactions.length > 0 ? (
-              <Table tableData={currentTransactions} />
-            ) : (
-              <h1 className="flex items-center justify-center font-medium">
-                No Transaction Available
-              </h1>
-            )}
-          </div>
+        <div className="flex w-full h-full justify-center items-center">
+          {loadingTransactions ? (
+            <Loading className="" />
+          ) : filteredData.length > 0 ? (
+            <Table tableData={filteredData} />
+          ) : currentTransactions.length > 0 ? (
+            <Table tableData={currentTransactions} />
+          ) : (
+            <h1 className="flex items-center justify-center font-medium">
+              No Transaction Available
+            </h1>
+          )}
         </div>
+      </div>
 
-        <div className="h-16 w-full text-primary rounded-b-lg flex justify-between items-center px-2">
-          <div className="flex gap-2 items-center capitalize font-bold text-black">
-            <p className="flex items-center capitalize font-bold">page</p>
-            <p className="text-primary">{currentPage}</p>/{" "}
-            <span>{totalNumberOfPages}</span>
+      <div className="h-16 w-full text-primary rounded-b-lg flex justify-between items-center px-2">
+        <div className="flex gap-2 items-center capitalize font-bold text-black">
+          <p className="flex items-center capitalize font-bold">page</p>
+          <p className="text-primary">{currentPage}</p>/{" "}
+          <span>{totalNumberOfPages}</span>
+        </div>
+        <div className="flex gap-1">
+          <div
+            className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary font-bold"
+            onClick={handlePrevPage}
+          >
+            <BiLeftArrow />
           </div>
-          <div className="flex gap-1">
-            <div
-              className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary font-bold"
-              onClick={handlePrevPage}
-            >
-              <BiLeftArrow />
-            </div>
-            <div className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary font-bold">
-              {currentPage}
-            </div>
-            <div
-              className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary font-bold"
-              onClick={handleNextPage}
-            >
-              <BiRightArrow />
-            </div>
+          <div className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary font-bold">
+            {currentPage}
+          </div>
+          <div
+            className="h-8 w-8 border-2 border-slate-400 bg-transparent rounded-lg flex items-center justify-center text-primary font-bold"
+            onClick={handleNextPage}
+          >
+            <BiRightArrow />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

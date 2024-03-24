@@ -10,16 +10,16 @@ const ManageDocumentPage = lazy(
   () => import("../pages/manageDocuments/ManageDocumentPage")
 );
 const ManageStaffPage = lazy(
-  () => import("../pages/dashboard/organization/manageStaff/OrgManageStaff")
+  () => import("../pages/dashboard/organization/OrgManageStaff")
 );
 const ManageTransactionPage = lazy(
   () => import("../pages/transaction/ManageTransactionPage")
 );
 const ManageReferralsUserPage = lazy(
-  () => import("../pages/dashboard/organization/manageReferrals/UserReferrals")
+  () => import("../pages/dashboard/organization/UserReferrals")
 );
 const ManageReferralsDocument = lazy(
-  () => import("../pages/dashboard/organization/manageReferrals/ManageReferrals")
+  () => import("../pages/dashboard/organization/ManageReferrals")
 );
 
 const OrgDashBoardRoute = {

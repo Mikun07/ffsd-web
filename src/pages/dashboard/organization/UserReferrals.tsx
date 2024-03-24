@@ -1,88 +1,46 @@
-import { ThunkDispatch } from "@reduxjs/toolkit";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useMemo, useState } from "react";
+import { monitorReferrals } from "../../../redux/features/getReferralsSlice";
 import { RootState } from "../../../types/redux/root";
-import { Link } from "react-router-dom";
-import { AiOutlineRight } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 import Loading from "../../../components/withStatus/loading/Loading";
-import Table from "../../../components/table/adminManageDocumentTable/Table";
+import Table from "../../../components/table/mangeReferralTable/User-Shared/Table";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
-import { adminFetchDocument } from "../../../redux/features/Admin/adminGetDocumentSlice";
 import SearchInput from "../../../components/input/SearchInput";
 
-const AdminQueriedDocumentPage = () => {
+const UserReferrals = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-
-  // Select relevant data from Redux store
-  const { data: getAllDocument, loading: documentLoading } = useSelector(
-    (state: RootState) => state?.adminDocument
+  const { data: referrals, loading: loadingReferrals } = useSelector(
+    (state: RootState) => state?.monitorReferrals
   );
 
-  async function fetchAllDocument() {
-    // @ts-ignore
-    dispatch(adminFetchDocument());
-  }
-
   useEffect(() => {
-    fetchAllDocument();
-  }, []);
+    dispatch(monitorReferrals());
+  }, [dispatch]);
+
+  const referralArray = referrals?.data || [];
+
+  const ReferralInfo = referralArray.map((referral) => referral.doc_owner);
+
+  const reversedReferral = useMemo(
+    () => ReferralInfo?.reverse(),
+    [ReferralInfo]
+  );
 
   const [input, setInput] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Array of data to process
-  const dataArray = (getAllDocument as Array<any>) || [];
+  const documentsPerPage = 7;
+  const indexOfFirstDocument =
+    ReferralInfo.length - currentPage * documentsPerPage;
+  const indexOfLastDocument = indexOfFirstDocument + documentsPerPage;
 
-  // Extract educational, financial, and professional documents with status "archived" from dataArray
-  const allDocuments = dataArray.flatMap(({ documents, doc_owner }) => {
-    // If documents exist, map and merge them into allDocuments
-    if (documents) {
-      return [
-        ...documents.educationalDocuments
-          .filter((doc) => doc.status === "queried")
-          .map((doc) => ({
-            ...doc,
-            userInfo: doc_owner,
-            tag: "Educational Document",
-            status: doc.status, // Add status property here
-          })),
-        ...documents.financialDocuments
-          .filter((doc) => doc.status === "queried")
-          .map((doc) => ({
-            ...doc,
-            userInfo: doc_owner,
-            tag: "Financial Document",
-            status: doc.status, // Add status property here
-          })),
-        ...documents.professionalDocuments
-          .filter((doc) => doc.status === "queried")
-          .map((doc) => ({
-            ...doc,
-            userInfo: doc_owner,
-            tag: "Professional Document",
-            status: doc.status, // Add status property here
-          })),
-      ];
-    }
-    // Return an empty array if documents are undefined or null
-    return [];
-  });
-
-  const reverseAllDocuments = allDocuments?.reverse();
-
-  // Calculate pagination
-  const documentsPerPage = 9;
-  const indexOfLastDocument = currentPage * documentsPerPage;
-  const indexOfFirstDocument = indexOfLastDocument - documentsPerPage;
-
-  // Slice documents for current page
-  const currentDocuments = reverseAllDocuments.slice(
+  const currentDocuments = reversedReferral.slice(
     indexOfFirstDocument,
     indexOfLastDocument
   );
 
-  // Function to handle page change
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -106,7 +64,7 @@ const AdminQueriedDocumentPage = () => {
 
   // Calculate total number of pages
   const totalNumberOfPages = getTotalPages(
-    allDocuments.length,
+    ReferralInfo.length,
     documentsPerPage
   );
 
@@ -152,20 +110,14 @@ const AdminQueriedDocumentPage = () => {
 
   return (
     <>
-      <div className="flex flex-col h-full overflow-y-auto">
-        <div className="flex items-center gap-2 mt-3 text-gray-800 font-semibold capitalize">
-          <Link to={"/admin/document"}>
-            <p className="cursor-pointer">Manage Documents</p>
-          </Link>
-          <div className="text-primary">
-            <AiOutlineRight />
-          </div>
-          <p className="cursor-pointer">queried Documents</p>
-        </div>
-
+      <div className="flex flex-col h-full py-2 px-4 overflow-y-auto">
         <div className="flex flex-col mt-4 h-screen overflow-hidden">
-          <div className="w-full h-screen overflow-y-auto custom__scrollbar">
-            <div className="h-16 w-full bg-white z-20 text-black rounded-t-lg flex justify-between items-center sticky top-0">
+          <div className="w-full h-screen overflow-hidden">
+            {/* Search and filter section */}
+            <div className="h-16 w-full text-black rounded-t-lg flex justify-between items-center px-2">
+              <h3 className="font-semibold capitalize leading-5 tracking-wide">
+                Referrals
+              </h3>
               <div className="flex gap-2">
                 <SearchInput
                   clearSearch={() => clearSearch()}
@@ -176,7 +128,7 @@ const AdminQueriedDocumentPage = () => {
             </div>
 
             <div className="flex w-full h-full justify-center items-center">
-              {documentLoading ? (
+              {loadingReferrals ? (
                 <Loading className="" />
               ) : filteredData.length > 0 ? (
                 <Table tableData={filteredData} />
@@ -184,12 +136,11 @@ const AdminQueriedDocumentPage = () => {
                 <Table tableData={currentDocuments} />
               ) : (
                 <h1 className="flex items-center justify-center font-medium">
-                  No Documents Available
+                   No Referral Available
                 </h1>
               )}
             </div>
           </div>
-
           {/* Pagination */}
           <div className="h-16 w-full text-primary rounded-b-lg flex justify-between items-center px-2">
             <div className="flex gap-2 items-center capitalize font-bold text-black">
@@ -221,4 +172,4 @@ const AdminQueriedDocumentPage = () => {
   );
 };
 
-export default AdminQueriedDocumentPage;
+export default UserReferrals;

@@ -57,31 +57,31 @@ function Header() {
                 <p className="font-semibold">{`${user?.firstName?.[0]?.toUpperCase()}${user?.lastName?.[0]?.toUpperCase()}`}</p>
               </div>
 
-              {user?.category === "org" ||
+              {(user?.category === "org" ||
                 user?.category === "staff" ||
                 user?.category === "student" ||
-                (user?.category === "indv" && (
-                  <>
-                    <button
-                      onClick={() => openModal(!modal)}
-                      className="text-primary"
-                    >
-                      <AiFillCaretDown />
-                    </button>
+                user?.category === "indv") && (
+                <>
+                  <button
+                    onClick={() => openModal(!modal)}
+                    className="text-primary"
+                  >
+                    <AiFillCaretDown />
+                  </button>
 
-                    {modal && (
-                      <div className="absolute z-20 shadow-md w-56 bg-slate-100 top-16 right-3 rounded-md">
-                        <button
-                          onClick={signOut}
-                          className={`flex items-center w-full p-2 *: gap-2 text-[#D43B3B]`}
-                        >
-                          <LogoutIcon />
-                          <p className={`flex font-bold`}>Logout</p>
-                        </button>
-                      </div>
-                    )}
-                  </>
-                ))}
+                  {modal && (
+                    <div className="absolute z-20 shadow-md w-56 bg-slate-100 top-16 right-3 rounded-md">
+                      <button
+                        onClick={signOut}
+                        className={`flex items-center w-full p-2 *: gap-2 text-[#D43B3B]`}
+                      >
+                        <LogoutIcon />
+                        <p className={`flex font-bold`}>Logout</p>
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
 
               {user?.is_system_admin && (
                 <>

@@ -1,9 +1,5 @@
-import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "../../../assets/Logo.png";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../types/redux/root";
-import { fetchUser } from "../../../redux/features/userSlice";
 import DashboardIcon from "../../../assets/icons/DashboardIcon";
 import ReceiptIcon from "../../../assets/icons/ReceiptIcon";
 import ArchiveIcon from "../../../assets/icons/ArchiveIcon";
@@ -12,12 +8,6 @@ import AccountIcon from "../../../assets/icons/AccountIcon";
 
 function UserSidebar() {
   const location = useLocation();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    //@ts-ignore
-    dispatch(fetchUser());
-  }, [dispatch]);
 
   const isMenuActive = (menuUrl) => {
     return location.pathname === menuUrl;

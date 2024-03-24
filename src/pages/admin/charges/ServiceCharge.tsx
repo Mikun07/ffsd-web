@@ -44,13 +44,13 @@ const ServiceCharge = () => {
           <tr>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
               Document Category
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
             >
               Document Charge
             </th>
@@ -59,10 +59,10 @@ const ServiceCharge = () => {
         <tbody className="bg-white divide-y divide-gray-200">
           {charges.map((charge) => (
             <tr key={charge.id}>
-              <td className="px-6 py-4 whitespace-nowrap capitalize">
+              <td className="px-4 py-2 whitespace-nowrap capitalize">
                 {charge.doc_cat}
               </td>
-              <td className="px-6 py-4 whitespace-nowrap slashed-zero">
+              <td className="px-4 py-2 whitespace-nowrap slashed-zero">
                 <div className="flex items-center justify-between">
                   <p>
                     <span>&#8358;</span> {charge.doc_charge}
@@ -150,16 +150,16 @@ const ServiceCharge = () => {
               </div>
             )}
 
-            <div className="lg:px-10 mt-4">
+            <div className="lg:px-10 mt-2">
               <div className="mx-3 mt-3">
-                <h2 className="capitalize text-lg font-semibold mb-4">
+                <h2 className="capitalize text-base font-semibold mb-4">
                   organization
                 </h2>
                 {renderOrganizationChargeTable(organizationServiceCharge)}
               </div>
 
-              <div className="mx-3 mt-3">
-                <h2 className="capitalize text-lg font-semibold mt-8 mb-4">
+              <div className="mx-3 mt-2">
+                <h2 className="capitalize text-base font-semibold mt-8 mb-4">
                   Individual
                 </h2>
                 {renderIndividualChargeTable(individualServiceCharge)}{" "}

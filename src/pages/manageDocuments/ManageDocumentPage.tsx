@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchDocument } from "../../redux/features/documentSlice";
 import ManageDocumentCard from "../../components/card/ManageDocumentCard";
 import Loading from "../../components/withStatus/loading/Loading";
-import SearchInput from "./shared/SearchInput";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { RootState } from "../../types/redux/root";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import Table from "./shared/Table";
+import Table from "../../components/table/manageDocumentTable/Table";
+import SearchInput from "../../components/input/SearchInput";
 
 function ManageDocumentPage() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -18,15 +18,15 @@ function ManageDocumentPage() {
   );
 
   // State variables
-  const [selectedFilter, setSelectedFilter] = useState(null);
-  const [result, setResult] = useState([]);
+  const [input, setInput] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   // Fetch documents when selected filter changes
   useEffect(() => {
     // @ts-ignore
-    dispatch(fetchDocument({ type: selectedFilter }));
-  }, [dispatch, selectedFilter]);
+    dispatch(fetchDocument());
+  }, [dispatch]);
 
   // Memoized calculation of total documents
   const totalDocuments = useMemo(() => {
@@ -101,19 +101,15 @@ function ManageDocumentPage() {
     return combinedDocuments;
   }, [upload]);
 
-  // Reverse the order of documents
-  const reversedDocuments = useMemo(
-    () => allDocuments?.reverse(),
-    [allDocuments]
-  );
-
   // Calculate pagination
   const documentsPerPage = 7;
   const indexOfLastDocument = currentPage * documentsPerPage;
   const indexOfFirstDocument = indexOfLastDocument - documentsPerPage;
 
-  // Slice documents for current page
-  const currentDocuments = reversedDocuments.slice(
+  // Reverse the order of documents
+  const reversedDocuments = allDocuments.slice().reverse();
+
+  const currentDocuments = allDocuments.slice(
     indexOfFirstDocument,
     indexOfLastDocument
   );
@@ -146,11 +142,50 @@ function ManageDocumentPage() {
     documentsPerPage
   );
 
+  const handleChange = (e: any) => {
+    const searchTerm = e.target.value;
+    const normalizedSearchTerm =
+      typeof searchTerm === "string" ? searchTerm : "";
+
+    setInput(normalizedSearchTerm);
+    if (!currentDocuments) {
+      setFilteredData([]);
+      return;
+    }
+
+    const filtered = currentDocuments.filter((doc) => {
+      return (
+        doc.application_id
+          .toLowerCase()
+          .includes(normalizedSearchTerm.toLowerCase()) ||
+        doc.ref_id.toLowerCase().includes(normalizedSearchTerm.toLowerCase()) ||
+        doc.status.toLowerCase().includes(normalizedSearchTerm.toLowerCase()) ||
+        (doc.userInfo &&
+          (doc.userInfo.docOwnerFirstName
+            .toLowerCase()
+            .includes(normalizedSearchTerm.toLowerCase()) ||
+            doc.userInfo.docOwnerMiddleName
+              .toLowerCase()
+              .includes(normalizedSearchTerm.toLowerCase()) ||
+            doc.userInfo.docOwnerLastName
+              .toLowerCase()
+              .includes(normalizedSearchTerm.toLowerCase()))) ||
+        doc.tag.toLowerCase().includes(normalizedSearchTerm.toLowerCase())
+      );
+    });
+    setFilteredData(filtered);
+    setInput(searchTerm);
+  };
+
+  const clearSearch = () => {
+    setInput("");
+    setFilteredData([]);
+  };
+
   return (
     <>
       <div className="flex flex-col h-full pt-2 overflow-y-auto">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 md:gap-3 grid-cols-1 gap-4 w-full">
-          {/* Display total documents card */}
           <ManageDocumentCard
             header="Total Documents uploaded"
             headerNumber={totalDocuments.totalAllDocumentsLength}
@@ -172,22 +207,21 @@ function ManageDocumentPage() {
         </div>
         <div className="flex flex-col mt-4 h-screen overflow-hidden">
           <div className="w-full h-screen overflow-y-auto custom__scrollbar">
-            {/* Search and filter section */}
             <div className="h-16 w-full bg-white z-20 text-black rounded-t-lg flex justify-between items-center sticky top-0">
               <div className="flex gap-2">
-                {/* Search input */}
                 <SearchInput
-                  result={result}
-                  setResult={setResult}
-                  data={allDocuments}
+                  clearSearch={() => clearSearch()}
+                  handleChange={(e) => handleChange(e)}
+                  input={input}
                 />
               </div>
             </div>
 
-            {/* Table displaying document data */}
             <div className="flex w-full h-full justify-center items-center">
               {documentLoading ? (
                 <Loading className="" />
+              ) : filteredData.length > 0 ? (
+                <Table tableData={filteredData} />
               ) : currentDocuments.length > 0 ? (
                 <Table tableData={currentDocuments} />
               ) : (
@@ -197,7 +231,6 @@ function ManageDocumentPage() {
               )}
             </div>
           </div>
-          {/* Pagination */}
           <div className="h-16 w-full text-primary rounded-b-lg flex justify-between items-center px-2">
             <div className="flex gap-2 items-center capitalize font-bold text-black">
               <p className="flex items-center capitalize font-bold">page</p>

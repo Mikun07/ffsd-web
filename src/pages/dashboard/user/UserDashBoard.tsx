@@ -7,8 +7,8 @@ import { fetchTransaction } from "../../../redux/features/getTransactionSlice";
 import ManageDocumentCard from "../../../components/card/ManageDocumentCard";
 import { Link } from "react-router-dom";
 import Loading from "../../../components/withStatus/loading/Loading";
-import DTable from "./shared/Table";
-import Table from "./sharedTransactionTable/Table";
+import DTable from "../../../components/table/manageDocumentTable/Table";
+import Table from "../../../components/table/mangeTransactionTable/Table";
 
 function UserDashBoard() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -72,19 +72,19 @@ function UserDashBoard() {
           ...doc,
           userInfo: item.user.info,
           status: doc.status,
-          tag: "Educational Document",
+          tag: "Educational",
         })),
         ...financialDocuments.map((doc) => ({
           ...doc,
           userInfo: item.user.info,
           status: doc.status,
-          tag: "Financial Document",
+          tag: "Financial",
         })),
         ...professionalDocuments.map((doc) => ({
           ...doc,
           userInfo: item.user.info,
           status: doc.status,
-          tag: "Professional Document",
+          tag: "Professional",
         })),
       ];
 
