@@ -8,6 +8,7 @@ import Loading from "../../withStatus/loading/Loading";
 import { FaTimes } from "react-icons/fa";
 import FormTextInput from "../../input/Form/FormTextInput";
 import Button from "../../button/Button";
+import { postCreateStaff } from "../../../redux/features/createStaffSlice";
 
 const CreateStaffForm = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();

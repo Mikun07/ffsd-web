@@ -136,7 +136,7 @@ const PreviewData = () => {
           </>
         ) : (
           <>
-            <div className="flex flex-col p-4 gap-y-12 mt-3 mb-12 bg-slate-100 shadow-sm rounded-lg lg:overflow-hidden overflow-y-auto h-screen w-full custom__scrollbar">
+            <div className="flex flex-col p-4 gap-y-12 mt-3 mb-12 bg-slate-100 shadow-sm rounded-lg overflow-hidden overflow-y-auto h-screen w-full custom__scrollbar">
               <div className=" flex flex-col gap-4">
                 <p className="font-bold text-[15px] capitalize">
                   Document owner

@@ -8,6 +8,7 @@ import Loading from "../../withStatus/loading/Loading";
 import FormTextInput from "../../input/Form/FormTextInput";
 import Button from "../../button/Button";
 import SelectInput from "../../input/SelectInput";
+import { updateStaff } from "../../../redux/features/updateStaffSlice";
 
 const EditStaffForm = ({ onClose, data }) => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();

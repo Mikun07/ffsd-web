@@ -28,16 +28,15 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
   const [showModal, setShowModal] = useState(false);
   const handleOnClose = () => [setShowModal(false)];
 
-
   return (
     <>
       <div
         onClick={() => setShowModal(true)}
-        className="flex hover:bg-gray-100 px-3 rounded-lg h-[72px] items-center justify-between"
+        className="flex hover:bg-gray-100 px-3 rounded-lg h-[60px] items-center justify-between"
       >
         <div className="flex items-center gap-2">
-          <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
-            <p className="font-semibold">
+          <div className="lg:h-[40px] lg:w-[40px] h-[25px] w-[25px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
+            <p className="font-semibold lg:text-base text-xs">
               {data?.userInfo?.docOwnerFirstName &&
                 data?.userInfo?.docOwnerFirstName[0]}
               {data?.userInfo?.docOwnerLastName &&
@@ -46,7 +45,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
           </div>
 
           <div className="font-medium gap-2">
-            <h5 className="text-[16px] font-bold text-black capitalize">
+            <h5 className="lg:text-[12px] text-[9px] font-bold text-black capitalize">
               {data?.userInfo?.docOwnerFirstName}{" "}
               {data?.userInfo?.docOwnerLastName}
             </h5>
@@ -56,7 +55,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
               </p>
               <span className="w-1 h-1 rounded-full  bg-black"></span>
               <p
-                className="flex justify-end items-center text-[12px] gap-2 capitalize"
+                className="flex justify-end items-center lg:text-[12px] text-[9px] gap-2 capitalize"
                 style={{
                   color: getStatusColor(data?.status),
                   opacity: "0.95",
@@ -68,14 +67,13 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
           </div>
         </div>
 
-        <div className="flex flex-col font-medium">
-          <p className="flex items-center text-[12px] text-black gap-2">
+        <div className="flex flex-col font-medium items-end">
+          <p className="flex items-center lg:text-[12px] text-[9px] text-black gap-2">
             {new Date(data?.created_at).toLocaleDateString()}
           </p>
           <div className="flex items-center justify-end gap-1">
-            <p className="flex items-center text-[12px] text-black uppercase">
-              <span className="text-black">#</span>
-              {data?.ref_id?.split("/")[1]}
+            <p className="flex items-center lg:text-[12px] text-[9px] text-black uppercase">
+              {data?.ref_id}
             </p>
           </div>
         </div>

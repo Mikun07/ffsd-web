@@ -6,6 +6,7 @@ import { getAllIndividuals } from "../../../redux/features/Admin/getAllIndividua
 import Loading from "../../../components/withStatus/loading/Loading";
 import Table from "../../../components/table/adminMangeUserTable/IndividualTable/Table";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
+import SearchInput from "../../../components/input/SearchInput";
 
 const IndividualUser = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -15,7 +16,8 @@ const IndividualUser = () => {
   );
 
   // State variables
-  const [result, setResult] = useState([]);
+  const [input, setInput] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -62,6 +64,46 @@ const IndividualUser = () => {
   const totalNumberOfPages = individual?.data
     ? getTotalPages(individual?.data.length, documentsPerPage)
     : 0;
+
+
+  const handleChange = (e: any) => {
+    const searchTerm = e.target.value;
+    const normalizedSearchTerm =
+      typeof searchTerm === "string" ? searchTerm : "";
+
+    setInput(normalizedSearchTerm);
+    if (!currentDocuments) {
+      setFilteredData([]);
+      return;
+    }
+
+    const filtered = currentDocuments.filter((doc) => {
+      return (
+        (doc.firstName &&
+          doc.firstName
+            .toLowerCase()
+            .includes(normalizedSearchTerm.toLowerCase())) ||
+        (doc.lastName &&
+          doc.lastName
+            .toLowerCase()
+            .includes(normalizedSearchTerm.toLowerCase())) ||
+        (doc.email &&
+          doc.email
+            .toLowerCase()
+            .includes(normalizedSearchTerm.toLowerCase())) ||
+        (doc.status &&
+          doc.status.toLowerCase().includes(normalizedSearchTerm.toLowerCase()))
+      );
+    });
+    setFilteredData(filtered);
+    setInput(searchTerm);
+  };
+
+  const clearSearch = () => {
+    setInput("");
+    setFilteredData([]);
+  };
+
   return (
     <>
       <div className="flex flex-col h-full overflow-y-auto">
@@ -73,30 +115,33 @@ const IndividualUser = () => {
           </div>
 
           <div className="w-full h-screen overflow-hidden">
-            <div className="h-16 w-full text-black rounded-t-lg flex justify-between items-center px-2">
-              <h3 className="font-semibold capitalize leading-5 tracking-wide lg:flex hidden">
-                individuals
-              </h3>
-              <div className="flex gap-2">
-                {/* Search Input */}
-                {/* <SearchInput
-                  result={result}
-                  setResult={setResult}
-                  data={individual}
-                /> */}
+            <div className="w-full h-screen overflow-y-auto custom__scrollbar px-2">
+              <div className="h-16 w-full bg-white z-20 text-black rounded-t-lg flex justify-between items-center sticky top-0">
+                <h3 className="font-semibold capitalize leading-5 tracking-wide lg:flex hidden">
+                  individuals
+                </h3>
+                <div className="flex gap-2">
+                  <SearchInput
+                    clearSearch={() => clearSearch()}
+                    handleChange={(e) => handleChange(e)}
+                    input={input}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="flex w-full h-full overflow-hidden justify-center items-center">
-              {loadingIndividual ? (
-                <Loading className="" />
-              ) : currentDocuments.length > 0 ? (
-                <Table tableData={currentDocuments} />
-              ) : (
-                <h1 className="flex items-center justify-center font-medium">
-                  No Individuals Available
-                </h1>
-              )}
+              <div className="flex w-full h-full overflow-hidden justify-center items-center">
+                {loadingIndividual ? (
+                  <Loading className="" />
+                ) : filteredData.length > 0 ? (
+                  <Table tableData={filteredData} />
+                ) : currentDocuments.length > 0 ? (
+                  <Table tableData={currentDocuments} />
+                ) : (
+                  <h1 className="flex items-center justify-center font-medium">
+                    No Individuals Available
+                  </h1>
+                )}
+              </div>
             </div>
           </div>
 

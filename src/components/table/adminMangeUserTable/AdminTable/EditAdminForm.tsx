@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import Loading from "../../../withStatus/loading/Loading";
 import SelectInput from "../../../input/SelectInput";
 import Button from "../../../button/Button";
+import { updateAdmin } from "../../../../redux/features/Admin/updateAdminSlice";
 
 const EditAdminForm = ({ onClose, data }) => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();

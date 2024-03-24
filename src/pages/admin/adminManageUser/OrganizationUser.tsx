@@ -16,7 +16,8 @@ const OrganizationUser = () => {
   );
 
   // State variables
-  const [result, setResult] = useState([]);
+  const [input, setInput] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -62,6 +63,44 @@ const OrganizationUser = () => {
     ? getTotalPages(organization.length, documentsPerPage)
     : 0;
 
+    const handleChange = (e: any) => {
+      const searchTerm = e.target.value;
+      const normalizedSearchTerm =
+        typeof searchTerm === "string" ? searchTerm : "";
+  
+      setInput(normalizedSearchTerm);
+      if (!currentDocuments) {
+        setFilteredData([]);
+        return;
+      }
+  
+      const filtered = currentDocuments.filter((doc) => {
+        return (
+          (doc.firstName &&
+            doc.firstName
+              .toLowerCase()
+              .includes(normalizedSearchTerm.toLowerCase())) ||
+          (doc.lastName &&
+            doc.lastName
+              .toLowerCase()
+              .includes(normalizedSearchTerm.toLowerCase())) ||
+          (doc.email &&
+            doc.email
+              .toLowerCase()
+              .includes(normalizedSearchTerm.toLowerCase())) ||
+          (doc.status &&
+            doc.status.toLowerCase().includes(normalizedSearchTerm.toLowerCase()))
+        );
+      });
+      setFilteredData(filtered);
+      setInput(searchTerm);
+    };
+  
+    const clearSearch = () => {
+      setInput("");
+      setFilteredData([]);
+    };
+
   return (
     <>
       <div className="flex flex-col h-full overflow-y-auto">
@@ -70,7 +109,7 @@ const OrganizationUser = () => {
             {/* Header */}
             <div className="h-16 w-full text-black rounded-t-lg flex justify-between items-center px-2">
               <h3 className="font-semibold capitalize leading-5 tracking-wide lg:flex hidden">
-                Organization
+                manage Organization
               </h3>
               <div className="flex gap-2">
                 {/* Search Input */}

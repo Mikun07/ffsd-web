@@ -23,7 +23,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
       default:
         return "";
     }
-  };  
+  };
 
   const [showModal, setShowModal] = useState(false);
   const handleOnClose = () => [setShowModal(false)];
@@ -32,11 +32,11 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
     <>
       <div
         onClick={() => setShowModal(true)}
-        className="flex hover:bg-gray-100 px-3 rounded-lg h-[72px] items-center justify-between"
+        className="flex hover:bg-gray-100 px-3 rounded-lg h-[60px] items-center justify-between"
       >
         <div className="flex items-center gap-2">
-          <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
-            <p className="font-semibold">
+          <div className="lg:h-[40px] lg:w-[40px] h-[25px] w-[25px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
+            <p className="font-semibold capitalize lg:text-base text-xs">
               {data?.ReferralInfo?.docOwnerFirstName &&
                 data?.ReferralInfo?.docOwnerFirstName[0]}
               {data?.ReferralInfo?.docOwnerLastName &&
@@ -44,17 +44,17 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
             </p>
           </div>
           <div className="font-medium gap-[0.5rem]">
-            <h5 className="text-[16px] font-bold text-black capitalize">
+            <h5 className="lg:text-[12px] text-[9px] font-bold text-black capitalize">
               {data?.ReferralInfo?.docOwnerFirstName}{" "}
               {data?.ReferralInfo?.docOwnerLastName}
             </h5>
             <div className="flex items-center gap-2">
-              <p className="flex justify-end items-center text-[12px] text-gray-400 font-semibold capitalize gap-2">
+              <p className="flex justify-end items-center lg:text-[12px] text-[9px] text-gray-400 font-semibold capitalize gap-2">
                 {data?.tag}
               </p>
               <span className="w-1 h-1 rounded-full text-[14px] bg-black"></span>
               <p
-                className="flex justify-end items-center text-[12px] gap-2 capitalize"
+                className="flex justify-end items-center lg:text-[12px] text-[9px] gap-2 capitalize"
                 style={{
                   color: getStatusColor(data?.status),
                   opacity: "0.95",
@@ -67,13 +67,12 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
         </div>
 
         <div className="flex flex-col font-medium">
-          <p className="flex items-center text-[12px] text-black gap-2">
+          <p className="flex items-center lg:text-[12px] text-[9px] text-black gap-2">
             {new Date(data?.created_at).toLocaleDateString()}
           </p>
           <div className="flex items-center justify-end gap-1">
-            <p className="flex items-center text-[12px] text-black uppercase">
-              <span className="text-black">#</span>
-              {data?.ref_id?.split("/")[1]}
+            <p className="flex items-center lg:text-[12px] text-[9px] text-black uppercase">
+              {data?.ref_id}
             </p>
           </div>
         </div>

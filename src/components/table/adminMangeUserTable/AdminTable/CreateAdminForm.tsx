@@ -10,6 +10,7 @@ import { FaTimes } from "react-icons/fa";
 import FormTextInput from "../../../input/Form/FormTextInput";
 import SelectInput from "../../../input/SelectInput";
 import Button from "../../../button/Button";
+import { postCreateAdmin } from "../../../../redux/features/Admin/createAdminSlice";
 
 
 const CreateAdminForm = ({ onClose }) => {
@@ -68,7 +69,7 @@ const CreateAdminForm = ({ onClose }) => {
         <>
           <form
             onSubmit={handleSubmit(handleCreateAdmin)}
-            className="flex flex-col justify-between h-full px-2 w-full"
+            className="flex flex-col justify-between h-full px-2 w-full overflow-y-auto"
           >
             <div className="flex flex-col gap-6">
               {showSection && ( // Conditional rendering based on showSection state
@@ -154,7 +155,7 @@ const CreateAdminForm = ({ onClose }) => {
               />
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 my-6">
               <Button type="submit" disabled={!isValid}>
                 Create Admin
               </Button>

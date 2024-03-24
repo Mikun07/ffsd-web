@@ -16,26 +16,26 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
     <>
       <div
         onClick={() => setShowModal(true)}
-        className="flex hover:bg-gray-100 px-3 rounded-lg h-[72px] items-center justify-between"
+        className="flex hover:bg-gray-100 px-2 rounded-lg h-[60px] items-center justify-between"
       >
         {/* Render row data */}
 
         <div className="flex items-center gap-2">
           {/* Render profile avatar */}
-          <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
-            <p className="font-semibold uppercase">
+          <div className="lg:h-[40px] lg:w-[40px] h-[25px] w-[25px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
+            <p className="font-semibold uppercase lg:text-base text-xs">
               {data?.firstName && data?.firstName[0]}
               {data?.lastName && data?.lastName[0]}
             </p>
           </div>
-          <div className="font-medium gap-[0.5rem]">
+          <div className="font-medium">
             {/* Render first and last name */}
-            <p className="flex justify-start items-center text-[14px] text-black  font-semibold capitalize gap-2">
+            <p className="flex justify-start items-center lg:text-[12px] text-[9px] text-black  font-semibold capitalize gap-2">
               {data?.firstName} {data?.lastName}
             </p>
             {/* Render email */}
             <div className="flex items-center gap-2">
-              <p className="text-[12px] font-medium text-gray-400 lowercase">
+              <p className="lg:text-[12px] text-[9px] font-medium text-gray-400 lowercase">
                 {data?.phone}
               </p>
             </div>
@@ -43,7 +43,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
         </div>
 
         <div className="flex flex-col font-medium items-end">
-          <p className="text-[14px] font-medium text-black lowercase">
+          <p className="lg:text-[12px] text-[9px] font-medium text-black lowercase">
             {data?.email}
           </p>
         </div>

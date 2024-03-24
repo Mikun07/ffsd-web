@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { RootState } from "../../../types/redux/root";
 import Loading from "../../withStatus/loading/Loading";
+import { deleteStaff } from "../../../redux/features/deleteStaffSlice";
 
 const DeleteStaffForm = ({ onClose, data }) => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();

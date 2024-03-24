@@ -8,7 +8,8 @@ import { getAllAdmins } from "../../../redux/features/Admin/getAllAdminSlice";
 import Loading from "../../../components/withStatus/loading/Loading";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import CreateAdminForm from "../../../components/table/adminMangeUserTable/AdminTable/CreateAdminForm";
-import Table from "../../../components/table/adminMangeUserTable/AdminTable/Table"
+import Table from "../../../components/table/adminMangeUserTable/AdminTable/Table";
+import SearchInput from "../../../components/input/SearchInput";
 
 const AdminUser = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -18,7 +19,8 @@ const AdminUser = () => {
   );
 
   // State variables
-  const [result, setResult] = useState([]);
+  const [input, setInput] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const handleOnClose = () => setShowModal(false);
@@ -70,22 +72,74 @@ const AdminUser = () => {
     ? getTotalPages(admin.length, documentsPerPage)
     : 0;
 
-  return (
-    <div className="flex flex-col h-full overflow-y-auto">
-      <div className="flex flex-col h-screen overflow-hidden">
-        <div>
-          <h3 className="font-bold capitalize leading-5 tracking-wide mt-5">
-            Manage Admins
-          </h3>
-        </div>
+  const handleChange = (e: any) => {
+    const searchTerm = e.target.value;
+    const normalizedSearchTerm =
+      typeof searchTerm === "string" ? searchTerm : "";
 
-        <div className="mt-5 ml-5">
+    setInput(normalizedSearchTerm);
+    if (!currentDocuments) {
+      setFilteredData([]);
+      return;
+    }
+    console.log({ currentDocuments });
+
+    const filtered = currentDocuments.filter((doc) => {
+      const isSystemAdmin = doc.is_system_admin === "1";
+      const isAdminType1 = doc.system_admin_type === "1";
+      const isAdminType2 = doc.system_admin_type === "2";
+
+      const matchesFirstName =
+        doc.firstName &&
+        doc.firstName
+          .toLowerCase()
+          .includes(normalizedSearchTerm.toLowerCase());
+      const matchesLastName =
+        doc.lastName &&
+        doc.lastName.toLowerCase().includes(normalizedSearchTerm.toLowerCase());
+      const matchesEmail =
+        doc.email &&
+        doc.email.toLowerCase().includes(normalizedSearchTerm.toLowerCase());
+      const matchesStatus =
+        doc.status &&
+        doc.status.toLowerCase().includes(normalizedSearchTerm.toLowerCase());
+
+      return (
+        (isSystemAdmin &&
+          normalizedSearchTerm.toLowerCase() === "system admin") ||
+        (isSystemAdmin &&
+          (isAdminType1 || isAdminType2) &&
+          normalizedSearchTerm.toLowerCase() ===
+            `admin type ${doc.system_admin_type}`) ||
+        matchesFirstName ||
+        matchesLastName ||
+        matchesEmail ||
+        matchesStatus
+      );
+    });
+    setFilteredData(filtered);
+    setInput(searchTerm);
+  };
+
+  const clearSearch = () => {
+    setInput("");
+    setFilteredData([]);
+  };
+
+  return (
+    <div className="flex flex-col h-full">
+      <div className="flex w-full justify-between items-center mt-2">
+        <h3 className="font-bold capitalize leading-5 tracking-wide">
+          Manage Admins
+        </h3>
+
+        <div className="">
           <button
             onClick={() => setShowModal(true)}
             className="bg-slate-200 text-black relative font-semibold rounded-lg h-12 p-4 gap-2 shadow-md flex items-center"
           >
             <AiOutlinePlus size={20} />
-            <p className=" capitalize">Create Admin</p>
+            <p className=" capitalize lg:flex hidden">Create Admin</p>
           </button>
 
           <Modal
@@ -95,21 +149,28 @@ const AdminUser = () => {
             body={<CreateAdminForm onClose={handleOnClose} />}
           />
         </div>
+      </div>
 
-        <div className="w-full h-screen overflow-hidden lg:mt-0 mt-4">
-          <div className="h-16 w-full text-black rounded-t-lg flex justify-between items-center px-2">
+      <div className="flex flex-col h-screen overflow-hidden mt-3">
+        <div className="w-full h-screen overflow-y-auto custom__scrollbar px-2">
+          <div className="h-16 w-full bg-white z-20 text-black rounded-t-lg flex justify-between items-center sticky top-0">
             <h3 className="font-semibold capitalize leading-5 tracking-wide lg:flex hidden">
               Admin
             </h3>
             <div className="flex gap-2">
-              {/* Search Input */}
-              {/* <SearchInput result={result} setResult={setResult} data={admin} /> */}
+              <SearchInput
+                clearSearch={() => clearSearch()}
+                handleChange={(e) => handleChange(e)}
+                input={input}
+              />
             </div>
           </div>
 
           <div className="flex w-full h-full overflow-hidden justify-center items-center">
             {loadingAdmin ? (
               <Loading className="" />
+            ) : filteredData.length > 0 ? (
+              <Table tableData={filteredData} />
             ) : currentDocuments.length > 0 ? (
               <Table tableData={currentDocuments} />
             ) : (

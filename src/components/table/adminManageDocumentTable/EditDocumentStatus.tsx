@@ -9,6 +9,7 @@ import Loading from "../../withStatus/loading/Loading";
 import SelectInput from "../../input/SelectInput";
 import FormTextInput from "../../input/Form/FormTextInput";
 import Button from "../../button/Button";
+import { updateDocumentStatus } from "../../../redux/features/Admin/updateDocumentStatusSlice";
 
 const EditDocumentStatus = ({ onClose, data }) => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();

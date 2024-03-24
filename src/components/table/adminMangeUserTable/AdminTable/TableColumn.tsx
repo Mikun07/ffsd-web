@@ -4,7 +4,6 @@ import Modal from "../../../modal/Modal";
 import PreviewData from "./PreviewData";
 import EditAdminForm from "./EditAdminForm";
 
-
 interface TableColumnProps {
   data: any; // You should replace 'any' with the actual type of your 'data' prop
 }
@@ -25,15 +24,17 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
     }
   };
 
+  console.log({ data });
+
   return (
     <>
-      <div className="flex hover:bg-gray-100 px-3 rounded-lg h-[72px] items-center justify-between">
+      <div className="flex hover:bg-gray-100 px-3 rounded-lg h-[60px] items-center justify-between">
         {/* Render row data */}
 
         <div className="flex items-center gap-2">
           {/* Render profile avatar */}
-          <div className="h-[40px] w-[40px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
-            <p className="font-semibold uppercase">
+          <div className="lg:h-[40px] lg:w-[40px] h-[25px] w-[25px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
+            <p className="font-semibold uppercase lg:text-base text-xs">
               {data?.firstName && data?.firstName[0]}
               {data?.lastName && data?.lastName[0]}
             </p>
@@ -41,12 +42,12 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
           <div className="font-medium gap-[0.5rem]">
             {/* Render first and last name */}
             <div className="flex items-center gap-2">
-              <p className="flex justify-start items-center text-[14px] text-black  font-semibold capitalize gap-2">
+              <p className="flex justify-start items-center lg:text-[12px] text-[9px] text-black  font-semibold capitalize gap-2">
                 {data?.firstName} {data?.lastName}
               </p>
               <span className="w-1 h-1 rounded-full text-[14px] bg-black"></span>
               <p
-                className="flex justify-end items-center text-[12px] gap-2 capitalize"
+                className="flex justify-end items-center lg:text-[12px] text-[9px] gap-2 capitalize"
                 style={{
                   color: getStatusColor(data?.status),
                   opacity: "0.95",
@@ -56,13 +57,13 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
               </p>
             </div>
             {/* Render email */}
-            <p className="text-[12px] font-medium text-gray-400 capitalize">
+            <p className="lg:text-[12px] text-[9px] font-medium text-gray-400 capitalize">
               admin status {data?.system_admin_type}
             </p>
           </div>
         </div>
 
-        <div className="flex font-medium items-end gap-10">
+        <div className="flex font-medium items-end gap-5">
           <div className="flex items-center">
             <button
               onClick={() => setShowModal(true)}
@@ -95,10 +96,8 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
               body={<EditAdminForm onClose={handleOnClose} data={data} />}
             />
           </div>
-          
         </div>
       </div>
-
     </>
   );
 }

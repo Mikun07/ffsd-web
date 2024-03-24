@@ -32,9 +32,9 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
   };
   return (
     <>
-      <div className="flex hover:bg-gray-100 px-3 rounded-lg h-[72px] items-center justify-between">
+      <div className="flex hover:bg-gray-100 px-3 rounded-lg h-[60px] items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="lg:h-[40px] lg:w-[40px] h-[30px] w-[30px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
+          <div className="lg:h-[40px] lg:w-[40px] h-[25px] w-[25px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
             <p className="font-semibold uppercase lg:text-base text-xs">
               {data?.firstName && data?.firstName[0]}
               {data?.lastName && data?.lastName[0]}

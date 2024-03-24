@@ -127,6 +127,7 @@ function AdminDashBoard() {
   const TotalUsers = TotalAdmin + TotalIndividual + TotalOrganization;
 
   const transactionsData = transactions?.data;
+  console.log({ transactionsData });
   const reverseTransactionsData = transactionsData
     ? [...transactionsData].reverse()
     : [];
@@ -136,7 +137,7 @@ function AdminDashBoard() {
   }
   const recentTransactions = getRecentTransactions(reverseTransactionsData);
 
-  const reverseAllDocuments =  allDocuments.slice().reverse()
+  const reverseAllDocuments = allDocuments.slice().reverse();
 
   function getRecentDocument(reverseAllDocuments) {
     return reverseAllDocuments ? reverseAllDocuments.slice(0, 6) : [];
