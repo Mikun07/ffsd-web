@@ -70,7 +70,7 @@ function Header() {
                   </button>
 
                   {modal && (
-                    <div className="absolute z-20 shadow-md w-56 bg-slate-100 top-16 right-3 rounded-md">
+                    <div className="absolute z-40 shadow-md w-56 bg-slate-100 top-16 right-3 rounded-md">
                       <button
                         onClick={signOut}
                         className={`flex items-center w-full p-2 *: gap-2 text-[#D43B3B]`}
@@ -93,7 +93,7 @@ function Header() {
                   </button>
 
                   {modal && (
-                    <div className="absolute z-20 shadow-md w-56 bg-slate-100 top-16 right-3 rounded-md">
+                    <div className="absolute z-40 shadow-md w-56 bg-slate-100 top-16 right-3 rounded-md">
                       <button
                         onClick={AdminSignOut}
                         className={`flex items-center w-full p-2 *: gap-2 text-[#D43B3B]`}
