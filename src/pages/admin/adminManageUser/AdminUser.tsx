@@ -82,7 +82,6 @@ const AdminUser = () => {
       setFilteredData([]);
       return;
     }
-    console.log({ currentDocuments });
 
     const filtered = currentDocuments.filter((doc) => {
       const isSystemAdmin = doc.is_system_admin === "1";

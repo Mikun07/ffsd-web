@@ -37,11 +37,8 @@ function LoginPage() {
     // @ts-ignore
     dispatch(postLogin({ ...data })).then((result) => {
       const { payload } = result;
-      console.log({ result });
       if (payload?.token) {
-        console.log("Here");
         if (payload?.user?.category) {
-          console.log("I'm In");
           navigate(redirectUrl[payload?.user?.category]);
           toast.success(payload?.message);
         } else {

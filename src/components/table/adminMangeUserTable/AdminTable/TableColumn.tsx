@@ -24,8 +24,6 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
     }
   };
 
-  console.log({ data });
-
   return (
     <>
       <div className="flex hover:bg-gray-100 px-3 rounded-lg h-[60px] items-center justify-between">
