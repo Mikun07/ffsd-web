@@ -38,7 +38,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
             </p>
           </div>
           <div className="font-medium gap-4">
-            <h5 className="lg:text-base text-xs font-bold text-black capitalize">
+            <h5 className="lg:text-[12px] text-[9px] font-bold text-black capitalize">
               {data?.docOwnerFirstName} {data?.docOwnerLastName}
             </h5>
             <div className="flex items-center gap-2">

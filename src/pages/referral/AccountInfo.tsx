@@ -6,9 +6,6 @@ const AccountInfo = ({
   setValue,
   errors,
   register,
-  // countryOptions,
-  // country,
-  // control
 }) => {
   function setCountry(item) {
     setValue(item?.label, item?.value);

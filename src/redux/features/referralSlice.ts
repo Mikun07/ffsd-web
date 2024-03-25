@@ -11,6 +11,7 @@ const initialState = {
 export const fetchReferral = createAsyncThunk("user/fetchReferral", async (body: any) => {
     try {
         const response = await axiosInstance.post(`get/referral?referral=${body?.referral}`);
+        console.log(response?.data)
         return response?.data;
     } catch (error) {
         return error?.response?.data;

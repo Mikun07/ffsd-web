@@ -22,7 +22,7 @@ function TableColumn({ data }: TableColumnProps): JSX.Element {
 
         <div className="flex items-center gap-2">
           {/* Render profile avatar */}
-          <div className="lg:h-[40px] lg:w-[40px] h-[25px] w-[25px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
+          <div className="lg:h-[40px] lg:w-[40px] w-[30px] h-[30px] rounded-full bg-[#40B52D] cursor-pointer flex items-center justify-center text-white">
             <p className="font-semibold uppercase lg:text-base text-xs">
               {data?.firstName && data?.firstName[0]}
               {data?.lastName && data?.lastName[0]}

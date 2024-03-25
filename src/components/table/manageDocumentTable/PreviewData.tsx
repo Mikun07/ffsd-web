@@ -64,7 +64,7 @@ function PreviewData({ data }) {
           <TextInput
             disabled
             label="Reference ID"
-            value={`#${data?.ref_id?.split("/")[1]}`}
+            value={data?.ref_id}
             inputClassName="uppercase"
           />
 
@@ -92,7 +92,6 @@ function PreviewData({ data }) {
 
           <div className="flex flex-col w-full gap-1">
             <p className="text-xs font-medium capitalize">Document uploaded</p>
-            {/* Add a button or link to trigger download */}
             <button
               onClick={handleDownload}
               className=" text-black w-full rounded outline-none min-h-[38px] p-2 text-xs hover:ring-1 ring-[#40B52D]"
@@ -134,7 +133,7 @@ function PreviewData({ data }) {
               />
               <TextInput
                 disabled
-                label="Course Study"
+                label="Course of Study"
                 value={data?.course}
                 inputClassName="capitalize"
               />

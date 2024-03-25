@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import AnimatedLogo from "../../assets/AnimatedLogo";
 
@@ -16,7 +15,7 @@ function LeftView() {
             transition={{ ease: "easeOut", duration: 4 }}
             className="font-semibold text-[30px] capitalize"
           >
-            verification made easy...
+            verification simplified...
           </motion.p>
         </motion.div>
       </div>

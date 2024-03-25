@@ -123,13 +123,13 @@ function ManageAccountPage() {
                   {user?.category === "org" && (
                     <>
                       <TextInput
-                        label="Company Name"
+                        label="institution Name"
                         value={user?.company}
                         disabled
                         inputClassName="uppercase"
                       />
                       <TextInput
-                        label="Company ID"
+                        label="institution ID"
                         value={`${user?.company_ref}`}
                         disabled
                         inputClassName="uppercase"
@@ -139,7 +139,7 @@ function ManageAccountPage() {
 
                   {user?.category === "org" ? (
                     <TextInput
-                      label="Owner of Company"
+                      label="Owner of institution"
                       value={`${user?.lastName} ${user?.firstName} `}
                       disabled
                       inputClassName="capitalize"
@@ -155,14 +155,14 @@ function ManageAccountPage() {
 
                   {user?.category === "org" ? (
                     <TextInput
-                      label="company Email"
+                      label="institution Email"
                       value={user?.email}
                       disabled
                       inputClassName="lowercase"
                     />
                   ) : (
                     <TextInput
-                      label="Email Address"
+                      label="institution Email"
                       value={user?.email}
                       disabled
                       inputClassName="lowercase"
@@ -237,7 +237,7 @@ function ManageAccountPage() {
                       <div className="w-full">
                         <TextInput
                           disabled
-                          label="referral code"
+                          label="referral link"
                           value={user?.company_ref}
                           onClick={copyReferenceID}
                         />

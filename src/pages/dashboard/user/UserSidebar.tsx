@@ -56,7 +56,7 @@ function UserSidebar() {
           <p
             className={`lg:flex md:flex hidden flex-col leading-4 font-semibold tracking-wider capitalize text-[15px] text-[#40B52D]`}
           >
-            Documents
+            Document
             <span className={`text-[#D4973B] `}>Verification</span>
           </p>
         </div>

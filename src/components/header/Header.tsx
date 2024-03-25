@@ -30,7 +30,7 @@ function Header() {
   const renderUserGreeting = () => {
     if (userLoading) {
       return (
-        <div className="w-[350px] h-4 bg-[#D4973B] rounded-lg p-2 animate-pulse"></div>
+        <div className="lg:w-[350px] w-[100px] h-4 bg-[#D4973B] rounded-lg p-2 animate-pulse"></div>
       );
     } else if (user) {
       const { firstName, lastName } = user;
